@@ -59,6 +59,14 @@ const zh = {
         update: "编辑秒杀课程",
       },
     },
+    certificate: {
+      name: "学员证书",
+      index: "学员证书",
+      create: "新建证书",
+      update: "编辑证书",
+      users: "证书用户",
+      import: "用户批量导入",
+    },
     creditMall: {
       name: "积分商城",
       index: "商品列表",
