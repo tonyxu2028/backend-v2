@@ -65,7 +65,7 @@
       :show="showWindow"
       :image="course.template_image"
       @close="showWindow = false"
-      @change="saveParams"
+      @confirm="saveParams"
     ></certificate-params>
   </div>
 </template>
@@ -83,7 +83,7 @@ export default {
       course: {
         name: null,
         template_image: null,
-        params: "",
+        params: null,
       },
       rules: {
         name: [
@@ -161,7 +161,7 @@ export default {
         });
     },
     saveParams(val) {
-      this.params = val;
+      this.course.params = JSON.stringify(val);
       this.showWindow = false;
     },
   },

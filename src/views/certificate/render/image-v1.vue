@@ -1,15 +1,12 @@
 <template>
-  <div class="float-left">
-    <div class="text-v1-box">
-      <div
-        :style="{
-          width: config.width + 'px',
-          height: config.height + 'px',
-        }"
-      >
-        {{ config.text }}
-      </div>
-    </div>
+  <div class="image-v1-box">
+    <img
+      :style="{
+        width: config.width + 'px',
+        height: config.height + 'px',
+      }"
+      :src="config.url"
+    />
   </div>
 </template>
 <script>

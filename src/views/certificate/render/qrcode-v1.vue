@@ -1,21 +1,12 @@
 <template>
-  <div class="float-left">
+  <div class="qrcode-v1-box">
     <div
-      class="text-v1-box"
       :style="{
-        top: config.y + 'px',
-        left: config.x + 'px',
+        width: config.width + 'px',
+        height: config.height + 'px',
       }"
     >
-      <div
-        :style="{
-          width: config.width + 'px',
-          height: config.height + 'px',
-        }"
-        :src="item.config.url"
-      >
-        {{}}
-      </div>
+      {{ config.text }}
     </div>
   </div>
 </template>

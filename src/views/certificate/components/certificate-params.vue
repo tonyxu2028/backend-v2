@@ -146,6 +146,7 @@ export default {
         this.$message.warning("请配置好参数");
         return;
       }
+
       this.$emit("confirm", this.blocksData);
     },
     dragChange(e) {
@@ -327,6 +328,7 @@ export default {
           position: absolute;
           cursor: pointer;
           &.active {
+            box-sizing: border-box;
             border: 2px solid @primary-color;
           }
 

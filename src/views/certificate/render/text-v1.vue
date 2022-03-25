@@ -1,21 +1,19 @@
 <template>
-  <div class="float-left">
+  <div
+    class="text-v1-box"
+    :style="{
+      top: config.y + 'px',
+      left: config.x + 'px',
+    }"
+  >
     <div
-      class="text-v1-box"
+      class="w-500px"
       :style="{
-        top: config.y + 'px',
-        left: config.x + 'px',
+        'font-size': config.size + 'px',
+        color: config.color,
       }"
     >
-      <div
-        class="w-500px"
-        :style="{
-          'font-size': config.size + 'px',
-          color: config.color,
-        }"
-      >
-        {{ config.text }}
-      </div>
+      {{ config.text }}
     </div>
   </div>
 </template>
