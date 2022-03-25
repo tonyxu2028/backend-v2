@@ -196,8 +196,8 @@ export default {
       console.log(this.blocksData);
     },
     blockDestroy(index) {
-      this.curBlockIndex = null;
       this.blocksData.splice(index, 1);
+      this.curBlockIndex = null;
     },
     saveSetting(index, sign, config) {
       this.blocksData[index] = {

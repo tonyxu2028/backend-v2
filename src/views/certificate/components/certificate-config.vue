@@ -1,10 +1,10 @@
 <template>
-  <div class="config-index-box">
+  <div class="config-index-box" v-if="block">
     <div class="config" v-if="block.sign === 'text-v1'">
       <div class="title">
         <div class="text">文本</div>
       </div>
-      <div class="config-item" v-if="config">
+      <div class="config-item" v-if="block.config">
         <div class="config-item-body">
           <div class="float-left d-flex">
             <div class="form-label">横坐标x</div>
@@ -12,7 +12,7 @@
               <el-input
                 type="number"
                 class="w-100"
-                v-model="config.x"
+                v-model="block.config.x"
               ></el-input>
             </div>
           </div>
@@ -24,7 +24,7 @@
               <el-input
                 type="number"
                 class="w-100"
-                v-model="config.y"
+                v-model="block.config.y"
               ></el-input>
             </div>
           </div>
@@ -33,7 +33,9 @@
           <div class="float-left d-flex">
             <div class="form-label">字体</div>
             <div class="flex-1 ml-15">
-              <el-input class="w-100" v-model="config.font"></el-input>
+              <el-select class="w-100" v-model="block.config.font">
+                <el-option label="default" value="default"> </el-option>
+              </el-select>
             </div>
           </div>
         </div>
@@ -44,7 +46,7 @@
               <el-input
                 class="w-100"
                 type="number"
-                v-model="config.size"
+                v-model="block.config.size"
               ></el-input>
             </div>
           </div>
@@ -53,7 +55,7 @@
           <div class="float-left d-flex">
             <div class="form-label">颜色色号</div>
             <div class="flex-1 ml-15">
-              <el-input class="w-100" v-model="config.color"></el-input>
+              <el-input class="w-100" v-model="block.config.color"></el-input>
             </div>
           </div>
         </div>
@@ -61,7 +63,7 @@
           <div class="float-left d-flex">
             <div class="form-label">类型</div>
             <div class="flex-1 ml-15">
-              <el-select class="w-100" v-model="config.type">
+              <el-select class="w-100" v-model="block.config.type">
                 <el-option label="pure" value="pure"> </el-option>
                 <el-option label="var" value="var"> </el-option>
               </el-select>
@@ -72,7 +74,7 @@
           <div class="float-left d-flex">
             <div class="form-label">内容</div>
             <div class="flex-1 ml-15">
-              <el-input class="w-100" v-model="config.text"></el-input>
+              <el-input class="w-100" v-model="block.config.text"></el-input>
             </div>
           </div>
         </div>
@@ -87,13 +89,10 @@ export default {
   props: ["block", "index"],
   data() {
     return {
-      config: null,
       loading: false,
     };
   },
-  mounted() {
-    this.config = this.block.config;
-  },
+  mounted() {},
   methods: {
     update() {
       this.$emit("update", this.index, this.block.sign, this.block.config);
