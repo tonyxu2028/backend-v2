@@ -71,7 +71,7 @@
 </template>
 <script>
 import UploadImage from "@/components/upload-image";
-import CertificateParams from "@/components/certificate-params";
+import CertificateParams from "./components/certificate-params";
 
 export default {
   components: {

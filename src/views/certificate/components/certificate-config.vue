@@ -4,7 +4,7 @@
       <div class="title">
         <div class="text">文本</div>
       </div>
-      <div class="config-item">
+      <div class="config-item" v-if="config">
         <div class="config-item-body">
           <div class="float-left d-flex">
             <div class="form-label">横坐标x</div>

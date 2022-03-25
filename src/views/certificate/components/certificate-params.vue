@@ -62,64 +62,28 @@
             </div>
             <template v-for="(item, index) in blocksData">
               <div
-                class="item"
-                :style="{
-                  top: item.config.y + 'px',
-                  left: item.config.x + 'px',
-                }"
                 :key="item.id"
-                v-if="item.sign === 'text-v1'"
+                class="item"
                 :class="{ active: curBlockIndex === index }"
                 @click="curBlockIndex = index"
-              >
-                <div
-                  class="w-500px"
-                  :style="{
-                    'font-size': item.config.size + 'px',
-                    color: item.config.color,
-                  }"
-                >
-                  {{ item.config.text }}
-                </div>
-                <div class="item-options" v-if="curBlockIndex === index">
-                  <div class="btn-item" @click="blockDestroy(index)">
-                    <i class="el-icon-delete-solid"></i>
-                  </div>
-                </div>
-              </div>
-              <div
                 :style="{
                   top: item.config.y + 'px',
                   left: item.config.x + 'px',
                 }"
-                class="item"
-                :key="item.id"
-                v-if="item.sign === 'image-v1'"
-                :class="{ active: curBlockIndex === index }"
-                @click="curBlockIndex = index"
               >
-                <img
-                  :style="{
-                    width: item.config.width + 'px',
-                    height: item.config.height + 'px',
-                  }"
-                  :src="item.config.url"
-                />
-                <div class="item-options" v-if="curBlockIndex === index">
-                  <div class="btn-item" @click="blockDestroy(index)">
-                    <i class="el-icon-delete-solid"></i>
-                  </div>
-                </div>
-              </div>
-              <div
-                :style="{
-                  top: item.config.y + 'px',
-                  left: item.config.x + 'px',
-                }"
-                class="item"
-                :key="item.id"
-                v-if="item.sign === 'qrcode-v1'"
-              >
+                <render-text-v1
+                  v-if="item.sign === 'text-v1'"
+                  :config="item.config"
+                ></render-text-v1>
+                <render-image-v1
+                  v-if="item.sign === 'image-v1'"
+                  :config="item.config"
+                ></render-image-v1>
+                <render-qrcode-v1
+                  v-if="item.sign === 'qrcode-v1'"
+                  :config="item.config"
+                ></render-qrcode-v1>
+
                 <div class="item-options" v-if="curBlockIndex === index">
                   <div class="btn-item" @click="blockDestroy(index)">
                     <i class="el-icon-delete-solid"></i>
@@ -138,7 +102,6 @@
           <config-setting
             :block="blocksData[curBlockIndex]"
             :index="curBlockIndex"
-            @update="saveSetting"
           ></config-setting>
         </div>
       </div>
@@ -154,10 +117,16 @@
 <script>
 import draggable from "vuedraggable";
 import ConfigSetting from "./certificate-config.vue";
+import RenderTextV1 from "../render/text-v1.vue";
+import RenderImageV1 from "../render/image-v1.vue";
+import RenderQrcodeV1 from "../render/qrcode-v1.vue";
 export default {
   components: {
     draggable,
     ConfigSetting,
+    RenderTextV1,
+    RenderImageV1,
+    RenderQrcodeV1,
   },
   props: ["show", "image"],
   data() {
@@ -173,11 +142,11 @@ export default {
       this.$emit("close");
     },
     confirm() {
-      if (this.params === "") {
+      if (this.blocksData.length === 0) {
         this.$message.warning("请配置好参数");
         return;
       }
-      this.$emit("confirm", this.params);
+      this.$emit("confirm", this.blocksData);
     },
     dragChange(e) {
       if (this.loading) {
@@ -211,8 +180,8 @@ export default {
         defaultConfig = {
           x: 0,
           y: 130,
-          width: "200px",
-          height: "100px",
+          width: 200,
+          height: 100,
           text: null,
         };
       }
@@ -227,6 +196,7 @@ export default {
       console.log(this.blocksData);
     },
     blockDestroy(index) {
+      this.curBlockIndex = null;
       this.blocksData.splice(index, 1);
     },
     saveSetting(index, sign, config) {
