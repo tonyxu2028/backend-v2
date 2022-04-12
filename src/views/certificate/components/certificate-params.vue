@@ -82,6 +82,7 @@
                 <render-qrcode-v1
                   v-if="item.sign === 'qrcode-v1'"
                   :config="item.config"
+                  :status="qrcodeStatus"
                 ></render-qrcode-v1>
 
                 <div class="item-options" v-if="curBlockIndex === index">
@@ -102,6 +103,7 @@
           <config-setting
             :block="blocksData[curBlockIndex]"
             :index="curBlockIndex"
+            @create="createQrcode"
           ></config-setting>
         </div>
       </div>
@@ -135,11 +137,15 @@ export default {
       params: "",
       blocksData: [],
       curBlockIndex: null,
+      qrcodeStatus: null,
     };
   },
   methods: {
     close() {
       this.$emit("close");
+    },
+    createQrcode(val) {
+      this.qrcodeStatus = val;
     },
     confirm() {
       if (this.blocksData.length === 0) {
@@ -197,9 +203,9 @@ export default {
         defaultConfig = {
           x: 0,
           y: 130,
-          width: 200,
+          width: 100,
           height: 100,
-          text: null,
+          text: "默认内容",
         };
       }
       // 添加block

@@ -146,7 +146,76 @@
         </div>
       </div>
     </div>
-    <div class="config" v-else-if="block.sign === 'qrcode-v1'">333</div>
+    <div class="config" v-else-if="block.sign === 'qrcode-v1'">
+      <div class="title">
+        <div class="text">二维码</div>
+      </div>
+      <div class="config-item" v-if="block.config">
+        <div class="config-item-body">
+          <div class="float-left d-flex">
+            <div class="form-label">横坐标x</div>
+            <div class="flex-1 ml-15">
+              <el-input
+                type="number"
+                class="w-100"
+                v-model="block.config.x"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
+          <div class="float-left d-flex">
+            <div class="form-label">纵坐标y</div>
+            <div class="flex-1 ml-15">
+              <el-input
+                type="number"
+                class="w-100"
+                v-model="block.config.y"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
+          <div class="float-left d-flex">
+            <div class="form-label">宽度</div>
+            <div class="flex-1 ml-15">
+              <el-input
+                class="w-100"
+                type="number"
+                v-model="block.config.width"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
+          <div class="float-left d-flex">
+            <div class="form-label">高度</div>
+            <div class="flex-1 ml-15">
+              <el-input
+                class="w-100"
+                type="number"
+                v-model="block.config.height"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
+          <div class="float-left d-flex">
+            <div class="form-label">二维码内容</div>
+            <div class="flex-1 ml-15">
+              <el-input class="w-100" v-model="block.config.text"></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
+          <div class="float-left j-flex">
+            <el-button type="primary" @click="createQrcode"
+              >生成二维码</el-button
+            >
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -155,12 +224,17 @@ export default {
   data() {
     return {
       loading: false,
+      status: false,
     };
   },
   mounted() {},
   methods: {
     update() {
       this.$emit("update", this.index, this.block.sign, this.block.config);
+    },
+    createQrcode() {
+      this.status = !this.status;
+      this.$emit("create", this.status);
     },
   },
 };
