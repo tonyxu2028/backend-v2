@@ -58,7 +58,7 @@
         >
           <div class="image-box">
             <div class="image-render">
-              <img class="image" :src="image" />
+              <img ref="previewImage" class="image" :src="image" />
             </div>
             <template v-for="(item, index) in blocksData">
               <div
@@ -143,12 +143,30 @@ export default {
       qrcodeStatus: null,
     };
   },
+  mounted() {},
   methods: {
     changePosition(sign, moveX, moveY) {
+      let previewImage = this.$refs.previewImage;
       for (let i = 0; i < this.blocksData.length; i++) {
         if (this.blocksData[i].sign === sign) {
-          this.blocksData[i].config.x += moveX;
-          this.blocksData[i].config.y += moveY;
+          let mx = this.blocksData[i].config.x + moveX;
+          let my = this.blocksData[i].config.y + moveY;
+          let maxHeight;
+          let maxWidth;
+          if (sign === "text-v1") {
+            maxHeight = previewImage.height - this.blocksData[i].config.size;
+            maxWidth =
+              previewImage.width -
+              this.blocksData[i].config.size *
+                this.blocksData[i].config.text.length;
+          } else {
+            maxHeight = previewImage.height - this.blocksData[i].config.height;
+            maxWidth = previewImage.width - this.blocksData[i].config.width;
+          }
+          if (my <= maxHeight && my >= 0 && mx <= maxWidth && mx >= 0) {
+            this.blocksData[i].config.x = mx;
+            this.blocksData[i].config.y = my;
+          }
         }
       }
     },
@@ -219,15 +237,27 @@ export default {
           text: "默认内容",
         };
       }
-      // 添加block
-      this.blocksData.push({
-        sign: blockSign,
-        config: defaultConfig,
-      });
-
+      if (this.blocksData.length > 0) {
+        let num = 0;
+        for (let i = 0; i < this.blocksData.length; i++) {
+          if (this.blocksData[i].sign === blockSign) {
+            num += 1;
+          }
+        }
+        if (num === 0) {
+          this.blocksData.push({
+            sign: blockSign,
+            config: defaultConfig,
+          });
+        }
+      } else {
+        // 添加block
+        this.blocksData.push({
+          sign: blockSign,
+          config: defaultConfig,
+        });
+      }
       this.loading = false;
-
-      console.log(this.blocksData);
     },
     blockDestroy(index) {
       this.blocksData.splice(index, 1);
