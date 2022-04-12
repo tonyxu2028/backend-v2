@@ -146,8 +146,24 @@ export default {
         this.$message.warning("请配置好参数");
         return;
       }
-
-      this.$emit("confirm", this.blocksData);
+      let params = {};
+      for (let i = 0; i < this.blocksData.length; i++) {
+        if (this.blocksData[i].sign === "text-v1") {
+          Object.assign(params, {
+            text: this.blocksData[i].config,
+          });
+        } else if (this.blocksData[i].sign === "image-v1") {
+          Object.assign(params, {
+            image: this.blocksData[i].config,
+          });
+        } else if (this.blocksData[i].sign === "qrcode-v1") {
+          Object.assign(params, {
+            qrcode: this.blocksData[i].config,
+          });
+        }
+      }
+      console.log(params);
+      this.$emit("confirm", params);
     },
     dragChange(e) {
       if (this.loading) {

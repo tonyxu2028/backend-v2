@@ -7,7 +7,6 @@
     }"
   >
     <div
-      class="w-500px"
       :style="{
         'font-size': config.size + 'px',
         color: config.color,

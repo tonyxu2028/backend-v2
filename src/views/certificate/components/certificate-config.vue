@@ -55,7 +55,10 @@
           <div class="float-left d-flex">
             <div class="form-label">颜色色号</div>
             <div class="flex-1 ml-15">
-              <el-input class="w-100" v-model="block.config.color"></el-input>
+              <el-color-picker
+                class="w-100"
+                v-model="block.config.color"
+              ></el-color-picker>
             </div>
           </div>
         </div>
