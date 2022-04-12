@@ -74,15 +74,18 @@
                 <render-text-v1
                   v-if="item.sign === 'text-v1'"
                   :config="item.config"
+                  @dragend="changePosition"
                 ></render-text-v1>
                 <render-image-v1
                   v-if="item.sign === 'image-v1'"
                   :config="item.config"
+                  @dragend="changePosition"
                 ></render-image-v1>
                 <render-qrcode-v1
                   v-if="item.sign === 'qrcode-v1'"
                   :config="item.config"
                   :status="qrcodeStatus"
+                  @dragend="changePosition"
                 ></render-qrcode-v1>
 
                 <div class="item-options" v-if="curBlockIndex === index">
@@ -141,6 +144,14 @@ export default {
     };
   },
   methods: {
+    changePosition(sign, moveX, moveY) {
+      for (let i = 0; i < this.blocksData.length; i++) {
+        if (this.blocksData[i].sign === sign) {
+          this.blocksData[i].config.x += moveX;
+          this.blocksData[i].config.y += moveY;
+        }
+      }
+    },
     close() {
       this.$emit("close");
     },

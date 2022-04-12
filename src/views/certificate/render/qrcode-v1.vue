@@ -1,5 +1,5 @@
 <template>
-  <div class="qrcode-v1-box">
+  <div class="qrcode-v1-box" ref="dragitem" draggable="true">
     <div
       :style="{
         width: config.width + 'px',
@@ -15,7 +15,12 @@ import QRCode from "qrcodejs2";
 export default {
   props: ["config", "status"],
   data() {
-    return {};
+    return {
+      startX: null,
+      startY: null,
+      endX: null,
+      endY: null,
+    };
   },
   watch: {
     status() {
@@ -27,6 +32,19 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.getData();
+    });
+    let item = this.$refs.dragitem;
+    let that = this;
+    item.addEventListener("dragstart", function (ev) {
+      this.startX = ev.clientX;
+      this.startY = ev.clientY;
+    });
+    item.addEventListener("dragend", function (ev) {
+      this.endX = ev.clientX;
+      this.endY = ev.clientY;
+      const moveX = this.endX - this.startX;
+      const moveY = this.endY - this.startY;
+      that.$emit("dragend", "qrcode-v1", moveX, moveY);
     });
   },
   methods: {
