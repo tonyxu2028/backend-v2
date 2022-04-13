@@ -20,6 +20,22 @@ export default {
         this.$router.push({
           name: "SystemMpwechatConfig",
         });
+      } else if (this.value === "图文") {
+        this.$router.push({
+          name: "SystemTopicConfig",
+        });
+      } else if (this.value === "电子书") {
+        this.$router.push({
+          name: "SystemBookConfig",
+        });
+      } else if (this.value === "播放器配置") {
+        this.$router.push({
+          name: "SystemPlayerConfig",
+        });
+      } else if (this.value === "直播") {
+        this.$router.push({
+          name: "SystemLiveConfig",
+        });
       } else {
         this.$router.push({
           name: "SystemConfig",

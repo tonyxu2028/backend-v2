@@ -66,6 +66,15 @@ const routes = [
     },
   },
   {
+    path: "/order/refund",
+    component: () => import("@/views/order/refund"),
+    name: "OrderRefund",
+    meta: {
+      title: "title.order-refund",
+      keepAlive: true,
+    },
+  },
+  {
     path: "/promocode",
     component: () => import("@/views/order/promocode"),
     name: "Promocode",
@@ -180,6 +189,38 @@ const routes = [
     },
   },
   {
+    path: "/system/topicConfig",
+    component: () => import("@/views/system/topicConfig"),
+    name: "SystemTopicConfig",
+    meta: {
+      title: "title.system-config",
+    },
+  },
+  {
+    path: "/system/bookConfig",
+    component: () => import("@/views/system/bookConfig"),
+    name: "SystemBookConfig",
+    meta: {
+      title: "title.system-config",
+    },
+  },
+  {
+    path: "/system/paymentConfig",
+    component: () => import("@/views/system/paymentConfig"),
+    name: "SystemPaymentConfig",
+    meta: {
+      title: "title.system-config",
+    },
+  },
+  {
+    path: "/system/videoSaveConfig",
+    component: () => import("@/views/system/videoSaveConfig"),
+    name: "SystemVideoSaveConfig",
+    meta: {
+      title: "title.system-config",
+    },
+  },
+  {
     path: "/system/application",
     component: () => import("@/views/system/application"),
     name: "SystemApplication",
@@ -251,6 +292,14 @@ const routes = [
     meta: {
       title: "title.course.vod.index",
       keepAlive: true,
+    },
+  },
+  {
+    path: "/course/vod/user-import",
+    component: () => import("@/views/course/vod/user-import.vue"),
+    name: "VodUserImport",
+    meta: {
+      title: "title.course.vod.user-import",
     },
   },
   {
