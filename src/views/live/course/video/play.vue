@@ -455,6 +455,7 @@ export default {
           color: "red",
           opacity: null,
         },
+        volume: 0,
       });
       this.livePlayer.on("timeupdate", () => {
         this.curDuration = parseInt(this.livePlayer.currentTime);
