@@ -73,16 +73,19 @@
               >
                 <render-text-v1
                   v-if="item.sign === 'text-v1'"
+                  :current="index"
                   :config="item.config"
                   @dragend="changePosition"
                 ></render-text-v1>
                 <render-image-v1
                   v-if="item.sign === 'image-v1'"
+                  :current="index"
                   :config="item.config"
                   @dragend="changePosition"
                 ></render-image-v1>
                 <render-qrcode-v1
                   v-if="item.sign === 'qrcode-v1'"
+                  :current="index"
                   :config="item.config"
                   :status="qrcodeStatus"
                   @dragend="changePosition"
@@ -145,10 +148,10 @@ export default {
   },
   mounted() {},
   methods: {
-    changePosition(sign, moveX, moveY) {
+    changePosition(sign, index, moveX, moveY) {
       let previewImage = this.$refs.previewImage;
       for (let i = 0; i < this.blocksData.length; i++) {
-        if (this.blocksData[i].sign === sign) {
+        if (this.blocksData[i].sign === sign && i === index) {
           let mx = this.blocksData[i].config.x + moveX;
           let my = this.blocksData[i].config.y + moveY;
           let maxHeight;
@@ -237,26 +240,12 @@ export default {
           text: "默认内容",
         };
       }
-      if (this.blocksData.length > 0) {
-        let num = 0;
-        for (let i = 0; i < this.blocksData.length; i++) {
-          if (this.blocksData[i].sign === blockSign) {
-            num += 1;
-          }
-        }
-        if (num === 0) {
-          this.blocksData.push({
-            sign: blockSign,
-            config: defaultConfig,
-          });
-        }
-      } else {
-        // 添加block
-        this.blocksData.push({
-          sign: blockSign,
-          config: defaultConfig,
-        });
-      }
+      // 添加block
+      this.blocksData.push({
+        sign: blockSign,
+        config: defaultConfig,
+      });
+
       this.loading = false;
     },
     blockDestroy(index) {

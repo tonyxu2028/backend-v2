@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  props: ["config"],
+  props: ["config", "current"],
   data() {
     return { startX: null, startY: null, endX: null, endY: null };
   },
@@ -27,7 +27,7 @@ export default {
       this.endY = ev.clientY;
       const moveX = this.endX - this.startX;
       const moveY = this.endY - this.startY;
-      that.$emit("dragend", "image-v1", moveX, moveY);
+      that.$emit("dragend", "image-v1", that.current, moveX, moveY);
     });
   },
 };

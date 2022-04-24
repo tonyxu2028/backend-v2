@@ -13,7 +13,7 @@
 <script>
 import QRCode from "qrcodejs2";
 export default {
-  props: ["config", "status"],
+  props: ["config", "status", "current"],
   data() {
     return {
       startX: null,
@@ -44,7 +44,7 @@ export default {
       this.endY = ev.clientY;
       const moveX = this.endX - this.startX;
       const moveY = this.endY - this.startY;
-      that.$emit("dragend", "qrcode-v1", moveX, moveY);
+      that.$emit("dragend", "qrcode-v1", that.current, moveX, moveY);
     });
   },
   methods: {
