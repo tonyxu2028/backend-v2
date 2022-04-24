@@ -217,7 +217,7 @@
         <div class="config-item-body">
           <div class="float-left j-flex">
             <el-button type="primary" @click="createQrcode"
-              >生成二维码</el-button
+              >生成对应比例的二维码</el-button
             >
           </div>
         </div>
