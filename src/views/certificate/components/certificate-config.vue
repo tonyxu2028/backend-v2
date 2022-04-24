@@ -240,6 +240,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+/deep/.el-color-picker__panel {
+  z-index: 2003;
+}
 .config-index-box {
   width: 100%;
   height: 460px;
