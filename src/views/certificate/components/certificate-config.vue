@@ -144,6 +144,13 @@
             </div>
           </div>
         </div>
+        <div class="config-item-body">
+          <div class="float-left j-flex">
+            <el-button type="primary" @click="showUploadImage = true"
+              >上传图片</el-button
+            >
+          </div>
+        </div>
       </div>
     </div>
     <div class="config" v-else-if="block.sign === 'qrcode-v1'">
@@ -216,19 +223,36 @@
         </div>
       </div>
     </div>
+    <select-image
+      :show="showUploadImage"
+      :from="1"
+      @close="showUploadImage = false"
+      @selected="uploadImage"
+    ></select-image>
   </div>
 </template>
 <script>
+import SelectImage from "@/components/select-image";
 export default {
   props: ["block", "index"],
+  components: {
+    SelectImage,
+  },
   data() {
     return {
       loading: false,
       status: false,
+      showUploadImage: false,
     };
   },
   mounted() {},
   methods: {
+    uploadImage(src) {
+      if (this.block.sign === "image-v1") {
+        this.block.config.url = src;
+        this.showUploadImage = false;
+      }
+    },
     update() {
       this.$emit("update", this.index, this.block.sign, this.block.config);
     },
@@ -240,9 +264,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-/deep/.el-color-picker__panel {
-  z-index: 2003;
-}
 .config-index-box {
   width: 100%;
   height: 460px;
