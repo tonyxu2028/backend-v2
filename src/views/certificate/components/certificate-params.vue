@@ -184,18 +184,18 @@ export default {
         this.$message.warning("请配置好参数");
         return;
       }
-      let params = {};
+      let params = [];
       for (let i = 0; i < this.blocksData.length; i++) {
         if (this.blocksData[i].sign === "text-v1") {
-          Object.assign(params, {
+          params.push({
             text: this.blocksData[i].config,
           });
         } else if (this.blocksData[i].sign === "image-v1") {
-          Object.assign(params, {
+          params.push({
             image: this.blocksData[i].config,
           });
         } else if (this.blocksData[i].sign === "qrcode-v1") {
-          Object.assign(params, {
+          params.push({
             qrcode: this.blocksData[i].config,
           });
         }
