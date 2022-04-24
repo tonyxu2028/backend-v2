@@ -2,7 +2,6 @@
   <div
     class="text-v1-box"
     ref="dragitem"
-    draggable="true"
     :style="{
       top: config.y + 'px',
       left: config.x + 'px',
