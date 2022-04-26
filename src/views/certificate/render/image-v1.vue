@@ -27,6 +27,7 @@ export default {
       console.log("drag正在拖啦");
     });
     item.addEventListener("dragleave", function (ev) {
+      ev.preventDefault();
       console.log(2);
     });
     item.addEventListener("dragend", function (ev) {

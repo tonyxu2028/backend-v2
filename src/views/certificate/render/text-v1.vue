@@ -40,9 +40,11 @@ export default {
       ev.dataTransfer.effectAllowed = "copy";
     });
     item.addEventListener("drag", function (ev) {
+      ev.preventDefault();
       console.log("drag正在拖啦");
     });
     item.addEventListener("dragleave", function (ev) {
+      ev.preventDefault();
       console.log(2);
     });
     item.addEventListener("dragend", function (ev) {
