@@ -1,5 +1,11 @@
 <template>
-  <draggable class="qrcode-v1-box" ref="dragitem" @start="start" @end="end">
+  <draggable
+    class="qrcode-v1-box"
+    ref="dragitem"
+    @start="start"
+    @end="end"
+    v-bind="dragOptions"
+  >
     <div
       :style="{
         width: config.width + 'px',
@@ -24,6 +30,9 @@ export default {
       startY: null,
       endX: null,
       endY: null,
+      dragOptions: {
+        animation: 500,
+      },
     };
   },
   watch: {

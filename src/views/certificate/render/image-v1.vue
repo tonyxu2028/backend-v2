@@ -1,5 +1,11 @@
 <template>
-  <draggable class="image-v1-box" ref="dragitem" @start="start" @end="end">
+  <draggable
+    class="image-v1-box"
+    ref="dragitem"
+    @start="start"
+    @end="end"
+    v-bind="dragOptions"
+  >
     <img
       :style="{
         width: config.width + 'px',
@@ -17,7 +23,15 @@ export default {
   },
   props: ["config", "current"],
   data() {
-    return { startX: null, startY: null, endX: null, endY: null };
+    return {
+      startX: null,
+      startY: null,
+      endX: null,
+      endY: null,
+      dragOptions: {
+        animation: 500,
+      },
+    };
   },
   mounted() {},
   methods: {

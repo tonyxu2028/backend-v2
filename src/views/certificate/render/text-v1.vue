@@ -1,5 +1,11 @@
 <template>
-  <draggable class="text-v1-box" ref="dragitem" @start="start" @end="end">
+  <draggable
+    class="text-v1-box"
+    ref="dragitem"
+    @start="start"
+    @end="end"
+    v-bind="dragOptions"
+  >
     <div
       :style="{
         'font-size': config.size + 'px',
@@ -23,6 +29,9 @@ export default {
       startY: null,
       endX: null,
       endY: null,
+      dragOptions: {
+        animation: 500,
+      },
     };
   },
   mounted() {},
