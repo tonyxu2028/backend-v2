@@ -1,5 +1,5 @@
 <template>
-  <div class="qrcode-v1-box" ref="dragitem" draggable="true" :id="current">
+  <draggable class="qrcode-v1-box" ref="dragitem" @start="start" @end="end">
     <div
       :style="{
         width: config.width + 'px',
@@ -8,11 +8,15 @@
     >
       <div ref="qrcode"></div>
     </div>
-  </div>
+  </draggable>
 </template>
 <script>
+import draggable from "vuedraggable";
 import QRCode from "qrcodejs2";
 export default {
+  components: {
+    draggable,
+  },
   props: ["config", "status", "current"],
   data() {
     return {
@@ -33,27 +37,6 @@ export default {
     this.$nextTick(() => {
       this.getData();
     });
-    let item = this.$refs.dragitem;
-    let that = this;
-    item.addEventListener("dragstart", function (ev) {
-      this.startX = ev.clientX;
-      this.startY = ev.clientY;
-    });
-    item.addEventListener("drag", function (ev) {
-      ev.preventDefault();
-      console.log("drag正在拖啦");
-    });
-    item.addEventListener("dragleave", function (ev) {
-      ev.preventDefault();
-      console.log(2);
-    });
-    item.addEventListener("dragend", function (ev) {
-      this.endX = ev.clientX;
-      this.endY = ev.clientY;
-      const moveX = this.endX - this.startX;
-      const moveY = this.endY - this.startY;
-      that.$emit("dragend", "qrcode-v1", that.current, moveX, moveY);
-    });
   },
   methods: {
     getData() {
@@ -67,6 +50,17 @@ export default {
         colorLight: "#ffffff", //背景色
         correctLevel: QRCode.CorrectLevel.Q, //容错级别
       });
+    },
+    start(e) {
+      this.startX = e.originalEvent.clientX;
+      this.startY = e.originalEvent.clientY;
+    },
+    end(e) {
+      this.endX = e.originalEvent.clientX;
+      this.endY = e.originalEvent.clientY;
+      const moveX = this.endX - this.startX;
+      const moveY = this.endY - this.startY;
+      this.$emit("dragend", "qrcode-v1", this.current, moveX, moveY);
     },
   },
 };

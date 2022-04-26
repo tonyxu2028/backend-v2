@@ -1,5 +1,5 @@
 <template>
-  <div class="image-v1-box" ref="dragitem" draggable="true">
+  <draggable class="image-v1-box" ref="dragitem" @start="start" @end="end">
     <img
       :style="{
         width: config.width + 'px',
@@ -7,36 +7,31 @@
       }"
       :src="config.url"
     />
-  </div>
+  </draggable>
 </template>
 <script>
+import draggable from "vuedraggable";
 export default {
+  components: {
+    draggable,
+  },
   props: ["config", "current"],
   data() {
     return { startX: null, startY: null, endX: null, endY: null };
   },
-  mounted() {
-    let item = this.$refs.dragitem;
-    let that = this;
-    item.addEventListener("dragstart", function (ev) {
-      this.startX = ev.clientX;
-      this.startY = ev.clientY;
-    });
-    item.addEventListener("drag", function (ev) {
-      ev.preventDefault();
-      console.log("drag正在拖啦");
-    });
-    item.addEventListener("dragleave", function (ev) {
-      ev.preventDefault();
-      console.log(2);
-    });
-    item.addEventListener("dragend", function (ev) {
-      this.endX = ev.clientX;
-      this.endY = ev.clientY;
+  mounted() {},
+  methods: {
+    start(e) {
+      this.startX = e.originalEvent.clientX;
+      this.startY = e.originalEvent.clientY;
+    },
+    end(e) {
+      this.endX = e.originalEvent.clientX;
+      this.endY = e.originalEvent.clientY;
       const moveX = this.endX - this.startX;
       const moveY = this.endY - this.startY;
-      that.$emit("dragend", "image-v1", that.current, moveX, moveY);
-    });
+      this.$emit("dragend", "image-v1", this.current, moveX, moveY);
+    },
   },
 };
 </script>
