@@ -1,5 +1,5 @@
 <template>
-  <div class="qrcode-v1-box" ref="dragitem" draggable="true">
+  <div class="qrcode-v1-box" ref="dragitem" draggable="true" :id="current">
     <div
       :style="{
         width: config.width + 'px',
@@ -38,6 +38,12 @@ export default {
     item.addEventListener("dragstart", function (ev) {
       this.startX = ev.clientX;
       this.startY = ev.clientY;
+    });
+    item.addEventListener("drag", function (ev) {
+      console.log("drag正在拖啦");
+    });
+    item.addEventListener("dragleave", function (ev) {
+      console.log(2);
     });
     item.addEventListener("dragend", function (ev) {
       this.endX = ev.clientX;

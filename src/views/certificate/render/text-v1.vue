@@ -3,6 +3,7 @@
     class="text-v1-box"
     ref="dragitem"
     draggable="true"
+    :id="current"
     :style="{
       top: config.y + 'px',
       left: config.x + 'px',
@@ -35,6 +36,14 @@ export default {
     item.addEventListener("dragstart", function (ev) {
       this.startX = ev.clientX;
       this.startY = ev.clientY;
+      ev.dataTransfer.setData("text", ev.target.id);
+      ev.dataTransfer.effectAllowed = "copy";
+    });
+    item.addEventListener("drag", function (ev) {
+      console.log("drag正在拖啦");
+    });
+    item.addEventListener("dragleave", function (ev) {
+      console.log(2);
     });
     item.addEventListener("dragend", function (ev) {
       this.endX = ev.clientX;
