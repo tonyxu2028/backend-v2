@@ -42,7 +42,15 @@
             v-if="course.template_image"
           >
             <div class="d-flex">
-              <el-button @click="showWindow = true">参数配置</el-button>
+              <el-button
+                @click="
+                  $router.push({
+                    name: 'CertificateDecoration',
+                    query: { image: course.template_image },
+                  })
+                "
+                >参数配置</el-button
+              >
             </div>
           </el-form-item>
         </div>

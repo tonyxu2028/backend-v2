@@ -480,6 +480,15 @@ const routes = [
     },
   },
   {
+    path: "/certificate/certificate-decoration",
+    component: () => import("@/views/certificate/certificate-decoration"),
+    name: "CertificateDecoration",
+    meta: {
+      title: "title.certificate.decoratio",
+      pure: true,
+    },
+  },
+  {
     path: "/singlepage/index",
     component: () => import("@/views/singlepage/page/index"),
     name: "SinglePage",

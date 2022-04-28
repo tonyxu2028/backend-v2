@@ -67,6 +67,7 @@ const zh = {
       update: "编辑证书",
       users: "证书用户",
       import: "用户批量导入",
+      decoratio: "证书参数配置",
     },
     creditMall: {
       name: "积分商城",
