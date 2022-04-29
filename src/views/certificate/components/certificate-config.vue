@@ -6,6 +6,21 @@
       </div>
       <div class="config-item" v-if="block.config">
         <div class="config-item-body">
+          <div class="float-left">
+            <div class="w-100 form-label mb-15">文字内容</div>
+            <div class="float-left d-flex">
+              <el-input
+                class="w-100"
+                type="textarea"
+                rows="4"
+                resize="none"
+                placeholder="此处填写文字内容"
+                v-model="block.config.text"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
           <div class="float-left d-flex">
             <div class="form-label">字体</div>
             <div class="flex-1 ml-15">
@@ -46,14 +61,6 @@
                 <el-option label="pure" value="pure"> </el-option>
                 <el-option label="var" value="var"> </el-option>
               </el-select>
-            </div>
-          </div>
-        </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
-            <div class="form-label">内容</div>
-            <div class="flex-1 ml-15">
-              <el-input class="w-100" v-model="block.config.text"></el-input>
             </div>
           </div>
         </div>
@@ -223,6 +230,7 @@ export default {
       padding-bottom: 15px;
 
       .form-label {
+        width: 64px;
         font-size: 14px;
         font-weight: 400;
         color: #666666;
