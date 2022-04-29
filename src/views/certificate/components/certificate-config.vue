@@ -145,10 +145,8 @@
           </div>
         </div>
         <div class="config-item-body">
-          <div class="float-left j-flex">
-            <el-button type="primary" @click="showUploadImage = true"
-              >上传图片</el-button
-            >
+          <div class="float-left d-flex">
+            <el-button @click="showUploadImage = true">上传图片</el-button>
           </div>
         </div>
       </div>
@@ -215,10 +213,8 @@
           </div>
         </div>
         <div class="config-item-body">
-          <div class="float-left j-flex">
-            <el-button type="primary" @click="createQrcode"
-              >生成对应比例的二维码</el-button
-            >
+          <div class="float-left d-flex">
+            <el-button @click="createQrcode">生成对应比例的二维码</el-button>
           </div>
         </div>
       </div>
@@ -266,9 +262,8 @@ export default {
 <style lang="less" scoped>
 .config-index-box {
   width: 100%;
-  height: 460px;
+  height: 100%;
   float: left;
-  overflow-y: auto;
   box-sizing: border-box;
   padding: 30px;
   position: relative;

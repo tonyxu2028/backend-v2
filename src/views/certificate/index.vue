@@ -134,7 +134,7 @@ export default {
             return;
           }
           this.loading = true;
-          this.$api.Certificate.Destory(id)
+          this.$api.Certificate.Destroy(id)
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));
