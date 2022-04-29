@@ -469,6 +469,7 @@ const routes = [
     name: "CertificateCreate",
     meta: {
       title: "title.certificate.create",
+      pure: true,
     },
   },
   {
@@ -477,6 +478,7 @@ const routes = [
     name: "CertificateUpdate",
     meta: {
       title: "title.certificate.update",
+      pure: true,
     },
   },
   {

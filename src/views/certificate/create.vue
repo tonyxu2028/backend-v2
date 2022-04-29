@@ -1,124 +1,125 @@
 <template>
   <div class="bg" v-loading="loading">
-    <div class="top-box">
-      <div class="btn-back" @click="$router.back()">
-        <i class="el-icon-back"></i>
-        返回
-      </div>
-      <div class="line"></div>
-      <div class="name">新建证书</div>
-    </div>
-    <div
-      :class="{
-        noleft: leftArrrow,
-      }"
-      class="left-arrrow"
-      @click="leftArrrow = !leftArrrow"
-    >
-      <img
-        v-if="leftArrrow"
-        src="@/assets/images/certificate/icon-unfold.png"
-        width="44"
-        height="44"
-      />
-      <img
-        v-else
-        src="@/assets/images/certificate/icon-fold.png"
-        width="44"
-        height="44"
-      />
-    </div>
-    <div class="certificate-blocks-box" v-show="!leftArrrow">
-      <div class="title">基本信息</div>
-      <div class="line"></div>
-      <div class="float-left mt-30">
-        <el-form
-          ref="form"
-          :model="course"
-          :rules="rules"
-          class="float-left"
-          label-width="90px"
-        >
-          <div class="float-left">
-            <el-form-item label="证书名称" prop="name">
-              <div class="d-flex">
-                <div>
-                  <el-input
-                    maxlength="64"
-                    v-model="course.name"
-                    class="w-250px"
-                    placeholder="填写证书名称"
-                  ></el-input>
-                </div>
-              </div>
-            </el-form-item>
-
-            <el-form-item prop="template_image" label="证书背景">
-              <upload-image
-                v-model="course.template_image"
-                name="上传背景"
-              ></upload-image>
-            </el-form-item>
-            <el-form-item
-              class="is-required"
-              label="证书元素"
-              v-if="course.template_image"
-            >
-              <helper-text text="拖动元素到证书背景上编辑参数"></helper-text>
-            </el-form-item>
-          </div>
-        </el-form>
-      </div>
-      <draggable
-        v-if="course.template_image"
-        class="blocks"
-        :sort="false"
-        :group="{ name: 'blocks', pull: 'clone', put: false }"
-      >
-        <div class="block-item" sign="text-v1">
-          <div class="btn">
-            <div class="icon">
-              <img
-                src="@/assets/images/certificate/icon-txt.png"
-                width="44"
-                height="44"
-              />
-            </div>
-            <div class="name">文本</div>
-          </div>
-        </div>
-        <div class="block-item" sign="image-v1">
-          <div class="btn">
-            <div class="icon">
-              <img
-                src="@/assets/images/certificate/icon-img.png"
-                width="44"
-                height="44"
-              />
-            </div>
-            <div class="name">图片</div>
-          </div>
-        </div>
-        <div class="block-item" sign="qrcode-v1">
-          <div class="btn">
-            <div class="icon">
-              <img
-                src="@/assets/images/certificate/icon-qrcode.png"
-                width="44"
-                height="44"
-              />
-            </div>
-            <div class="name">二维码</div>
-          </div>
-        </div>
-      </draggable>
-    </div>
     <div class="certificate-content">
+      <div class="top-box">
+        <div class="btn-back" @click="$router.back()">
+          <i class="el-icon-back"></i>
+          返回
+        </div>
+        <div class="line"></div>
+        <div class="name">新建证书</div>
+      </div>
+      <div
+        :class="{
+          noleft: leftArrrow,
+        }"
+        class="left-arrrow"
+        @click="leftArrrow = !leftArrrow"
+      >
+        <img
+          v-if="leftArrrow"
+          src="@/assets/images/certificate/icon-unfold.png"
+          width="44"
+          height="44"
+        />
+        <img
+          v-else
+          src="@/assets/images/certificate/icon-fold.png"
+          width="44"
+          height="44"
+        />
+      </div>
+      <div class="certificate-blocks-box" v-show="!leftArrrow">
+        <div class="title">基本信息</div>
+        <div class="line"></div>
+        <div class="float-left mt-30">
+          <el-form
+            ref="form"
+            :model="course"
+            :rules="rules"
+            class="float-left"
+            label-width="90px"
+          >
+            <div class="float-left">
+              <el-form-item label="证书名称" prop="name">
+                <div class="d-flex">
+                  <div>
+                    <el-input
+                      maxlength="64"
+                      v-model="course.name"
+                      class="w-250px"
+                      placeholder="填写证书名称"
+                    ></el-input>
+                  </div>
+                </div>
+              </el-form-item>
+
+              <el-form-item prop="template_image" label="证书背景">
+                <upload-image
+                  v-model="course.template_image"
+                  name="上传背景"
+                ></upload-image>
+              </el-form-item>
+              <el-form-item
+                class="is-required"
+                label="证书元素"
+                v-if="course.template_image"
+              >
+                <helper-text text="拖动元素到证书背景上编辑参数"></helper-text>
+              </el-form-item>
+            </div>
+          </el-form>
+        </div>
+        <draggable
+          v-if="course.template_image"
+          class="blocks"
+          :sort="false"
+          :group="{ name: 'blocks', pull: 'clone', put: false }"
+        >
+          <div class="block-item" sign="text-v1">
+            <div class="btn">
+              <div class="icon">
+                <img
+                  src="@/assets/images/certificate/icon-txt.png"
+                  width="44"
+                  height="44"
+                />
+              </div>
+              <div class="name">文本</div>
+            </div>
+          </div>
+          <div class="block-item" sign="image-v1">
+            <div class="btn">
+              <div class="icon">
+                <img
+                  src="@/assets/images/certificate/icon-img.png"
+                  width="44"
+                  height="44"
+                />
+              </div>
+              <div class="name">图片</div>
+            </div>
+          </div>
+          <div class="block-item" sign="qrcode-v1">
+            <div class="btn">
+              <div class="icon">
+                <img
+                  src="@/assets/images/certificate/icon-qrcode.png"
+                  width="44"
+                  height="44"
+                />
+              </div>
+              <div class="name">二维码</div>
+            </div>
+          </div>
+        </draggable>
+      </div>
+
       <div
         class="choose_size_box"
         :class="{ rightArrow: curBlockIndex !== null }"
       >
-        <div class="tab_narrow">
+        <div class="tab_narrow" @click="changeSize(-1)">
           <img
             src="@/assets/images/certificate/low.png"
             width="12"
@@ -126,9 +127,28 @@
           />
         </div>
         <div class="choose_size ml-15 mr-15">
-          <div class="item">50%</div>
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link"> {{ size * 100 }}% </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="changeSize(2)"
+                >200%</el-dropdown-item
+              >
+              <el-dropdown-item @click.native="changeSize(1.5)"
+                >150%</el-dropdown-item
+              >
+              <el-dropdown-item @click.native="changeSize(1)"
+                >100%</el-dropdown-item
+              >
+              <el-dropdown-item @click.native="changeSize(0.5)"
+                >50%</el-dropdown-item
+              >
+              <el-dropdown-item @click.native="changeSize(0.25)"
+                >25%</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
-        <div class="tab_enlarge">
+        <div class="tab_enlarge" @click="changeSize(0)">
           <img
             src="@/assets/images/certificate/high.png"
             width="12"
@@ -136,83 +156,93 @@
           />
         </div>
       </div>
-      <draggable
-        ref="preview-box"
+      <div
         class="certificate-preview-box"
         :style="{
           width: originalWidth + 'px',
           height: originalHeight + 'px',
+          transform: 'translate(' + dragX + 'px, ' + dragY + 'px)',
         }"
-        draggable=".block-item"
-        group="blocks"
-        @add="dragChange"
+        ref="dragBox"
       >
-        <div class="image-box">
-          <div class="image-render">
-            <img ref="previewImage" class="image" :src="image" />
-          </div>
-          <template v-for="(item, index) in blocksData">
-            <div
-              :key="item.id"
-              class="item"
-              :class="{ active: curBlockIndex === index }"
-              @click="curBlockIndex = index"
-              :style="{
-                top: item.config.y + 'px',
-                left: item.config.x + 'px',
-              }"
-            >
-              <render-text-v1
-                v-if="item.sign === 'text-v1'"
-                :current="index"
-                :config="item.config"
-                @dragend="changePosition"
-              ></render-text-v1>
-              <render-image-v1
-                v-if="item.sign === 'image-v1'"
-                :current="index"
-                :config="item.config"
-                @dragend="changePosition"
-              ></render-image-v1>
-              <render-qrcode-v1
-                v-if="item.sign === 'qrcode-v1'"
-                :current="index"
-                :config="item.config"
-                :status="qrcodeStatus"
-                @dragend="changePosition"
-              ></render-qrcode-v1>
+        <draggable
+          ref="preview-box"
+          class="preview-box"
+          :style="{
+            width: originalWidth + 'px',
+            height: originalHeight + 'px',
+          }"
+          draggable=".block-item"
+          group="blocks"
+          @add="dragChange"
+        >
+          <div class="image-box">
+            <div class="image-render">
+              <img ref="previewImage" class="image" :src="image" />
+            </div>
+            <template v-for="(item, index) in blocksData">
+              <div
+                :key="item.id"
+                class="item"
+                :class="{ active: curBlockIndex === index }"
+                @click="curBlockIndex = index"
+                :style="{
+                  top: item.config.y + 'px',
+                  left: item.config.x + 'px',
+                }"
+              >
+                <render-text-v1
+                  v-if="item.sign === 'text-v1'"
+                  :current="index"
+                  :config="item.config"
+                  @dragend="changePosition"
+                ></render-text-v1>
+                <render-image-v1
+                  v-if="item.sign === 'image-v1'"
+                  :current="index"
+                  :config="item.config"
+                  @dragend="changePosition"
+                ></render-image-v1>
+                <render-qrcode-v1
+                  v-if="item.sign === 'qrcode-v1'"
+                  :current="index"
+                  :config="item.config"
+                  :status="qrcodeStatus"
+                  @dragend="changePosition"
+                ></render-qrcode-v1>
 
-              <div class="item-options" v-if="curBlockIndex === index">
-                <div class="btn-item" @click="blockDestroy(index)">
-                  <i class="el-icon-delete-solid"></i>
+                <div class="item-options" v-if="curBlockIndex === index">
+                  <div class="btn-item" @click="blockDestroy(index)">
+                    <i class="el-icon-delete-solid"></i>
+                  </div>
                 </div>
               </div>
-            </div>
-          </template>
-        </div>
-      </draggable>
-    </div>
-    <div class="certificate-config-box" v-if="curBlockIndex !== null">
-      <div class="float-left mb-15">
-        <el-button class="ml-15 mt-15" @click="curBlockIndex = null">
-          <i class="el-icon-close"></i><span class="ml-5">关闭配置</span>
-        </el-button>
+            </template>
+          </div>
+        </draggable>
       </div>
-      <config-setting
-        :block="blocksData[curBlockIndex]"
-        :index="curBlockIndex"
-        @create="createQrcode"
-      ></config-setting>
-    </div>
-    <div class="bottom-menus">
-      <div class="bottom-menus-box" style="left: 400px; z-index: 50">
-        <div>
-          <el-button @click="formValidate" :loading="loading" type="primary"
-            >确定</el-button
-          >
+      <div class="certificate-config-box" v-if="curBlockIndex !== null">
+        <div class="float-left mb-15">
+          <el-button class="ml-15 mt-15" @click="curBlockIndex = null">
+            <i class="el-icon-close"></i><span class="ml-5">关闭配置</span>
+          </el-button>
         </div>
-        <div class="ml-24">
-          <el-button @click="$router.back()">取消</el-button>
+        <config-setting
+          :block="blocksData[curBlockIndex]"
+          :index="curBlockIndex"
+          @create="createQrcode"
+        ></config-setting>
+      </div>
+      <div class="bottom-menus">
+        <div class="bottom-menus-box" style="left: 400px; z-index: 50">
+          <div>
+            <el-button @click="formValidate" :loading="loading" type="primary"
+              >确定</el-button
+            >
+          </div>
+          <div class="ml-24">
+            <el-button @click="$router.back()">取消</el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -244,6 +274,8 @@ export default {
       image: null,
       originalHeight: null,
       originalWidth: null,
+      imgHeight: null,
+      imgWidth: null,
       course: {
         name: null,
         template_image: null,
@@ -267,6 +299,9 @@ export default {
       },
       categories: [],
       leftArrrow: false,
+      size: 0.5,
+      dragX: 0,
+      dragY: 0,
     };
   },
   watch: {
@@ -291,15 +326,33 @@ export default {
         }
       }
     },
+    changeSize(val) {
+      if (!this.image) {
+        this.$message.error("请上传证书背景后在改变缩放比例");
+      }
+      if (val === -1) {
+        this.size--;
+      } else if (val === 0) {
+        this.size++;
+      } else {
+        this.size = val;
+        this.originalHeight = this.size * this.imgHeight;
+        this.originalWidth = this.size * this.imgWidth;
+      }
+    },
     getImgInfo() {
       let self = this;
       let img = new Image();
       img.src = self.image;
       img.onload = function () {
-        self.originalHeight = 0.5 * img.height;
-        self.originalWidth = 0.5 * img.width;
+        self.imgHeight = img.height;
+        self.imgWidth = img.width;
+        self.originalHeight = self.size * img.height;
+        self.originalWidth = self.size * img.width;
         console.log("图片原始高度", img.height);
         console.log("图片原始宽度", img.width);
+        self.dragX = self.originalWidth;
+        self.dragY = self.originalHeight;
       };
     },
     formValidate() {
@@ -443,15 +496,18 @@ export default {
 
 <style lang="less" scoped>
 .bg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  width: 100%;
+  height: 100%;
   background-color: #f1f2f9;
+  z-index: 1000;
 }
 .top-box {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -507,16 +563,20 @@ export default {
 }
 
 .certificate-blocks-box {
+  height: calc(100vh - 57px);
   position: absolute;
-  top: 56px;
+  top: 57px;
+  /* left: 70px; */
   left: 0;
-  bottom: 0;
+  /* border-radius: 4px; */
+  /* will-change: contents; */
+  transition: left ease 0.5s;
   width: 400px;
   height: 100%;
   background-color: white;
   box-sizing: border-box;
   padding: 30px;
-  z-index: 100;
+  z-index: 11111;
   .title {
     width: 100%;
     height: 16px;
@@ -568,20 +628,20 @@ export default {
   }
 }
 .certificate-content {
-  position: absolute;
-  top: 56px;
-  bottom: 0;
+  /* will-change: auto; */
   width: 100%;
-  left: 0;
   height: 100%;
-  background: #f1f2f9;
-  display: flex;
-  justify-content: center;
+  position: absolute;
+  overflow: hidden;
   box-sizing: border-box;
+  top: 0;
+  left: 0;
+  background: #f0f2f5;
+  z-index: 1002;
 }
 .choose_size_box {
   position: absolute;
-  top: 30px;
+  top: 86px;
   right: 30px;
   width: 103px;
   height: 40px;
@@ -613,6 +673,15 @@ export default {
 .certificate-preview-box {
   background: #f1f2f9;
   box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: none;
+  background: transparent;
+  z-index: 0;
+  box-shadow: none;
+  .preview-box {
+  }
   .image-box {
     width: 100%;
     height: 100%;
@@ -670,12 +739,12 @@ export default {
   }
 }
 .certificate-config-box {
+  height: calc(100vh - 57px);
   position: absolute;
-  top: 56px;
+  top: 57px;
   right: 0;
   bottom: 0;
   width: 400px;
-  height: 100%;
   box-sizing: border-box;
   background-color: white;
   border-left: 1px solid #f2f2f2;
