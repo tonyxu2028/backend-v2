@@ -7,30 +7,6 @@
       <div class="config-item" v-if="block.config">
         <div class="config-item-body">
           <div class="float-left d-flex">
-            <div class="form-label">横坐标x</div>
-            <div class="flex-1 ml-15">
-              <el-input
-                type="number"
-                class="w-100"
-                v-model="block.config.x"
-              ></el-input>
-            </div>
-          </div>
-        </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
-            <div class="form-label">纵坐标y</div>
-            <div class="flex-1 ml-15">
-              <el-input
-                type="number"
-                class="w-100"
-                v-model="block.config.y"
-              ></el-input>
-            </div>
-          </div>
-        </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
             <div class="form-label">字体</div>
             <div class="flex-1 ml-15">
               <el-select class="w-100" v-model="block.config.font">
@@ -90,30 +66,6 @@
       <div class="config-item" v-if="block.config">
         <div class="config-item-body">
           <div class="float-left d-flex">
-            <div class="form-label">横坐标x</div>
-            <div class="flex-1 ml-15">
-              <el-input
-                type="number"
-                class="w-100"
-                v-model="block.config.x"
-              ></el-input>
-            </div>
-          </div>
-        </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
-            <div class="form-label">纵坐标y</div>
-            <div class="flex-1 ml-15">
-              <el-input
-                type="number"
-                class="w-100"
-                v-model="block.config.y"
-              ></el-input>
-            </div>
-          </div>
-        </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
             <div class="form-label">宽度</div>
             <div class="flex-1 ml-15">
               <el-input
@@ -156,30 +108,6 @@
         <div class="text">二维码</div>
       </div>
       <div class="config-item" v-if="block.config">
-        <div class="config-item-body">
-          <div class="float-left d-flex">
-            <div class="form-label">横坐标x</div>
-            <div class="flex-1 ml-15">
-              <el-input
-                type="number"
-                class="w-100"
-                v-model="block.config.x"
-              ></el-input>
-            </div>
-          </div>
-        </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
-            <div class="form-label">纵坐标y</div>
-            <div class="flex-1 ml-15">
-              <el-input
-                type="number"
-                class="w-100"
-                v-model="block.config.y"
-              ></el-input>
-            </div>
-          </div>
-        </div>
         <div class="config-item-body">
           <div class="float-left d-flex">
             <div class="form-label">宽度</div>

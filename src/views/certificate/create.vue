@@ -114,6 +114,28 @@
       </draggable>
     </div>
     <div class="certificate-content">
+      <div
+        class="choose_size_box"
+        :class="{ rightArrow: curBlockIndex !== null }"
+      >
+        <div class="tab_narrow">
+          <img
+            src="@/assets/images/certificate/low.png"
+            width="12"
+            height="12"
+          />
+        </div>
+        <div class="choose_size ml-15 mr-15">
+          <div class="item">50%</div>
+        </div>
+        <div class="tab_enlarge">
+          <img
+            src="@/assets/images/certificate/high.png"
+            width="12"
+            height="12"
+          />
+        </div>
+      </div>
       <draggable
         ref="preview-box"
         class="certificate-preview-box"
@@ -494,7 +516,6 @@ export default {
   background-color: white;
   box-sizing: border-box;
   padding: 30px;
-  overflow-y: auto;
   z-index: 100;
   .title {
     width: 100%;
@@ -558,6 +579,37 @@ export default {
   justify-content: center;
   box-sizing: border-box;
 }
+.choose_size_box {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 103px;
+  height: 40px;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px 0px rgba(102, 102, 102, 0.15);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  cursor: pointer;
+  &.rightArrow {
+    right: 430px;
+  }
+  .tab_narrow {
+    display: inline-block;
+  }
+  .choose_size {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 20px;
+  }
+  .tab_enlarge {
+    display: inline-block;
+  }
+}
 .certificate-preview-box {
   background: #f1f2f9;
   box-sizing: border-box;
@@ -619,7 +671,6 @@ export default {
 }
 .certificate-config-box {
   position: absolute;
-  z-index: 10;
   top: 56px;
   right: 0;
   bottom: 0;
