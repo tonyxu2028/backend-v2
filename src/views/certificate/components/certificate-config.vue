@@ -8,6 +8,21 @@
         <div class="config-item-body">
           <div class="float-left">
             <div class="w-100 form-label mb-15">文字内容</div>
+            <div class="w-100 float-left import-box">
+              <div class="label-item">插入变量：</div>
+              <div class="import-item ml-10" @click="addNick" type="primary">
+                学员昵称
+              </div>
+              <div class="import-item ml-10" @click="addMobile" type="primary">
+                手机号码
+              </div>
+              <div class="import-item ml-10" @click="addHour" type="primary">
+                学习课时
+              </div>
+              <div class="import-item ml-10" @click="addTime" type="primary">
+                考试时间
+              </div>
+            </div>
             <div class="float-left d-flex">
               <el-input
                 class="w-100"
@@ -25,14 +40,14 @@
             <div class="form-label">字体</div>
             <div class="flex-1 ml-15">
               <el-select class="w-100" v-model="block.config.font">
-                <el-option label="default" value="default"> </el-option>
+                <el-option label="默认" value="default"> </el-option>
               </el-select>
             </div>
           </div>
         </div>
         <div class="config-item-body">
           <div class="float-left d-flex">
-            <div class="form-label">字体大小</div>
+            <div class="form-label">大小</div>
             <div class="flex-1 ml-15">
               <el-input
                 class="w-100"
@@ -44,23 +59,12 @@
         </div>
         <div class="config-item-body">
           <div class="float-left d-flex">
-            <div class="form-label">颜色色号</div>
+            <div class="form-label">颜色</div>
             <div class="flex-1 ml-15">
               <el-color-picker
                 class="w-100"
                 v-model="block.config.color"
               ></el-color-picker>
-            </div>
-          </div>
-        </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
-            <div class="form-label">类型</div>
-            <div class="flex-1 ml-15">
-              <el-select class="w-100" v-model="block.config.type">
-                <el-option label="pure" value="pure"> </el-option>
-                <el-option label="var" value="var"> </el-option>
-              </el-select>
             </div>
           </div>
         </div>
@@ -97,15 +101,10 @@
         </div>
         <div class="config-item-body">
           <div class="float-left d-flex">
-            <div class="form-label">图片地址</div>
-            <div class="flex-1 ml-15">
-              <el-input class="w-100" v-model="block.config.url"></el-input>
-            </div>
-          </div>
-        </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
             <el-button @click="showUploadImage = true">上传图片</el-button>
+          </div>
+          <div class="float-left d-flex w-100 mt-15">
+            <img class="pre-icon" :src="block.config.url" />
           </div>
         </div>
       </div>
@@ -178,6 +177,18 @@ export default {
   },
   mounted() {},
   methods: {
+    addNick() {
+      this.block.config.text += "${user.nick_name}";
+    },
+    addMobile() {
+      this.block.config.text += "${user.mobile}";
+    },
+    addHour() {
+      this.block.config.text += "${user.hour}";
+    },
+    addTime() {
+      this.block.config.text += "${user.time}";
+    },
     uploadImage(src) {
       if (this.block.sign === "image-v1") {
         this.block.config.url = src;
@@ -195,6 +206,34 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+/deep/.el-textarea__inner {
+  border-radius: 0 0 4px 4px;
+}
+.pre-icon {
+  max-width: 100%;
+}
+.import-box {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 8px 15px;
+  font-size: 12px;
+  font-weight: 400;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid #dcdfe6;
+  border-bottom: none;
+  .label-item {
+    color: #666666;
+  }
+  .import-item {
+    cursor: pointer;
+    color: #3ca7fa;
+    :hover {
+      opacity: 0.8;
+    }
+  }
+}
 .config-index-box {
   width: 100%;
   height: 100%;

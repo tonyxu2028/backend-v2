@@ -29,7 +29,7 @@
                 <p-link
                   p="addons.cert.users"
                   type="primary"
-                  text="用户"
+                  text="授予"
                   @click="
                     $router.push({
                       name: 'CertificateUsers',

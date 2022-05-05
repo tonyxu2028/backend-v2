@@ -57,7 +57,7 @@
               <el-form-item prop="template_image" label="证书背景">
                 <upload-image
                   v-model="course.template_image"
-                  name="上传背景"
+                  :name="uploadName"
                 ></upload-image>
               </el-form-item>
               <el-form-item
@@ -156,7 +156,7 @@
           />
         </div>
       </div>
-      <div
+      <draggable
         class="certificate-preview-box"
         :style="{
           width: originalWidth + 'px',
@@ -164,6 +164,9 @@
           transform: 'translate(' + dragX + 'px, ' + dragY + 'px)',
         }"
         ref="dragBox"
+        @start="start"
+        @end="end"
+        v-bind="dragOptions"
       >
         <draggable
           ref="preview-box"
@@ -220,7 +223,7 @@
             </template>
           </div>
         </draggable>
-      </div>
+      </draggable>
       <div class="certificate-config-box" v-if="curBlockIndex !== null">
         <div class="float-left mb-15">
           <el-button class="ml-15 mt-15" @click="curBlockIndex = null">
@@ -249,6 +252,7 @@
   </div>
 </template>
 <script>
+import demoImg from "@/assets/home/demo.png";
 import UploadImage from "@/components/upload-image";
 import draggable from "vuedraggable";
 import ConfigSetting from "./components/certificate-config.vue";
@@ -268,6 +272,7 @@ export default {
     return {
       loading: false,
       params: "",
+      uploadName: "上传背景",
       blocksData: [],
       curBlockIndex: null,
       qrcodeStatus: null,
@@ -302,12 +307,22 @@ export default {
       size: 0.5,
       dragX: 0,
       dragY: 0,
+      startX: null,
+      startY: null,
+      dragOptions: {
+        animation: 500,
+      },
     };
   },
   watch: {
     "course.template_image"(val) {
       this.image = val;
       this.getImgInfo();
+      if (val) {
+        this.uploadName = "重新上传";
+      } else {
+        this.uploadName = "上传背景";
+      }
     },
   },
   mounted() {},
@@ -326,18 +341,48 @@ export default {
         }
       }
     },
+    start(e) {
+      this.startX = e.originalEvent.clientX;
+      this.startY = e.originalEvent.clientY;
+    },
+    end(e) {
+      this.endX = e.originalEvent.clientX;
+      this.endY = e.originalEvent.clientY;
+      const moveX = this.endX - this.startX;
+      const moveY = this.endY - this.startY;
+      this.dragX += moveX;
+      this.dragY += moveY;
+      console.log(moveX, moveY);
+    },
     changeSize(val) {
       if (!this.image) {
         this.$message.error("请上传证书背景后在改变缩放比例");
+        return;
       }
       if (val === -1) {
-        this.size--;
+        if (this.size === 0.25) {
+          return;
+        }
+        this.size -= 0.25;
+        this.originalHeight = this.size * this.imgHeight;
+        this.originalWidth = this.size * this.imgWidth;
+        this.dragX = 0.5 * (window.screen.width - this.originalWidth);
+        this.dragY = 106;
       } else if (val === 0) {
-        this.size++;
+        if (this.size === 2) {
+          return;
+        }
+        this.size += 0.25;
+        this.originalHeight = this.size * this.imgHeight;
+        this.originalWidth = this.size * this.imgWidth;
+        this.dragX = 0.5 * (window.screen.width - this.originalWidth);
+        this.dragY = 106;
       } else {
         this.size = val;
         this.originalHeight = this.size * this.imgHeight;
         this.originalWidth = this.size * this.imgWidth;
+        this.dragX = 0.5 * (window.screen.width - this.originalWidth);
+        this.dragY = 106;
       }
     },
     getImgInfo() {
@@ -351,8 +396,8 @@ export default {
         self.originalWidth = self.size * img.width;
         console.log("图片原始高度", img.height);
         console.log("图片原始宽度", img.width);
-        self.dragX = self.originalWidth;
-        self.dragY = self.originalHeight;
+        self.dragX = 0.5 * (window.screen.width - self.originalWidth);
+        self.dragY = 106;
       };
     },
     formValidate() {
@@ -459,9 +504,9 @@ export default {
         defaultConfig = {
           x: 0,
           y: 60,
-          width: 200,
+          width: 100,
           height: 100,
-          url: "https://img0.baidu.com/it/u=1084374422,3638932364&fm=253&fmt=auto&app=138&f=JPEG?w=140&h=140",
+          url: demoImg,
         };
       } else if (blockSign === "qrcode-v1") {
         defaultConfig = {
@@ -521,6 +566,7 @@ export default {
   background-color: white;
   line-height: 56px;
   border-bottom: 1px solid #f2f2f2;
+  z-index: 10;
 
   .btn-back {
     font-size: 14px;
