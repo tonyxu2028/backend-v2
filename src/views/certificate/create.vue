@@ -224,7 +224,13 @@
           </div>
         </draggable>
       </draggable>
-      <div class="certificate-config-box" v-if="curBlockIndex !== null">
+      <div
+        class="certificate-config-box"
+        :class="{
+          active: rightIndex,
+        }"
+        v-if="curBlockIndex !== null"
+      >
         <div class="float-left mb-15">
           <el-button class="ml-15 mt-15" @click="curBlockIndex = null">
             <i class="el-icon-close"></i><span class="ml-5">关闭配置</span>
@@ -234,6 +240,7 @@
           :block="blocksData[curBlockIndex]"
           :index="curBlockIndex"
           @create="createQrcode"
+          @change="getIndex"
         ></config-setting>
       </div>
       <div class="bottom-menus">
@@ -312,6 +319,7 @@ export default {
       dragOptions: {
         animation: 500,
       },
+      rightIndex: null,
     };
   },
   watch: {
@@ -340,6 +348,9 @@ export default {
           return false;
         }
       }
+    },
+    getIndex(val) {
+      this.rightIndex = val;
     },
     start(e) {
       this.startX = e.originalEvent.clientX;
@@ -795,6 +806,9 @@ export default {
   background-color: white;
   border-left: 1px solid #f2f2f2;
   z-index: 100;
+  &.active {
+    z-index: 11111;
+  }
 }
 .certificate-content-footer {
   width: 100%;

@@ -175,6 +175,11 @@ export default {
       showUploadImage: false,
     };
   },
+  watch: {
+    showUploadImage() {
+      this.$emit("change", this.showUploadImage);
+    },
+  },
   mounted() {},
   methods: {
     addNick() {
