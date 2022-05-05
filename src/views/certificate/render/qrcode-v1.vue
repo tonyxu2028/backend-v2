@@ -1,38 +1,53 @@
 <template>
-  <draggable
-    class="qrcode-v1-box"
-    ref="dragitem"
-    @start="start"
-    @end="end"
-    v-bind="dragOptions"
-  >
-    <div
-      :style="{
-        width: config.width + 'px',
-        height: config.height + 'px',
-      }"
+  <div class="qrcode-v1-box">
+    <vue-drag-resize
+      ref="dragitem"
+      :w="config.width"
+      :h="config.height"
+      :x="config.x"
+      :y="config.y"
+      @resizing="onResize"
+      @dragging="onDrag"
     >
-      <div ref="qrcode"></div>
-    </div>
-  </draggable>
+      <div
+        class="item"
+        @click="change"
+        :style="{
+          width: config.width + 'px',
+          height: config.height + 'px',
+        }"
+      >
+        <div ref="qrcode"></div>
+      </div>
+      <div
+        class="item-options"
+        :style="{
+          top: '0px',
+          left: config.width + 'px',
+        }"
+      >
+        <div
+          class="btn-item"
+          @click="blockDestroy()"
+          v-if="curBlockIndex === current"
+        >
+          <i class="el-icon-delete-solid"></i>
+        </div>
+      </div>
+    </vue-drag-resize>
+  </div>
 </template>
 <script>
-import draggable from "vuedraggable";
+import VueDragResize from "vue-drag-resize";
 import QRCode from "qrcodejs2";
 export default {
   components: {
-    draggable,
+    VueDragResize,
   },
-  props: ["config", "status", "current"],
+  props: ["config", "status", "current", "curindex"],
   data() {
     return {
-      startX: null,
-      startY: null,
-      endX: null,
-      endY: null,
-      dragOptions: {
-        animation: 500,
-      },
+      curBlockIndex: null,
     };
   },
   watch: {
@@ -40,6 +55,9 @@ export default {
       this.$nextTick(() => {
         this.getData();
       });
+    },
+    curindex() {
+      this.curBlockIndex = this.curindex;
     },
   },
   mounted() {
@@ -60,18 +78,60 @@ export default {
         correctLevel: QRCode.CorrectLevel.Q, //容错级别
       });
     },
-    start(e) {
-      this.startX = e.originalEvent.clientX;
-      this.startY = e.originalEvent.clientY;
+    change() {
+      this.$emit("change", this.current);
     },
-    end(e) {
-      this.endX = e.originalEvent.clientX;
-      this.endY = e.originalEvent.clientY;
-      const moveX = this.endX - this.startX;
-      const moveY = this.endY - this.startY;
+    onResize(e) {
+      this.config.width = e.width;
+      this.config.height = e.height;
+    },
+    onDrag(e) {
+      const moveX = e.left;
+      const moveY = e.top;
       this.$emit("dragend", "qrcode-v1", this.current, moveX, moveY);
+    },
+    blockDestroy() {
+      this.$emit("del", this.current);
     },
   },
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.qrcode-v1-box {
+  width: 100%;
+  height: 100%;
+}
+.item {
+  cursor: pointer;
+}
+.item-options {
+  position: absolute;
+  width: auto;
+  height: 36px;
+  cursor: pointer;
+
+  .btn-item {
+    color: white;
+    background-color: @primary-color;
+    width: 36px;
+    height: 36px;
+    float: left;
+    text-align: center;
+    line-height: 36px;
+
+    &:hover {
+      background-color: rgba(@primary-color, 0.8);
+    }
+
+    &:first-child {
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+  }
+}
+</style>

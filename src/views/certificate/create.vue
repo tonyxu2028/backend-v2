@@ -184,42 +184,52 @@
               <img ref="previewImage" class="image" :src="image" />
             </div>
             <template v-for="(item, index) in blocksData">
-              <div
+              <render-image-v1
                 :key="item.id"
-                class="item"
-                :class="{ active: curBlockIndex === index }"
-                @click="curBlockIndex = index"
-                :style="{
-                  top: item.config.y + 'px',
-                  left: item.config.x + 'px',
-                }"
-              >
-                <render-text-v1
-                  v-if="item.sign === 'text-v1'"
-                  :current="index"
-                  :config="item.config"
-                  @dragend="changePosition"
-                ></render-text-v1>
-                <render-image-v1
-                  v-if="item.sign === 'image-v1'"
-                  :current="index"
-                  :config="item.config"
-                  @dragend="changePosition"
-                ></render-image-v1>
-                <render-qrcode-v1
-                  v-if="item.sign === 'qrcode-v1'"
-                  :current="index"
-                  :config="item.config"
-                  :status="qrcodeStatus"
-                  @dragend="changePosition"
-                ></render-qrcode-v1>
+                v-if="item.sign === 'image-v1'"
+                :current="index"
+                :config="item.config"
+                :status="curBlockIndex"
+                @dragend="changeImagePosition"
+                @change="changeIndex"
+                @del="delBlockMethod"
+              ></render-image-v1>
+              <render-qrcode-v1
+                :key="item.id"
+                v-else-if="item.sign === 'qrcode-v1'"
+                :current="index"
+                :config="item.config"
+                :status="qrcodeStatus"
+                :curindex="curBlockIndex"
+                @dragend="changeImagePosition"
+                @change="changeIndex"
+                @del="delBlockMethod"
+              ></render-qrcode-v1>
+              <template v-else>
+                <div
+                  :key="item.id"
+                  class="item"
+                  :class="{ active: curBlockIndex === index }"
+                  @click="curBlockIndex = index"
+                  :style="{
+                    top: item.config.y + 'px',
+                    left: item.config.x + 'px',
+                  }"
+                >
+                  <render-text-v1
+                    v-if="item.sign === 'text-v1'"
+                    :current="index"
+                    :config="item.config"
+                    @dragend="changePosition"
+                  ></render-text-v1>
 
-                <div class="item-options" v-if="curBlockIndex === index">
-                  <div class="btn-item" @click="blockDestroy(index)">
-                    <i class="el-icon-delete-solid"></i>
+                  <div class="item-options" v-if="curBlockIndex === index">
+                    <div class="btn-item" @click="blockDestroy(index)">
+                      <i class="el-icon-delete-solid"></i>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </template>
             </template>
           </div>
         </draggable>
@@ -349,6 +359,12 @@ export default {
         }
       }
     },
+    changeIndex(index) {
+      this.curBlockIndex = index;
+    },
+    delBlockMethod(index) {
+      this.blockDestroy(index);
+    },
     getIndex(val) {
       this.rightIndex = val;
     },
@@ -363,7 +379,6 @@ export default {
       const moveY = this.endY - this.startY;
       this.dragX += moveX;
       this.dragY += moveY;
-      console.log(moveX, moveY);
     },
     changeSize(val) {
       if (!this.image) {
@@ -417,6 +432,28 @@ export default {
           this.confirm();
         }
       });
+    },
+    changeImagePosition(sign, index, moveX, moveY) {
+      let previewImage = this.$refs.previewImage;
+      for (let i = 0; i < this.blocksData.length; i++) {
+        if (this.blocksData[i].sign === sign && i === index) {
+          let mx = moveX;
+          let my = moveY;
+          let maxHeight;
+          let maxWidth;
+          maxHeight = previewImage.height - this.blocksData[i].config.height;
+          maxWidth = previewImage.width - this.blocksData[i].config.width;
+          if (my <= maxHeight && my >= 0 && mx <= maxWidth && mx >= 0) {
+            this.blocksData[i].config.x = mx;
+            this.blocksData[i].config.y = my;
+          }
+        }
+        console.log(
+          "图片坐标：",
+          this.blocksData[i].config.x,
+          this.blocksData[i].config.y
+        );
+      }
     },
     changePosition(sign, index, moveX, moveY) {
       let previewImage = this.$refs.previewImage;
