@@ -188,7 +188,7 @@
                 :current="index"
                 :config="item.config"
                 :status="curBlockIndex"
-                @dragend="changeImagePosition"
+                @dragend="changePosition"
                 @change="changeIndex"
                 @del="delBlockMethod"
               ></render-image-v1>
@@ -199,35 +199,21 @@
                 :config="item.config"
                 :status="qrcodeStatus"
                 :curindex="curBlockIndex"
-                @dragend="changeImagePosition"
+                @dragend="changePosition"
                 @change="changeIndex"
                 @del="delBlockMethod"
               ></render-qrcode-v1>
-              <template v-else>
-                <div
-                  :key="item.id"
-                  class="item"
-                  :class="{ active: curBlockIndex === index }"
-                  @click="curBlockIndex = index"
-                  :style="{
-                    top: item.config.y + 'px',
-                    left: item.config.x + 'px',
-                  }"
-                >
-                  <render-text-v1
-                    v-if="item.sign === 'text-v1'"
-                    :current="index"
-                    :config="item.config"
-                    @dragend="changePosition"
-                  ></render-text-v1>
-
-                  <div class="item-options" v-if="curBlockIndex === index">
-                    <div class="btn-item" @click="blockDestroy(index)">
-                      <i class="el-icon-delete-solid"></i>
-                    </div>
-                  </div>
-                </div>
-              </template>
+              <render-text-v1
+                :key="item.id"
+                v-else-if="item.sign === 'text-v1'"
+                :current="index"
+                :config="item.config"
+                :status="curBlockIndex"
+                :maxw="originalWidth"
+                @dragend="changePosition"
+                @change="changeIndex"
+                @del="delBlockMethod"
+              ></render-text-v1>
             </template>
           </div>
         </draggable>
@@ -420,34 +406,12 @@ export default {
         }
       });
     },
-    changeImagePosition(sign, index, moveX, moveY) {
+    changePosition(sign, index, moveX, moveY) {
       let previewImage = this.$refs.previewImage;
       for (let i = 0; i < this.blocksData.length; i++) {
         if (this.blocksData[i].sign === sign && i === index) {
           let mx = moveX;
           let my = moveY;
-          let maxHeight;
-          let maxWidth;
-          maxHeight = previewImage.height - this.blocksData[i].config.height;
-          maxWidth = previewImage.width - this.blocksData[i].config.width;
-          if (my <= maxHeight && my >= 0 && mx <= maxWidth && mx >= 0) {
-            this.blocksData[i].config.x = mx;
-            this.blocksData[i].config.y = my;
-          }
-        }
-        console.log(
-          "图片坐标：",
-          this.blocksData[i].config.x,
-          this.blocksData[i].config.y
-        );
-      }
-    },
-    changePosition(sign, index, moveX, moveY) {
-      let previewImage = this.$refs.previewImage;
-      for (let i = 0; i < this.blocksData.length; i++) {
-        if (this.blocksData[i].sign === sign && i === index) {
-          let mx = this.blocksData[i].config.x + moveX;
-          let my = this.blocksData[i].config.y + moveY;
           let maxHeight;
           let maxWidth;
           if (sign === "text-v1") {
@@ -460,11 +424,17 @@ export default {
             maxHeight = previewImage.height - this.blocksData[i].config.height;
             maxWidth = previewImage.width - this.blocksData[i].config.width;
           }
+
           if (my <= maxHeight && my >= 0 && mx <= maxWidth && mx >= 0) {
             this.blocksData[i].config.x = mx;
             this.blocksData[i].config.y = my;
           }
         }
+        console.log(
+          "图片坐标：",
+          this.blocksData[i].config.x,
+          this.blocksData[i].config.y
+        );
       }
     },
     close() {

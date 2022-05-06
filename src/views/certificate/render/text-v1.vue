@@ -1,55 +1,118 @@
 <template>
-  <draggable
-    class="text-v1-box"
-    ref="dragitem"
-    @start="start"
-    @end="end"
-    v-bind="dragOptions"
-  >
-    <div
-      :style="{
-        'font-size': config.size + 'px',
-        color: config.color,
-      }"
+  <div class="text-v1-box">
+    <vue-drag-resize
+      ref="dragitem"
+      w="auto"
+      h="auto"
+      :x="config.x"
+      :y="config.y"
+      :isResizable="false"
+      @dragging="onDrag"
     >
-      {{ config.text }}
-    </div>
-  </draggable>
+      <div
+        @click="change"
+        class="text"
+        :style="{
+          'font-size': config.size + 'px',
+          color: config.color,
+        }"
+      >
+        {{ config.text }}
+      </div>
+      <div
+        class="item-options"
+        :style="{
+          top: '-2px',
+          right: '-38px',
+        }"
+      >
+        <div
+          class="btn-item"
+          @click="blockDestroy()"
+          v-if="curBlockIndex === current"
+        >
+          <i class="el-icon-delete-solid"></i>
+        </div>
+      </div>
+    </vue-drag-resize>
+  </div>
 </template>
 <script>
-import draggable from "vuedraggable";
+import VueDragResize from "vue-drag-resize";
 export default {
   components: {
-    draggable,
+    VueDragResize,
   },
-  props: ["config", "current"],
+  props: ["config", "current", "status", "maxw"],
   data() {
     return {
-      startX: null,
-      startY: null,
-      endX: null,
-      endY: null,
-      dragOptions: {
-        animation: 500,
-      },
+      curBlockIndex: null,
     };
+  },
+  watch: {
+    status() {
+      this.curBlockIndex = this.status;
+    },
+    "config.text"() {
+      console.log(this.config.text.length);
+      console.log(this.config.size + 4);
+    },
   },
   mounted() {},
   methods: {
-    start(e) {
-      console.log(e);
-      this.startX = e.originalEvent.clientX;
-      this.startY = e.originalEvent.clientY;
+    change() {
+      this.$emit("change", this.current);
     },
-    end(e) {
-      this.endX = e.originalEvent.clientX;
-      this.endY = e.originalEvent.clientY;
-      const moveX = this.endX - this.startX;
-      const moveY = this.endY - this.startY;
-      console.log(moveX, moveY);
+    onDrag(e) {
+      const moveX = e.left;
+      const moveY = e.top;
       this.$emit("dragend", "text-v1", this.current, moveX, moveY);
+    },
+    blockDestroy() {
+      this.$emit("del", this.current);
     },
   },
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.text {
+  width: auto;
+  height: auto;
+  display: flex;
+  cursor: pointer;
+}
+.text-v1-box {
+  width: 100%;
+  height: 100%;
+}
+.item-options {
+  position: absolute;
+  width: auto;
+  height: 36px;
+  cursor: pointer;
+
+  .btn-item {
+    color: white;
+    background-color: @primary-color;
+    width: 36px;
+    height: 36px;
+    float: left;
+    text-align: center;
+    line-height: 36px;
+
+    &:hover {
+      background-color: rgba(@primary-color, 0.8);
+    }
+
+    &:first-child {
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+  }
+}
+</style>
