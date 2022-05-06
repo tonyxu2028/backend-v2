@@ -454,11 +454,11 @@ export default {
             this.blocksData[i].config.y = my;
           }
         }
-        console.log(
-          "图片坐标：",
-          this.blocksData[i].config.x,
-          this.blocksData[i].config.y
-        );
+        // console.log(
+        //   "图片坐标：",
+        //   this.blocksData[i].config.x,
+        //   this.blocksData[i].config.y
+        // );
       }
     },
     close() {
@@ -491,7 +491,7 @@ export default {
           });
         }
       }
-      console.log(params);
+      // console.log(params);
       this.course.params = JSON.stringify(params);
 
       // if (!this.isJSON(this.course.params)) {
