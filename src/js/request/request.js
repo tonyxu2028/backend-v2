@@ -1641,10 +1641,10 @@ const Api = {
         return get(`/backend/addons/Cert/cert/${id}/users`, params);
       },
       Import(id, params) {
-        return post(`/backend/addons/Cert/cert/${id}/users/import`, params);
+        return post(`/backend/addons/Cert/cert/${id}/user/import`, params);
       },
       Delete(id, params) {
-        return post(`/backend/addons/Cert/cert/${id}/users/destroy`, params);
+        return post(`/backend/addons/Cert/cert/${id}/user/destroy`, params);
       },
     },
   },

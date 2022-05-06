@@ -1,19 +1,27 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="证书学员"></back-bar>
+    <back-bar class="mb-30" title="证书授予学员"></back-bar>
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
-        <el-button @click="showUserAddWin = true" type="primary"
-          >添加学员</el-button
-        >
+        <!--<p-button
+          text="添加学员"
+          p="addons.cert.user.import"
+          @click="showUserAddWin = true"
+          type="primary"
+        ></p-button>-->
         <p-button
           text="批量导入"
-          p="addons.Zhibo.course.user.import"
+          p="addons.cert.user.import"
           type="primary"
           @click="importDialog = true"
         >
         </p-button>
-        <el-button type="danger" @click="delUser">删除学员</el-button>
+        <p-button
+          text="删除学员"
+          p="addons.cert.user.destroy"
+          type="danger"
+          @click="delUser"
+        ></p-button>
       </div>
       <div class="d-flex">
         <div>
@@ -26,7 +34,7 @@
         <div class="ml-10">
           <el-button @click="paginationReset">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary">筛选</el-button>
-          <el-button @click="importexcel" type="primary">导出表格</el-button>
+          <!--<el-button @click="importexcel" type="primary">导出表格</el-button>-->
         </div>
       </div>
     </div>
@@ -51,13 +59,12 @@
             <span class="c-red" v-else>学员不存在</span>
           </template>
         </el-table-column>
-        <el-table-column label="价格" width="200">
+        <el-table-column label="证书编号" width="400">
           <template slot-scope="scope">
-            <span v-if="scope.row.charge == 0">-</span>
-            <span v-else>￥{{ scope.row.charge }}</span>
+            <span>{{ scope.row.cert_no }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="订阅时间" width="200">
+        <el-table-column label="时间" width="200">
           <template slot-scope="scope">{{
             scope.row.created_at | dateFormat
           }}</template>
@@ -86,7 +93,7 @@
     <user-import-comp
       :show="importDialog"
       :id="pagination.id"
-      type="live"
+      type="cert"
       @close="importDialog = false"
       @change="getData"
     ></user-import-comp>
@@ -187,11 +194,11 @@ export default {
         .then(() => {
           let ids = [];
           this.selectedRows.forEach((item) => {
-            ids.push(item.id);
+            ids.push(item.user_id);
           });
 
           this.$api.Certificate.User.Delete(this.pagination.id, {
-            ids: ids,
+            user_ids: ids,
           })
             .then(() => {
               this.$message.success(this.$t("common.success"));
@@ -210,7 +217,7 @@ export default {
       });
 
       this.$api.Certificate.User.Import(this.pagination.id, {
-        ids: ids,
+        user_ids: ids,
       })
         .then(() => {
           this.$message.success(this.$t("common.success"));
