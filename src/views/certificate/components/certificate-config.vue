@@ -98,11 +98,6 @@
             </div>
           </div>
         </div>
-        <div class="config-item-body">
-          <div class="float-left d-flex">
-            <el-button @click="createQrcode">生成对应比例的二维码</el-button>
-          </div>
-        </div>
       </div>
     </div>
     <select-image

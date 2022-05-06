@@ -6,6 +6,7 @@
       :h="config.height"
       :x="config.x"
       :y="config.y"
+      :isResizable="true"
       @resizing="onResize"
       @dragging="onDrag"
     >

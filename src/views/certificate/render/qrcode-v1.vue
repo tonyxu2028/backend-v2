@@ -6,6 +6,7 @@
       :h="config.height"
       :x="config.x"
       :y="config.y"
+      :isResizable="true"
       @resizing="onResize"
       @dragging="onDrag"
     >
@@ -59,6 +60,11 @@ export default {
     curindex() {
       this.curBlockIndex = this.curindex;
     },
+    "config.text"() {
+      this.$nextTick(() => {
+        this.getData();
+      });
+    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -84,6 +90,9 @@ export default {
     onResize(e) {
       this.config.width = e.width;
       this.config.height = e.height;
+      this.$nextTick(() => {
+        this.getData();
+      });
     },
     onDrag(e) {
       const moveX = e.left;
