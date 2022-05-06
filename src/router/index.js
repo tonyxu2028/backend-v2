@@ -482,12 +482,12 @@ const routes = [
     },
   },
   {
-    path: "/certificate/certificate-decoration",
-    component: () => import("@/views/certificate/certificate-decoration"),
-    name: "CertificateDecoration",
+    path: "/certificate/users",
+    component: () => import("@/views/certificate/users"),
+    name: "CertificateUsers",
     meta: {
-      title: "title.certificate.decoratio",
-      pure: true,
+      title: "title.certificate.users",
+      keepAlive: true,
     },
   },
   {

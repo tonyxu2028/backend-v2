@@ -218,6 +218,6 @@ export default {
     Certificate: "Certificate",
     CertificateCreate: "Certificate",
     CertificateUpdate: "Certificate",
-    CertificateDecoration: "Certificate",
+    CertificateUsers: "Certificate",
   },
 };
