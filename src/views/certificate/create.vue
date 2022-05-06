@@ -156,17 +156,15 @@
           />
         </div>
       </div>
-      <draggable
+      <vue-drag-resize
         class="certificate-preview-box"
-        :style="{
-          width: originalWidth + 'px',
-          height: originalHeight + 'px',
-          transform: 'translate(' + dragX + 'px, ' + dragY + 'px)',
-        }"
+        :w="originalWidth"
+        :h="originalHeight"
+        :x="dragX"
+        :y="dragY"
         ref="dragBox"
-        @start="start"
-        @end="end"
-        v-bind="dragOptions"
+        @dragging="onDrag"
+        :isResizable="false"
       >
         <draggable
           ref="preview-box"
@@ -233,7 +231,7 @@
             </template>
           </div>
         </draggable>
-      </draggable>
+      </vue-drag-resize>
       <div
         class="certificate-config-box"
         :class="{
@@ -271,6 +269,7 @@
 <script>
 import demoImg from "@/assets/home/demo.png";
 import UploadImage from "@/components/upload-image";
+import VueDragResize from "vue-drag-resize";
 import draggable from "vuedraggable";
 import ConfigSetting from "./components/certificate-config.vue";
 import RenderTextV1 from "./render/text-v1.vue";
@@ -278,6 +277,7 @@ import RenderImageV1 from "./render/image-v1.vue";
 import RenderQrcodeV1 from "./render/qrcode-v1.vue";
 export default {
   components: {
+    VueDragResize,
     draggable,
     ConfigSetting,
     RenderTextV1,
@@ -323,12 +323,7 @@ export default {
       leftArrrow: false,
       size: 0.5,
       dragX: 0,
-      dragY: 0,
-      startX: null,
-      startY: null,
-      dragOptions: {
-        animation: 500,
-      },
+      dragY: 106,
       rightIndex: null,
     };
   },
@@ -368,17 +363,9 @@ export default {
     getIndex(val) {
       this.rightIndex = val;
     },
-    start(e) {
-      this.startX = e.originalEvent.clientX;
-      this.startY = e.originalEvent.clientY;
-    },
-    end(e) {
-      this.endX = e.originalEvent.clientX;
-      this.endY = e.originalEvent.clientY;
-      const moveX = this.endX - this.startX;
-      const moveY = this.endY - this.startY;
-      this.dragX += moveX;
-      this.dragY += moveY;
+    onDrag(e) {
+      this.dragX = e.left;
+      this.dragY = e.top;
     },
     changeSize(val) {
       if (!this.image) {
