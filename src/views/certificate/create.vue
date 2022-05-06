@@ -324,8 +324,32 @@ export default {
       }
     },
   },
-  mounted() {},
+  mounted() {
+    window.addEventListener("mousewheel", this.handleScroll, {
+      passive: false,
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener("mousewheel", this.handleScroll, {
+      passive: false,
+    });
+  },
   methods: {
+    handleScroll(e) {
+      // 判断是不是按下ctrl键
+      if (e.ctrlKey) {
+        // 取消浏览器默认的放大缩小网页行为
+        e.preventDefault();
+        // 判断是向上滚动还是向下滚动
+        if (e.deltaY > 0) {
+          // 放大重写，业务代码
+          this.changeSize(0);
+        } else {
+          // 缩小重写，业务代码
+          this.changeSize(-1);
+        }
+      }
+    },
     isJSON(str) {
       if (typeof str == "string") {
         try {
