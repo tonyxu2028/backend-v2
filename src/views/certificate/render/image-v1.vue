@@ -42,7 +42,7 @@ export default {
   components: {
     VueDragResize,
   },
-  props: ["config", "current", "status"],
+  props: ["config", "current", "status", "size"],
   data() {
     return {
       curBlockIndex: null,
