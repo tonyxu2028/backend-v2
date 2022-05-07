@@ -242,7 +242,7 @@
         ></config-setting>
       </div>
       <div class="bottom-menus">
-        <div class="bottom-menus-box" style="left: 400px; z-index: 50">
+        <div class="bottom-menus-box" style="left: 0; z-index: 12000">
           <div>
             <el-button @click="formValidate" :loading="loading" type="primary"
               >确定</el-button
