@@ -56,6 +56,7 @@
 
               <el-form-item prop="template_image" label="证书背景">
                 <upload-image
+                  :height="280"
                   v-model="course.template_image"
                   :name="uploadName"
                 ></upload-image>

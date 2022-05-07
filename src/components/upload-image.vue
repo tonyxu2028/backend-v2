@@ -34,6 +34,15 @@
           }"
         ></div>
       </template>
+      <template v-else-if="name">
+        <img
+          :style="{
+            width: 'auto',
+            'max-height': height + 'px',
+          }"
+          :src="value"
+        />
+      </template>
       <template v-else>
         <img :src="value" />
       </template>
