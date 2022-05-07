@@ -782,7 +782,10 @@ export default {
     right: 430px;
   }
   .tab_narrow {
-    display: inline-block;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
   }
   .choose_size {
     display: inline-block;
@@ -792,7 +795,10 @@ export default {
     line-height: 20px;
   }
   .tab_enlarge {
-    display: inline-block;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
   }
 }
 .certificate-preview-box {
