@@ -339,6 +339,17 @@ export default {
   },
   methods: {
     handleScroll(e) {
+      if (e.deltaY > 0) {
+        if (!this.image) {
+          return;
+        }
+        this.dragY += 50;
+      } else {
+        if (!this.image) {
+          return;
+        }
+        this.dragY -= 50;
+      }
       // 判断是不是按下ctrl键
       if (e.ctrlKey) {
         // 取消浏览器默认的放大缩小网页行为
