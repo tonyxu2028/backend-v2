@@ -158,8 +158,8 @@
       </div>
       <vue-drag-resize
         class="certificate-preview-box"
-        :w="originalWidth"
-        :h="originalHeight"
+        w="auto"
+        h="auto"
         :x="dragX"
         :y="dragY"
         ref="dragBox"
@@ -759,6 +759,7 @@ export default {
   z-index: 0;
   box-shadow: none;
   .preview-box {
+    overflow: hidden;
   }
   .image-box {
     width: 100%;
