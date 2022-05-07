@@ -245,7 +245,7 @@
         <div class="bottom-menus-box" style="left: 0; z-index: 1000">
           <div>
             <el-button @click="formValidate" :loading="loading" type="primary"
-              >确定</el-button
+              >保存</el-button
             >
           </div>
           <div class="ml-24">
