@@ -1,41 +1,40 @@
 <template>
-  <div class="text-v1-box">
-    <vue-drag-resize
-      ref="dragitem"
-      w="auto"
-      h="auto"
-      :x="x"
-      :y="y"
-      :isResizable="false"
-      @dragging="onDrag"
+  <vue-drag-resize
+    ref="dragitem"
+    w="auto"
+    h="auto"
+    :x="x"
+    :y="y"
+    :isResizable="false"
+    @dragging="onDrag"
+    :parentLimitation="true"
+  >
+    <div
+      @click="change"
+      class="text"
+      :style="{
+        'font-size': size * config.size + 'px',
+        color: config.color,
+      }"
+    >
+      {{ config.text }}
+    </div>
+    <div
+      class="item-options"
+      :style="{
+        top: '-2px',
+        right: '-38px',
+      }"
     >
       <div
-        @click="change"
-        class="text"
-        :style="{
-          'font-size': size * config.size + 'px',
-          color: config.color,
-        }"
+        class="btn-item"
+        @click="blockDestroy()"
+        v-if="curBlockIndex === current"
       >
-        {{ config.text }}
+        <i class="el-icon-delete-solid"></i>
       </div>
-      <div
-        class="item-options"
-        :style="{
-          top: '-2px',
-          right: '-38px',
-        }"
-      >
-        <div
-          class="btn-item"
-          @click="blockDestroy()"
-          v-if="curBlockIndex === current"
-        >
-          <i class="el-icon-delete-solid"></i>
-        </div>
-      </div>
-    </vue-drag-resize>
-  </div>
+    </div>
+  </vue-drag-resize>
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";

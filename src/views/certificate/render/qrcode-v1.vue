@@ -1,42 +1,41 @@
 <template>
-  <div class="qrcode-v1-box">
-    <vue-drag-resize
-      ref="dragitem"
-      :w="width"
-      :h="height"
-      :x="x"
-      :y="y"
-      :isResizable="true"
-      @resizing="onResize"
-      @dragging="onDrag"
+  <vue-drag-resize
+    ref="dragitem"
+    :w="width"
+    :h="height"
+    :x="x"
+    :y="y"
+    :isResizable="true"
+    @resizing="onResize"
+    @dragging="onDrag"
+    :parentLimitation="true"
+  >
+    <div
+      class="item"
+      @click="change"
+      :style="{
+        width: '100%',
+        height: '100%',
+      }"
+    >
+      <div ref="qrcode"></div>
+    </div>
+    <div
+      class="item-options"
+      :style="{
+        top: '0px',
+        left: width + 'px',
+      }"
     >
       <div
-        class="item"
-        @click="change"
-        :style="{
-          width: '100%',
-          height: '100%',
-        }"
+        class="btn-item"
+        @click="blockDestroy()"
+        v-if="curBlockIndex === current"
       >
-        <div ref="qrcode"></div>
+        <i class="el-icon-delete-solid"></i>
       </div>
-      <div
-        class="item-options"
-        :style="{
-          top: '0px',
-          left: width + 'px',
-        }"
-      >
-        <div
-          class="btn-item"
-          @click="blockDestroy()"
-          v-if="curBlockIndex === current"
-        >
-          <i class="el-icon-delete-solid"></i>
-        </div>
-      </div>
-    </vue-drag-resize>
-  </div>
+    </div>
+  </vue-drag-resize>
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";

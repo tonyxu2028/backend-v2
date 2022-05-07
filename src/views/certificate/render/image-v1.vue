@@ -1,40 +1,39 @@
 <template>
-  <div class="image-v1-box">
-    <vue-drag-resize
-      ref="dragitem"
-      :w="width"
-      :h="height"
-      :x="x"
-      :y="y"
-      :isResizable="true"
-      @resizing="onResize"
-      @dragging="onDrag"
+  <vue-drag-resize
+    ref="dragitem"
+    :w="width"
+    :h="height"
+    :x="x"
+    :y="y"
+    :isResizable="true"
+    @resizing="onResize"
+    @dragging="onDrag"
+    :parentLimitation="true"
+  >
+    <img
+      @click="change"
+      :style="{
+        width: '100%',
+        height: '100%',
+      }"
+      :src="config.url"
+    />
+    <div
+      class="item-options"
+      :style="{
+        top: '0px',
+        left: width + 'px',
+      }"
     >
-      <img
-        @click="change"
-        :style="{
-          width: '100%',
-          height: '100%',
-        }"
-        :src="config.url"
-      />
       <div
-        class="item-options"
-        :style="{
-          top: '0px',
-          left: width + 'px',
-        }"
+        class="btn-item"
+        @click="blockDestroy()"
+        v-if="curBlockIndex === current"
       >
-        <div
-          class="btn-item"
-          @click="blockDestroy()"
-          v-if="curBlockIndex === current"
-        >
-          <i class="el-icon-delete-solid"></i>
-        </div>
+        <i class="el-icon-delete-solid"></i>
       </div>
-    </vue-drag-resize>
-  </div>
+    </div>
+  </vue-drag-resize>
 </template>
 <script>
 import VueDragResize from "vue-drag-resize";

@@ -178,10 +178,15 @@
           group="blocks"
           @add="dragChange"
         >
-          <div class="image-box">
-            <div class="image-render">
-              <img ref="previewImage" class="image" :src="image" />
-            </div>
+          <div
+            class="image-box"
+            :style="{
+              'background-image': 'url(' + image + ')',
+              'background-position': 'center center',
+              'background-size': 'cover',
+              'background-repeat': 'no-repeat',
+            }"
+          >
             <template v-for="(item, index) in blocksData">
               <render-image-v1
                 :key="item.id"
@@ -482,7 +487,6 @@ export default {
       });
     },
     changePosition(sign, index, moveX, moveY) {
-      let previewImage = this.$refs.previewImage;
       for (let i = 0; i < this.blocksData.length; i++) {
         if (this.blocksData[i].sign === sign && i === index) {
           let mx = moveX;
