@@ -2,10 +2,10 @@
   <div class="image-v1-box">
     <vue-drag-resize
       ref="dragitem"
-      :w="config.width"
-      :h="config.height"
-      :x="config.x"
-      :y="config.y"
+      :w="size * config.width"
+      :h="size * config.height"
+      :x="size * config.x"
+      :y="size * config.y"
       :isResizable="true"
       @resizing="onResize"
       @dragging="onDrag"
@@ -13,8 +13,8 @@
       <img
         @click="change"
         :style="{
-          width: config.width + 'px',
-          height: config.height + 'px',
+          width: size * config.width + 'px',
+          height: size * config.height + 'px',
         }"
         :src="config.url"
       />
@@ -22,7 +22,7 @@
         class="item-options"
         :style="{
           top: '0px',
-          left: config.width + 'px',
+          left: size * config.width + 'px',
         }"
       >
         <div

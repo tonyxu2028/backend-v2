@@ -2,10 +2,10 @@
   <div class="qrcode-v1-box">
     <vue-drag-resize
       ref="dragitem"
-      :w="config.width"
-      :h="config.height"
-      :x="config.x"
-      :y="config.y"
+      :w="size * config.width"
+      :h="size * config.height"
+      :x="size * config.x"
+      :y="size * config.y"
       :isResizable="true"
       @resizing="onResize"
       @dragging="onDrag"
@@ -14,8 +14,8 @@
         class="item"
         @click="change"
         :style="{
-          width: config.width + 'px',
-          height: config.height + 'px',
+          width: size * config.width + 'px',
+          height: size * config.height + 'px',
         }"
       >
         <div ref="qrcode"></div>
@@ -24,7 +24,7 @@
         class="item-options"
         :style="{
           top: '0px',
-          left: config.width + 'px',
+          left: size * config.width + 'px',
         }"
       >
         <div
@@ -76,8 +76,8 @@ export default {
       this.$refs.qrcode.innerHTML = "";
       let link = this.config.text;
       var qrcode = new QRCode(this.$refs.qrcode, {
-        width: this.config.width,
-        height: this.config.height,
+        width: this.size * this.config.width,
+        height: this.size * this.config.height,
         text: link, //表示内容，可以是地址或者是文字'55566'或者参数
         colorDark: "#000000", //前景色
         colorLight: "#ffffff", //背景色

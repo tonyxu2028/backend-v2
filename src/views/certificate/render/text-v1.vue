@@ -4,8 +4,8 @@
       ref="dragitem"
       w="auto"
       h="auto"
-      :x="config.x"
-      :y="config.y"
+      :x="size * config.x"
+      :y="size * config.y"
       :isResizable="false"
       @dragging="onDrag"
     >
@@ -13,7 +13,7 @@
         @click="change"
         class="text"
         :style="{
-          'font-size': config.size + 'px',
+          'font-size': size * config.size + 'px',
           color: config.color,
         }"
       >
@@ -52,10 +52,6 @@ export default {
   watch: {
     status() {
       this.curBlockIndex = this.status;
-    },
-    "config.text"() {
-      console.log(this.config.text.length);
-      console.log(this.config.size + 4);
     },
   },
   mounted() {},

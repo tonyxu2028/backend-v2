@@ -184,7 +184,7 @@
             <template v-for="(item, index) in blocksData">
               <render-image-v1
                 :key="item.id"
-                v-if="item.sign === 'image-v1'"
+                v-if="item.sign === 'image-v1' && fresh"
                 :current="index"
                 :config="item.config"
                 :status="curBlockIndex"
@@ -195,7 +195,7 @@
               ></render-image-v1>
               <render-qrcode-v1
                 :key="item.id"
-                v-else-if="item.sign === 'qrcode-v1'"
+                v-else-if="item.sign === 'qrcode-v1' && fresh"
                 :current="index"
                 :config="item.config"
                 :status="qrcodeStatus"
@@ -207,7 +207,7 @@
               ></render-qrcode-v1>
               <render-text-v1
                 :key="item.id"
-                v-else-if="item.sign === 'text-v1'"
+                v-else-if="item.sign === 'text-v1' && fresh"
                 :current="index"
                 :config="item.config"
                 :status="curBlockIndex"
@@ -293,6 +293,7 @@ export default {
         template_image: null,
         params: null,
       },
+      fresh: true,
       rules: {
         name: [
           {
@@ -326,6 +327,12 @@ export default {
       } else {
         this.uploadName = "上传背景";
       }
+    },
+    size() {
+      this.fresh = false;
+      this.$nextTick(() => {
+        this.fresh = true;
+      });
     },
   },
   mounted() {
@@ -373,12 +380,12 @@ export default {
         if (!this.image) {
           return;
         }
-        this.dragY -= 50;
+        this.dragY -= 40;
       } else {
         if (!this.image) {
           return;
         }
-        this.dragY += 50;
+        this.dragY += 40;
       }
       // 判断是不是按下ctrl键
       if (e.ctrlKey) {
