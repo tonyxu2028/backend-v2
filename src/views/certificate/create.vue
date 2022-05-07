@@ -331,6 +331,7 @@ export default {
     window.addEventListener("mousewheel", this.handleScroll, {
       passive: false,
     });
+    this.keyDown();
   },
   beforeDestroy() {
     window.removeEventListener("mousewheel", this.handleScroll, {
@@ -338,6 +339,35 @@ export default {
     });
   },
   methods: {
+    keyDown() {
+      document.onkeydown = (e) => {
+        let e1 =
+          e || event || window.event || arguments.callee.caller.arguments[0];
+        //键盘按键判断:左箭头-37;上箭头-38；右箭头-39;下箭头-40
+
+        if (e1 && e1.keyCode == 37) {
+          if (!this.image) {
+            return;
+          }
+          this.dragX -= 50;
+        } else if (e1 && e1.keyCode == 39) {
+          if (!this.image) {
+            return;
+          }
+          this.dragX += 50;
+        } else if (e1 && e1.keyCode == 38) {
+          if (!this.image) {
+            return;
+          }
+          this.dragY -= 50;
+        } else if (e1 && e1.keyCode == 40) {
+          if (!this.image) {
+            return;
+          }
+          this.dragY += 50;
+        }
+      };
+    },
     handleScroll(e) {
       if (e.deltaY > 0) {
         if (!this.image) {

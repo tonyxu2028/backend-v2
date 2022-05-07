@@ -330,6 +330,7 @@ export default {
   },
   mounted() {
     this.getDetail();
+    this.keyDown();
     window.addEventListener("mousewheel", this.handleScroll, {
       passive: false,
     });
@@ -340,6 +341,33 @@ export default {
     });
   },
   methods: {
+    keyDown() {
+      document.onkeydown = (e) => {
+        let e1 =
+          e || event || window.event || arguments.callee.caller.arguments[0];
+        if (e1 && e1.keyCode == 37) {
+          if (!this.image) {
+            return;
+          }
+          this.dragX -= 50;
+        } else if (e1 && e1.keyCode == 39) {
+          if (!this.image) {
+            return;
+          }
+          this.dragX += 50;
+        } else if (e1 && e1.keyCode == 38) {
+          if (!this.image) {
+            return;
+          }
+          this.dragY -= 50;
+        } else if (e1 && e1.keyCode == 40) {
+          if (!this.image) {
+            return;
+          }
+          this.dragY += 50;
+        }
+      };
+    },
     handleScroll(e) {
       if (e.deltaY > 0) {
         if (!this.image) {
