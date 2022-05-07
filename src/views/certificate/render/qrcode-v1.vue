@@ -2,10 +2,10 @@
   <div class="qrcode-v1-box">
     <vue-drag-resize
       ref="dragitem"
-      :w="size * config.width"
-      :h="size * config.height"
-      :x="size * config.x"
-      :y="size * config.y"
+      :w="width"
+      :h="height"
+      :x="x"
+      :y="y"
       :isResizable="true"
       @resizing="onResize"
       @dragging="onDrag"
@@ -14,8 +14,8 @@
         class="item"
         @click="change"
         :style="{
-          width: size * config.width + 'px',
-          height: size * config.height + 'px',
+          width: '100%',
+          height: '100%',
         }"
       >
         <div ref="qrcode"></div>
@@ -24,7 +24,7 @@
         class="item-options"
         :style="{
           top: '0px',
-          left: size * config.width + 'px',
+          left: width + 'px',
         }"
       >
         <div
@@ -66,6 +66,20 @@ export default {
       });
     },
   },
+  computed: {
+    width() {
+      return this.size * this.config.width;
+    },
+    height() {
+      return this.size * this.config.height;
+    },
+    x() {
+      return this.size * this.config.x;
+    },
+    y() {
+      return this.size * this.config.y;
+    },
+  },
   mounted() {
     this.$nextTick(() => {
       this.getData();
@@ -76,8 +90,8 @@ export default {
       this.$refs.qrcode.innerHTML = "";
       let link = this.config.text;
       var qrcode = new QRCode(this.$refs.qrcode, {
-        width: this.size * this.config.width,
-        height: this.size * this.config.height,
+        width: this.width,
+        height: this.height,
         text: link, //表示内容，可以是地址或者是文字'55566'或者参数
         colorDark: "#000000", //前景色
         colorLight: "#ffffff", //背景色
@@ -88,15 +102,15 @@ export default {
       this.$emit("change", this.current);
     },
     onResize(e) {
-      this.config.width = e.width;
-      this.config.height = e.height;
+      this.config.width = e.width / this.size;
+      this.config.height = e.height / this.size;
       this.$nextTick(() => {
         this.getData();
       });
     },
     onDrag(e) {
-      const moveX = e.left;
-      const moveY = e.top;
+      const moveX = e.left / this.size;
+      const moveY = e.top / this.size;
       this.$emit("dragend", "qrcode-v1", this.current, moveX, moveY);
     },
     blockDestroy() {

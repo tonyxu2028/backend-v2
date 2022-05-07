@@ -4,8 +4,8 @@
       ref="dragitem"
       w="auto"
       h="auto"
-      :x="size * config.x"
-      :y="size * config.y"
+      :x="x"
+      :y="y"
       :isResizable="false"
       @dragging="onDrag"
     >
@@ -54,14 +54,22 @@ export default {
       this.curBlockIndex = this.status;
     },
   },
+  computed: {
+    x() {
+      return this.size * this.config.x;
+    },
+    y() {
+      return this.size * this.config.y;
+    },
+  },
   mounted() {},
   methods: {
     change() {
       this.$emit("change", this.current);
     },
     onDrag(e) {
-      const moveX = e.left;
-      const moveY = e.top;
+      const moveX = e.left / this.size;
+      const moveY = e.top / this.size;
       this.$emit("dragend", "text-v1", this.current, moveX, moveY);
     },
     blockDestroy() {

@@ -2,10 +2,10 @@
   <div class="image-v1-box">
     <vue-drag-resize
       ref="dragitem"
-      :w="size * config.width"
-      :h="size * config.height"
-      :x="size * config.x"
-      :y="size * config.y"
+      :w="width"
+      :h="height"
+      :x="x"
+      :y="y"
       :isResizable="true"
       @resizing="onResize"
       @dragging="onDrag"
@@ -13,8 +13,8 @@
       <img
         @click="change"
         :style="{
-          width: size * config.width + 'px',
-          height: size * config.height + 'px',
+          width: '100%',
+          height: '100%',
         }"
         :src="config.url"
       />
@@ -22,7 +22,7 @@
         class="item-options"
         :style="{
           top: '0px',
-          left: size * config.width + 'px',
+          left: width + 'px',
         }"
       >
         <div
@@ -49,6 +49,20 @@ export default {
     };
   },
   mounted() {},
+  computed: {
+    width() {
+      return this.size * this.config.width;
+    },
+    height() {
+      return this.size * this.config.height;
+    },
+    x() {
+      return this.size * this.config.x;
+    },
+    y() {
+      return this.size * this.config.y;
+    },
+  },
   watch: {
     status() {
       this.curBlockIndex = this.status;
@@ -59,12 +73,12 @@ export default {
       this.$emit("change", this.current);
     },
     onResize(e) {
-      this.config.width = e.width;
-      this.config.height = e.height;
+      this.config.width = e.width / this.size;
+      this.config.height = e.height / this.size;
     },
     onDrag(e) {
-      const moveX = e.left;
-      const moveY = e.top;
+      const moveX = e.left / this.size;
+      const moveY = e.top / this.size;
       this.$emit("dragend", "image-v1", this.current, moveX, moveY);
     },
     blockDestroy() {

@@ -489,28 +489,17 @@ export default {
           let my = moveY;
           let maxHeight;
           let maxWidth;
-          if (sign === "text-v1") {
-            maxHeight = previewImage.height - this.blocksData[i].config.size;
-            maxWidth =
-              previewImage.width -
-              this.blocksData[i].config.size *
-                this.blocksData[i].config.text.length;
-          } else {
-            maxHeight = previewImage.height - this.blocksData[i].config.height;
-            maxWidth = previewImage.width - this.blocksData[i].config.width;
-          }
-
-          if (my <= maxHeight && my >= 0 && mx <= maxWidth && mx >= 0) {
+          if (my >= 0 && mx >= 0) {
             this.blocksData[i].config.x = mx;
             this.blocksData[i].config.y = my;
           }
         }
-        // console.log(
-        //   "图片坐标：",
-        //   this.blocksData[i].config.x,
-        //   this.blocksData[i].config.y
-        // );
       }
+      // console.log(
+      //   "图片坐标：",
+      //   this.blocksData[i].config.x,
+      //   this.blocksData[i].config.y
+      // );
     },
     close() {
       this.$emit("close");
