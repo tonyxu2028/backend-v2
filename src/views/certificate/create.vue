@@ -242,7 +242,7 @@
         ></config-setting>
       </div>
       <div class="bottom-menus">
-        <div class="bottom-menus-box" style="left: 0; z-index: 12000">
+        <div class="bottom-menus-box" style="left: 0; z-index: 1000">
           <div>
             <el-button @click="formValidate" :loading="loading" type="primary"
               >确定</el-button
@@ -689,7 +689,7 @@ export default {
 }
 
 .certificate-blocks-box {
-  height: calc(100vh - 57px);
+  height: calc(100vh - 138px);
   position: absolute;
   top: 57px;
   /* left: 70px; */
@@ -698,7 +698,6 @@ export default {
   /* will-change: contents; */
   transition: left ease 0.5s;
   width: 400px;
-  height: 100%;
   background-color: white;
   box-sizing: border-box;
   padding: 30px;
