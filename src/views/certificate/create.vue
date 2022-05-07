@@ -343,12 +343,12 @@ export default {
         if (!this.image) {
           return;
         }
-        this.dragY += 50;
+        this.dragY -= 50;
       } else {
         if (!this.image) {
           return;
         }
-        this.dragY -= 50;
+        this.dragY += 50;
       }
       // 判断是不是按下ctrl键
       if (e.ctrlKey) {
