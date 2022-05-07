@@ -69,6 +69,13 @@
             scope.row.created_at | dateFormat
           }}</template>
         </el-table-column>
+        <el-table-column fixed="right" label="操作" width="80">
+          <template slot-scope="scope">
+            <el-link type="primary" @click="download(scope.row.user_id)"
+              >下载</el-link
+            >
+          </template>
+        </el-table-column>
       </el-table>
 
       <div class="float-left mt-30 text-center">
@@ -101,6 +108,7 @@
 </template>
 
 <script>
+import config from "@/js/config";
 import moment from "moment";
 import UserAddComp from "@/components/user-add";
 import UserImportComp from "@/components/user-import";
@@ -163,6 +171,17 @@ export default {
     },
     handleSelectionChange(rows) {
       this.selectedRows = rows;
+    },
+    download(uid) {
+      window.open(
+        config.url +
+          "/backend/addons/Cert/cert/" +
+          this.$route.query.id +
+          "/user/" +
+          uid +
+          "/download?token=" +
+          this.$utils.getToken()
+      );
     },
     getData() {
       if (this.loading) {
