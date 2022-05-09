@@ -116,6 +116,7 @@
                 class="w-100"
                 type="number"
                 v-model="block.config.width"
+                disabled
               ></el-input>
             </div>
           </div>
@@ -127,6 +128,7 @@
               <el-input
                 class="w-100"
                 type="number"
+                disabled
                 v-model="block.config.height"
               ></el-input>
             </div>
@@ -154,6 +156,7 @@
               <el-input
                 class="w-100"
                 type="number"
+                disabled
                 v-model="block.config.width"
               ></el-input>
             </div>
@@ -166,6 +169,7 @@
               <el-input
                 class="w-100"
                 type="number"
+                disabled
                 v-model="block.config.height"
               ></el-input>
             </div>

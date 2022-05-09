@@ -53,6 +53,9 @@ export default {
     status() {
       this.curBlockIndex = this.status;
     },
+    "config.text"() {
+      this.$emit("fresh", true);
+    },
   },
   computed: {
     x() {

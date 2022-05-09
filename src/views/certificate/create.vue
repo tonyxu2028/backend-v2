@@ -227,6 +227,7 @@
                 @dragend="changePosition"
                 @change="changeIndex"
                 @del="delBlockMethod"
+                @fresh="freshing"
               ></render-text-v1>
             </template>
           </div>
@@ -357,6 +358,12 @@ export default {
     });
   },
   methods: {
+    freshing() {
+      this.fresh = false;
+      this.$nextTick(() => {
+        this.fresh = true;
+      });
+    },
     keyDown() {
       document.onkeydown = (e) => {
         let e1 =
