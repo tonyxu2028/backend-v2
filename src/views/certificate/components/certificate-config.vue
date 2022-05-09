@@ -110,6 +110,30 @@
       <div class="config-item" v-if="block.config">
         <div class="config-item-body">
           <div class="float-left d-flex">
+            <div class="form-label">宽度</div>
+            <div class="flex-1 ml-15">
+              <el-input
+                class="w-100"
+                type="number"
+                v-model="block.config.width"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
+          <div class="float-left d-flex">
+            <div class="form-label">高度</div>
+            <div class="flex-1 ml-15">
+              <el-input
+                class="w-100"
+                type="number"
+                v-model="block.config.height"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
+          <div class="float-left d-flex">
             <el-button @click="showUploadImage = true">上传图片</el-button>
           </div>
           <div class="float-left d-flex w-100 mt-15">
@@ -123,6 +147,30 @@
         <div class="text">二维码</div>
       </div>
       <div class="config-item" v-if="block.config">
+        <div class="config-item-body">
+          <div class="float-left d-flex">
+            <div class="form-label">宽度</div>
+            <div class="flex-1 ml-15">
+              <el-input
+                class="w-100"
+                type="number"
+                v-model="block.config.width"
+              ></el-input>
+            </div>
+          </div>
+        </div>
+        <div class="config-item-body">
+          <div class="float-left d-flex">
+            <div class="form-label">高度</div>
+            <div class="flex-1 ml-15">
+              <el-input
+                class="w-100"
+                type="number"
+                v-model="block.config.height"
+              ></el-input>
+            </div>
+          </div>
+        </div>
         <div class="config-item-body">
           <div class="float-left d-flex">
             <div class="form-label">内容</div>
