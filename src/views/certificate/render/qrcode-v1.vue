@@ -9,6 +9,7 @@
     @resizing="onResize"
     @dragging="onDrag"
     :parentLimitation="true"
+    :isActive="curBlockIndex === current"
   >
     <div
       class="item"
