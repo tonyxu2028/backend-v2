@@ -2,7 +2,6 @@
   <vue-drag-resize
     @clicked="change"
     ref="dragitem"
-    v-if="config"
     :w="width"
     :h="height"
     :x="x"
