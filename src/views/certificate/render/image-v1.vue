@@ -1,6 +1,7 @@
 <template>
   <vue-drag-resize
     ref="dragitem"
+    v-if="config"
     :w="width"
     :h="height"
     :x="x"

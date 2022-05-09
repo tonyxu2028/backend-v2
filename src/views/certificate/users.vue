@@ -71,9 +71,12 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="80">
           <template slot-scope="scope">
-            <el-link type="primary" @click="download(scope.row.user_id)"
-              >下载</el-link
-            >
+            <p-link
+              p="addons.cert.download"
+              text="下载"
+              type="primary"
+              @click="download(scope.row.user_id)"
+            ></p-link>
           </template>
         </el-table-column>
       </el-table>
@@ -175,9 +178,9 @@ export default {
     download(uid) {
       window.open(
         config.url +
-          "/backend/addons/Cert/cert/" +
+          "/backend/addons/Cert/" +
           this.$route.query.id +
-          "/user/" +
+          "/" +
           uid +
           "/download?token=" +
           this.$utils.getToken()
