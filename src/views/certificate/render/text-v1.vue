@@ -1,5 +1,6 @@
 <template>
   <vue-drag-resize
+    @clicked="change"
     ref="dragitem"
     w="auto"
     h="auto"
@@ -10,7 +11,6 @@
     :parentLimitation="true"
   >
     <div
-      @click="change"
       class="text"
       :style="{
         'font-size': size * config.size + 'px',

@@ -1,6 +1,6 @@
 <template>
   <vue-drag-resize
-    :key="current"
+    @clicked="change"
     ref="dragitem"
     :w="width"
     :h="height"
@@ -12,7 +12,6 @@
   >
     <div
       class="item"
-      @click="change"
       :style="{
         width: '100%',
         height: '100%',

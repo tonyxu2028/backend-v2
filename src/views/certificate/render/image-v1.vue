@@ -1,5 +1,6 @@
 <template>
   <vue-drag-resize
+    @clicked="change"
     ref="dragitem"
     v-if="config"
     :w="width"
@@ -11,7 +12,6 @@
     :parentLimitation="true"
   >
     <img
-      @click="change"
       :style="{
         width: '100%',
         height: '100%',
@@ -68,7 +68,7 @@ export default {
     },
   },
   methods: {
-    change() {
+    change(e) {
       this.$emit("change", this.current);
     },
     onResize(e) {
