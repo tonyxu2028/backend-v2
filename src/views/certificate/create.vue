@@ -568,7 +568,6 @@ export default {
           font: "default",
           size: 14,
           color: "#333333",
-          type: "var",
           text: "默认文字",
         };
       } else if (blockSign === "image-v1") {

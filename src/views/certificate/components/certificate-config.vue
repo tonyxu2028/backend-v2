@@ -9,18 +9,51 @@
           <div class="float-left">
             <div class="w-100 form-label mb-15">文字内容</div>
             <div class="w-100 float-left import-box">
-              <div class="label-item">插入变量：</div>
-              <div class="import-item ml-10" @click="addNick" type="primary">
-                学员昵称
+              <div class="label-item mr-10 mb-8">插入变量：</div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addNick"
+                type="primary"
+              >
+                用户名
               </div>
-              <div class="import-item ml-10" @click="addMobile" type="primary">
-                手机号码
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addMobile"
+                type="primary"
+              >
+                手机号
               </div>
-              <div class="import-item ml-10" @click="addHour" type="primary">
-                学习课时
+              <div class="import-item mr-10 mb-8" @click="addNo" type="primary">
+                证书编号
               </div>
-              <div class="import-item ml-10" @click="addTime" type="primary">
-                考试时间
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addRealname"
+                type="primary"
+              >
+                真实姓名
+              </div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addIdno"
+                type="primary"
+              >
+                身份证号
+              </div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addAge"
+                type="primary"
+              >
+                年龄
+              </div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addGender"
+                type="primary"
+              >
+                性别
               </div>
             </div>
             <div class="float-left d-flex">
@@ -135,11 +168,20 @@ export default {
     addMobile() {
       this.block.config.text += "${user.mobile}";
     },
-    addHour() {
-      this.block.config.text += "${user.hour}";
+    addNo() {
+      this.block.config.text += "${cert.no}";
     },
-    addTime() {
-      this.block.config.text += "${user.time}";
+    addRealname() {
+      this.block.config.text += "${profile.real_name}";
+    },
+    addIdno() {
+      this.block.config.text += "${profile.id_number}";
+    },
+    addAge() {
+      this.block.config.text += "${profile.age}";
+    },
+    addGender() {
+      this.block.config.text += "${profile.gender}";
     },
     uploadImage(src) {
       if (this.block.sign === "image-v1") {
@@ -169,7 +211,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 8px 15px;
+  padding: 8px 15px 0px 15px;
   font-size: 12px;
   font-weight: 400;
   border-radius: 4px 4px 0 0;
