@@ -1,6 +1,5 @@
 <template>
   <vue-drag-resize
-    :key="current"
     ref="dragitem"
     w="auto"
     h="auto"

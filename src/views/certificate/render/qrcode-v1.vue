@@ -6,7 +6,6 @@
     :h="height"
     :x="x"
     :y="y"
-    :isResizable="true"
     @resizing="onResize"
     @dragging="onDrag"
     :parentLimitation="true"

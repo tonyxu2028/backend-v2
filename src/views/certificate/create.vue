@@ -598,6 +598,10 @@ export default {
     blockDestroy(index) {
       this.blocksData.splice(index, 1);
       this.curBlockIndex = null;
+      this.fresh = false;
+      this.$nextTick(() => {
+        this.fresh = true;
+      });
     },
     saveSetting(index, sign, config) {
       this.blocksData[index] = {

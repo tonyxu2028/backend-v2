@@ -190,7 +190,7 @@
           >
             <template v-for="(item, index) in blocksData">
               <render-image-v1
-                :key="item.id"
+                :key="index"
                 v-if="item.sign === 'image-v1' && fresh"
                 :current="index"
                 :config="item.config"
@@ -201,7 +201,7 @@
                 @del="delBlockMethod"
               ></render-image-v1>
               <render-qrcode-v1
-                :key="item.id"
+                :key="index"
                 v-else-if="item.sign === 'qrcode-v1' && fresh"
                 :current="index"
                 :config="item.config"
@@ -213,7 +213,7 @@
                 @del="delBlockMethod"
               ></render-qrcode-v1>
               <render-text-v1
-                :key="item.id"
+                :key="index"
                 v-else-if="item.sign === 'text-v1' && fresh"
                 :current="index"
                 :config="item.config"
@@ -614,6 +614,10 @@ export default {
     blockDestroy(index) {
       this.blocksData.splice(index, 1);
       this.curBlockIndex = null;
+      this.fresh = false;
+      this.$nextTick(() => {
+        this.fresh = true;
+      });
     },
     saveSetting(index, sign, config) {
       this.blocksData[index] = {
