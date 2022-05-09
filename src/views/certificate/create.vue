@@ -29,93 +29,96 @@
           height="44"
         />
       </div>
-      <div class="certificate-blocks-box" v-show="!leftArrrow">
-        <div class="title">基本信息</div>
-        <div class="line"></div>
-        <div class="float-left mt-30">
-          <el-form
-            ref="form"
-            :model="course"
-            :rules="rules"
-            class="float-left"
-            label-width="90px"
-          >
-            <div class="float-left">
-              <el-form-item label="证书名称" prop="name">
-                <div class="d-flex">
-                  <div>
-                    <el-input
-                      maxlength="64"
-                      v-model="course.name"
-                      class="w-250px"
-                      placeholder="填写证书名称"
-                    ></el-input>
+      <transition name="slider">
+        <div class="certificate-blocks-box" v-show="!leftArrrow">
+          <div class="title">基本信息</div>
+          <div class="line"></div>
+          <div class="float-left mt-30">
+            <el-form
+              ref="form"
+              :model="course"
+              :rules="rules"
+              class="float-left"
+              label-width="90px"
+            >
+              <div class="float-left">
+                <el-form-item label="证书名称" prop="name">
+                  <div class="d-flex">
+                    <div>
+                      <el-input
+                        maxlength="64"
+                        v-model="course.name"
+                        class="w-250px"
+                        placeholder="填写证书名称"
+                      ></el-input>
+                    </div>
                   </div>
+                </el-form-item>
+
+                <el-form-item prop="template_image" label="证书背景">
+                  <upload-image
+                    :height="280"
+                    v-model="course.template_image"
+                    :name="uploadName"
+                  ></upload-image>
+                </el-form-item>
+                <el-form-item
+                  class="is-required"
+                  label="证书元素"
+                  v-if="course.template_image"
+                >
+                  <helper-text
+                    text="拖动元素到证书背景上编辑参数"
+                  ></helper-text>
+                </el-form-item>
+              </div>
+            </el-form>
+          </div>
+          <draggable
+            v-if="course.template_image"
+            class="blocks"
+            :sort="false"
+            :group="{ name: 'blocks', pull: 'clone', put: false }"
+          >
+            <div class="block-item" sign="text-v1">
+              <div class="btn">
+                <div class="icon">
+                  <img
+                    src="@/assets/images/certificate/icon-txt.png"
+                    width="44"
+                    height="44"
+                  />
                 </div>
-              </el-form-item>
-
-              <el-form-item prop="template_image" label="证书背景">
-                <upload-image
-                  :height="280"
-                  v-model="course.template_image"
-                  :name="uploadName"
-                ></upload-image>
-              </el-form-item>
-              <el-form-item
-                class="is-required"
-                label="证书元素"
-                v-if="course.template_image"
-              >
-                <helper-text text="拖动元素到证书背景上编辑参数"></helper-text>
-              </el-form-item>
+                <div class="name">文本</div>
+              </div>
             </div>
-          </el-form>
+            <div class="block-item" sign="image-v1">
+              <div class="btn">
+                <div class="icon">
+                  <img
+                    src="@/assets/images/certificate/icon-img.png"
+                    width="44"
+                    height="44"
+                  />
+                </div>
+                <div class="name">图片</div>
+              </div>
+            </div>
+            <div class="block-item" sign="qrcode-v1">
+              <div class="btn">
+                <div class="icon">
+                  <img
+                    src="@/assets/images/certificate/icon-qrcode.png"
+                    width="44"
+                    height="44"
+                  />
+                </div>
+                <div class="name">二维码</div>
+              </div>
+            </div>
+          </draggable>
         </div>
-        <draggable
-          v-if="course.template_image"
-          class="blocks"
-          :sort="false"
-          :group="{ name: 'blocks', pull: 'clone', put: false }"
-        >
-          <div class="block-item" sign="text-v1">
-            <div class="btn">
-              <div class="icon">
-                <img
-                  src="@/assets/images/certificate/icon-txt.png"
-                  width="44"
-                  height="44"
-                />
-              </div>
-              <div class="name">文本</div>
-            </div>
-          </div>
-          <div class="block-item" sign="image-v1">
-            <div class="btn">
-              <div class="icon">
-                <img
-                  src="@/assets/images/certificate/icon-img.png"
-                  width="44"
-                  height="44"
-                />
-              </div>
-              <div class="name">图片</div>
-            </div>
-          </div>
-          <div class="block-item" sign="qrcode-v1">
-            <div class="btn">
-              <div class="icon">
-                <img
-                  src="@/assets/images/certificate/icon-qrcode.png"
-                  width="44"
-                  height="44"
-                />
-              </div>
-              <div class="name">二维码</div>
-            </div>
-          </div>
-        </draggable>
-      </div>
-
+      </transition>
       <div
         class="choose_size_box"
         :class="{ rightArrow: curBlockIndex !== null }"
@@ -616,6 +619,60 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@keyframes fadeIn {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideLeft {
+  0% {
+    left: -400px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes sliderRight {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -400px;
+  }
+}
+
+.fade-enter-active {
+  animation: fadeIn 0.2s linear;
+}
+
+.fade-leave-active {
+  animation: fadeOut 0.2s linear;
+}
+
+.slider-enter-active {
+  animation: slideLeft 0.2s linear;
+}
+
+.slider-leave-active {
+  animation: sliderRight 0.2s linear;
+}
+
 .bg {
   position: fixed;
   top: 0;
