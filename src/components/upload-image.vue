@@ -37,6 +37,7 @@
       <template v-else-if="name">
         <img
           :style="{
+            'max-width': '100%',
             width: 'auto',
             'max-height': height + 'px',
           }"
