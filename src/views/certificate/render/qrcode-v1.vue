@@ -4,6 +4,8 @@
     ref="dragitem"
     :w="width"
     :h="height"
+    :minw="1"
+    :minh="1"
     :x="x"
     :y="y"
     @resizing="onResize"

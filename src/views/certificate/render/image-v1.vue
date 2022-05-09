@@ -10,6 +10,8 @@
     @dragging="onDrag"
     :parentLimitation="true"
     :isActive="curBlockIndex === current"
+    :minw="1"
+    :minh="1"
   >
     <img
       :style="{
