@@ -634,58 +634,32 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
 @keyframes slideLeft {
   0% {
-    left: -400px;
+    transform: translateX(-400px);
   }
   100% {
-    left: 0;
+    transform: translateX(0);
   }
 }
 
 @keyframes sliderRight {
   0% {
-    left: 0;
+    transform: translateX(0);
   }
   100% {
-    left: -400px;
+    transform: translateX(-400px);
   }
-}
-
-.fade-enter-active {
-  animation: fadeIn 0.2s linear;
-}
-
-.fade-leave-active {
-  animation: fadeOut 0.2s linear;
 }
 
 .slider-enter-active {
   animation: slideLeft 0.2s linear;
+  animation-fill-mode: forwards;
 }
 
 .slider-leave-active {
   animation: sliderRight 0.2s linear;
+  animation-fill-mode: forwards;
 }
 
 .bg {
