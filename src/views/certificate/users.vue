@@ -178,7 +178,7 @@ export default {
     download(uid) {
       window.open(
         config.url +
-          "/backend/addons/Cert/" +
+          "/backend/addons/Cert/cert/" +
           this.$route.query.id +
           "/" +
           uid +
