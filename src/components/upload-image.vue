@@ -13,7 +13,7 @@
         <div class="helper ml-30" v-if="helper">{{ helper }}</div>
       </div>
     </div>
-    <div class="preview-box float-left mt-15" v-if="value">
+    <div class="preview-box float-left mt-15" v-if="value && !hideImage">
       <template v-if="width && height">
         <div
           class="contain-box"
@@ -33,16 +33,6 @@
             height: height + 'px',
           }"
         ></div>
-      </template>
-      <template v-else-if="name">
-        <img
-          :style="{
-            'max-width': '100%',
-            width: 'auto',
-            'max-height': height + 'px',
-          }"
-          :src="value"
-        />
       </template>
       <template v-else>
         <img :src="value" />
@@ -71,6 +61,7 @@ export default {
     "containBox",
     "canClear",
     "name",
+    "hideImage",
   ],
   data() {
     return {

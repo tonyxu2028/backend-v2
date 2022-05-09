@@ -60,7 +60,21 @@
                     :height="280"
                     v-model="course.template_image"
                     :name="uploadName"
+                    :hideImage="true"
                   ></upload-image>
+                  <div
+                    class="preview-box float-left mt-15"
+                    v-if="course.template_image"
+                  >
+                    <img
+                      :style="{
+                        'max-width': '100%',
+                        width: 'auto',
+                        'max-height': '280px',
+                      }"
+                      :src="course.template_image"
+                    />
+                  </div>
                 </el-form-item>
                 <el-form-item
                   class="is-required"
