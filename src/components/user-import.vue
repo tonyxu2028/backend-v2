@@ -11,7 +11,7 @@
           </div>
           <div class="ml-30">
             <el-link type="primary" @click="model()">
-              点击链接下载「学员批量导入模板」
+              点击链接下载「{{ name || "学员批量导入模板" }}」
             </el-link>
           </div>
         </div>
@@ -34,7 +34,7 @@
 import XLSX from "xlsx";
 
 export default {
-  props: ["id", "show", "type"],
+  props: ["id", "show", "type", "name"],
   data() {
     return {
       loading: false,
@@ -193,8 +193,11 @@ export default {
         array = [["证书编号", "手机号"]];
       }
       var sheet = XLSX.utils.aoa_to_sheet(array);
-      var blob = this.sheet2blob(sheet, "学员批量导入模板");
-      this.openDownloadXLSXDialog(blob, "学员批量导入模板.xlsx");
+      var blob = this.sheet2blob(sheet, this.name || "学员批量导入模板");
+      this.openDownloadXLSXDialog(
+        blob,
+        (this.name || "学员批量导入模板") + ".xlsx"
+      );
     },
     parseData(workbook) {
       let data = [];

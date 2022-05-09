@@ -104,6 +104,7 @@
       :show="importDialog"
       :id="pagination.id"
       type="cert"
+      name="证书授予批量导入模板"
       @close="importDialog = false"
       @change="getData"
     ></user-import-comp>
@@ -270,7 +271,7 @@ export default {
             return;
           }
 
-          let filename = "证书授予学员.xlsx";
+          let filename = "证书授予批量导入模板.xlsx";
           let sheetName = "sheet1";
 
           let data = [["学员ID", "学员", "手机号", "价格", "时间"]];
