@@ -119,6 +119,7 @@
       <div
         class="choose_size_box"
         :class="{ rightArrow: curBlockIndex !== null }"
+        v-if="image"
       >
         <div class="tab_narrow" @click="changeSize(-1)">
           <img
@@ -579,8 +580,8 @@ export default {
       let defaultConfig = null;
       if (blockSign === "text-v1") {
         defaultConfig = {
-          x: 0,
-          y: 0,
+          x: e.originalEvent.layerX / this.size,
+          y: e.originalEvent.layerY / this.size,
           font: "default",
           size: 14,
           color: "#333333",
@@ -588,16 +589,16 @@ export default {
         };
       } else if (blockSign === "image-v1") {
         defaultConfig = {
-          x: 0,
-          y: 60,
+          x: e.originalEvent.layerX / this.size,
+          y: e.originalEvent.layerY / this.size,
           width: 100,
           height: 100,
           url: demoImg,
         };
       } else if (blockSign === "qrcode-v1") {
         defaultConfig = {
-          x: 0,
-          y: 130,
+          x: e.originalEvent.layerX / this.size,
+          y: e.originalEvent.layerY / this.size,
           width: 100,
           height: 100,
           text: "默认内容",
