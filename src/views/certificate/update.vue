@@ -383,17 +383,6 @@ export default {
       };
     },
     handleScroll(e) {
-      if (e.deltaY > 0) {
-        if (!this.image) {
-          return;
-        }
-        this.dragY -= 40;
-      } else {
-        if (!this.image) {
-          return;
-        }
-        this.dragY += 40;
-      }
       // 判断是不是按下ctrl键
       if (e.ctrlKey) {
         // 取消浏览器默认的放大缩小网页行为
@@ -406,6 +395,14 @@ export default {
           // 缩小重写，业务代码
           this.changeSize(-1);
         }
+      }
+      if (!this.image) {
+        return;
+      }
+      if (e.deltaY > 0) {
+        this.dragY -= 25;
+      } else {
+        this.dragY += 25;
       }
     },
     isJSON(str) {

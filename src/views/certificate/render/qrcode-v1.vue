@@ -113,7 +113,17 @@ export default {
       this.$emit("dragend", "qrcode-v1", this.current, moveX, moveY);
     },
     blockDestroy() {
-      this.$emit("del", this.current);
+      this.$confirm("确认删除？", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$emit("del", this.current);
+        })
+        .catch(() => {
+          //点击删除按钮的操作
+        });
     },
   },
 };
