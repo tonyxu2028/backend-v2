@@ -168,6 +168,7 @@
         :isResizable="false"
       >
         <draggable
+          v-if="originalWidth && originalHeight"
           ref="preview-box"
           class="preview-box"
           :style="{
