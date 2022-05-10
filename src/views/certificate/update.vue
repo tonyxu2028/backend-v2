@@ -63,7 +63,7 @@
                     :hideImage="true"
                   ></upload-image>
                   <div
-                    class="preview-box float-left mt-15"
+                    class="left-preview-box float-left mt-15"
                     v-if="course.template_image"
                   >
                     <img
@@ -693,6 +693,13 @@ export default {
   height: 100%;
   background-color: #f1f2f9;
   z-index: 1000;
+}
+.left-preview-box {
+  display: flex;
+  width: 210px;
+  height: 280px;
+  justify-content: center;
+  align-items: center;
 }
 .top-box {
   position: fixed;
