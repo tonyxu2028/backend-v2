@@ -18,12 +18,12 @@
           >
             <el-table-column prop="id" label="ID" width="150">
             </el-table-column>
-            <el-table-column label="证书名"
+            <el-table-column label="证书名" width="600"
               ><template slot-scope="scope">
                 <span>{{ scope.row.name }} </span>
               </template>
             </el-table-column>
-            <el-table-column label="已授予人数" width="200">
+            <el-table-column label="已授予人数">
               <template slot-scope="scope"
                 >{{ scope.row.users_count }}人</template
               >
