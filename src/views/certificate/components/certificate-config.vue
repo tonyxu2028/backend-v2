@@ -68,7 +68,7 @@
             </div>
           </div>
         </div>
-        <div class="config-item-body">
+        <!--<div class="config-item-body">
           <div class="float-left d-flex">
             <div class="form-label">字体</div>
             <div class="flex-1 ml-15">
@@ -77,7 +77,7 @@
               </el-select>
             </div>
           </div>
-        </div>
+        </div>-->
         <div class="config-item-body">
           <div class="float-left d-flex">
             <div class="form-label">大小</div>
