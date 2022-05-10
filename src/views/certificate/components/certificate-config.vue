@@ -182,13 +182,6 @@
               <div class="label-item mr-10 mb-8">插入变量：</div>
               <div
                 class="import-item mr-10 mb-8"
-                @click="addNick"
-                type="primary"
-              >
-                用户名
-              </div>
-              <div
-                class="import-item mr-10 mb-8"
                 @click="addMobile"
                 type="primary"
               >
@@ -199,31 +192,10 @@
               </div>
               <div
                 class="import-item mr-10 mb-8"
-                @click="addRealname"
-                type="primary"
-              >
-                真实姓名
-              </div>
-              <div
-                class="import-item mr-10 mb-8"
                 @click="addIdno"
                 type="primary"
               >
                 身份证号
-              </div>
-              <div
-                class="import-item mr-10 mb-8"
-                @click="addAge"
-                type="primary"
-              >
-                年龄
-              </div>
-              <div
-                class="import-item mr-10 mb-8"
-                @click="addGender"
-                type="primary"
-              >
-                性别
               </div>
             </div>
             <div class="float-left d-flex mb-15">
