@@ -208,7 +208,7 @@
           >
             <template v-for="(item, index) in blocksData">
               <render-image-v1
-                :key="item.id"
+                :key="index"
                 v-if="item.sign === 'image-v1' && fresh"
                 :current="index"
                 :config="item.config"
@@ -219,7 +219,7 @@
                 @del="delBlockMethod"
               ></render-image-v1>
               <render-qrcode-v1
-                :key="item.id"
+                :key="index"
                 v-else-if="item.sign === 'qrcode-v1' && fresh"
                 :current="index"
                 :config="item.config"
@@ -231,7 +231,7 @@
                 @del="delBlockMethod"
               ></render-qrcode-v1>
               <render-text-v1
-                :key="item.id"
+                :key="index"
                 v-else-if="item.sign === 'text-v1' && fresh"
                 :current="index"
                 :config="item.config"

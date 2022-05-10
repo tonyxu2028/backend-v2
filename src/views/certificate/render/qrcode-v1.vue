@@ -1,5 +1,6 @@
 <template>
   <vue-drag-resize
+    :key="current"
     @clicked="change"
     ref="dragitem"
     :w="width"
@@ -100,6 +101,7 @@ export default {
       });
     },
     change() {
+      this.curBlockIndex = this.curindex;
       this.$emit("change", this.current);
     },
     onResize(e) {
