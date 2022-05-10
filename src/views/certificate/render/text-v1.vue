@@ -68,6 +68,7 @@ export default {
   mounted() {},
   methods: {
     change() {
+      this.curBlockIndex = this.status;
       this.$emit("change", this.current);
     },
     onDrag(e) {
