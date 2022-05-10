@@ -176,10 +176,70 @@
           </div>
         </div>
         <div class="config-item-body">
-          <div class="float-left d-flex">
-            <div class="form-label">内容</div>
-            <div class="flex-1 ml-15">
-              <el-input class="w-100" v-model="block.config.text"></el-input>
+          <div class="float-left">
+            <div class="w-100 form-label mb-15">内容</div>
+            <div class="w-100 float-left import-box">
+              <div class="label-item mr-10 mb-8">插入变量：</div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addNick"
+                type="primary"
+              >
+                用户名
+              </div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addMobile"
+                type="primary"
+              >
+                手机号
+              </div>
+              <div class="import-item mr-10 mb-8" @click="addNo" type="primary">
+                证书编号
+              </div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addRealname"
+                type="primary"
+              >
+                真实姓名
+              </div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addIdno"
+                type="primary"
+              >
+                身份证号
+              </div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addAge"
+                type="primary"
+              >
+                年龄
+              </div>
+              <div
+                class="import-item mr-10 mb-8"
+                @click="addGender"
+                type="primary"
+              >
+                性别
+              </div>
+            </div>
+            <div class="float-left d-flex mb-15">
+              <el-input
+                class="w-100"
+                type="textarea"
+                rows="4"
+                resize="none"
+                placeholder="支持填写URL或引用变量信息"
+                v-model="block.config.text"
+              ></el-input>
+            </div>
+            <div class="float-left d-flexx">
+              <helper-text
+                text="二维码内容仅支持英文、数字和符号。"
+              ></helper-text>
             </div>
           </div>
         </div>

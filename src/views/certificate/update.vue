@@ -566,6 +566,7 @@ export default {
         return;
       }
       let params = [];
+      let reg = new RegExp("[\\u4E00-\\u9FFF]+", "g");
       for (let i = 0; i < this.blocksData.length; i++) {
         if (this.blocksData[i].sign === "text-v1") {
           params.push({
@@ -576,6 +577,12 @@ export default {
             image: this.blocksData[i].config,
           });
         } else if (this.blocksData[i].sign === "qrcode-v1") {
+          let obj = this.blocksData[i].config.text;
+          if (reg.test(obj)) {
+            this.curBlockIndex = i;
+            this.$message.error("二维码内容仅支持英文、数字和符号");
+            return;
+          }
           params.push({
             qrcode: this.blocksData[i].config,
           });
@@ -626,7 +633,7 @@ export default {
           y: e.originalEvent.layerY / this.size,
           width: 200,
           height: 200,
-          text: "默认内容",
+          text: "支持填写URL或引用变量信息",
         };
       }
       // 添加block

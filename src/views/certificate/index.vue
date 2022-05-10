@@ -33,7 +33,7 @@
                 scope.row.created_at | dateFormat
               }}</template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="150">
+            <el-table-column fixed="right" label="操作" width="120">
               <template slot-scope="scope">
                 <p-link
                   p="addons.cert.users"
@@ -46,25 +46,32 @@
                     })
                   "
                 ></p-link>
-                <p-link
-                  p="addons.cert.update"
-                  class="ml-5"
-                  type="primary"
-                  text="编辑"
-                  @click="
-                    $router.push({
-                      name: 'CertificateUpdate',
-                      query: { id: scope.row.id },
-                    })
-                  "
-                ></p-link>
-                <p-link
-                  text="删除"
-                  class="ml-5"
-                  p="addons.cert.delete"
-                  type="danger"
-                  @click="destory(scope.row.id)"
-                ></p-link>
+                <el-dropdown>
+                  <el-link type="primary" class="el-dropdown-link ml-5">
+                    更多<i class="el-icon-arrow-down el-icon--right"></i>
+                  </el-link>
+                  <el-dropdown-menu slot="dropdown">
+                    <p-dropdown-item
+                      text="编辑"
+                      p="addons.cert.update"
+                      type="primary"
+                      @click="
+                        $router.push({
+                          name: 'CertificateUpdate',
+                          query: { id: scope.row.id },
+                        })
+                      "
+                    >
+                    </p-dropdown-item>
+                    <p-dropdown-item
+                      text="删除"
+                      p="addons.cert.delete"
+                      type="danger"
+                      @click="destory(scope.row.id)"
+                    >
+                    </p-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </template>
             </el-table-column>
           </el-table>
