@@ -10,14 +10,14 @@
           type="primary"
         ></p-button>-->
         <p-button
-          text="批量导入"
+          text="批量授予"
           p="addons.cert.user.import"
           type="primary"
           @click="importDialog = true"
         >
         </p-button>
         <p-button
-          text="删除学员"
+          text="撤销授予"
           p="addons.cert.user.destroy"
           type="danger"
           @click="delUser"
