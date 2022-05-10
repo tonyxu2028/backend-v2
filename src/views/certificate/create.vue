@@ -599,16 +599,16 @@ export default {
         defaultConfig = {
           x: e.originalEvent.layerX / this.size,
           y: e.originalEvent.layerY / this.size,
-          width: 100,
-          height: 100,
+          width: 200,
+          height: 200,
           url: demoImg,
         };
       } else if (blockSign === "qrcode-v1") {
         defaultConfig = {
           x: e.originalEvent.layerX / this.size,
           y: e.originalEvent.layerY / this.size,
-          width: 100,
-          height: 100,
+          width: 200,
+          height: 200,
           text: "默认内容",
         };
       }
