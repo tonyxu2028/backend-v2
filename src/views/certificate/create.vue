@@ -591,7 +591,7 @@ export default {
           x: e.originalEvent.layerX / this.size,
           y: e.originalEvent.layerY / this.size,
           font: "default",
-          size: 14,
+          size: 40,
           color: "#333333",
           text: "默认文字",
         };
