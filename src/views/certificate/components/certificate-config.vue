@@ -177,7 +177,7 @@
         </div>
         <div class="config-item-body">
           <div class="float-left">
-            <div class="w-100 form-label mb-15">内容</div>
+            <div class="w-100 form-label mb-15">网址</div>
             <div class="w-100 float-left import-box">
               <div class="label-item mr-10 mb-8">插入变量：</div>
               <div
@@ -210,7 +210,7 @@
             </div>
             <div class="float-left d-flexx">
               <helper-text
-                text="二维码内容仅支持英文、数字和符号。"
+                text="二维码网址仅支持英文、数字和符号。"
               ></helper-text>
             </div>
           </div>

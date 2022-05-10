@@ -567,6 +567,8 @@ export default {
       }
       let params = [];
       let reg = new RegExp("[\\u4E00-\\u9FFF]+", "g");
+      let reg2 =
+        /^(?:(http|https):\/\/)?((?:[\w-]+\.)+[a-z0-9]+)((?:\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i;
       for (let i = 0; i < this.blocksData.length; i++) {
         if (this.blocksData[i].sign === "text-v1") {
           params.push({
@@ -580,7 +582,11 @@ export default {
           let obj = this.blocksData[i].config.text;
           if (reg.test(obj)) {
             this.curBlockIndex = i;
-            this.$message.error("二维码内容仅支持英文、数字和符号");
+            this.$message.error("二维码网址仅支持英文、数字和符号");
+            return;
+          } else if (!reg2.test(obj)) {
+            this.curBlockIndex = i;
+            this.$message.error("请输入正确的URL地址");
             return;
           }
           params.push({
