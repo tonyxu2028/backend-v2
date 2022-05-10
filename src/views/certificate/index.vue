@@ -23,7 +23,7 @@
                 <span>{{ scope.row.name }} </span>
               </template>
             </el-table-column>
-            <el-table-column label="人数" width="200">
+            <el-table-column label="已授予人数" width="200">
               <template slot-scope="scope"
                 >{{ scope.row.users_count }}人</template
               >
