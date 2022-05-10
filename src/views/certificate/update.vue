@@ -184,6 +184,7 @@
         ref="dragBox"
         @dragging="onDrag"
         :isResizable="false"
+        :isActive="true"
       >
         <draggable
           v-if="originalWidth && originalHeight"
@@ -633,7 +634,7 @@ export default {
         sign: blockSign,
         config: defaultConfig,
       });
-
+      this.curBlockIndex = this.blocksData.length - 1;
       this.loading = false;
     },
     blockDestroy(index) {
@@ -671,6 +672,10 @@ export default {
   100% {
     transform: translateX(-400px);
   }
+}
+
+.certificate-preview-box.active:before {
+  display: none;
 }
 
 .slider-enter-active {

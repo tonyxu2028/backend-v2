@@ -1,5 +1,6 @@
 <template>
   <vue-drag-resize
+    :key="current"
     @clicked="change"
     ref="dragitem"
     w="auto"
@@ -9,7 +10,7 @@
     :isResizable="false"
     @dragging="onDrag"
     :parentLimitation="true"
-    :isActive="curBlockIndex === current"
+    :isActive="isActive"
   >
     <div
       class="text"
@@ -27,11 +28,7 @@
         right: '-38px',
       }"
     >
-      <div
-        class="btn-item"
-        @click="blockDestroy()"
-        v-if="curBlockIndex === current"
-      >
+      <div class="btn-item" @click="blockDestroy()" v-if="isActive">
         <i class="el-icon-delete-solid"></i>
       </div>
     </div>
@@ -45,14 +42,9 @@ export default {
   },
   props: ["config", "current", "status", "maxw", "size"],
   data() {
-    return {
-      curBlockIndex: null,
-    };
+    return {};
   },
   watch: {
-    status() {
-      this.curBlockIndex = this.status;
-    },
     "config.text"() {
       this.$emit("fresh", true);
     },
@@ -64,11 +56,13 @@ export default {
     y() {
       return this.size * this.config.y;
     },
+    isActive() {
+      return this.status === this.current;
+    },
   },
   mounted() {},
   methods: {
     change() {
-      this.curBlockIndex = this.status;
       this.$emit("change", this.current);
     },
     onDrag(e) {

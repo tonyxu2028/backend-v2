@@ -10,7 +10,7 @@
     @resizing="onResize"
     @dragging="onDrag"
     :parentLimitation="true"
-    :isActive="curBlockIndex === current"
+    :isActive="isActive"
     :minw="1"
     :minh="1"
   >
@@ -28,11 +28,7 @@
         left: width + 'px',
       }"
     >
-      <div
-        class="btn-item"
-        @click="blockDestroy()"
-        v-if="curBlockIndex === current"
-      >
+      <div class="btn-item" @click="blockDestroy()" v-if="isActive">
         <i class="el-icon-delete-solid"></i>
       </div>
     </div>
@@ -46,9 +42,7 @@ export default {
   },
   props: ["config", "current", "status", "size"],
   data() {
-    return {
-      curBlockIndex: null,
-    };
+    return {};
   },
   mounted() {},
   computed: {
@@ -64,15 +58,13 @@ export default {
     y() {
       return this.size * this.config.y;
     },
-  },
-  watch: {
-    status() {
-      this.curBlockIndex = this.status;
+    isActive() {
+      return this.status === this.current;
     },
   },
+  watch: {},
   methods: {
     change(e) {
-      this.curBlockIndex = this.status;
       this.$emit("change", this.current);
     },
     onResize(e) {
