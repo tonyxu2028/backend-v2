@@ -8,6 +8,7 @@
         @click="showUserAddWin = true"
         type="primary"
       ></p-button>
+      <el-button @click="exportexcel" type="primary">导出表格</el-button>
     </div>
     <div class="float-left" v-loading="loading">
       <div class="float-left">
@@ -68,6 +69,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import UserAddComp from "@/components/user-add";
 
 export default {
@@ -183,6 +185,43 @@ export default {
         .catch((e) => {
           this.$message.error(e.message);
         });
+    },
+    exportexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      this.pagination.id = this.$route.query.id;
+      Object.assign(params, this.filter);
+
+      this.$api.Exam.Mockpaper.User(this.pagination.id, params).then((res) => {
+        if (res.data.data.total === 0) {
+          this.$message.error("数据为空");
+          this.loading = false;
+          return;
+        }
+
+        let filename = "模拟卷订阅学员.xlsx";
+        let sheetName = "sheet1";
+
+        let data = [["学员ID", "学员", "手机号", "时间"]];
+        res.data.data.data.forEach((item) => {
+          data.push([
+            item.user_id,
+            item.user.nick_name,
+            item.user.mobile,
+            moment(item.created_at).format("YYYY-MM-DD HH:mm"),
+          ]);
+        });
+
+        this.$utils.exportExcel(data, filename, sheetName);
+        this.loading = false;
+      });
     },
   },
 };
