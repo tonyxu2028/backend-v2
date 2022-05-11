@@ -215,5 +215,9 @@ export default {
     CreditMallOrders: "CreditMall",
     CreditMallOrdersUpdate: "CreditMall",
     CreditMallOrdersSend: "CreditMall",
+    Certificate: "Certificate",
+    CertificateCreate: "Certificate",
+    CertificateUpdate: "Certificate",
+    CertificateUsers: "Certificate",
   },
 };

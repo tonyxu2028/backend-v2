@@ -193,12 +193,12 @@ export default {
           images: require("../../assets/images/config/sendvip.png"),
           sign: "",
         },
-        {
-          name: "邀请送会员",
-          value: "邀请",
-          images: require("../../assets/images/config/invitevip.png"),
-          sign: "",
-        },
+        // {
+        //   name: "邀请送会员",
+        //   value: "邀请",
+        //   images: require("../../assets/images/config/invitevip.png"),
+        //   sign: "",
+        // },
         {
           name: "邀请奖励",
           value: "邀请",

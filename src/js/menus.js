@@ -106,6 +106,11 @@ export default [
         key: "SnapshotIndex",
         permission: "addons.Snapshot.images",
       },
+      {
+        name: "title.certificate.index",
+        key: "Certificate",
+        permission: "addons.cert.list",
+      },
     ],
   },
   {

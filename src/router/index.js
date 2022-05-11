@@ -455,6 +455,42 @@ const routes = [
     },
   },
   {
+    path: "/certificate/index",
+    component: () => import("@/views/certificate/index"),
+    name: "Certificate",
+    meta: {
+      title: "title.certificate.index",
+      keepAlive: true,
+    },
+  },
+  {
+    path: "/certificate/create",
+    component: () => import("@/views/certificate/create"),
+    name: "CertificateCreate",
+    meta: {
+      title: "title.certificate.create",
+      pure: true,
+    },
+  },
+  {
+    path: "/certificate/update",
+    component: () => import("@/views/certificate/update"),
+    name: "CertificateUpdate",
+    meta: {
+      title: "title.certificate.update",
+      pure: true,
+    },
+  },
+  {
+    path: "/certificate/users",
+    component: () => import("@/views/certificate/users"),
+    name: "CertificateUsers",
+    meta: {
+      title: "title.certificate.users",
+      keepAlive: true,
+    },
+  },
+  {
     path: "/singlepage/index",
     component: () => import("@/views/singlepage/page/index"),
     name: "SinglePage",

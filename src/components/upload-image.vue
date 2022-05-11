@@ -4,7 +4,7 @@
       <div class="d-flex">
         <div>
           <el-button @click="show = true">
-            {{ $t("common.image.upload") }}
+            {{ name || $t("common.image.upload") }}
           </el-button>
         </div>
         <div class="ml-10" v-if="canClear && value">
@@ -13,7 +13,7 @@
         <div class="helper ml-30" v-if="helper">{{ helper }}</div>
       </div>
     </div>
-    <div class="preview-box float-left mt-15" v-if="value">
+    <div class="preview-box float-left mt-15" v-if="value && !hideImage">
       <template v-if="width && height">
         <div
           class="contain-box"
@@ -53,7 +53,16 @@ export default {
   components: {
     SelectImage,
   },
-  props: ["value", "helper", "width", "height", "containBox", "canClear"],
+  props: [
+    "value",
+    "helper",
+    "width",
+    "height",
+    "containBox",
+    "canClear",
+    "name",
+    "hideImage",
+  ],
   data() {
     return {
       show: false,

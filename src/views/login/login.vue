@@ -34,6 +34,7 @@
               <el-input
                 class="input-short"
                 type="text"
+                @keyup.enter.native="formValidate"
                 v-model="form.captcha"
                 auto-complete="off"
                 placeholder="请输入图形验证码"

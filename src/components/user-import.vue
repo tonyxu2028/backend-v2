@@ -11,7 +11,7 @@
           </div>
           <div class="ml-30">
             <el-link type="primary" @click="model()">
-              点击链接下载「学员批量导入模板」
+              点击链接下载「{{ name || "学员批量导入模板" }}」
             </el-link>
           </div>
         </div>
@@ -34,7 +34,7 @@
 import XLSX from "xlsx";
 
 export default {
-  props: ["id", "show", "type"],
+  props: ["id", "show", "type", "name"],
   data() {
     return {
       loading: false,
@@ -112,6 +112,19 @@ export default {
               this.loading = false;
               this.$message.error(e.message);
             });
+        } else if (this.type === "cert") {
+          this.$api.Certificate.User.Import(this.id, {
+            data: parseData,
+          })
+            .then(() => {
+              this.loading = false;
+              this.$message.success("导入成功");
+              this.success();
+            })
+            .catch((e) => {
+              this.loading = false;
+              this.$message.error(e.message);
+            });
         }
       };
       reader.readAsArrayBuffer(f);
@@ -176,19 +189,32 @@ export default {
     },
     model() {
       var array = [["手机号"]];
+      if (this.type === "cert") {
+        array = [["证书编号", "手机号"]];
+      }
       var sheet = XLSX.utils.aoa_to_sheet(array);
-      var blob = this.sheet2blob(sheet, "学员批量导入模板");
-      this.openDownloadXLSXDialog(blob, "学员批量导入模板.xlsx");
+      var blob = this.sheet2blob(sheet, this.name || "学员批量导入模板");
+      this.openDownloadXLSXDialog(
+        blob,
+        (this.name || "学员批量导入模板") + ".xlsx"
+      );
     },
     parseData(workbook) {
       let data = [];
+      let that = this;
       workbook.SheetNames.forEach(function (sheetName) {
         var roa = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {
           header: 1,
         });
-        if (roa.length) {
-          for (let i = 0; i < roa.length; i++) {
-            data.push(roa[i][0]);
+        if (that.type === "cert") {
+          if (roa.length) {
+            data.push(...roa);
+          }
+        } else {
+          if (roa.length) {
+            for (let i = 0; i < roa.length; i++) {
+              data.push(roa[i][0]);
+            }
           }
         }
       });

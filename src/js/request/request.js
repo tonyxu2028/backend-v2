@@ -1617,6 +1617,37 @@ const Api = {
       );
     },
   },
+  Certificate: {
+    List(params) {
+      return get(`/backend/addons/Cert/cert/index`, params);
+    },
+    Create(params) {
+      return get(`/backend/addons/Cert/cert/create`, params);
+    },
+    Store(params) {
+      return post(`/backend/addons/Cert/cert/create`, params);
+    },
+    Destroy(id) {
+      return destroy(`/backend/addons/Cert/cert/${id}`);
+    },
+    Detail(id) {
+      return get(`/backend/addons/Cert/cert/${id}`);
+    },
+    Update(id, params) {
+      return put(`/backend/addons/Cert/cert/${id}`, params);
+    },
+    User: {
+      List(id, params) {
+        return get(`/backend/addons/Cert/cert/${id}/users`, params);
+      },
+      Import(id, params) {
+        return post(`/backend/addons/Cert/cert/${id}/user/import`, params);
+      },
+      Delete(id, params) {
+        return post(`/backend/addons/Cert/cert/${id}/user/destroy`, params);
+      },
+    },
+  },
   xiaoBanKe: {
     Order: {
       Index(param) {
