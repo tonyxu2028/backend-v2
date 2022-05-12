@@ -116,6 +116,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import Utils from "@/js/utils.js";
 
 export default {
@@ -258,12 +259,23 @@ export default {
             user.nick_name,
             user.mobile,
             item.progress + "%",
-            item.created_at,
-            item.watched_at,
+            item.created_at
+              ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+              : null,
+            item.watched_at
+              ? moment(item.watched_at).format("YYYY-MM-DD HH:mm")
+              : null,
           ]);
         });
-
-        Utils.exportExcel(data, filename, sheetName);
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        Utils.exportExcel(data, filename, sheetName, wscols);
         this.loading = false;
       });
     },

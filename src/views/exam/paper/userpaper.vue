@@ -353,8 +353,17 @@ export default {
               : "",
           ]);
         });
-
-        this.$utils.exportExcel(data, filename, sheetName);
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 10 },
+          { wch: 15 },
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
         this.loading = false;
       });
     },

@@ -14,10 +14,13 @@ export default {
   getEditorKey() {
     return window.localStorage.getItem("meedu-editor-key");
   },
-  exportExcel(data, filename, sheetName) {
+  exportExcel(data, filename, sheetName, wscols) {
     const XLSX = require("xlsx");
     let wb = XLSX.utils.book_new();
     let ws = XLSX.utils.aoa_to_sheet(data);
+    if (wscols) {
+      ws["!cols"] = wscols;
+    }
     XLSX.utils.book_append_sheet(wb, ws, sheetName);
     XLSX.writeFile(wb, filename);
   },

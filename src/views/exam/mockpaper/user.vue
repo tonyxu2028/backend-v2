@@ -218,8 +218,8 @@ export default {
             moment(item.created_at).format("YYYY-MM-DD HH:mm"),
           ]);
         });
-
-        this.$utils.exportExcel(data, filename, sheetName);
+        let wscols = [{ wch: 10 }, { wch: 20 }, { wch: 15 }, { wch: 20 }];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
         this.loading = false;
       });
     },

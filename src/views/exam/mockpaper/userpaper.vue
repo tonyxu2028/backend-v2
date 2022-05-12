@@ -280,8 +280,16 @@ export default {
               item.status_text,
             ]);
           });
-
-          this.$utils.exportExcel(data, filename, sheetName);
+          let wscols = [
+            { wch: 10 },
+            { wch: 20 },
+            { wch: 15 },
+            { wch: 10 },
+            { wch: 15 },
+            { wch: 20 },
+            { wch: 10 },
+          ];
+          this.$utils.exportExcel(data, filename, sheetName, wscols);
           this.loading = false;
         }
       );

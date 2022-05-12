@@ -245,11 +245,19 @@ export default {
             item.user.nick_name,
             item.user.mobile,
             item.charge === 0 ? "-" : "￥" + item.charge,
-            moment(item.updated_at).format("YYYY-MM-DD HH:mm"),
+            item.updated_at
+              ? moment(item.updated_at).format("YYYY-MM-DD HH:mm")
+              : null,
           ]);
         });
-
-        this.$utils.exportExcel(data, filename, sheetName);
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
         this.loading = false;
       });
     },

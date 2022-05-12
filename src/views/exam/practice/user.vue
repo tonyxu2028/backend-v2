@@ -265,8 +265,15 @@ export default {
             p + "%",
           ]);
         });
-
-        this.$utils.exportExcel(rows, filename, sheetName);
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 10 },
+        ];
+        this.$utils.exportExcel(rows, filename, sheetName, wscols);
       });
     },
   },
