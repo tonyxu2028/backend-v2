@@ -261,10 +261,10 @@ export default {
             item.progress + "%",
             item.created_at
               ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
-              : null,
+              : "",
             item.watched_at
               ? moment(item.watched_at).format("YYYY-MM-DD HH:mm")
-              : null,
+              : "",
           ]);
         });
         let wscols = [

@@ -253,7 +253,7 @@ export default {
               item.charge === 0 ? "-" : "￥" + item.charge,
               item.created_at
                 ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
-                : null,
+                : "",
             ]);
           });
           let wscols = [

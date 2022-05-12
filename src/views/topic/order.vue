@@ -247,7 +247,7 @@ export default {
             item.charge === 0 ? "-" : "￥" + item.charge,
             item.updated_at
               ? moment(item.updated_at).format("YYYY-MM-DD HH:mm")
-              : null,
+              : "",
           ]);
         });
         let wscols = [
