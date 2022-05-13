@@ -458,7 +458,6 @@ export default {
       this.dragY = e.top;
     },
     changeSize(val) {
-      console.log(111);
       if (!this.image) {
         this.$message.error("请上传证书背景后在改变缩放比例");
         return;
