@@ -66,7 +66,7 @@ export default {
         let data = new Uint8Array(e.target.result);
         let workbook = XLSX.read(data, { type: "array", cellDates: true });
         let parseData = this.parseData(workbook);
-        parseData.splice(0, 1);
+        parseData.splice(0, 2);
         if (parseData.length === 0) {
           this.$message.error("数据为空");
           return;
@@ -89,65 +89,10 @@ export default {
       };
       reader.readAsArrayBuffer(f);
     },
-    sheet2blob(sheet, sheetName) {
-      //将文件转换为二进制文件
-      sheetName = sheetName || "sheet1";
-      var workbook = {
-        SheetNames: [sheetName],
-        Sheets: {},
-      };
-      workbook.Sheets[sheetName] = sheet;
-      // 生成excel的配置项
-      var wopts = {
-        bookType: "xlsx", // 要生成的文件类型
-        bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
-        type: "binary",
-      };
-      var wbout = XLSX.write(workbook, wopts);
-      var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
-      // 字符串转ArrayBuffer
-      function s2ab(s) {
-        var buf = new ArrayBuffer(s.length);
-        var view = new Uint8Array(buf);
-        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
-        return buf;
-      }
-      return blob;
-    },
-    openDownloadXLSXDialog(url, saveName) {
-      //下载模板文件
-      if (typeof url == "object" && url instanceof Blob) {
-        url = URL.createObjectURL(url); // 创建blob地址
-      }
-
-      var aLink = document.createElement("a");
-      aLink.href = url;
-      aLink.download = saveName || ""; // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效
-      var event;
-      if (window.MouseEvent) event = new MouseEvent("click");
-      else {
-        event = document.createEvent("MouseEvents");
-        event.initMouseEvent(
-          "click",
-          true,
-          false,
-          window,
-          0,
-          0,
-          0,
-          0,
-          0,
-          false,
-          false,
-          false,
-          false,
-          0,
-          null
-        );
-      }
-      aLink.dispatchEvent(event);
-    },
     model() {
+      var header = [
+        [`★★★★★导入时本行请保留，存在日期格式数据单元格设置成“文本”★★★★★`],
+      ];
       var array = [
         [
           "所属课程名称",
@@ -163,35 +108,30 @@ export default {
           "seo描述(已下架)",
           "试看(秒)选填",
         ],
-        [
-          "此处填写所属课程名称",
-          "此处填写章节名称",
-          "此处填写视频名称",
-          "3600",
-          "",
-          "",
-          "",
-          "10",
-          "2022/1/11 11:11",
-          "无需填写",
-          "无需填写",
-          "60",
-        ],
       ];
-      var sheet = XLSX.utils.aoa_to_sheet(array);
-      // for (const key in sheet) {
-      //   if (key.replace(/[^0-9]/gi, "") === "2") {
-      //     sheet[key].s = {
-      //       ...sheet[key].s,
-      //       font: {
-      //         //覆盖字体
-      //         color: "ff5858",
-      //       },
-      //     };
-      //   }
-      // }
-      var blob = this.sheet2blob(sheet, "视频批量导入模板");
-      this.openDownloadXLSXDialog(blob, "视频批量导入模板.xlsx");
+      let merges = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 11 } }];
+      let wscols = [
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 15 },
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 15 },
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 15 },
+      ];
+      this.$utils.importExcel(
+        header,
+        array,
+        merges,
+        "视频批量导入模板.xlsx",
+        "sheet1",
+        wscols
+      );
     },
     parseData(workbook) {
       let data = [];
