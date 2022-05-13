@@ -458,6 +458,7 @@ export default {
       this.dragY = e.top;
     },
     changeSize(val) {
+      console.log(111);
       if (!this.image) {
         this.$message.error("请上传证书背景后在改变缩放比例");
         return;
@@ -856,6 +857,7 @@ export default {
   }
   .tab_narrow {
     width: 20px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: right;
@@ -869,6 +871,7 @@ export default {
   }
   .tab_enlarge {
     width: 20px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: left;
