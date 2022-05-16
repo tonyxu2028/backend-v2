@@ -64,12 +64,6 @@ export default {
           sign: "",
         },
         {
-          name: "移动端H5",
-          value: "立春模板",
-          images: require("../../assets/images/config/h5.png"),
-          sign: "TemplateOne",
-        },
-        {
           name: "支付配置",
           value: "支付",
           images: require("../../assets/images/config/payment.png"),
