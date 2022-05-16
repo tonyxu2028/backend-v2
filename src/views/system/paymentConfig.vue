@@ -183,34 +183,6 @@
         </el-form-item>
         <template v-if="enabledAddons['TemplateOne'] === 1">
           <div class="title">苹果支付</div>
-          <el-form-item :key="1847" label="苹果产品id参数">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  type="textarea"
-                  :rows="3"
-                  v-model="
-                    form.config['meedu.addons.TemplateOne.apple.product_ids']
-                  "
-                >
-                </el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item :key="1848" label="苹果App BundleID">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config['meedu.addons.TemplateOne.apple.app_bundle_id']
-                  "
-                >
-                </el-input>
-              </div>
-            </div>
-          </el-form-item>
           <el-form-item :key="1918" label="苹果支付DEBUG">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
@@ -229,6 +201,20 @@
                     >应用开发时使用，正式上线请勿开启。否则将导致充值无法到账。</span
                   >
                 </div>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item :key="1848" label="苹果App BundleID">
+            <div class="j-flex flex-column" style="margin-left: 3px">
+              <div>
+                <el-input
+                  class="w-200px"
+                  v-model="
+                    form.config['meedu.addons.TemplateOne.apple.app_bundle_id']
+                  "
+                >
+                </el-input>
               </div>
             </div>
           </el-form-item>
@@ -267,6 +253,21 @@
                 <div class="form-helper-text">
                   <span>请填写1元人民币换算后的虚拟货币数值</span>
                 </div>
+              </div>
+            </div>
+          </el-form-item>
+          <el-form-item :key="1847" label="苹果产品id参数">
+            <div class="j-flex flex-column" style="margin-left: 3px">
+              <div>
+                <el-input
+                  class="w-200px"
+                  type="textarea"
+                  :rows="3"
+                  v-model="
+                    form.config['meedu.addons.TemplateOne.apple.product_ids']
+                  "
+                >
+                </el-input>
               </div>
             </div>
           </el-form-item>
