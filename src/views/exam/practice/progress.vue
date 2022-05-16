@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column label="进度" width="150">
             <template slot-scope="scope">
-              <span
+              <span v-if="scope.row.question_count !== 0"
                 >{{
                   (
                     (scope.row.submit_count * 100) /
@@ -29,6 +29,7 @@
                   ).toFixed(2)
                 }}%</span
               >
+              <span v-else>0.00%</span>
             </template>
           </el-table-column>
         </el-table>
