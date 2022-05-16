@@ -46,36 +46,10 @@
           :data="results"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" :width="100"> </el-table-column>
-          <el-table-column
-            prop="transaction_id"
-            label="TransactionId"
-            :width="200"
-          >
-          </el-table-column>
-          <el-table-column label="商品">
-            <template slot-scope="scope">
-              <span v-if="scope.row.product"
-                >{{ scope.row.product.amount }}{{ credit2_name }}</span
-              >
-              <span class="c-red" v-else>无商品</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="数量" :width="150">
-            <template slot-scope="scope">
-              <span>{{ scope.row.goods_count }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="总价格" :width="200">
-            <template slot-scope="scope">
-              <span
-                >{{ scope.row.product.charge * scope.row.goods_count }}元</span
-              >
-            </template>
-          </el-table-column>
+          <el-table-column prop="id" label="ID" :width="60"> </el-table-column>
           <el-table-column prop="user_id" label="学员ID" :width="100">
           </el-table-column>
-          <el-table-column label="学员" :width="300">
+          <el-table-column label="学员" :width="250">
             <template slot-scope="scope">
               <template v-if="scope.row.user">
                 <div class="user-item d-flex" v-if="scope.row.user">
@@ -90,14 +64,38 @@
               <span class="c-red" v-else>学员不存在</span>
             </template>
           </el-table-column>
-
-          <el-table-column label="状态" :width="100">
+          <el-table-column
+            prop="transaction_id"
+            label="TransactionId"
+            :width="200"
+          >
+          </el-table-column>
+          <el-table-column label="数量" :width="100">
             <template slot-scope="scope">
-              <el-tag v-if="scope.row.is_paid !== 1" type="info">未支付</el-tag>
-              <el-tag type="success" v-else>已支付</el-tag>
+              <span>{{ scope.row.goods_count }}</span>
             </template>
           </el-table-column>
-
+          <el-table-column label="商品">
+            <template slot-scope="scope">
+              <span v-if="scope.row.product"
+                >{{ scope.row.product.amount }}{{ credit2_name }}</span
+              >
+              <span class="c-red" v-else>无商品</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="实际支付" :width="150">
+            <template slot-scope="scope">
+              <span
+                >{{ scope.row.product.charge * scope.row.goods_count }}元</span
+              >
+            </template>
+          </el-table-column>
+          <el-table-column label="状态" :width="100">
+            <template slot-scope="scope">
+              <span class="c-red" v-if="scope.row.is_paid !== 1">· 未支付</span>
+              <span class="c-green" v-else>· 已支付</span>
+            </template>
+          </el-table-column>
           <el-table-column label="时间" :width="200">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
