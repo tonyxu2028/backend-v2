@@ -3,7 +3,6 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <el-button type="danger" @click="delRecords()">删除</el-button>
-        <el-button @click="importexcel" type="primary">导出表格</el-button>
       </div>
       <div class="d-flex">
         <div>
@@ -38,6 +37,7 @@
         <div class="ml-10">
           <el-button @click="paginationReset">清空</el-button>
           <el-button @click="firstPageLoad" type="primary">筛选</el-button>
+          <el-button @click="importexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
@@ -116,6 +116,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import Utils from "@/js/utils.js";
 
 export default {
@@ -258,12 +259,23 @@ export default {
             user.nick_name,
             user.mobile,
             item.progress + "%",
-            item.created_at,
-            item.watched_at,
+            item.created_at
+              ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+              : "",
+            item.watched_at
+              ? moment(item.watched_at).format("YYYY-MM-DD HH:mm")
+              : "",
           ]);
         });
-
-        Utils.exportExcel(data, filename, sheetName);
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        Utils.exportExcel(data, filename, sheetName, wscols);
         this.loading = false;
       });
     },

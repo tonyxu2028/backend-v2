@@ -2,15 +2,9 @@
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="考试记录"></back-bar>
     <div class="float-left j-b-flex mb-30">
+      <div class="d-flex"></div>
       <div class="d-flex">
         <div>
-          <el-input
-            class="w-150px"
-            v-model="filter.user_id"
-            placeholder="学员ID"
-          ></el-input>
-        </div>
-        <div class="ml-10">
           <el-select class="w-150px" placeholder="状态" v-model="filter.status">
             <el-option
               v-for="(item, index) in filterData.statusMap"
@@ -22,34 +16,19 @@
           </el-select>
         </div>
         <div class="ml-10">
-          <el-date-picker
-            :picker-options="pickerOptions"
-            v-model="filter.created_at"
-            type="daterange"
-            align="right"
-            unlink-panels
-            range-separator="至"
-            start-placeholder="考试开始时间-起始"
-            end-placeholder="考试开始时间-结束"
-          >
-          </el-date-picker>
-        </div>
-        <div class="ml-10">
-          <el-date-picker
-            :picker-options="pickerOptions"
-            v-model="filter.submit_at"
-            type="daterange"
-            align="right"
-            unlink-panels
-            range-separator="至"
-            start-placeholder="交卷时间-起始"
-            end-placeholder="交卷时间-结束"
-          >
-          </el-date-picker>
-        </div>
-        <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
+          <el-button @click="exportexcel" type="primary">导出表格</el-button>
+        </div>
+        <div class="drawerMore d-flex ml-10" @click="drawer = true">
+          <template v-if="showStatus">
+            <img src="../../../assets/img/icon-filter-h.png" />
+            <span class="act">已选</span>
+          </template>
+          <template v-else>
+            <img src="../../../assets/img/icon-filter.png" />
+            <span>更多</span>
+          </template>
         </div>
       </div>
     </div>
@@ -165,10 +144,66 @@
         </el-pagination>
       </div>
     </div>
+    <el-drawer :size="360" :visible.sync="drawer" :with-header="false">
+      <div class="n-padding-box">
+        <div class="tit flex">更多筛选</div>
+        <div class="j-flex">
+          <el-input
+            class="w-300px"
+            v-model="filter.user_id"
+            placeholder="学员ID"
+          ></el-input>
+        </div>
+        <div class="j-flex mt-20">
+          <el-select class="w-300px" placeholder="状态" v-model="filter.status">
+            <el-option
+              v-for="(item, index) in filterData.statusMap"
+              :key="index"
+              :label="item.text"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </div>
+        <div class="j-flex mt-20">
+          <el-date-picker
+            class="w-300px"
+            :picker-options="pickerOptions"
+            v-model="filter.created_at"
+            type="daterange"
+            align="right"
+            unlink-panels
+            range-separator="至"
+            start-placeholder="考试开始时间-起始"
+            end-placeholder="考试开始时间-结束"
+          >
+          </el-date-picker>
+        </div>
+        <div class="j-flex mt-20">
+          <el-date-picker
+            class="w-300px"
+            :picker-options="pickerOptions"
+            v-model="filter.submit_at"
+            type="daterange"
+            align="right"
+            unlink-panels
+            range-separator="至"
+            start-placeholder="交卷时间-起始"
+            end-placeholder="交卷时间-结束"
+          >
+          </el-date-picker>
+        </div>
+        <div class="j-b-flex mt-30">
+          <el-button @click="paginationReset()">清空</el-button>
+          <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
+        </div>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
 <script>
+import moment from "moment";
 import DurationText from "@/components/duration-text";
 
 export default {
@@ -205,6 +240,7 @@ export default {
           return time.getTime() > Date.now();
         },
       },
+      drawer: false,
     };
   },
   watch: {
@@ -214,6 +250,19 @@ export default {
       this.filter.status = -1;
       this.filter.submit_at = null;
       this.filter.created_at = null;
+    },
+  },
+  computed: {
+    showStatus() {
+      if (
+        this.filter.user_id ||
+        this.filter.status !== -1 ||
+        this.filter.submit_at ||
+        this.filter.created_at
+      ) {
+        return true;
+      }
+      return false;
     },
   },
   activated() {
@@ -228,6 +277,7 @@ export default {
     firstPageLoad() {
       this.pagination.page = 1;
       this.getResults();
+      this.drawer = false;
     },
     paginationReset() {
       this.pagination.page = 1;
@@ -236,6 +286,7 @@ export default {
       this.filter.submit_at = null;
       this.filter.created_at = null;
       this.getResults();
+      this.drawer = false;
     },
     paginationSizeChange(size) {
       this.pagination.size = size;
@@ -299,6 +350,91 @@ export default {
         .catch(() => {
           //点击删除按钮的操作
         });
+    },
+    exportexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      this.pagination.id = this.$route.query.id;
+      Object.assign(params, this.filter);
+
+      this.$api.Exam.Paper.Userpaper(this.pagination.id, params).then((res) => {
+        if (res.data.data.total === 0) {
+          this.$message.error("数据为空");
+          this.loading = false;
+          return;
+        }
+
+        let filename = "考试卷考试记录.xlsx";
+        let sheetName = "sheet1";
+
+        let data = [
+          [
+            "学员ID",
+            "学员",
+            "手机号",
+            "得分",
+            "用时",
+            "状态",
+            "开始时间",
+            "交卷时间",
+          ],
+        ];
+        res.data.data.data.forEach((item) => {
+          data.push([
+            item.user_id,
+            item.user.nick_name,
+            item.user.mobile,
+            item.score + "分",
+            this.durationTime(item.used_seconds),
+            item.status_text,
+            item.created_at
+              ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+              : "",
+            item.submit_at
+              ? moment(item.submit_at).format("YYYY-MM-DD HH:mm")
+              : "",
+          ]);
+        });
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 10 },
+          { wch: 15 },
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
+        this.loading = false;
+      });
+    },
+    durationTime(duration) {
+      let hour = parseInt(duration / 3600);
+      let minute = parseInt((duration - hour * 3600) / 60);
+      let second = duration - hour * 3600 - minute * 60;
+      if (hour === 0 && minute === 0 && second === 0) {
+        return null;
+      }
+      if (hour === 0) {
+        hour = "";
+      } else {
+        hour = hour + ":";
+      }
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+      if (second < 10) {
+        second = "0" + second;
+      }
+      return hour + minute + ":" + second;
     },
   },
 };

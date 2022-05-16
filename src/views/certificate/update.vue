@@ -871,6 +871,7 @@ export default {
   }
   .tab_narrow {
     width: 20px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: right;
@@ -884,6 +885,7 @@ export default {
   }
   .tab_enlarge {
     width: 20px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: left;

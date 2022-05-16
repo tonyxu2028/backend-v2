@@ -25,6 +25,7 @@
         <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
+          <el-button @click="exportexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
@@ -117,6 +118,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import DurationText from "@/components/duration-text";
 
 export default {
@@ -240,6 +242,77 @@ export default {
         .catch(() => {
           //点击删除按钮的操作
         });
+    },
+    exportexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      this.pagination.id = this.$route.query.id;
+      Object.assign(params, this.filter);
+      this.$api.Exam.Mockpaper.Userpaper(this.pagination.id, params).then(
+        (res) => {
+          if (res.data.total === 0) {
+            this.$message.error("数据为空");
+            this.loading = false;
+            return;
+          }
+          let filename = "模拟卷考试记录.xlsx";
+          let sheetName = "sheet1";
+
+          let data = [
+            ["学员ID", "学员", "手机号", "得分", "用时", "时间", "状态"],
+          ];
+          res.data.data.forEach((item) => {
+            data.push([
+              item.user_id,
+              item.user.nick_name,
+              item.user.mobile,
+              item.get_score + "分",
+              this.durationTime(item.use_seconds),
+              item.created_at
+                ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+                : "",
+              item.status_text,
+            ]);
+          });
+          let wscols = [
+            { wch: 10 },
+            { wch: 20 },
+            { wch: 15 },
+            { wch: 10 },
+            { wch: 15 },
+            { wch: 20 },
+            { wch: 10 },
+          ];
+          this.$utils.exportExcel(data, filename, sheetName, wscols);
+          this.loading = false;
+        }
+      );
+    },
+    durationTime(duration) {
+      let hour = parseInt(duration / 3600);
+      let minute = parseInt((duration - hour * 3600) / 60);
+      let second = duration - hour * 3600 - minute * 60;
+      if (hour === 0 && minute === 0 && second === 0) {
+        return null;
+      }
+      if (hour === 0) {
+        hour = "";
+      } else {
+        hour = hour + ":";
+      }
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+      if (second < 10) {
+        second = "0" + second;
+      }
+      return hour + minute + ":" + second;
     },
   },
 };

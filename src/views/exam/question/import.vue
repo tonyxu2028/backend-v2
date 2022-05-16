@@ -10,11 +10,7 @@
           </el-button>
         </div>
         <div class="ml-30">
-          <el-link
-            type="primary"
-            href="https://www.yuque.com/meedu/rg44n1/ucbqv1"
-            target="_blank"
-          >
+          <el-link type="primary" @click="model()">
             点击链接下载「试题批量导入模板」
           </el-link>
         </div>
@@ -29,7 +25,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import XLSX from "xlsx";
@@ -91,7 +86,49 @@ export default {
       };
       reader.readAsArrayBuffer(f);
     },
-
+    model() {
+      var array = [
+        [
+          "分类",
+          "类型",
+          "难度",
+          "问题",
+          "答案",
+          "解析",
+          "分数",
+          "选项1",
+          "选项2",
+          "选项3",
+          "选项4",
+          "选项5",
+          "选项6",
+          "选项7",
+          "选项8",
+          "选项9",
+          "选项10",
+        ],
+      ];
+      let wscols = [
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 15 },
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 10 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 },
+        { wch: 15 },
+      ];
+      this.$utils.importExcel(array, "试题批量导入模板.xlsx", "sheet1", wscols);
+    },
     parseData(workbook) {
       let data = [];
       workbook.SheetNames.forEach(function (sheetName) {

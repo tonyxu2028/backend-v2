@@ -260,8 +260,15 @@ export default {
         rows.push(["及格分", res.data.pass_score + "分"]);
         rows.push(["及格人数", res.data.stat.pass_count + "人"]);
         rows.push(["及格率", res.data.stat.pass_rate + "%"]);
-
-        this.$utils.exportExcel(rows, filename, sheetName);
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 10 },
+          { wch: 10 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(rows, filename, sheetName, wscols);
       });
     },
   },
