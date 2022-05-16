@@ -75,6 +75,15 @@ const routes = [
     },
   },
   {
+    path: "/order/recharge",
+    component: () => import("@/views/order/recharge"),
+    name: "RechargeOrder",
+    meta: {
+      title: "title.rechargeorder",
+      keepAlive: true,
+    },
+  },
+  {
     path: "/promocode",
     component: () => import("@/views/order/promocode"),
     name: "Promocode",
