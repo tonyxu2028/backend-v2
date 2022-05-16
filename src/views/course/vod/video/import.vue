@@ -66,7 +66,7 @@ export default {
         let data = new Uint8Array(e.target.result);
         let workbook = XLSX.read(data, { type: "array", cellDates: true });
         let parseData = this.parseData(workbook);
-        parseData.splice(0, 2);
+        parseData.splice(0, 1);
         if (parseData.length === 0) {
           this.$message.error("数据为空");
           return;
