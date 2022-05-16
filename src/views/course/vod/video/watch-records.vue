@@ -25,10 +25,9 @@
           </el-date-picker>
         </div>
         <div class="ml-15">
-          <el-button @click="firstPageLoad" type="primary" plain>
-            筛选
-          </el-button>
+          <el-button @click="firstPageLoad" type="primary"> 筛选 </el-button>
           <el-button @click="paginationReset">清空</el-button>
+          <el-button @click="exportexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
@@ -105,6 +104,7 @@
   </div>
 </template>
 <script>
+import moment from "moment";
 import DurationText from "@/components/duration-text";
 
 export default {
@@ -207,6 +207,92 @@ export default {
           this.courses = res.data.courses;
         }
       );
+    },
+    exportexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      this.video_id = this.$route.query.id;
+      this.pagination.course_id = this.$route.query.course_id;
+      Object.assign(params, this.filter);
+
+      this.$api.Course.Vod.Videos.WatchRecords(
+        this.$route.query.id,
+        params
+      ).then((res) => {
+        if (res.data.data.total === 0) {
+          this.$message.error("数据为空");
+          this.loading = false;
+          return;
+        }
+
+        let filename = "视频观看记录.xlsx";
+        let sheetName = "sheet1";
+
+        let data = [
+          [
+            "学员ID",
+            "学员",
+            "手机号",
+            "视频时长",
+            "已观看",
+            "开始时间",
+            "结束时间",
+          ],
+        ];
+        res.data.data.data.forEach((item) => {
+          data.push([
+            item.user_id,
+            this.users[item.user_id].nick_name,
+            this.users[item.user_id].mobile,
+            this.durationTime(this.videos[item.video_id].duration),
+            this.durationTime(item.watch_seconds),
+            item.created_at
+              ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+              : "",
+            item.watched_at
+              ? moment(item.watched_at).format("YYYY-MM-DD HH:mm")
+              : "",
+          ]);
+        });
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
+        this.loading = false;
+      });
+    },
+    durationTime(duration) {
+      let hour = parseInt(duration / 3600);
+      let minute = parseInt((duration - hour * 3600) / 60);
+      let second = duration - hour * 3600 - minute * 60;
+      if (hour === 0 && minute === 0 && second === 0) {
+        return null;
+      }
+      if (hour === 0) {
+        hour = "";
+      } else {
+        hour = hour + ":";
+      }
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+      if (second < 10) {
+        second = "0" + second;
+      }
+      return hour + minute + ":" + second;
     },
   },
 };

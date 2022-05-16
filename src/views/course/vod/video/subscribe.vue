@@ -25,10 +25,9 @@
           </el-date-picker>
         </div>
         <div class="ml-15">
-          <el-button @click="firstPageLoad" type="primary" plain>
-            筛选
-          </el-button>
+          <el-button @click="firstPageLoad" type="primary"> 筛选 </el-button>
           <el-button @click="paginationReset">清空</el-button>
+          <el-button @click="exportexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
@@ -94,6 +93,7 @@
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -216,6 +216,54 @@ export default {
             });
         })
         .catch(() => {});
+    },
+    exportexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      this.cid = this.$route.query.course_id;
+      this.pagination.video_id = this.$route.query.video_id;
+      Object.assign(params, this.filter);
+
+      this.$api.Course.Vod.Videos.Subscribe(
+        this.$route.query.video_id,
+        params
+      ).then((res) => {
+        if (res.data.data.total === 0) {
+          this.$message.error("数据为空");
+          this.loading = false;
+          return;
+        }
+
+        let filename = "视频订阅学员.xlsx";
+        let sheetName = "sheet1";
+
+        let data = [["学员ID", "学员", "手机号", "价格", "时间"]];
+        res.data.data.data.forEach((item) => {
+          data.push([
+            item.user_id,
+            this.users[item.user_id].nick_name,
+            this.users[item.user_id].mobile,
+            item.charge === 0 ? "-" : "￥" + item.charge,
+            moment(item.created_at).format("YYYY-MM-DD HH:mm"),
+          ]);
+        });
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
+        this.loading = false;
+      });
     },
   },
 };
