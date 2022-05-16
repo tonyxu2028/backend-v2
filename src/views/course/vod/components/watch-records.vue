@@ -3,7 +3,6 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <el-button type="danger" @click="delRecords()">删除</el-button>
-        <el-button @click="importexcel" type="primary">导出表格</el-button>
       </div>
       <div class="d-flex">
         <div>
@@ -38,6 +37,7 @@
         <div class="ml-10">
           <el-button @click="paginationReset">清空</el-button>
           <el-button @click="firstPageLoad" type="primary">筛选</el-button>
+          <el-button @click="importexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
