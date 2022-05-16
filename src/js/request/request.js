@@ -71,6 +71,9 @@ const Api = {
     SetPaid(id) {
       return get(`/backend/api/v1/order/${id}/finish`);
     },
+    RechargeOrders(params) {
+      return get(`/backend/addons/TemplateOne/recharge/orders`, params);
+    },
     PromoCode: {
       PromoCode(params) {
         return get(`/backend/api/v1/promoCode`, params);

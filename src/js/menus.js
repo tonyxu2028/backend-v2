@@ -124,6 +124,11 @@ export default [
         permission: "order",
       },
       {
+        name: "title.rechargeorder",
+        key: "RechargeOrder",
+        permission: "addons.TemplateOne.rechargeOrders.list",
+      },
+      {
         name: "title.withdrawOrders",
         key: "WithdrawOrders",
         permission: "member.inviteBalance.withdrawOrders",

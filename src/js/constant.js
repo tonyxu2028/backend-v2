@@ -7,6 +7,7 @@ export default {
     Orderlist: "Orderlist",
     OrderDetail: "Orderlist",
     OrderRefund: "Orderlist",
+    RechargeOrder: "RechargeOrder",
     Promocode: "Promocode",
     Createcode: "Promocode",
     CreateMulticode: "Promocode",
