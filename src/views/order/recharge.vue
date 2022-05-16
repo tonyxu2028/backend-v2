@@ -66,14 +66,9 @@
           </el-table-column>
           <el-table-column
             prop="transaction_id"
-            label="TransactionId"
+            label="TransactionID"
             :width="200"
           >
-          </el-table-column>
-          <el-table-column label="数量" :width="100">
-            <template slot-scope="scope">
-              <span>{{ scope.row.goods_count }}</span>
-            </template>
           </el-table-column>
           <el-table-column label="商品">
             <template slot-scope="scope">
@@ -81,6 +76,11 @@
                 >{{ scope.row.product.amount }}{{ credit2_name }}</span
               >
               <span class="c-red" v-else>无商品</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="数量" :width="100">
+            <template slot-scope="scope">
+              <span>{{ scope.row.goods_count }}</span>
             </template>
           </el-table-column>
           <el-table-column label="实际支付" :width="150">
