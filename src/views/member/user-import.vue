@@ -141,7 +141,6 @@ export default {
       reader.readAsArrayBuffer(f);
     },
     model() {
-      var header = [[`用户批量导入`]];
       var array = [
         [
           "手机号",
@@ -152,7 +151,6 @@ export default {
           "标签",
         ],
       ];
-      let merges = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 5 } }];
       let wscols = [
         { wch: 20 },
         { wch: 20 },
@@ -161,14 +159,7 @@ export default {
         { wch: 25 },
         { wch: 20 },
       ];
-      this.$utils.importExcel(
-        header,
-        array,
-        merges,
-        "学员批量导入模板.xlsx",
-        "sheet1",
-        wscols
-      );
+      this.$utils.importExcel(array, "学员批量导入模板.xlsx", "sheet1", wscols);
     },
     parseData(workbook) {
       let data = [];

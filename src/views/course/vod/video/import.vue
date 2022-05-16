@@ -90,9 +90,6 @@ export default {
       reader.readAsArrayBuffer(f);
     },
     model() {
-      var header = [
-        [`★★★★★导入时本行请保留，存在日期格式数据单元格设置成“文本”★★★★★`],
-      ];
       var array = [
         [
           "所属课程名称",
@@ -109,7 +106,6 @@ export default {
           "试看(秒)选填",
         ],
       ];
-      let merges = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 11 } }];
       let wscols = [
         { wch: 20 },
         { wch: 20 },
@@ -124,14 +120,7 @@ export default {
         { wch: 20 },
         { wch: 15 },
       ];
-      this.$utils.importExcel(
-        header,
-        array,
-        merges,
-        "视频批量导入模板.xlsx",
-        "sheet1",
-        wscols
-      );
+      this.$utils.importExcel(array, "视频批量导入模板.xlsx", "sheet1", wscols);
     },
     parseData(workbook) {
       let data = [];

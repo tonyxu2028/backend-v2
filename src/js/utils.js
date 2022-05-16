@@ -67,7 +67,7 @@ export default {
 
     FileSaver.saveAs(new Blob([s2ab(wbout)], { type: "" }), filename);
   },
-  importExcel(header, data, merges, filename, sheetName, wscols) {
+  importExcel(data, filename, sheetName, wscols) {
     const XLSX = require("xlsx");
     const { write } = require("xlsx-style");
     const FileSaver = require("file-saver");
@@ -86,13 +86,11 @@ export default {
         },
       },
     };
-    data.unshift(header);
     let wb = XLSX.utils.book_new();
     let ws = XLSX.utils.aoa_to_sheet(data);
     if (wscols) {
       ws["!cols"] = wscols;
     }
-    ws["!merges"] = merges;
     for (let [key, value] of Object.entries(ws)) {
       if (key.startsWith("!")) continue;
       value.s = {
@@ -104,15 +102,11 @@ export default {
           right: { style: "thin" },
         },
       };
-      if (parseInt(key.replace(/[^0-9]/gi, "")) === 2) {
+      if (parseInt(key.replace(/[^0-9]/gi, "")) === 1) {
         value.s = style.hs;
       }
     }
-    ws["A1"].s = {
-      font: { sz: 10, color: { rgb: "333333" }, bold: true },
-      alignment: { horizontal: "left", vertical: "center", wrapText: true },
-      fill: { bgColor: { indexed: 64 }, fgColor: { rgb: "F2F2F2" } },
-    };
+
     XLSX.utils.book_append_sheet(wb, ws, sheetName);
     let wopts = { bookType: "xlsx", bookSST: false, type: "binary" };
     let wbout = write(wb, wopts);
