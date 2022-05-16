@@ -85,7 +85,7 @@
               </div>
               <div class="ml-15">
                 <helper-text
-                  text="价格最小单位为：元，不支持小数。"
+                  text="最小单位：元。大于0意味着用户必须购买课程才能观看。"
                 ></helper-text>
               </div>
             </div>
@@ -106,7 +106,7 @@
               <div class="ml-15">
                 <div class="helper-text">
                   <helper-text
-                    text="上架时间决定课程的排名，时间越早排名越靠后。另外，如果上架时间是未来时间，那么只有时间到了学员才能看到该课程。"
+                    text="上架时间决定课程排序，越晚越靠前；如果上架时间在未来那么用户将无法看到该课程。"
                   ></helper-text>
                 </div>
               </div>
