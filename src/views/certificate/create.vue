@@ -134,9 +134,7 @@
           <template v-if="course.template_image">
             <div class="d-flex float-left mt-30">
               <div class="label ml-10">关联学习</div>
-              <helper-text
-                text="搭配默认二维码地址使用"
-              ></helper-text>
+              <helper-text text="搭配默认二维码地址使用"></helper-text>
             </div>
             <div class="float-left mt-30">
               <div class="d-flex float-left">
@@ -682,15 +680,15 @@ export default {
           });
         } else if (this.blocksData[i].sign === "qrcode-v1") {
           let obj = this.blocksData[i].config.text;
-          if (reg.test(obj)) {
-            this.curBlockIndex = i;
-            this.$message.error("二维码网址仅支持英文、数字和符号");
-            return;
-          } else if (!reg2.test(obj)) {
-            this.curBlockIndex = i;
-            this.$message.error("请输入正确的URL地址");
-            return;
-          }
+          // if (reg.test(obj)) {
+          //   this.curBlockIndex = i;
+          //   this.$message.error("二维码网址仅支持英文、数字和符号");
+          //   return;
+          // } else if (!reg2.test(obj)) {
+          //   this.curBlockIndex = i;
+          //   this.$message.error("请输入正确的URL地址");
+          //   return;
+          // }
           params.push({
             qrcode: this.blocksData[i].config,
           });

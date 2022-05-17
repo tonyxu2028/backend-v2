@@ -720,15 +720,6 @@ export default {
           });
         } else if (this.blocksData[i].sign === "qrcode-v1") {
           let obj = this.blocksData[i].config.text;
-          if (reg.test(obj)) {
-            this.curBlockIndex = i;
-            this.$message.error("二维码网址仅支持英文、数字和符号");
-            return;
-          } else if (!reg2.test(obj)) {
-            this.curBlockIndex = i;
-            this.$message.error("请输入正确的URL地址");
-            return;
-          }
           params.push({
             qrcode: this.blocksData[i].config,
           });
