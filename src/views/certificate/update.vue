@@ -544,14 +544,6 @@ export default {
           this.changeSize(-1);
         }
       }
-      if (!this.image) {
-        return;
-      }
-      if (e.deltaY > 0) {
-        this.dragY -= 25;
-      } else {
-        this.dragY += 25;
-      }
     },
     isJSON(str) {
       if (typeof str == "string") {
