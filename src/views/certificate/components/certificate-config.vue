@@ -175,7 +175,7 @@
             </div>
           </div>
         </div>
-        <div class="config-item-body">
+        <!--<div class="config-item-body">
           <div class="float-left">
             <div class="w-100 form-label mb-15">网址</div>
             <div class="w-100 float-left import-box">
@@ -214,7 +214,7 @@
               ></helper-text>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
     <select-image
