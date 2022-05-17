@@ -389,6 +389,7 @@ export default {
         name: null,
         template_image: null,
         params: null,
+        courses: null,
       },
       fresh: true,
       rules: {
@@ -687,6 +688,13 @@ export default {
         }
       }
 
+      //console.log(params);
+      this.course.params = JSON.stringify(params);
+
+      // if (!this.isJSON(this.course.params)) {
+      //   this.$message.error("请输入JSON字符串");
+      //   return;
+      // }
       let courses = [];
       if (this.coursesData.length > 0) {
         courses = courses.concat(this.coursesData);
@@ -695,17 +703,8 @@ export default {
         courses = courses.concat(this.paperData);
       }
       if (courses.length > 0) {
-        params.push({
-          courses: courses,
-        });
+        this.course.courses = courses;
       }
-      //console.log(params);
-      this.course.params = JSON.stringify(params);
-
-      // if (!this.isJSON(this.course.params)) {
-      //   this.$message.error("请输入JSON字符串");
-      //   return;
-      // }
 
       this.loading = true;
       this.$api.Certificate.Store(this.course)

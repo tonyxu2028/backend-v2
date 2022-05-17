@@ -390,6 +390,7 @@ export default {
         name: null,
         template_image: null,
         params: null,
+        courses: null,
       },
       fresh: true,
       rules: {
@@ -562,7 +563,9 @@ export default {
     getDetail() {
       this.$api.Certificate.Detail(this.id).then((res) => {
         let data = res.data;
-        this.course = data;
+        this.course.params = data.params;
+        this.course.name = data.name;
+        this.course.template_image = data.template_image;
         let params = JSON.parse(data.params);
         for (let i = 0; i < params.length; i++) {
           if (params[i].image) {
@@ -583,25 +586,45 @@ export default {
               config: params[i].qrcode,
             };
             this.blocksData.push(item);
-          } else if (params[i].courses) {
-            let data = params[i].courses;
-            let coursesData = [];
-            let paperData = [];
-            for (let j = 0; j < data.length; j++) {
-              if (data[j].type === "paper") {
-                paperData.push(data[j]);
-              } else {
-                coursesData.push(data[j]);
-              }
-            }
-
-            if (paperData.length > 0) {
-              this.paperData = paperData;
-            }
-            if (coursesData.length > 0) {
-              this.coursesData = coursesData;
+          }
+        }
+        let relate_res = data.relate_res;
+        if (relate_res) {
+          let data = relate_res;
+          let coursesData = [];
+          let paperData = [];
+          let box = [];
+          for (let j = 0; j < data.length; j++) {
+            box.push({
+              type: data[j].res_type,
+              id: data[j].res_id,
+              title: data[j].res_title,
+              thumb: data[j].res_thumb,
+            });
+            if (data[j].res_type === "paper") {
+              paperData.push({
+                type: data[j].res_type,
+                id: data[j].res_id,
+                title: data[j].res_title,
+                thumb: data[j].res_thumb,
+              });
+            } else {
+              coursesData.push({
+                type: data[j].res_type,
+                id: data[j].res_id,
+                title: data[j].res_title,
+                thumb: data[j].res_thumb,
+              });
             }
           }
+
+          if (paperData.length > 0) {
+            this.paperData = paperData;
+          }
+          if (coursesData.length > 0) {
+            this.coursesData = coursesData;
+          }
+          this.course.courses = box;
         }
       });
     },
@@ -717,7 +740,7 @@ export default {
           });
         }
       }
-
+      this.course.params = JSON.stringify(params);
       let courses = [];
       if (this.coursesData.length > 0) {
         courses = courses.concat(this.coursesData);
@@ -726,11 +749,8 @@ export default {
         courses = courses.concat(this.paperData);
       }
       if (courses.length > 0) {
-        params.push({
-          courses: courses,
-        });
+        this.course.courses = courses;
       }
-      this.course.params = JSON.stringify(params);
       this.loading = true;
       this.$api.Certificate.Update(this.id, this.course)
         .then(() => {
