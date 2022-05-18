@@ -133,7 +133,7 @@
           </draggable>
           <template v-if="course.template_image">
             <div class="d-flex float-left mt-30">
-              <div class="label ml-10">关联学习</div>
+              <div class="label">关联学习</div>
               <helper-text text="搭配默认二维码地址使用"></helper-text>
             </div>
             <div class="float-left mt-30">
@@ -814,6 +814,12 @@ export default {
   }
 }
 
+/deep/.el-form-item__label {
+  width: 80px !important;
+  text-align: left;
+  padding: 0;
+}
+
 .certificate-preview-box.active:before {
   display: none;
 }
@@ -858,17 +864,19 @@ export default {
   padding: 0 12px 0 0;
   box-sizing: border-box;
   border-left: 4px solid #3ca7fa;
+  margin-right: 10px;
 }
 .label-item {
   width: 90px;
-  text-align: right;
+  text-align: left;
   vertical-align: middle;
   float: left;
   font-size: 14px;
   color: #606266;
   line-height: 40px;
-  padding: 0 12px 0 0;
   box-sizing: border-box;
+  padding: 0 0 0 10px;
+  margin-right: 10px;
 }
 .courses-multi-box {
   width: 100%;
