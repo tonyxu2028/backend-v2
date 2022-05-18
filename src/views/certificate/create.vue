@@ -532,7 +532,7 @@ export default {
     },
     handleScroll(e) {
       // 判断是不是按下ctrl键
-      if (e.ctrlKey) {
+      if (e.ctrlKey || e.metaKey) {
         // 取消浏览器默认的放大缩小网页行为
         e.preventDefault();
         // 判断是向上滚动还是向下滚动
