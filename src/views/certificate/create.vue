@@ -352,6 +352,7 @@
   </div>
 </template>
 <script>
+import config from "@/js/config";
 import demoImg from "@/assets/home/demo.png";
 import UploadImage from "@/components/upload-image";
 import VueDragResize from "vue-drag-resize";
@@ -764,7 +765,7 @@ export default {
           y: e.originalEvent.layerY / this.size,
           width: 200,
           height: 200,
-          text: "支持填写URL或引用变量信息",
+          text: config.url + "/addons/Cert/dist/index.html",
         };
       }
       // 添加block
