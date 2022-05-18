@@ -718,9 +718,7 @@ export default {
       if (this.paperData.length > 0) {
         courses = courses.concat(this.paperData);
       }
-      if (courses.length > 0) {
-        this.course.courses = courses;
-      }
+      this.course.courses = courses;
 
       this.loading = true;
       this.$api.Certificate.Store(this.course)
