@@ -127,7 +127,7 @@
                     height="44"
                   />
                 </div>
-                <div class="name">二维码</div>
+                <div class="name">证书二维码</div>
               </div>
             </div>
           </draggable>
