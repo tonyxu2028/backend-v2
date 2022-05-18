@@ -57,7 +57,7 @@
 
                 <el-form-item prop="template_image" label="证书背景">
                   <upload-image
-                    :height="280"
+                    :height="240"
                     v-model="course.template_image"
                     :name="uploadName"
                     :hideImage="true"
@@ -68,9 +68,9 @@
                   >
                     <img
                       :style="{
-                        'max-width': '210px',
+                        'max-width': '180px',
                         width: 'auto',
-                        'max-height': '280px',
+                        'max-height': '240px',
                       }"
                       :src="course.template_image"
                     />
@@ -131,6 +131,75 @@
               </div>
             </div>
           </draggable>
+          <template v-if="course.template_image">
+            <div class="d-flex float-left mt-30">
+              <div class="label ml-10">关联学习</div>
+              <helper-text text="搭配默认二维码地址使用"></helper-text>
+            </div>
+            <div class="float-left mt-30">
+              <div class="d-flex float-left">
+                <div class="label-item">关联课程</div>
+                <el-button @click="showSelectResourceCoursesWin = true"
+                  >添加关联</el-button
+                >
+                <select-resource
+                  :selectedVod="coursesVodId"
+                  :selectedLive="coursesLiveId"
+                  :show="showSelectResourceCoursesWin"
+                  @close="showSelectResourceCoursesWin = false"
+                  @change="changeCourses"
+                  enabled-resource="vod,live"
+                ></select-resource>
+              </div>
+              <div
+                class="courses-multi-box float-left"
+                v-if="coursesData.length > 0"
+              >
+                <template v-for="(item, index) in coursesData">
+                  <div :key="index" class="courses-multi-item">
+                    <img
+                      @click="delCourses(index)"
+                      class="close"
+                      src="@/assets/img/icon-close-h.png"
+                      width="15"
+                      height="15"
+                    />
+                    <img :src="item.thumb" width="80" height="60" />
+                  </div>
+                </template>
+              </div>
+              <div class="d-flex float-left mt-30">
+                <div class="label-item">关联考试</div>
+                <el-button @click="showSelectResourcePaperWin = true"
+                  >添加关联</el-button
+                >
+                <select-resource
+                  :selectedPaper="paperId"
+                  :show="showSelectResourcePaperWin"
+                  @close="showSelectResourcePaperWin = false"
+                  @change="changePaper"
+                  enabled-resource="paper"
+                ></select-resource>
+              </div>
+              <div
+                class="paper-multi-box float-left"
+                v-if="paperData.length > 0"
+              >
+                <template v-for="(item, index) in paperData">
+                  <div :key="index" class="paper-multi-item">
+                    <img
+                      @click="delPaper(index)"
+                      class="close"
+                      src="@/assets/img/icon-close-h.png"
+                      width="15"
+                      height="15"
+                    />
+                    {{ item.title }}
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
         </div>
       </transition>
       <div
@@ -283,6 +352,7 @@
   </div>
 </template>
 <script>
+import config from "@/js/config";
 import demoImg from "@/assets/home/demo.png";
 import UploadImage from "@/components/upload-image";
 import VueDragResize from "vue-drag-resize";
@@ -291,6 +361,7 @@ import ConfigSetting from "./components/certificate-config.vue";
 import RenderTextV1 from "./render/text-v1.vue";
 import RenderImageV1 from "./render/image-v1.vue";
 import RenderQrcodeV1 from "./render/qrcode-v1.vue";
+import SelectResource from "@/components/select-resources/multiIndex";
 export default {
   components: {
     VueDragResize,
@@ -300,6 +371,7 @@ export default {
     RenderImageV1,
     RenderQrcodeV1,
     UploadImage,
+    SelectResource,
   },
   data() {
     return {
@@ -318,6 +390,7 @@ export default {
         name: null,
         template_image: null,
         params: null,
+        courses: null,
       },
       fresh: true,
       rules: {
@@ -342,6 +415,10 @@ export default {
       dragX: 0,
       dragY: 106,
       rightIndex: null,
+      showSelectResourceCoursesWin: false,
+      showSelectResourcePaperWin: false,
+      coursesData: [],
+      paperData: [],
     };
   },
   watch: {
@@ -361,6 +438,39 @@ export default {
       });
     },
   },
+  computed: {
+    coursesVodId() {
+      let params = [];
+      if (this.coursesData.length > 0) {
+        for (let i = 0; i < this.coursesData.length; i++) {
+          if (this.coursesData[i].type === "vod") {
+            params.push(this.coursesData[i].id);
+          }
+        }
+      }
+      return params;
+    },
+    coursesLiveId() {
+      let params = [];
+      if (this.coursesData.length > 0) {
+        for (let i = 0; i < this.coursesData.length; i++) {
+          if (this.coursesData[i].type === "live") {
+            params.push(this.coursesData[i].id);
+          }
+        }
+      }
+      return params;
+    },
+    paperId() {
+      let params = [];
+      if (this.paperData.length > 0) {
+        for (let i = 0; i < this.paperData.length; i++) {
+          params.push(this.paperData[i].id);
+        }
+      }
+      return params;
+    },
+  },
   mounted() {
     window.addEventListener("mousewheel", this.handleScroll, {
       passive: false,
@@ -373,6 +483,20 @@ export default {
     });
   },
   methods: {
+    changeCourses(data) {
+      this.coursesData = this.coursesData.concat(data);
+      this.showSelectResourceCoursesWin = false;
+    },
+    delCourses(index) {
+      this.coursesData.splice(index, 1);
+    },
+    changePaper(data) {
+      this.paperData = this.paperData.concat(data);
+      this.showSelectResourcePaperWin = false;
+    },
+    delPaper(index) {
+      this.paperData.splice(index, 1);
+    },
     freshing() {
       this.fresh = false;
       this.$nextTick(() => {
@@ -383,6 +507,22 @@ export default {
       document.onkeydown = (e) => {
         let e1 =
           e || event || window.event || arguments.callee.caller.arguments[0];
+        if (
+          (e1.ctrlKey === true || e1.metaKey === true) &&
+          (e1.which === 61 ||
+            e1.which === 107 ||
+            e1.which === 173 ||
+            e1.which === 109 ||
+            e1.which === 187 ||
+            e1.which === 189)
+        ) {
+          e1.preventDefault();
+          if (e1.which === 187) {
+            this.changeSize(0);
+          } else if (e1.which === 189) {
+            this.changeSize(-1);
+          }
+        }
         //键盘按键判断:左箭头-37;上箭头-38；右箭头-39;下箭头-40
         if (e1 && e1.keyCode == 37) {
           if (!this.image) {
@@ -409,7 +549,7 @@ export default {
     },
     handleScroll(e) {
       // 判断是不是按下ctrl键
-      if (e.ctrlKey) {
+      if (e.ctrlKey || e.metaKey) {
         // 取消浏览器默认的放大缩小网页行为
         e.preventDefault();
         // 判断是向上滚动还是向下滚动
@@ -420,14 +560,6 @@ export default {
           // 缩小重写，业务代码
           this.changeSize(-1);
         }
-      }
-      if (!this.image) {
-        return;
-      }
-      if (e.deltaY > 0) {
-        this.dragY -= 40;
-      } else {
-        this.dragY += 40;
       }
     },
     isJSON(str) {
@@ -558,27 +690,37 @@ export default {
           });
         } else if (this.blocksData[i].sign === "qrcode-v1") {
           let obj = this.blocksData[i].config.text;
-          if (reg.test(obj)) {
-            this.curBlockIndex = i;
-            this.$message.error("二维码网址仅支持英文、数字和符号");
-            return;
-          } else if (!reg2.test(obj)) {
-            this.curBlockIndex = i;
-            this.$message.error("请输入正确的URL地址");
-            return;
-          }
+          // if (reg.test(obj)) {
+          //   this.curBlockIndex = i;
+          //   this.$message.error("二维码网址仅支持英文、数字和符号");
+          //   return;
+          // } else if (!reg2.test(obj)) {
+          //   this.curBlockIndex = i;
+          //   this.$message.error("请输入正确的URL地址");
+          //   return;
+          // }
           params.push({
             qrcode: this.blocksData[i].config,
           });
         }
       }
-      // console.log(params);
+
+      //console.log(params);
       this.course.params = JSON.stringify(params);
 
       // if (!this.isJSON(this.course.params)) {
       //   this.$message.error("请输入JSON字符串");
       //   return;
       // }
+      let courses = [];
+      if (this.coursesData.length > 0) {
+        courses = courses.concat(this.coursesData);
+      }
+      if (this.paperData.length > 0) {
+        courses = courses.concat(this.paperData);
+      }
+      this.course.courses = courses;
+
       this.loading = true;
       this.$api.Certificate.Store(this.course)
         .then(() => {
@@ -623,7 +765,7 @@ export default {
           y: e.originalEvent.layerY / this.size,
           width: 200,
           height: 200,
-          text: "支持填写URL或引用变量信息",
+          text: config.url + "/addons/Cert/dist/index.html",
         };
       }
       // 添加block
@@ -699,10 +841,90 @@ export default {
 }
 .left-preview-box {
   display: flex;
-  width: 210px;
-  height: 280px;
+  width: 180px;
+  height: 240px;
   justify-content: center;
   align-items: center;
+}
+.label {
+  width: 80px;
+  text-align: right;
+  vertical-align: middle;
+  float: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  line-height: 16px;
+  padding: 0 12px 0 0;
+  box-sizing: border-box;
+  border-left: 4px solid #3ca7fa;
+}
+.label-item {
+  width: 90px;
+  text-align: right;
+  vertical-align: middle;
+  float: left;
+  font-size: 14px;
+  color: #606266;
+  line-height: 40px;
+  padding: 0 12px 0 0;
+  box-sizing: border-box;
+}
+.courses-multi-box {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 22px;
+  display: grid;
+  row-gap: 22px;
+  column-gap: 40px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  .courses-multi-item {
+    position: relative;
+    width: 80px;
+    height: 60px;
+    .close {
+      position: absolute;
+      right: -7px;
+      top: -7px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+.paper-multi-box {
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 22px;
+  display: flex;
+  flex-direction: column;
+  .paper-multi-item {
+    width: 100%;
+    height: 40px;
+    background: #f1f2f9;
+    border-radius: 4px;
+    margin-bottom: 22px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .close {
+      position: absolute;
+      right: -7px;
+      top: -7px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
 }
 .top-box {
   position: fixed;
@@ -774,6 +996,7 @@ export default {
   background-color: white;
   box-sizing: border-box;
   padding: 30px;
+  overflow-y: auto;
   z-index: 11111;
   .title {
     width: 100%;
