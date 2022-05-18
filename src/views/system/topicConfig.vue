@@ -74,8 +74,8 @@ export default {
         page: 1,
         size: 100000,
       },
-      list: null,
-      selected: null,
+      list: [],
+      selected: [],
       courses: [],
     };
   },
@@ -97,7 +97,7 @@ export default {
     },
     checkThumbox() {
       let newbox = [];
-      if (this.selected) {
+      if (this.selected.length > 0) {
         for (var i = 0; i < this.selected.length; i++) {
           let it = this.courses.find(
             (o) => o.id === parseInt(this.selected[i])
