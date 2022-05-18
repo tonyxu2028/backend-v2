@@ -506,6 +506,22 @@ export default {
       document.onkeydown = (e) => {
         let e1 =
           e || event || window.event || arguments.callee.caller.arguments[0];
+        if (
+          (e1.ctrlKey === true || e1.metaKey === true) &&
+          (e1.which === 61 ||
+            e1.which === 107 ||
+            e1.which === 173 ||
+            e1.which === 109 ||
+            e1.which === 187 ||
+            e1.which === 189)
+        ) {
+          e1.preventDefault();
+          if (e1.which === 187) {
+            this.changeSize(0);
+          } else if (e1.which === 189) {
+            this.changeSize(-1);
+          }
+        }
         //键盘按键判断:左箭头-37;上箭头-38；右箭头-39;下箭头-40
         if (e1 && e1.keyCode == 37) {
           if (!this.image) {
