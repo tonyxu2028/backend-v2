@@ -181,97 +181,6 @@
             ></quill-editor>
           </div>
         </el-form-item>
-        <template v-if="enabledAddons['TemplateOne'] === 1">
-          <div class="title">苹果支付</div>
-          <el-form-item :key="1918" label="苹果支付DEBUG">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-switch
-                  v-model="
-                    form.config['meedu.addons.TemplateOne.apple.pay_debug']
-                  "
-                  active-value="1"
-                  inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span
-                    >应用开发时使用，正式上线请勿开启。否则将导致充值无法到账。</span
-                  >
-                </div>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item :key="1848" label="苹果App BundleID">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config['meedu.addons.TemplateOne.apple.app_bundle_id']
-                  "
-                >
-                </el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item :key="1849" label="苹果App虚拟货币名">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config['meedu.addons.TemplateOne.apple.credit2_name']
-                  "
-                >
-                </el-input>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span>请填写1元人民币换算后的虚拟货币数值</span>
-                </div>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item :key="1850" label="苹果App虚拟货币汇率">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config[
-                      'meedu.addons.TemplateOne.apple.credit2_exchange_rate'
-                    ]
-                  "
-                >
-                </el-input>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span>请填写1元人民币换算后的虚拟货币数值</span>
-                </div>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item :key="1847" label="苹果产品id参数">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  type="textarea"
-                  :rows="3"
-                  v-model="
-                    form.config['meedu.addons.TemplateOne.apple.product_ids']
-                  "
-                >
-                </el-input>
-              </div>
-            </div>
-          </el-form-item>
-        </template>
       </el-form>
       <div style="display: none">
         <input type="file" ref="cert-client-file" @change="clientChange" />
@@ -319,11 +228,6 @@ export default {
           "meedu.payment.handPay.introduction": "",
           "pay.wechat.cert_key": null,
           "pay.wechat.cert_client": null,
-          "meedu.addons.TemplateOne.apple.product_ids": null,
-          "meedu.addons.TemplateOne.apple.app_bundle_id": null,
-          "meedu.addons.TemplateOne.apple.pay_debug": null,
-          "meedu.addons.TemplateOne.apple.credit2_name": null,
-          "meedu.addons.TemplateOne.apple.credit2_exchange_rate": null,
         },
       },
       upload: {
@@ -442,42 +346,6 @@ export default {
           } else if (configData[index].key === "pay.wechat.cert_client") {
             this.form.config["pay.wechat.cert_client"] =
               configData[index].value;
-          }
-        }
-
-        let configData2 = res.data["立春模板"];
-        for (let index in configData2) {
-          if (
-            configData2[index].key ===
-            "meedu.addons.TemplateOne.apple.product_ids"
-          ) {
-            this.form.config["meedu.addons.TemplateOne.apple.product_ids"] =
-              configData2[index].value;
-          } else if (
-            configData2[index].key ===
-            "meedu.addons.TemplateOne.apple.app_bundle_id"
-          ) {
-            this.form.config["meedu.addons.TemplateOne.apple.app_bundle_id"] =
-              configData2[index].value;
-          } else if (
-            configData2[index].key ===
-            "meedu.addons.TemplateOne.apple.pay_debug"
-          ) {
-            this.form.config["meedu.addons.TemplateOne.apple.pay_debug"] =
-              configData2[index].value;
-          } else if (
-            configData2[index].key ===
-            "meedu.addons.TemplateOne.apple.credit2_name"
-          ) {
-            this.form.config["meedu.addons.TemplateOne.apple.credit2_name"] =
-              configData2[index].value;
-          } else if (
-            configData2[index].key ===
-            "meedu.addons.TemplateOne.apple.credit2_exchange_rate"
-          ) {
-            this.form.config[
-              "meedu.addons.TemplateOne.apple.credit2_exchange_rate"
-            ] = configData2[index].value;
           }
         }
 

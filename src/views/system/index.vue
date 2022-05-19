@@ -147,6 +147,12 @@ export default {
           images: require("../../assets/images/config/import.png"),
           sign: "",
         },
+        {
+          name: "IOS配置",
+          value: "IOS",
+          images: require("../../assets/images/config/h5.png"),
+          sign: "",
+        },
       ],
       courses: [
         {
@@ -269,6 +275,10 @@ export default {
       } else if (value === "视频") {
         this.$router.push({
           name: "SystemVideoSaveConfig",
+        });
+      } else if (value === "IOS") {
+        this.$router.push({
+          name: "SystemIOSConfig",
         });
       } else {
         this.$router.push({ name: "SystemConfig", query: { key: value } });

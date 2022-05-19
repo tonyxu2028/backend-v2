@@ -32,8 +32,7 @@
       <transition name="slider">
         <div class="certificate-blocks-box" v-show="!leftArrrow">
           <div class="title">基本信息</div>
-          <div class="line"></div>
-          <div class="float-left mt-30">
+          <div class="float-left">
             <el-form
               ref="form"
               :model="course"
@@ -134,7 +133,7 @@
           <template v-if="course.template_image">
             <div class="d-flex float-left mt-30">
               <div class="label">关联学习</div>
-              <helper-text text="搭配默认二维码地址使用"></helper-text>
+              <helper-text text="添加证书二维码查询"></helper-text>
             </div>
             <div class="float-left mt-30">
               <div class="d-flex float-left">
