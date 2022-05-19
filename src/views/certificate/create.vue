@@ -32,8 +32,7 @@
       <transition name="slider">
         <div class="certificate-blocks-box" v-show="!leftArrrow">
           <div class="title">基本信息</div>
-          <div class="line"></div>
-          <div class="float-left mt-30">
+          <div class="float-left">
             <el-form
               ref="form"
               :model="course"
@@ -127,14 +126,14 @@
                     height="44"
                   />
                 </div>
-                <div class="name">二维码</div>
+                <div class="name">证书二维码</div>
               </div>
             </div>
           </draggable>
           <template v-if="course.template_image">
             <div class="d-flex float-left mt-30">
-              <div class="label ml-10">关联学习</div>
-              <helper-text text="搭配默认二维码地址使用"></helper-text>
+              <div class="label">关联学习</div>
+              <helper-text text="添加证书二维码查询"></helper-text>
             </div>
             <div class="float-left mt-30">
               <div class="d-flex float-left">
@@ -814,6 +813,12 @@ export default {
   }
 }
 
+/deep/.el-form-item__label {
+  width: 80px !important;
+  text-align: left;
+  padding: 0;
+}
+
 .certificate-preview-box.active:before {
   display: none;
 }
@@ -858,17 +863,19 @@ export default {
   padding: 0 12px 0 0;
   box-sizing: border-box;
   border-left: 4px solid #3ca7fa;
+  margin-right: 10px;
 }
 .label-item {
   width: 90px;
-  text-align: right;
+  text-align: left;
   vertical-align: middle;
   float: left;
   font-size: 14px;
   color: #606266;
   line-height: 40px;
-  padding: 0 12px 0 0;
   box-sizing: border-box;
+  padding: 0 0 0 10px;
+  margin-right: 10px;
 }
 .courses-multi-box {
   width: 100%;

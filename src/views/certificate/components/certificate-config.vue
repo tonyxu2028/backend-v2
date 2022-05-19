@@ -146,7 +146,7 @@
     </div>
     <div class="config" v-else-if="block.sign === 'qrcode-v1'">
       <div class="title">
-        <div class="text">二维码</div>
+        <div class="text">证书二维码</div>
       </div>
       <div class="config-item" v-if="block.config">
         <div class="config-item-body">

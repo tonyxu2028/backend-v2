@@ -230,6 +230,14 @@ const routes = [
     },
   },
   {
+    path: "/system/iosConfig",
+    component: () => import("@/views/system/iosConfig"),
+    name: "SystemIOSConfig",
+    meta: {
+      title: "title.system-config",
+    },
+  },
+  {
     path: "/system/application",
     component: () => import("@/views/system/application"),
     name: "SystemApplication",
