@@ -151,7 +151,7 @@ export default {
           name: "IOS配置",
           value: "IOS",
           images: require("../../assets/images/config/h5.png"),
-          sign: "",
+          sign: "TemplateOne",
         },
       ],
       courses: [
