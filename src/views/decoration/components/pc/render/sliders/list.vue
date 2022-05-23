@@ -19,7 +19,7 @@
           </el-table-column>
           <el-table-column label="幻灯片">
             <template slot-scope="scope">
-              <img :src="scope.row.thumb" width="100" height="25" />
+              <img :src="scope.row.thumb" width="279" height="90" />
             </template>
           </el-table-column>
           <el-table-column prop="url" label="链接" width="300">
