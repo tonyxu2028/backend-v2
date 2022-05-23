@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="录播分类管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加分类"
         p="courseCategory.store"
         @click="$router.push({ name: 'CategoriesCreate' })"
         type="primary"
