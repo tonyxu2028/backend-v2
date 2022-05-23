@@ -3,11 +3,23 @@
     <back-bar class="mb-30" title="课程课时管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加课时"
         p="video.store"
         @click="
           $router.push({
             name: 'VideosCreate',
+            query: { course_id: $route.query.course_id },
+          })
+        "
+        type="primary"
+      >
+      </p-button>
+      <p-button
+        text="章节管理"
+        p="course_chapter"
+        @click="
+          $router.push({
+            name: 'CourseChapters',
             query: { course_id: $route.query.course_id },
           })
         "
