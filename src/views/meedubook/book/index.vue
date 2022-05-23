@@ -3,7 +3,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="新建"
+          text="新建电子书"
           p="addons.meedu_books.book.store"
           @click="$router.push({ name: 'MeedubookCreate' })"
           type="primary"

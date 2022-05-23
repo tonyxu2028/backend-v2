@@ -3,7 +3,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="新建"
+          text="新建文章"
           @click="$router.push({ name: 'TopicCreate' })"
           type="primary"
           p="addons.meedu_topics.topic.store"
