@@ -5,13 +5,11 @@
     <div class="user-import-box">
       <div class="float-left d-flex mb-15">
         <div>
-          <el-button type="primary" @click="choiceFile">
-            选择Excel表格文件
-          </el-button>
+          <el-button type="primary" @click="choiceFile"> 导入表格 </el-button>
         </div>
         <div class="ml-30">
           <el-link type="primary" @click="model()">
-            点击链接下载「课时批量导入模板」
+            下载「课时批量导入模板」
           </el-link>
         </div>
       </div>
