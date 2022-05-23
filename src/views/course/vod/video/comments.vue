@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="视频评论"></back-bar>
+    <back-bar class="mb-30" title="课时评论"></back-bar>
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
@@ -22,7 +22,7 @@
           <el-select
             filterable
             :filter-method="dataFilter"
-            placeholder="视频"
+            placeholder="课时"
             class="w-150px"
             v-model="filter.video_id"
             v-el-select-loadmore="loadmore"
@@ -81,7 +81,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="video.title" label="视频"> </el-table-column>
+      <el-table-column prop="video.title" label="课时"> </el-table-column>
       <el-table-column label="内容">
         <template slot-scope="scope">
           <div v-html="scope.row.render_content"></div>

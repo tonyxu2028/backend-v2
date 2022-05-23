@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="视频批量导入"></back-bar>
+    <back-bar class="mb-30" title="课时批量导入"></back-bar>
 
     <div class="user-import-box">
       <div class="float-left d-flex mb-15">
@@ -11,7 +11,7 @@
         </div>
         <div class="ml-30">
           <el-link type="primary" @click="model()">
-            点击链接下载「视频批量导入模板」
+            点击链接下载「课时批量导入模板」
           </el-link>
         </div>
       </div>
@@ -94,12 +94,12 @@ export default {
         [
           "所属课程名称",
           "章节名称(选填)",
-          "视频名称",
-          "视频时长(秒)",
+          "课时名称",
+          "课时时长(秒)",
           "腾讯云视频ID",
-          "视频url",
+          "课时url",
           "阿里云视频ID",
-          "视频价格（元）",
+          "课时价格（元）",
           "上架时间",
           "seo关键字(已下架)",
           "seo描述(已下架)",
@@ -120,7 +120,7 @@ export default {
         { wch: 20 },
         { wch: 15 },
       ];
-      this.$utils.importExcel(array, "视频批量导入模板.xlsx", "sheet1", wscols);
+      this.$utils.importExcel(array, "课时批量导入模板.xlsx", "sheet1", wscols);
     },
     parseData(workbook) {
       let data = [];

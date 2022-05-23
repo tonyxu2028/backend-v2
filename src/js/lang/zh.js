@@ -239,12 +239,12 @@ const zh = {
           index: "观看记录",
         },
         video: {
-          index: "视频管理",
-          create: "添加视频",
-          update: "编辑视频",
-          subscribe: "视频销售记录",
-          "watch-records": "视频观看记录",
-          comments: "视频评论",
+          index: "课时管理",
+          create: "添加课时",
+          update: "编辑课时",
+          subscribe: "课时销售记录",
+          "watch-records": "课时观看记录",
+          comments: "课时评论",
           hls: {
             aliyun: "阿里云加密",
             tencent: "腾讯云加密",

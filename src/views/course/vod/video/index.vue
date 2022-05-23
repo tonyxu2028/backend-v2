@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="课程视频管理"></back-bar>
+    <back-bar class="mb-30" title="课程课时管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
         text="添加"
@@ -49,9 +49,9 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" sortable label="视频ID" width="120">
+          <el-table-column prop="id" sortable label="课时ID" width="120">
           </el-table-column>
-          <el-table-column label="视频" widt="500">
+          <el-table-column label="课时" widt="500">
             <template slot-scope="scope">
               <template>
                 <template v-if="scope.row.chapter">
