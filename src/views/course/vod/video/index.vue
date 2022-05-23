@@ -16,7 +16,7 @@
       </p-button>
       <p-button
         v-if="enabledAddons['AliyunHls']"
-        text="阿里云视频加密"
+        text="阿里云加密"
         p="video.aliyun_hls.list"
         @click="$router.push({ name: 'CourseVodVideoAliyunHls' })"
         type="primary"
@@ -25,7 +25,7 @@
 
       <p-button
         v-if="enabledAddons['TencentCloudHls']"
-        text="腾讯云视频加密"
+        text="腾讯云加密"
         p="addons.TencentCloudHls.videos"
         @click="$router.push({ name: 'CourseVodVideoTencentHls' })"
         type="primary"

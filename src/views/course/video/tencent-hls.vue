@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="腾讯云视频加密"></back-bar>
+    <back-bar class="mb-30" title="腾讯云加密"></back-bar>
 
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">

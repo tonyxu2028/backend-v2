@@ -246,8 +246,8 @@ const zh = {
           "watch-records": "视频观看记录",
           comments: "视频评论",
           hls: {
-            aliyun: "阿里云视频加密",
-            tencent: "腾讯云视频加密",
+            aliyun: "阿里云加密",
+            tencent: "腾讯云加密",
           },
         },
       },
