@@ -1,9 +1,9 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="课程视频管理"></back-bar>
+    <back-bar class="mb-30" title="课程课时管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加课时"
         p="video.store"
         @click="
           $router.push({
@@ -15,8 +15,20 @@
       >
       </p-button>
       <p-button
+        text="章节管理"
+        p="course_chapter"
+        @click="
+          $router.push({
+            name: 'CourseChapters',
+            query: { course_id: $route.query.course_id },
+          })
+        "
+        type="primary"
+      >
+      </p-button>
+      <p-button
         v-if="enabledAddons['AliyunHls']"
-        text="阿里云视频加密"
+        text="阿里云加密"
         p="video.aliyun_hls.list"
         @click="$router.push({ name: 'CourseVodVideoAliyunHls' })"
         type="primary"
@@ -25,7 +37,7 @@
 
       <p-button
         v-if="enabledAddons['TencentCloudHls']"
-        text="腾讯云视频加密"
+        text="腾讯云加密"
         p="addons.TencentCloudHls.videos"
         @click="$router.push({ name: 'CourseVodVideoTencentHls' })"
         type="primary"
@@ -49,9 +61,9 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" sortable label="视频ID" width="120">
+          <el-table-column prop="id" sortable label="课时ID" width="120">
           </el-table-column>
-          <el-table-column label="视频" widt="500">
+          <el-table-column label="课时" widt="500">
             <template slot-scope="scope">
               <template>
                 <template v-if="scope.row.chapter">

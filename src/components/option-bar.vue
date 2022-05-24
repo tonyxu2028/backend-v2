@@ -36,6 +36,13 @@ export default {
         this.$router.push({
           name: "SystemLiveConfig",
         });
+      } else if (
+        this.value === "腾讯云HLS加密" ||
+        this.value === "阿里云HLS加密"
+      ) {
+        this.$router.push({
+          name: "SystemVideoHlsConfig",
+        });
       } else {
         this.$router.push({
           name: "SystemConfig",

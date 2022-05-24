@@ -1,23 +1,9 @@
 <template>
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="编辑录播课程"></back-bar>
-
-    <div class="center-tabs mb-30">
-      <div>
-        <el-tabs v-model="tab.active">
-          <el-tab-pane
-            :label="item.name"
-            :name="item.key"
-            v-for="(item, index) in tab.list"
-            :key="index"
-          ></el-tab-pane>
-        </el-tabs>
-      </div>
-    </div>
-
     <div class="float-left" v-if="course">
       <el-form ref="form" :model="course" :rules="rules" label-width="200px">
-        <div class="float-left" v-show="tab.active === 'base'">
+        <div class="float-left">
           <el-form-item prop="category_id" label="所属分类">
             <div class="d-flex">
               <div>
@@ -182,15 +168,6 @@ export default {
     return {
       id: null,
       course: null,
-      tab: {
-        active: "base",
-        list: [
-          {
-            name: "基础信息",
-            key: "base",
-          },
-        ],
-      },
       rules: {
         category_id: [
           {

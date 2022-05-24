@@ -42,7 +42,7 @@ export default {
       tabActive: "sub-users",
       tabs: [
         {
-          name: "购买学员",
+          name: "付费学员",
           key: "sub-users",
         },
         {

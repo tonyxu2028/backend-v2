@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="视频销售记录"></back-bar>
+    <back-bar class="mb-30" title="课时销售记录"></back-bar>
 
     <div class="float-left">
       <div class="float-left d-flex">
@@ -241,7 +241,7 @@ export default {
           return;
         }
 
-        let filename = "视频订阅学员.xlsx";
+        let filename = "课时订阅学员.xlsx";
         let sheetName = "sheet1";
 
         let data = [["学员ID", "学员", "手机号", "价格", "时间"]];

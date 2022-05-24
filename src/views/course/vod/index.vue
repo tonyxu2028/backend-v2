@@ -3,7 +3,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="新建"
+          text="新建课程"
           p="course.store"
           @click="$router.push({ name: 'VodCreate' })"
           type="primary"
@@ -24,7 +24,7 @@
         >
         </p-button>
         <p-button
-          text="视频评论"
+          text="课时评论"
           p="video_comment"
           @click="$router.push({ name: 'VideoComments' })"
           type="primary"
@@ -32,7 +32,7 @@
         </p-button>
 
         <p-button
-          text="视频批量导入"
+          text="课时批量导入"
           p="video.import"
           @click="$router.push({ name: 'VodImport' })"
           type="primary"
@@ -116,7 +116,7 @@
           <el-table-column fixed="right" label="操作" width="140">
             <template slot-scope="scope">
               <p-link
-                text="视频"
+                text="课时"
                 p="video"
                 type="primary"
                 @click="

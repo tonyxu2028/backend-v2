@@ -15,7 +15,6 @@
           :tree-props="{ children: 'children' }"
           v-loading="loading"
         >
-          <el-table-column prop="id" label="ID" width="120"> </el-table-column>
           <el-table-column prop="title" label="公告"> </el-table-column>
           <el-table-column label="添加时间" width="200">
             <template slot-scope="scope">{{

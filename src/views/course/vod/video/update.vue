@@ -18,7 +18,7 @@
     <div class="float-left" v-if="course && video">
       <el-form ref="form" :model="video" :rules="rules" label-width="200px">
         <div class="float-left" v-show="tab.active === 'base'">
-          <el-form-item label="视频">
+          <el-form-item label="课时">
             <el-button type="primary" @click="showUploadVideoWin = true">
               <span>重新上传视频</span>
               <span class="ml-10" v-if="tit">{{ tit }}</span>
@@ -59,11 +59,11 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="视频名" prop="title">
+          <el-form-item label="课时名" prop="title">
             <el-input
               v-model="video.title"
               class="w-600px"
-              placeholder="请输入视频名"
+              placeholder="请输入课时名"
             ></el-input>
           </el-form-item>
 
@@ -82,7 +82,7 @@
               </div>
               <div class="ml-10">
                 <helper-text
-                  text="上架时间决定视频排序，越早越靠前；如果上架时间在未来那么用户将无法看到该视频。"
+                  text="上架时间决定课时排序，越早越靠前；如果上架时间在未来那么用户将无法看到该课时。"
                 ></helper-text>
               </div>
             </div>
@@ -99,13 +99,13 @@
               </div>
               <div class="ml-10">
                 <helper-text
-                  text="最小单位：元。大于0意味着用户必须购买视频/所属课程才能观看。"
+                  text="最小单位：元。大于0意味着用户必须购买课时/所属课程才能观看。"
                 ></helper-text>
               </div>
             </div>
           </el-form-item>
 
-          <el-form-item label="视频时长" prop="duration">
+          <el-form-item label="课时时长" prop="duration">
             <div class="d-flex">
               <div>
                 <input-duration
@@ -115,7 +115,7 @@
               </div>
               <div class="ml-10">
                 <helper-text
-                  text="视频时长必须准确无误，否则影响学员观看进度的计算。"
+                  text="课时时长必须准确无误，否则影响学员观看进度的计算。"
                 ></helper-text>
               </div>
             </div>
@@ -140,7 +140,7 @@
               </div>
               <div class="ml-15">
                 <helper-text
-                  text="如果学员未购买课程将可以观看当前配置的秒数，从视频开头计算。配置为0即为无法试看。"
+                  text="如果学员未购买课程将可以观看当前配置的秒数，从课时开头计算。配置为0即为无法试看。"
                 ></helper-text>
               </div>
             </div>
@@ -164,7 +164,7 @@
               </div>
               <div class="ml-10">
                 <helper-text
-                  text="该字段控制学员是否可以直接购买该视频。如果禁止购买，那么学员观看该视频的话则必须先购买该视频所属录播课程。"
+                  text="该字段控制学员是否可以直接购买该课时。如果禁止购买，那么学员观看该课时的话则必须先购买该课时所属录播课程。"
                 ></helper-text>
               </div>
             </div>
@@ -182,7 +182,7 @@
               </div>
               <div class="ml-10">
                 <helper-text
-                  text="该字段控制学员是否可以看到该视频。"
+                  text="该字段控制学员是否可以看到该课时。"
                 ></helper-text>
               </div>
             </div>
@@ -200,7 +200,7 @@
               </div>
               <div class="ml-10">
                 <helper-text
-                  text="该字段控制学员播放该视频时是否可以快进播放。"
+                  text="该字段控制学员播放该课时时是否可以快进播放。"
                 ></helper-text>
               </div>
             </div>

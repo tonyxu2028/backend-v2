@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="视频观看记录"></back-bar>
+    <back-bar class="mb-30" title="课时观看记录"></back-bar>
 
     <div class="float-left">
       <div class="float-left d-flex">
@@ -58,7 +58,7 @@
               <span class="c-red" v-else>学员不存在</span>
             </template>
           </el-table-column>
-          <el-table-column label="视频时长" width="140">
+          <el-table-column label="课时时长" width="140">
             <template slot-scope="scope">
               <duration-text
                 v-if="!loading && videos[scope.row.video_id]"
@@ -232,7 +232,7 @@ export default {
           return;
         }
 
-        let filename = "视频观看记录.xlsx";
+        let filename = "课时观看记录.xlsx";
         let sheetName = "sheet1";
 
         let data = [
@@ -240,7 +240,7 @@ export default {
             "学员ID",
             "学员",
             "手机号",
-            "视频时长",
+            "课时时长",
             "已观看",
             "开始时间",
             "结束时间",
