@@ -10,7 +10,9 @@
         <div class="ml-10" v-if="canClear && value">
           <el-button @click="clearPoster()">清空</el-button>
         </div>
-        <div class="helper ml-30" v-if="helper">{{ helper }}</div>
+        <div class="ml-10">
+          <helper-text v-if="helper" :text="helper"></helper-text>
+        </div>
       </div>
     </div>
     <div class="preview-box float-left mt-15" v-if="value && !hideImage">
