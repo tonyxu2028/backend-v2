@@ -222,11 +222,11 @@
             ></el-input>
           </el-form-item>
 
-          <el-form-item label="课时URL" prop="url">
+          <el-form-item label="视频URL" prop="url">
             <el-input
               v-model="video.url"
               class="w-300px"
-              placeholder="课时URL"
+              placeholder="视频URL"
             ></el-input>
           </el-form-item>
         </div>
