@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="添加录播课时"></back-bar>
+    <back-bar class="mb-30" title="添加课时"></back-bar>
 
     <div class="center-tabs mb-30">
       <div>
@@ -18,11 +18,56 @@
     <div class="float-left" v-if="course">
       <el-form ref="form" :model="video" :rules="rules" label-width="200px">
         <div class="float-left" v-show="tab.active === 'base'">
-          <el-form-item label="课时">
+          <el-form-item label="上传课时">
             <el-button type="primary" @click="showUploadVideoWin = true">
               <span>上传视频</span>
               <span class="ml-10" v-if="tit">{{ tit }}</span>
             </el-button>
+          </el-form-item>
+
+          <el-form-item label="课时名称" prop="title">
+            <el-input
+              v-model="video.title"
+              class="w-300px"
+              placeholder="请输入课时名称"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item label="课时时长" prop="duration">
+            <div class="d-flex">
+              <div>
+                <input-duration
+                  :disabled="false"
+                  v-model="video.duration"
+                ></input-duration>
+              </div>
+              <div class="ml-10">
+                <helper-text
+                  text="后台会根据课时时长统计学员学习进度"
+                ></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item
+            label="可试看时长"
+            prop="free_seconds"
+            v-if="course.is_free !== 1 && video.charge > 0"
+          >
+            <div class="d-flex">
+              <div>
+                <input-duration
+                  :disabled="false"
+                  v-model="video.free_seconds"
+                ></input-duration>
+              </div>
+
+              <div class="ml-10">
+                <helper-text
+                  text="定义课时免费试看时长吸引更多学员试看"
+                ></helper-text>
+              </div>
+            </div>
           </el-form-item>
 
           <el-form-item label="所属章节">
@@ -33,6 +78,7 @@
                   filterable
                   clearable
                   v-model="video.chapter_id"
+                  placeholder="请选择章节"
                 >
                   <el-option
                     v-for="(item, index) in chapters"
@@ -59,19 +105,11 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="课时名" prop="title">
-            <el-input
-              v-model="video.title"
-              class="w-600px"
-              placeholder="请输入课时名"
-            ></el-input>
-          </el-form-item>
-
           <el-form-item label="上架时间" prop="published_at">
             <div class="d-flex">
               <div>
                 <el-date-picker
-                  class="w-200px"
+                  style="width: 300px"
                   v-model="video.published_at"
                   type="datetime"
                   align="right"
@@ -81,75 +119,30 @@
                 </el-date-picker>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="上架时间决定课时排序，越早越靠前；如果上架时间在未来那么用户将无法看到该课时。"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item label="价格" prop="charge" v-if="course.is_free !== 1">
-            <div class="d-flex">
-              <div>
-                <el-input
-                  v-model="video.charge"
-                  class="w-200px"
-                  placeholder="请输入整数"
-                ></el-input>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="最小单位：元。大于0意味着用户必须购买课时/所属课程才能观看。"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item label="课时时长" prop="duration">
-            <div class="d-flex">
-              <div>
-                <input-duration
-                  :disabled="false"
-                  v-model="video.duration"
-                ></input-duration>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="课时时长必须准确无误，否则影响学员观看进度的计算。"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item
-            label="试看"
-            prop="free_seconds"
-            v-if="course.is_free !== 1 && video.charge > 0"
-          >
-            <div class="d-flex">
-              <div>
-                <el-input-number
-                  v-model="video.free_seconds"
-                  :min="0"
-                  label="秒"
-                  size="small"
-                ></el-input-number>
-              </div>
-              <div class="ml-10">
-                <div class="helper-text">秒</div>
-              </div>
-              <div class="ml-15">
-                <helper-text
-                  text="如果学员未购买课程将可以观看当前配置的秒数，从课时开头计算。配置为0即为无法试看。"
-                ></helper-text>
+                <helper-text text="上架时间越早，课时排序越靠前"></helper-text>
               </div>
             </div>
           </el-form-item>
         </div>
 
         <div class="float-left" v-show="tab.active === 'dev'">
+          <el-form-item label="禁止快进播放" prop="ban_drag">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="video.ban_drag"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </div>
+              <div class="ml-10">
+                <helper-text text="打开后学员学习此课时无法快进"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
           <el-form-item
-            label="禁止购买"
+            label="课时单独订阅"
             prop="is_ban_sell"
             v-if="course.is_free !== 1"
           >
@@ -163,9 +156,22 @@
                 </el-switch>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="该字段控制学员是否可以直接购买该课时。如果禁止购买，那么学员观看该课时的话则必须先购买该课时所属录播课程。"
-                ></helper-text>
+                <helper-text text="打开后学员可单独购买本节课时"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="单独订阅价格" v-if="course.is_free !== 1">
+            <div class="d-flex">
+              <div>
+                <el-input
+                  v-model="video.charge"
+                  class="w-300px"
+                  placeholder="请输入整数"
+                ></el-input>
+              </div>
+              <div class="ml-10">
+                <helper-text text="最小单位“元”，不支持小数"></helper-text>
               </div>
             </div>
           </el-form-item>
@@ -183,24 +189,6 @@
               <div class="ml-10">
                 <helper-text
                   text="该字段控制学员是否可以看到该课时。"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item label="禁止快进" prop="ban_drag">
-            <div class="d-flex">
-              <div>
-                <el-switch
-                  v-model="video.ban_drag"
-                  :active-value="1"
-                  :inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="该字段控制学员播放该课时时是否可以快进播放。"
                 ></helper-text>
               </div>
             </div>
@@ -286,7 +274,7 @@ export default {
         title: null,
         charge: null,
         is_show: 1,
-        is_ban_sell: 1,
+        is_ban_sell: 0,
         ban_drag: 0,
         chapter_id: null,
         duration: null,
@@ -309,13 +297,6 @@ export default {
           {
             required: true,
             message: "上架时间不能为空",
-            trigger: "blur",
-          },
-        ],
-        charge: [
-          {
-            required: true,
-            message: "价格不能为空",
             trigger: "blur",
           },
         ],
@@ -380,6 +361,8 @@ export default {
         if (this.course.is_free === 1) {
           this.video.charge = 0;
           this.video.free_seconds = 0;
+        } else {
+          this.video.charge = this.course.charge;
         }
       });
     },
