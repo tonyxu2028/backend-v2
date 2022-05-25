@@ -84,15 +84,22 @@ export default {
     funcLinks() {
       let links = [
         {
-          name: "录播课程",
+          name: "录播课",
           url: "/packageA/vod/index",
         },
       ];
 
       if (this.enabledAddons["Zhibo"]) {
         links.push({
-          name: "直播课程",
+          name: "直播课",
           url: "/packageA/live/index",
+        });
+      }
+
+      if (this.enabledAddons["MeeduTopics"]) {
+        links.push({
+          name: "图文",
+          url: "/packageA/topic/index",
         });
       }
 
@@ -107,13 +114,6 @@ export default {
         links.push({
           name: "学习路径",
           url: "/packageA/learnPath/index",
-        });
-      }
-
-      if (this.enabledAddons["MeeduTopics"]) {
-        links.push({
-          name: "图文",
-          url: "/packageA/topic/index",
         });
       }
 

@@ -272,6 +272,7 @@ export default {
     },
   },
   mounted() {
+    document.title = "MeEdu后台管理";
     this.getStatData();
     this.fun_date(-7);
     this.getZXTdata();
