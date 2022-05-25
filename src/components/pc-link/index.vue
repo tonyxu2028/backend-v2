@@ -41,7 +41,7 @@ export default {
           active: "index",
         },
         {
-          name: "录播课程",
+          name: "录播课",
           url: "/courses",
           active: "courses,course.show,video.show",
         },
@@ -49,9 +49,17 @@ export default {
 
       if (this.enabledAddons["Zhibo"]) {
         links.push({
-          name: "直播课程",
+          name: "直播课",
           url: "/live",
           active: "zhibo.course.index,zhibo.course.show,zhibo.course.play",
+        });
+      }
+
+      if (this.enabledAddons["MeeduTopics"]) {
+        links.push({
+          name: "图文",
+          url: "/topic",
+          active: "topic,topic.show",
         });
       }
 
@@ -68,14 +76,6 @@ export default {
           name: "学习路径",
           url: "/learnPath",
           active: "learning_path.index,learning_path.show",
-        });
-      }
-
-      if (this.enabledAddons["MeeduTopics"]) {
-        links.push({
-          name: "图文",
-          url: "/topic",
-          active: "topic,topic.show",
         });
       }
 
