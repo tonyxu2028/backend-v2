@@ -74,17 +74,9 @@
           @sort-change="sortChange"
           :default-sort="{ prop: 'id', order: 'descending' }"
         >
-          <el-table-column prop="id" sortable label="ID" width="100">
+          <el-table-column prop="id" sortable label="ID" width="80">
           </el-table-column>
-          <el-table-column label="分类">
-            <template slot-scope="scope">
-              <span v-if="scope.row.category">
-                {{ scope.row.category.name }}
-              </span>
-              <span v-else class="c-red">数据不完整</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="课程" width="400">
+          <el-table-column label="课程" width="540">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -94,26 +86,42 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column property="charge" label="价格" sortable width="100">
+          <el-table-column label="分类" width="190">
+            <template slot-scope="scope">
+              <span v-if="scope.row.category">
+                {{ scope.row.category.name }}
+              </span>
+              <span v-else class="c-red">数据不完整</span>
+            </template>
+          </el-table-column>
+          <el-table-column property="charge" label="价格" sortable width="140">
             <template slot-scope="scope"> {{ scope.row.charge }}元 </template>
           </el-table-column>
           <el-table-column
             label="付费人数"
             property="user_count"
             sortable
-            width="150"
+            width="140"
           >
             <template slot-scope="scope">
               {{ scope.row.user_count }}人
             </template>
           </el-table-column>
 
-          <el-table-column label="上架时间" sortable width="200">
+          <el-table-column label="上架时间" sortable width="190">
             <template slot-scope="scope">{{
               scope.row.published_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="140">
+          <el-table-column label="显示状态" width="190">
+            <template slot-scope="scope">
+              <span class="c-green" v-if="scope.row.is_show === 1"
+                >· 已显示</span
+              >
+              <span class="c-red" v-else>· 已隐藏</span>
+            </template>
+          </el-table-column>
+          <el-table-column fixed="right" label="操作" width="147">
             <template slot-scope="scope">
               <p-link
                 text="课时"

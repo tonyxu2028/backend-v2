@@ -7,7 +7,7 @@
           <el-form-item prop="category_id" label="所属分类">
             <div class="d-flex">
               <div>
-                <el-select v-model="course.category_id">
+                <el-select class="w-300px" v-model="course.category_id">
                   <el-option
                     v-for="(item, index) in categories"
                     :key="index"
@@ -29,8 +29,44 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="课程名" prop="title">
-            <el-input v-model="course.title" class="w-500px"></el-input>
+          <el-form-item label="课程名称" prop="title">
+            <el-input v-model="course.title" class="w-300px"></el-input>
+          </el-form-item>
+
+          <el-form-item label="课程免费" prop="is_free">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="course.is_free"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </div>
+              <div class="ml-10">
+                <helper-text text="打开后课程免费学习"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item
+            label="课程价格"
+            prop="charge"
+            v-if="course.is_free === 0"
+          >
+            <div class="d-flex">
+              <div>
+                <el-input
+                  type="number"
+                  placeholder="单位：元"
+                  v-model="course.charge"
+                  class="w-200px"
+                ></el-input>
+              </div>
+              <div class="ml-15">
+                <helper-text text="最小单位“元”，不支持小数"></helper-text>
+              </div>
+            </div>
           </el-form-item>
 
           <el-form-item prop="thumb" label="课程封面">
@@ -43,44 +79,11 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="免费" prop="is_free">
-            <div class="d-flex">
-              <div>
-                <el-switch
-                  v-model="course.is_free"
-                  :active-value="1"
-                  :inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="ml-10">
-                <helper-text text="学员无需购买即可观看"></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item label="价格" prop="charge" v-if="course.is_free === 0">
-            <div class="d-flex">
-              <div>
-                <el-input
-                  type="number"
-                  placeholder="单位：元"
-                  v-model="course.charge"
-                  class="w-200px"
-                ></el-input>
-              </div>
-              <div class="ml-15">
-                <helper-text
-                  text="最小单位：元。大于0意味着用户必须购买课程才能观看"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
           <el-form-item label="上架时间" prop="published_at">
             <div class="d-flex">
               <div>
                 <el-date-picker
+                  style="width: 300px"
                   v-model="course.published_at"
                   type="datetime"
                   format="yyyy-MM-dd HH:mm"
@@ -92,7 +95,7 @@
               <div class="ml-15">
                 <div class="helper-text">
                   <helper-text
-                    text="上架时间决定课程排序，越晚越靠前；如果上架时间在未来那么用户将无法看到该课程。"
+                    text="上架时间越早，课程排序越靠后"
                   ></helper-text>
                 </div>
               </div>
@@ -119,17 +122,17 @@
 
           <el-form-item prop="short_description" label="简短介绍">
             <el-input
-              class="w-500px"
+              class="w-800px"
               type="textarea"
               rows="4"
               maxlength="150"
               show-word-limit
               v-model="course.short_description"
-              placeholder="简短介绍"
+              placeholder="请填写课程简单介绍"
             ></el-input>
           </el-form-item>
 
-          <el-form-item prop="original_desc" label="详细介绍">
+          <el-form-item prop="original_desc" label="详情介绍">
             <div class="w-800px">
               <quill-editor
                 :height="400"
