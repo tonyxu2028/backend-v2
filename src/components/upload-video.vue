@@ -168,15 +168,15 @@ export default {
       radio: "",
       loading: false,
       tab: {
-        active: "list",
+        active: "upload",
         list: [
-          {
-            name: "已上传视频",
-            key: "list",
-          },
           {
             name: "直接上传",
             key: "upload",
+          },
+          {
+            name: "已上传视频",
+            key: "list",
           },
         ],
       },
