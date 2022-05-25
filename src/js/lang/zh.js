@@ -133,10 +133,10 @@ const zh = {
       },
     },
     live: {
-      name: "直播",
+      name: "直播课",
       course: {
         name: "直播课",
-        index: "直播课程",
+        index: "直播课",
         create: "新建直播课程",
         update: "编辑直播课程",
         comment: "直播课程评论",
@@ -190,7 +190,7 @@ const zh = {
     },
     topic: {
       name: "图文",
-      index: "图文列表",
+      index: "图文",
       create: "新建图文",
       update: "编辑图文",
       order: "图文学员",
@@ -215,7 +215,7 @@ const zh = {
     },
     course: {
       vod: {
-        index: "录播",
+        index: "录播课",
         create: "新建录播课程",
         update: "编辑录播课程",
         detail: "录播学员",
@@ -422,11 +422,11 @@ const zh = {
     day_increase: "今日新增",
     month_increase: "较上月",
     quick_acsess: "快速访问",
-    demand_course: "录播课程",
-    live_course: "直播课程",
-    graphic_course: "图文课程",
+    demand_course: "录播课",
+    live_course: "直播课",
+    graphic_course: "图文",
     ebook: "电子书",
-    curriculum_path: "课程路径",
+    curriculum_path: "学习路径",
     testpaper: "试卷",
     statistical_analysis: "统计分析",
     query: "查询",
