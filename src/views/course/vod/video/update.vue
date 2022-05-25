@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="编辑录播视频"></back-bar>
+    <back-bar class="mb-30" title="编辑课时"></back-bar>
 
     <div class="center-tabs mb-30">
       <div>
