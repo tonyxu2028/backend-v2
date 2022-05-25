@@ -4,6 +4,7 @@ const zh = {
   title: {
     "mp-wechat-menu": "公众号菜单",
     login: "登录",
+    dashboardTitle: "MeEdu后台管理",
     dashboard: "主页",
     decoration: "装修",
     decoration_pc: "电脑端",
