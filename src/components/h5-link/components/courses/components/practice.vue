@@ -18,11 +18,19 @@
       </div>
     </div>
     <el-table
+      :header-cell-style="{ background: '#f1f2f9' }"
       :data="courses"
       highlight-current-row
       @current-change="tableItemChoice"
       class="float-left"
     >
+      <el-table-column label width="45">
+        <template slot-scope="scope">
+          <el-radio :label="scope.row.id" v-model="radio"
+            ><span></span
+          ></el-radio>
+        </template>
+      </el-table-column>
       <el-table-column prop="id" label="练习ID" width="120"> </el-table-column>
       <el-table-column label="练习">
         <template slot-scope="scope">
@@ -62,6 +70,7 @@ export default {
       loading: false,
       total: 0,
       courses: [],
+      radio: "",
     };
   },
   watch: {
@@ -97,6 +106,7 @@ export default {
     tableItemChoice(row) {
       if (row) {
         this.link = "/packageA/exam/practice/show?id=" + row.id;
+        this.radio = row.id;
       }
     },
     getCourse() {

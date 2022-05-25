@@ -1,6 +1,6 @@
 <template>
-  <div class="float-left">
-    <div class="float-left mb-15 d-flex">
+  <div class="float-left" style="position: relative">
+    <div class="float-left select d-flex">
       <div class="form-label">请选择课程类型</div>
       <div class="ml-15">
         <el-select v-model="typeActive">
@@ -164,5 +164,10 @@ export default {
 .form-label {
   font-size: 14px;
   color: rgba(0, 0, 0, 0.7);
+}
+.select {
+  position: absolute;
+  width: 770px;
+  top: 0;
 }
 </style>
