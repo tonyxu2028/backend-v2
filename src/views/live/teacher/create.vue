@@ -10,7 +10,7 @@
         label-width="200px"
       >
         <el-form-item label="讲师名" prop="name">
-          <el-input v-model="teacher.name" class="w-200px"></el-input>
+          <el-input v-model="teacher.name" class="w-300px"></el-input>
         </el-form-item>
 
         <el-form-item prop="avatar" label="头像">
@@ -26,7 +26,7 @@
         <el-form-item label="邮箱" prop="username">
           <div class="d-flex">
             <div>
-              <el-input v-model="teacher.username" class="w-200px"></el-input>
+              <el-input v-model="teacher.username" class="w-300px"></el-input>
             </div>
             <div class="ml-10">
               <helper-text text="用于讲师客户端登录"></helper-text>
@@ -36,7 +36,7 @@
         <el-form-item label="密码" prop="password">
           <div class="d-flex">
             <div>
-              <el-input v-model="teacher.password" class="w-200px"></el-input>
+              <el-input v-model="teacher.password" class="w-300px"></el-input>
             </div>
             <div class="ml-10">
               <helper-text text="用于讲师客户端登录"></helper-text>
@@ -48,7 +48,7 @@
           <el-input
             type="textarea"
             v-model="teacher.short_desc"
-            class="w-400px"
+            class="w-800px"
             rows="4"
             placeholder="此处填写讲师介绍"
           ></el-input>
