@@ -296,38 +296,38 @@ export default {
       box-sizing: border-box;
       margin-top: 20px;
       display: grid;
-      gap: 15px;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 30px;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
       .image-item {
-        width: 165px;
-        height: 124px;
-        text-align: center;
+        display: flex;
+        width: 80px;
+        height: 60px;
         .image-view {
-          width: 165px;
-          height: 124px;
+          width: 80px;
+          height: 60px;
           background-repeat: no-repeat;
           background-size: contain;
           background-position: center center;
         }
       }
       .upload-image-button {
-        width: 165px;
-        height: 124px;
+        width: 80px;
+        height: 60px;
         background-color: #f1f2f6;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
         img {
-          width: 50px;
-          height: 50px;
+          width: 80px;
+          height: 60px;
         }
         #file_input {
           position: absolute;
           top: 0;
           left: 0;
-          width: 165px;
-          height: 124px;
+          width: 80px;
+          height: 60px;
           opacity: 0;
         }
       }

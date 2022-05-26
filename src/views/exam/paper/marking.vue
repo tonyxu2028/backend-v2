@@ -31,6 +31,7 @@
                       :key="index"
                       :src="img"
                       :preview-src-list="item.thumbs"
+                      fit="contain"
                       style="width: 70px; height: 70px"
                     ></el-image>
                   </template>
