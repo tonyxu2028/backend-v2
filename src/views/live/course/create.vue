@@ -218,6 +218,21 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="visible"
+      width="500px"
+      @close="$router.replace({ name: 'LiveCourse' })"
+    >
+      <div class="d-j-flex mb-30">
+        <span>新建直播课成功，请在课程中添加直播排课吧！</span>
+      </div>
+      <div class="j-r-flex mt-20">
+        <el-button @click="$router.replace({ name: 'LiveCourse' })"
+          >暂不排课</el-button
+        >
+        <el-button @click="goVideo" type="primary">立即排课</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -320,6 +335,7 @@ export default {
       categories: [],
       teachers: [],
       loading: false,
+      visible: false,
     };
   },
   mounted() {
@@ -362,13 +378,27 @@ export default {
       this.course.render_desc = this.course.original_desc;
       this.$api.Course.Live.Course.Store(this.course)
         .then(() => {
+          this.loading = false;
           this.$message.success(this.$t("common.success"));
-          this.$router.back();
+          this.visible = true;
         })
         .catch((e) => {
           this.loading = false;
           this.$message.error(e.message);
         });
+    },
+    goVideo() {
+      this.$api.Course.Live.Course.List({
+        page: 1,
+        size: 10,
+        sort: "id",
+        order: "desc",
+      }).then((res) => {
+        this.$router.replace({
+          name: "LiveCourseVideo",
+          query: { id: res.data.data.data[0].id },
+        });
+      });
     },
   },
 };
