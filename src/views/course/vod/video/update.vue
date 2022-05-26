@@ -161,7 +161,10 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="单独订阅价格" v-if="course.is_free !== 1">
+          <el-form-item
+            label="单独订阅价格"
+            v-if="video.is_ban_sell === 1 && course.is_free !== 1"
+          >
             <div class="d-flex">
               <div>
                 <el-input
