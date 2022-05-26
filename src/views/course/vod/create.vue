@@ -159,13 +159,15 @@
     <el-dialog
       :visible.sync="visible"
       width="500px"
-      @close="$router.push({ name: 'Vod' })"
+      @close="$router.replace({ name: 'Vod' })"
     >
       <div class="d-j-flex mb-30">
         <span>新建录播课成功，请在课程中添加课时排课吧！</span>
       </div>
       <div class="j-r-flex mt-20">
-        <el-button @click="$router.push({ name: 'Vod' })">暂不排课</el-button>
+        <el-button @click="$router.replace({ name: 'Vod' })"
+          >暂不排课</el-button
+        >
         <el-button @click="goVideo" type="primary">立即排课</el-button>
       </div>
     </el-dialog>
@@ -330,7 +332,7 @@ export default {
         sort: "id",
         order: "desc",
       }).then((res) => {
-        this.$router.push({
+        this.$router.replace({
           name: "CourseVideos",
           query: { course_id: res.data.courses.data[0].id },
         });

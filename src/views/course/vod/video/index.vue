@@ -61,9 +61,9 @@
           @selection-change="handleSelectionChange"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" sortable label="ID" width="90">
+          <el-table-column prop="id" sortable label="ID" width="100">
           </el-table-column>
-          <el-table-column label="课时" widt="560">
+          <el-table-column label="课时" width="610">
             <template slot-scope="scope">
               <template>
                 <template v-if="scope.row.chapter">
@@ -83,7 +83,7 @@
             property="duration"
             label="课时时长"
             sortable
-            width="240"
+            width="230"
             ><template slot-scope="scope">
               <duration-text
                 v-if="!loading"
@@ -91,12 +91,12 @@
               ></duration-text>
             </template>
           </el-table-column>
-          <el-table-column sortable label="上架时间" width="276">
+          <el-table-column sortable label="上架时间" width="266">
             <template slot-scope="scope">{{
               scope.row.published_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column label="显示状态" width="250">
+          <el-table-column label="显示状态" width="210">
             <template slot-scope="scope">
               <span class="c-green" v-if="scope.row.is_show === 1"
                 >· 已显示</span
@@ -104,7 +104,7 @@
               <span class="c-red" v-else>· 已隐藏</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="150">
+          <el-table-column fixed="right" label="操作" width="140">
             <template slot-scope="scope">
               <p-link
                 text="学员"
