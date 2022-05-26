@@ -111,7 +111,7 @@
           >
             <change-editor
               :content="topic.free_content"
-              class="w-800px"
+              class="w-100"
               :height="500"
               @change="getfreecontent"
             ></change-editor>
@@ -124,7 +124,7 @@
           >
             <change-editor
               :content="topic.original_content"
-              class="w-800px"
+              class="w-100"
               :height="500"
               @change="getcontent"
             ></change-editor>
@@ -132,7 +132,7 @@
           <el-form-item prop="original_content" v-else label="文章内容">
             <change-editor
               :content="topic.original_content"
-              class="w-800px"
+              class="w-100"
               :height="500"
               @change="getcontent"
             ></change-editor>

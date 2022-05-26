@@ -27,7 +27,7 @@
           <el-form-item prop="cid" label="分类">
             <div class="d-flex">
               <div>
-                <el-select v-model="course.cid">
+                <el-select class="w-300px" v-model="course.cid">
                   <el-option
                     v-for="(item, index) in categories"
                     :key="index"
@@ -51,7 +51,7 @@
           <el-form-item label="书名" prop="name">
             <el-input
               v-model="course.name"
-              class="w-500px"
+              class="w-300px"
               placeholder="书名"
             ></el-input>
           </el-form-item>
@@ -60,6 +60,7 @@
             <div class="d-flex">
               <div>
                 <el-date-picker
+                  style="width: 300px"
                   v-model="course.published_at"
                   type="datetime"
                   format="yyyy-MM-dd HH:mm"
@@ -93,7 +94,7 @@
                   type="number"
                   placeholder="单位：元"
                   v-model="course.charge"
-                  class="w-200px"
+                  class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-10">
@@ -128,7 +129,7 @@
 
           <el-form-item prop="short_desc" label="简短介绍">
             <el-input
-              class="w-400px"
+              class="w-800px"
               rows="4"
               type="textarea"
               maxlength="150"
