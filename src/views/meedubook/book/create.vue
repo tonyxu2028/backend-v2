@@ -183,6 +183,21 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="visible"
+      width="500px"
+      @close="$router.replace({ name: 'Meedubook' })"
+    >
+      <div class="d-j-flex mb-30">
+        <span>新建电子书成功，请在电子书中添加文章吧！</span>
+      </div>
+      <div class="j-r-flex mt-20">
+        <el-button @click="$router.replace({ name: 'Meedubook' })"
+          >暂不添加</el-button
+        >
+        <el-button @click="goArticle" type="primary">立即添加</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -274,6 +289,7 @@ export default {
           },
         ],
       },
+      visible: false,
     };
   },
   mounted() {
@@ -300,13 +316,27 @@ export default {
       this.course.render_desc = this.course.original_desc;
       this.$api.Meedubook.Book.Store(this.course)
         .then(() => {
+          this.loading = false;
           this.$message.success(this.$t("common.success"));
-          this.$router.back();
+          this.visible = true;
         })
         .catch((e) => {
           this.loading = false;
           this.$message.error(e.message);
         });
+    },
+    goArticle() {
+      this.$api.Meedubook.Book.List({
+        page: 1,
+        size: 10,
+        sort: "id",
+        order: "desc",
+      }).then((res) => {
+        this.$router.replace({
+          name: "MeedubookArticle",
+          query: { bid: res.data.data.data[0].id },
+        });
+      });
     },
   },
 };
