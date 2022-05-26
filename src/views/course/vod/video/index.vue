@@ -60,10 +60,10 @@
           :default-sort="{ prop: 'published_at', order: 'ascending' }"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" sortable label="ID" width="100">
+          <el-table-column type="selection" min-width="4%"></el-table-column>
+          <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="课时" width="610">
+          <el-table-column label="课时" min-width="37%">
             <template slot-scope="scope">
               <template>
                 <template v-if="scope.row.chapter">
@@ -83,7 +83,7 @@
             property="duration"
             label="课时时长"
             sortable
-            width="230"
+            min-width="10%"
             ><template slot-scope="scope">
               <duration-text
                 v-if="!loading"
@@ -91,12 +91,12 @@
               ></duration-text>
             </template>
           </el-table-column>
-          <el-table-column sortable label="上架时间" width="266">
+          <el-table-column sortable label="上架时间" min-width="13%">
             <template slot-scope="scope">{{
               scope.row.published_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column label="显示状态" width="210">
+          <el-table-column label="显示状态" min-width="8%">
             <template slot-scope="scope">
               <span class="c-green" v-if="scope.row.is_show === 1"
                 >· 已显示</span
@@ -104,7 +104,7 @@
               <span class="c-red" v-else>· 已隐藏</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="140">
+          <el-table-column fixed="right" label="操作" min-width="12%">
             <template slot-scope="scope">
               <p-link
                 text="学员"
