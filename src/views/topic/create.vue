@@ -27,7 +27,7 @@
           <el-form-item prop="cid" label="分类">
             <div class="d-flex">
               <div>
-                <el-select v-model="topic.cid">
+                <el-select class="w-300px" v-model="topic.cid">
                   <el-option
                     v-for="(item, index) in chapters"
                     :key="index"
@@ -55,7 +55,7 @@
           <el-form-item label="标题" prop="title">
             <el-input
               v-model="topic.title"
-              class="w-600px"
+              class="w-300px"
               placeholder="请输入标题"
             ></el-input>
           </el-form-item>
@@ -75,7 +75,7 @@
                   type="number"
                   placeholder="价格"
                   v-model="topic.charge"
-                  class="w-200px"
+                  class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-10">
@@ -111,7 +111,7 @@
           >
             <change-editor
               :content="topic.free_content"
-              class="w-100"
+              class="w-800px"
               :height="500"
               @change="getfreecontent"
             ></change-editor>
@@ -124,7 +124,7 @@
           >
             <change-editor
               :content="topic.original_content"
-              class="w-100"
+              class="w-800px"
               :height="500"
               @change="getcontent"
             ></change-editor>
@@ -132,7 +132,7 @@
           <el-form-item prop="original_content" v-else label="文章内容">
             <change-editor
               :content="topic.original_content"
-              class="w-100"
+              class="w-800px"
               :height="500"
               @change="getcontent"
             ></change-editor>
@@ -160,6 +160,7 @@
             <div class="d-flex">
               <div>
                 <el-date-picker
+                  style="width: 300px"
                   v-model="topic.sorted_at"
                   type="datetime"
                   format="yyyy-MM-dd HH:mm"
