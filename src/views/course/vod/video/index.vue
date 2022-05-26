@@ -109,7 +109,6 @@
               <p-link
                 text="学员"
                 p="video.watch.records"
-                class="ml-5"
                 type="primary"
                 @click="
                   $router.push({
