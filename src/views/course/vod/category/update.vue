@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" :model="user" :rules="rules" label-width="200px">
         <el-form-item label="父级" prop="parent_id">
-          <el-select clearable v-model="user.parent_id">
+          <el-select class="w-300px" clearable v-model="user.parent_id">
             <el-option
               v-for="(item, index) in categories"
               :key="index"
@@ -20,7 +20,7 @@
               <el-input
                 type="number"
                 v-model="user.sort"
-                class="w-200px"
+                class="w-300px"
               ></el-input>
             </div>
             <div class="ml-10">
@@ -32,7 +32,7 @@
         </el-form-item>
 
         <el-form-item label="分类名" prop="name">
-          <el-input v-model="user.name" class="w-200px"></el-input>
+          <el-input v-model="user.name" class="w-300px"></el-input>
         </el-form-item>
 
         <el-form-item label="显示" prop="is_show">
