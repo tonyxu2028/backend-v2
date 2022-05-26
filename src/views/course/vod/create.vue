@@ -156,6 +156,19 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="visible"
+      width="500px"
+      @close="$router.push({ name: 'Vod' })"
+    >
+      <div class="d-j-flex mb-30">
+        <span>新建录播课成功，请在课程中添加课时排课吧！</span>
+      </div>
+      <div class="j-r-flex mt-20">
+        <el-button @click="$router.push({ name: 'Vod' })">暂不排课</el-button>
+        <el-button @click="goVideo" type="primary">立即排课</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -257,6 +270,7 @@ export default {
       ],
       loading: false,
       categories: [],
+      visible: false,
     };
   },
   mounted() {
@@ -300,13 +314,27 @@ export default {
       }
       this.$api.Course.Vod.Store(this.course)
         .then(() => {
+          this.loading = false;
           this.$message.success(this.$t("common.success"));
-          this.$router.push({ name: "Vod" });
+          this.visible = true;
         })
         .catch((e) => {
           this.loading = false;
           this.$message.error(e.message);
         });
+    },
+    goVideo() {
+      this.$api.Course.Vod.List({
+        page: 1,
+        size: 10,
+        sort: "id",
+        order: "desc",
+      }).then((res) => {
+        this.$router.push({
+          name: "CourseVideos",
+          query: { course_id: res.data.courses.data[0].id },
+        });
+      });
     },
   },
 };
