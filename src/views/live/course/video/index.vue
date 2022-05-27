@@ -22,9 +22,11 @@
           :data="results"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" width="120"> </el-table-column>
-          <el-table-column prop="name" label="标题">
-            <template slot-scope="scope">
+          <el-table-column prop="id" label="ID" min-width="10%">
+          </el-table-column>
+          <el-table-column prop="name" label="标题" min-width="42%">
+            <template slot-scope="scope"
+              >s
               <template v-if="scope.row.chapter">
                 <span>{{ scope.row.chapter.name }}</span>
                 <span class="mx-5">/</span>
@@ -32,12 +34,12 @@
               <span>{{ scope.row.title }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="直播时间" width="200">
+          <el-table-column label="直播时间" min-width="18%">
             <template slot-scope="scope">{{
               scope.row.published_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column label="状态" width="100">
+          <el-table-column label="状态" min-width="18%">
             <template slot-scope="scope">
               <span
                 :class="{
@@ -49,7 +51,7 @@
               >
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="120">
+          <el-table-column fixed="right" label="操作" min-width="12%">
             <template slot-scope="scope">
               <p-link
                 text="直播"
