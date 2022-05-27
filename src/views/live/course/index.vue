@@ -65,13 +65,13 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
-          <el-table-column prop="id" sortable label="ID" min-width="6%">
+          <el-table-column prop="id" sortable label="ID" min-width="5%">
           </el-table-column>
           <el-table-column prop="category.name" label="分类" min-width="8%">
           </el-table-column>
           <el-table-column prop="teacher.name" label="讲师" min-width="8%">
           </el-table-column>
-          <el-table-column label="课程" min-width="23%">
+          <el-table-column label="课程" min-width="24%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
