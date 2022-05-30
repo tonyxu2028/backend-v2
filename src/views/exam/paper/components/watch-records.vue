@@ -1,7 +1,9 @@
 <template>
   <div class="float-left">
     <div class="float-left j-b-flex mb-30">
-      <div class="d-flex"></div>
+      <div class="d-flex">
+        <el-button @click="exportexcel" type="primary">导出表格</el-button>
+      </div>
       <div class="d-flex">
         <div>
           <el-select class="w-150px" placeholder="状态" v-model="filter.status">
@@ -17,7 +19,6 @@
         <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
-          <el-button @click="exportexcel" type="primary">导出表格</el-button>
         </div>
         <div class="drawerMore d-flex ml-10" @click="drawer = true">
           <template v-if="showStatus">
