@@ -1534,25 +1534,6 @@ const routes = [
     name: "MockpaperUser",
     meta: {
       title: "title.exam.mockpaper.user",
-      keepAlive: true,
-    },
-  },
-  {
-    path: "/exam/mockpaper/stat",
-    component: () => import("@/views/exam/mockpaper/statistics"),
-    name: "ExamMockpaperStat",
-    meta: {
-      title: "title.exam.mockpaper.stat",
-      keepAlive: true,
-    },
-  },
-  {
-    path: "/exam/mockpaper/userpaper",
-    component: () => import("@/views/exam/mockpaper/userpaper"),
-    name: "ExamMockpaperUserpaper",
-    meta: {
-      title: "title.exam.mockpaper.userpaper",
-      keepAlive: true,
     },
   },
   {

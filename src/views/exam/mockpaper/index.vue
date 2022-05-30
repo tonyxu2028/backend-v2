@@ -73,9 +73,7 @@
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="150">
             <template slot-scope="scope">
-              <p-link
-                text="学员"
-                p="addons.Paper.mock_paper.users"
+              <el-link
                 type="primary"
                 @click="
                   $router.push({
@@ -83,15 +81,16 @@
                     query: { id: scope.row.id },
                   })
                 "
-              ></p-link>
+                >学员</el-link
+              >
               <p-link
-                text="统计"
+                text="编辑"
                 class="ml-5"
-                p="addons.Paper.mock_paper.statistics"
+                p="addons.Paper.mock_paper.update"
                 type="primary"
                 @click="
                   $router.push({
-                    name: 'ExamMockpaperStat',
+                    name: 'ExamMockpaperUpdate',
                     query: { id: scope.row.id },
                   })
                 "
@@ -102,30 +101,6 @@
                   更多<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
-                  <p-dropdown-item
-                    text="编辑"
-                    p="addons.Paper.mock_paper.update"
-                    type="primary"
-                    @click="
-                      $router.push({
-                        name: 'ExamMockpaperUpdate',
-                        query: { id: scope.row.id },
-                      })
-                    "
-                  ></p-dropdown-item>
-
-                  <p-dropdown-item
-                    text="考试记录"
-                    p="addons.Paper.mock_paper.records"
-                    type="primary"
-                    @click="
-                      $router.push({
-                        name: 'ExamMockpaperUserpaper',
-                        query: { id: scope.row.id },
-                      })
-                    "
-                  >
-                  </p-dropdown-item>
                   <p-dropdown-item
                     text="删除"
                     p="addons.Paper.mock_paper.delete"

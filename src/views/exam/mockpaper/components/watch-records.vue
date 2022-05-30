@@ -1,7 +1,9 @@
 <template>
-  <div class="meedu-main-body">
-    <back-bar class="mb-30" title="考试记录"></back-bar>
+  <div class="float-left">
     <div class="float-left j-b-flex mb-30">
+      <div class="d-flex">
+        <el-button @click="exportexcel" type="primary">导出表格</el-button>
+      </div>
       <div class="d-flex">
         <div>
           <el-input
@@ -25,7 +27,6 @@
         <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
-          <el-button @click="exportexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
@@ -125,11 +126,11 @@ export default {
   components: {
     DurationText,
   },
+  props: ["id"],
   data() {
     return {
       pageName: "mockpaperRecord-list",
       pagination: {
-        id: this.$route.query.id,
         page: 1,
         size: 10,
         sort: "id",
@@ -160,14 +161,7 @@ export default {
       },
     };
   },
-  watch: {
-    "$route.query.id"() {
-      this.pagination.page = 1;
-      this.filter.user_id = null;
-      this.filter.status = -1;
-    },
-  },
-  activated() {
+  mounted() {
     this.getResults();
     this.$utils.scrollTopSet(this.pageName);
   },
@@ -206,15 +200,12 @@ export default {
       this.loading = true;
       this.list = [];
       let params = {};
-      this.pagination.id = this.$route.query.id;
       Object.assign(params, this.filter, this.pagination);
-      this.$api.Exam.Mockpaper.Userpaper(this.pagination.id, params).then(
-        (res) => {
-          this.loading = false;
-          this.list = res.data.data;
-          this.total = res.data.total;
-        }
-      );
+      this.$api.Exam.Mockpaper.Userpaper(this.id, params).then((res) => {
+        this.loading = false;
+        this.list = res.data.data;
+        this.total = res.data.total;
+      });
     },
     destory(item) {
       this.$confirm("确认操作？", "警告", {
@@ -252,47 +243,44 @@ export default {
         page: 1,
         size: this.total,
       };
-      this.pagination.id = this.$route.query.id;
       Object.assign(params, this.filter);
-      this.$api.Exam.Mockpaper.Userpaper(this.pagination.id, params).then(
-        (res) => {
-          if (res.data.total === 0) {
-            this.$message.error("数据为空");
-            this.loading = false;
-            return;
-          }
-          let filename = "模拟卷考试记录.xlsx";
-          let sheetName = "sheet1";
-
-          let data = [
-            ["学员ID", "学员", "手机号", "得分", "用时", "时间", "状态"],
-          ];
-          res.data.data.forEach((item) => {
-            data.push([
-              item.user_id,
-              item.user.nick_name,
-              item.user.mobile,
-              item.get_score + "分",
-              this.durationTime(item.use_seconds),
-              item.created_at
-                ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
-                : "",
-              item.status_text,
-            ]);
-          });
-          let wscols = [
-            { wch: 10 },
-            { wch: 20 },
-            { wch: 15 },
-            { wch: 10 },
-            { wch: 15 },
-            { wch: 20 },
-            { wch: 10 },
-          ];
-          this.$utils.exportExcel(data, filename, sheetName, wscols);
+      this.$api.Exam.Mockpaper.Userpaper(this.id, params).then((res) => {
+        if (res.data.total === 0) {
+          this.$message.error("数据为空");
           this.loading = false;
+          return;
         }
-      );
+        let filename = "模拟卷考试记录.xlsx";
+        let sheetName = "sheet1";
+
+        let data = [
+          ["学员ID", "学员", "手机号", "得分", "用时", "时间", "状态"],
+        ];
+        res.data.data.forEach((item) => {
+          data.push([
+            item.user_id,
+            item.user.nick_name,
+            item.user.mobile,
+            item.get_score + "分",
+            this.durationTime(item.use_seconds),
+            item.created_at
+              ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+              : "",
+            item.status_text,
+          ]);
+        });
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 10 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 10 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
+        this.loading = false;
+      });
     },
     durationTime(duration) {
       let hour = parseInt(duration / 3600);
