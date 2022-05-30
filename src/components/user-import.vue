@@ -97,7 +97,12 @@ export default {
             })
             .catch((e) => {
               this.loading = false;
-              this.$message.error(e.message);
+              this.$message({
+                showClose: true,
+                message: e.message,
+                type: "error",
+                duration: 0,
+              });
             });
         } else if (this.type === "live") {
           this.$api.Course.Live.Course.UserImport(this.id, {
@@ -110,7 +115,12 @@ export default {
             })
             .catch((e) => {
               this.loading = false;
-              this.$message.error(e.message);
+              this.$message({
+                showClose: true,
+                message: e.message,
+                type: "error",
+                duration: 0,
+              });
             });
         } else if (this.type === "cert") {
           this.$api.Certificate.User.Import(this.id, {
@@ -123,7 +133,12 @@ export default {
             })
             .catch((e) => {
               this.loading = false;
-              this.$message.error(e.message);
+              this.$message({
+                showClose: true,
+                message: e.message,
+                type: "error",
+                duration: 0,
+              });
             });
         }
       };
