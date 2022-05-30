@@ -1,6 +1,5 @@
 <template>
-  <div class="meedu-main-body">
-    <back-bar class="mb-30" title="分数统计"></back-bar>
+  <div class="float-left">
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <el-button @click="exportXlsx()" type="primary"> 导出成绩 </el-button>
@@ -142,11 +141,11 @@
 
 <script>
 export default {
+  props: ["id"],
   data() {
     return {
       pageName: "paperStat-list",
       pagination: {
-        id: this.$route.query.id,
         page: 1,
         size: 10,
       },
@@ -171,14 +170,7 @@ export default {
       },
     };
   },
-  watch: {
-    "$route.query.id"() {
-      this.pagination.page = 1;
-      this.filter.created_at = null;
-      this.filter.submit_at = null;
-    },
-  },
-  activated() {
+  mounted() {
     this.getResults();
     this.$utils.scrollTopSet(this.pageName);
   },
@@ -211,9 +203,8 @@ export default {
       }
       this.loading = true;
       let params = {};
-      this.pagination.id = this.$route.query.id;
       Object.assign(params, this.pagination, this.filter);
-      this.$api.Exam.Paper.Stat(this.pagination.id, params).then((res) => {
+      this.$api.Exam.Paper.Stat(this.id, params).then((res) => {
         this.loading = false;
         this.list = res.data.data;
         this.users = res.data.users;
@@ -227,7 +218,7 @@ export default {
       this.loading = true;
       let params = {};
       Object.assign(params, this.pagination);
-      this.$api.Exam.Paper.Stat(this.pagination.id, params).then((res) => {
+      this.$api.Exam.Paper.Stat(this.id, params).then((res) => {
         this.loading = false;
         let filename = "成绩导出|" + this.$utils.currentDate() + ".xlsx";
         let sheetName = "默认";

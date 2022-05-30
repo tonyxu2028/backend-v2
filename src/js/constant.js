@@ -161,8 +161,6 @@ export default {
     PaperCategories: "ExamPaper",
     PaperCategoriesCreate: "ExamPaper",
     PaperCategoriesUpdate: "ExamPaper",
-    ExamPaperUserpaper: "ExamPaper",
-    ExamPaperStat: "ExamPaper",
     PaperUser: "ExamPaper",
     ExamPaperQuestion: "ExamPaper",
     ExamPaperQuestionCreate: "ExamPaper",

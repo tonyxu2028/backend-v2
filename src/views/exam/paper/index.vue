@@ -83,9 +83,7 @@
                   })
                 "
               ></p-link>
-              <p-link
-                text="学员"
-                p="addons.Paper.paper.users"
+              <el-link
                 type="primary"
                 class="ml-5"
                 @click="
@@ -94,7 +92,8 @@
                     query: { id: scope.row.id },
                   })
                 "
-              ></p-link>
+                >学员</el-link
+              >
               <el-dropdown>
                 <el-link type="primary" class="el-dropdown-link ml-5">
                   更多<i class="el-icon-arrow-down el-icon--right"></i>
@@ -107,30 +106,6 @@
                     @click="
                       $router.push({
                         name: 'ExamPaperUpdate',
-                        query: { id: scope.row.id },
-                      })
-                    "
-                  >
-                  </p-dropdown-item>
-                  <p-dropdown-item
-                    text="统计"
-                    p="addons.Paper.paper.statistics"
-                    type="primary"
-                    @click="
-                      $router.push({
-                        name: 'ExamPaperStat',
-                        query: { id: scope.row.id },
-                      })
-                    "
-                  >
-                  </p-dropdown-item>
-                  <p-dropdown-item
-                    text="考试记录"
-                    p="addons.Paper.paper.userPaper"
-                    type="primary"
-                    @click="
-                      $router.push({
-                        name: 'ExamPaperUserpaper',
                         query: { id: scope.row.id },
                       })
                     "

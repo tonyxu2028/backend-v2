@@ -313,7 +313,7 @@ const zh = {
         create: "新建试卷",
         update: "编辑试卷",
         userpaper: "考试记录",
-        user: "订阅学员",
+        user: "试卷学员",
         stat: "分数统计",
         question: "组卷",
         questionadd: "添加试题",
