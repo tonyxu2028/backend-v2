@@ -102,19 +102,19 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="显示" prop="is_show">
+          <el-form-item label="隐藏课程" prop="is_show">
             <div class="d-flex">
               <div>
                 <el-switch
                   v-model="course.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
+                  :active-value="0"
+                  :inactive-value="1"
                 >
                 </el-switch>
               </div>
               <div class="ml-15">
                 <div class="helper-text">
-                  <helper-text text="控制学员是否能看到该课程。"></helper-text>
+                  <helper-text text="打开后课程在前台将隐藏显示"></helper-text>
                 </div>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default {
         original_desc: null,
         render_desc: null,
         user_count: null,
-        is_free: 1,
+        is_free: 0,
       },
       rules: {
         category_id: [
