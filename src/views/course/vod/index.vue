@@ -126,7 +126,12 @@
               <span class="c-red" v-else>· 已隐藏</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" min-width="12%">
+          <el-table-column
+            fixed="right"
+            label="操作"
+            min-width="12%"
+            align="center"
+          >
             <template slot-scope="scope">
               <p-link
                 text="课时"
