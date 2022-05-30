@@ -11,6 +11,13 @@
           <el-link type="primary" @click="model()">
             下载「课时批量导入模板」
           </el-link>
+          <!--<a
+            class="download-link"
+            href="/model/test.xlsx"
+            download="课时批量导入模板.xlsx"
+          >
+            下载「课时批量导入模板」
+          </a>-->
         </div>
       </div>
       <div class="float-left">

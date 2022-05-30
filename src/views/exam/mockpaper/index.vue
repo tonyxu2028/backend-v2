@@ -71,7 +71,7 @@
               <span>{{ scope.row.expired_minutes }}分钟</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="140">
+          <el-table-column fixed="right" label="操作" width="150">
             <template slot-scope="scope">
               <p-link
                 text="学员"

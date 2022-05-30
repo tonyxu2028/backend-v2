@@ -58,7 +58,7 @@
               <span class="c-red" v-else>学员不存在</span>
             </template>
           </el-table-column>
-          <el-table-column label="课时时长" width="140">
+          <el-table-column label="课时时长" width="150">
             <template slot-scope="scope">
               <duration-text
                 v-if="!loading && videos[scope.row.video_id]"
@@ -67,7 +67,7 @@
               <span class="c-red" v-else>已删除</span>
             </template>
           </el-table-column>
-          <el-table-column label="已观看" width="140">
+          <el-table-column label="已观看" width="150">
             <template slot-scope="scope">
               <duration-text
                 v-if="!loading"
