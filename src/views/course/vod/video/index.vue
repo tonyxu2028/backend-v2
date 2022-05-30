@@ -106,7 +106,7 @@
             fixed="right"
             label="操作"
             min-width="12%"
-            align="center"
+            align="right"
           >
             <template slot-scope="scope">
               <p-link

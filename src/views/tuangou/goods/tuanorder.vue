@@ -64,7 +64,7 @@
               <span>{{ scope.row.expired_at | dateFormat }}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="150">
+          <el-table-column fixed="right" label="操作" width="160">
             <template slot-scope="scope">
               <p-link
                 text="详情"

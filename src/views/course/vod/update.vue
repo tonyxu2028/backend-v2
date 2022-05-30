@@ -107,8 +107,8 @@
               <div>
                 <el-switch
                   v-model="course.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
+                  :active-value="0"
+                  :inactive-value="1"
                 >
                 </el-switch>
               </div>

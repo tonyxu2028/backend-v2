@@ -97,13 +97,13 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="付费"
+            label="销量"
             sortable
             property="user_count"
             width="100"
           >
             <template slot-scope="scope">
-              <span>{{ scope.row.user_count }}人</span>
+              <span>{{ scope.row.user_count }}</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -120,7 +120,7 @@
               scope.row.created_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="150">
+          <el-table-column fixed="right" label="操作" width="160">
             <template slot-scope="scope">
               <p-link
                 text="学员"
