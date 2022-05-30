@@ -65,13 +65,13 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
-          <el-table-column prop="id" sortable label="ID" min-width="5%">
+          <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
           <el-table-column prop="category.name" label="分类" min-width="8%">
           </el-table-column>
           <el-table-column prop="teacher.name" label="讲师" min-width="8%">
           </el-table-column>
-          <el-table-column label="课程" min-width="24%">
+          <el-table-column label="课程" min-width="21%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -85,7 +85,7 @@
             label="价格"
             property="charge"
             sortable
-            min-width="6%"
+            min-width="8%"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.charge }}元</span>
@@ -95,16 +95,16 @@
             label="销量"
             property="join_user_times"
             sortable
-            min-width="10%"
+            min-width="8%"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.join_user_times }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="显示" min-width="6%">
+          <el-table-column label="是否显示" min-width="8%">
             <template slot-scope="scope">
-              <span class="c-green" v-if="scope.row.is_show === 1">· 是</span>
-              <span class="c-gray" v-else>· 否</span>
+              <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
+              <span class="c-gray" v-else>· 隐藏</span>
             </template>
           </el-table-column>
           <el-table-column label="状态" min-width="8%">
@@ -124,7 +124,12 @@
               scope.row.published_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" min-width="12%">
+          <el-table-column
+            fixed="right"
+            label="操作"
+            min-width="12%"
+            align="right"
+          >
             <template slot-scope="scope">
               <p-link
                 text="排课"
