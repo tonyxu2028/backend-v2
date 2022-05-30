@@ -76,7 +76,7 @@
         >
           <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="课程" min-width="32%">
+          <el-table-column label="课程" min-width="33%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -86,7 +86,7 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column label="分类" min-width="11%">
+          <el-table-column label="分类" min-width="13%">
             <template slot-scope="scope">
               <span v-if="scope.row.category">
                 {{ scope.row.category.name }}
@@ -106,7 +106,7 @@
             label="销量"
             property="user_count"
             sortable
-            min-width="10%"
+            min-width="7%"
           >
             <template slot-scope="scope">
               {{ scope.row.user_count }}
@@ -118,12 +118,10 @@
               scope.row.published_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column label="显示状态" min-width="8%">
+          <el-table-column label="是否显示" min-width="8%">
             <template slot-scope="scope">
-              <span class="c-green" v-if="scope.row.is_show === 1"
-                >· 已显示</span
-              >
-              <span class="c-red" v-else>· 已隐藏</span>
+              <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
+              <span class="c-red" v-else>· 隐藏</span>
             </template>
           </el-table-column>
           <el-table-column
