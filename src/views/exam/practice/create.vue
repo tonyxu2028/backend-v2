@@ -110,15 +110,15 @@
       width="500px"
       @close="$router.replace({ name: 'ExamPractice' })"
     >
-      <div class="d-j-flex mb-30">
+      <div class="text-center">
         <span>新建练习成功，请在添加章节后再在试题库中选择试题组卷吧！</span>
       </div>
-      <div class="j-r-flex mt-20">
+      <span slot="footer" class="dialog-footer">
         <el-button @click="$router.replace({ name: 'ExamPractice' })"
           >暂不组卷</el-button
         >
         <el-button @click="goArticle" type="primary">立即组卷</el-button>
-      </div>
+      </span>
     </el-dialog>
   </div>
 </template>

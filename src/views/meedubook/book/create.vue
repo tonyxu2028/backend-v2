@@ -188,15 +188,15 @@
       width="500px"
       @close="$router.replace({ name: 'Meedubook' })"
     >
-      <div class="d-j-flex mb-30">
+      <div class="text-center">
         <span>新建电子书成功，请在电子书中添加文章吧！</span>
       </div>
-      <div class="j-r-flex mt-20">
+      <span slot="footer" class="dialog-footer">
         <el-button @click="$router.replace({ name: 'Meedubook' })"
           >暂不添加</el-button
         >
         <el-button @click="goArticle" type="primary">立即添加</el-button>
-      </div>
+      </span>
     </el-dialog>
   </div>
 </template>

@@ -223,15 +223,15 @@
       width="500px"
       @close="$router.replace({ name: 'LiveCourse' })"
     >
-      <div class="d-j-flex mb-30">
+      <div class="text-center">
         <span>新建直播课成功，请在课程中添加直播排课吧！</span>
       </div>
-      <div class="j-r-flex mt-20">
+      <span slot="footer" class="dialog-footer">
         <el-button @click="$router.replace({ name: 'LiveCourse' })"
           >暂不排课</el-button
         >
         <el-button @click="goVideo" type="primary">立即排课</el-button>
-      </div>
+      </span>
     </el-dialog>
   </div>
 </template>
