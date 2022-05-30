@@ -330,7 +330,7 @@ const zh = {
         create: "新建模拟试卷",
         update: "编辑模拟试卷",
         userpaper: "考试记录",
-        user: "订阅学员",
+        user: "模拟试卷学员",
         stat: "分数统计",
         category: {
           index: "模拟试卷分类",
