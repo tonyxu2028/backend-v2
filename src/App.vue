@@ -76,9 +76,13 @@
 
             <div class="page-main-body-box">
               <keep-alive>
-                <router-view v-if="this.$route.meta.keepAlive"></router-view>
+                <router-view
+                  v-if="this.$route.meta.keepAlive && user"
+                ></router-view>
               </keep-alive>
-              <router-view v-if="!this.$route.meta.keepAlive"></router-view>
+              <router-view
+                v-if="!this.$route.meta.keepAlive && user"
+              ></router-view>
             </div>
           </div>
         </div>

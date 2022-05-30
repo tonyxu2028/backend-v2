@@ -14,26 +14,12 @@
       </div>
     </div>
     <div class="float-left">
-      <sub-users
-        :id="id"
-        v-if="
-          tabActive === 'sub-users' && through('addons.Paper.mock_paper.users')
-        "
-      ></sub-users>
+      <sub-users :id="id" v-if="tabActive === 'sub-users'"></sub-users>
       <watch-records
         :id="id"
-        v-else-if="
-          tabActive === 'watch-records' &&
-          through('addons.Paper.mock_paper.records')
-        "
+        v-else-if="tabActive === 'watch-records'"
       ></watch-records>
-      <statistics
-        :id="id"
-        v-else-if="
-          tabActive === 'statistics' &&
-          through('addons.Paper.mock_paper.statistics')
-        "
-      ></statistics>
+      <statistics :id="id" v-else-if="tabActive === 'statistics'"></statistics>
     </div>
   </div>
 </template>
@@ -53,31 +39,42 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
-      tabActive: "watch-records",
-      tabs: [
-        {
-          name: "考试记录",
-          key: "watch-records",
-        },
-        {
-          name: "考试统计",
-          key: "statistics",
-        },
-        {
-          name: "付费学员",
-          key: "sub-users",
-        },
-      ],
+      tabActive: null,
+      tabs: [],
     };
   },
   computed: {
     ...mapState(["user"]),
   },
+  mounted() {
+    this.params();
+  },
   methods: {
-    through(val) {
-      if (!this.user) {
-        return false;
+    params() {
+      let data = [];
+      if (this.through("addons.Paper.mock_paper.records")) {
+        data.push({
+          name: "考试记录",
+          key: "watch-records",
+        });
       }
+      if (this.through("addons.Paper.mock_paper.statistics")) {
+        data.push({
+          name: "考试统计",
+          key: "statistics",
+        });
+      }
+      if (this.through("addons.Paper.mock_paper.users")) {
+        data.push({
+          name: "付费学员",
+          key: "sub-users",
+        });
+      }
+
+      this.tabActive = data[0].key;
+      this.tabs = data;
+    },
+    through(val) {
       return typeof this.user.permissions[val] !== "undefined";
     },
   },
