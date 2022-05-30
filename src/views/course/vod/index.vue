@@ -103,13 +103,13 @@
             <template slot-scope="scope"> {{ scope.row.charge }}元 </template>
           </el-table-column>
           <el-table-column
-            label="付费人数"
+            label="销量"
             property="user_count"
             sortable
             min-width="10%"
           >
             <template slot-scope="scope">
-              {{ scope.row.user_count }}人
+              {{ scope.row.user_count }}
             </template>
           </el-table-column>
 

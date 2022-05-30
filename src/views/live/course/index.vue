@@ -92,13 +92,13 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="付费人数"
+            label="销量"
             property="join_user_times"
             sortable
             min-width="10%"
           >
             <template slot-scope="scope">
-              <span>{{ scope.row.join_user_times }}人</span>
+              <span>{{ scope.row.join_user_times }}</span>
             </template>
           </el-table-column>
           <el-table-column label="显示" min-width="6%">
