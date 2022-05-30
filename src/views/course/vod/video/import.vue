@@ -8,16 +8,16 @@
           <el-button type="primary" @click="choiceFile"> 导入表格 </el-button>
         </div>
         <div class="ml-30">
-          <el-link type="primary" @click="model()">
+          <!--<el-link type="primary" @click="model()">
             下载「课时批量导入模板」
-          </el-link>
-          <!--<a
+          </el-link>-->
+          <a
             class="download-link"
-            href="/model/test.xlsx"
+            href="/model/vod-video-import.xlsx"
             download="课时批量导入模板.xlsx"
           >
             下载「课时批量导入模板」
-          </a>-->
+          </a>
         </div>
       </div>
       <div class="float-left">
@@ -71,7 +71,7 @@ export default {
         let data = new Uint8Array(e.target.result);
         let workbook = XLSX.read(data, { type: "array", cellDates: true });
         let parseData = this.parseData(workbook);
-        parseData.splice(0, 1);
+        parseData.splice(0, 2);
         if (parseData.length === 0) {
           this.$message.error("数据为空");
           return;

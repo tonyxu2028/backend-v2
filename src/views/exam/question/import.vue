@@ -10,9 +10,16 @@
           </el-button>
         </div>
         <div class="ml-30">
-          <el-link type="primary" @click="model()">
+          <!--<el-link type="primary" @click="model()">
             点击链接下载「试题批量导入模板」
-          </el-link>
+          </el-link>-->
+          <a
+            class="download-link"
+            href="/model/question-import.xlsx"
+            download="试题批量导入模板.xlsx"
+          >
+            下载「试题批量导入模板」
+          </a>
         </div>
       </div>
       <div class="float-left">
@@ -63,7 +70,7 @@ export default {
         let data = new Uint8Array(e.target.result);
         let workbook = XLSX.read(data, { type: "array", cellDates: true });
         let parseData = this.parseData(workbook);
-        parseData.splice(0, 1);
+        parseData.splice(0, 2);
         if (parseData.length === 0) {
           this.$message.error("数据为空");
           return;
