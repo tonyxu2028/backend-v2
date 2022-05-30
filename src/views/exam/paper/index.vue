@@ -83,17 +83,22 @@
                   })
                 "
               ></p-link>
-              <el-link
+              <p-link
                 type="primary"
+                text="学员"
                 class="ml-5"
+                :p-box="[
+                  'addons.Paper.paper.userPaper',
+                  'addons.Paper.paper.statistics',
+                  'addons.Paper.paper.users',
+                ]"
                 @click="
                   $router.push({
                     name: 'PaperUser',
                     query: { id: scope.row.id },
                   })
                 "
-                >学员</el-link
-              >
+              ></p-link>
               <el-dropdown>
                 <el-link type="primary" class="el-dropdown-link ml-5">
                   更多<i class="el-icon-arrow-down el-icon--right"></i>

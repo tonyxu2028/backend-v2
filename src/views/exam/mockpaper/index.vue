@@ -73,16 +73,21 @@
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
-              <el-link
+              <p-link
+                text="学员"
                 type="primary"
+                :p-box="[
+                  'addons.Paper.mock_paper.records',
+                  'addons.Paper.mock_paper.statistics',
+                  'addons.Paper.mock_paper.users',
+                ]"
                 @click="
                   $router.push({
                     name: 'MockpaperUser',
                     query: { id: scope.row.id },
                   })
                 "
-                >学员</el-link
-              >
+              ></p-link>
               <el-dropdown>
                 <el-link type="primary" class="el-dropdown-link ml-5">
                   更多<i class="el-icon-arrow-down el-icon--right"></i>

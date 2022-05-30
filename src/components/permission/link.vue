@@ -7,7 +7,7 @@
     :type="type"
     :icon="icon"
     @click="$emit('click')"
-    v-if="through"
+    v-if="through || multiThrough"
     >{{ text }}</el-link
   >
 </template>
@@ -25,6 +25,7 @@ export default {
     "icon",
     "p",
     "text",
+    "pBox",
   ],
   computed: {
     ...mapState(["user"]),
@@ -32,7 +33,22 @@ export default {
       if (!this.user) {
         return false;
       }
+
       return typeof this.user.permissions[this.p] !== "undefined";
+    },
+    multiThrough() {
+      if (!this.user) {
+        return false;
+      }
+      let key = false;
+      if (this.pBox) {
+        for (let i = 0; i < this.pBox.length; i++) {
+          if (typeof this.user.permissions[this.pBox[i]] !== "undefined") {
+            key = true;
+          }
+        }
+      }
+      return key;
     },
   },
 };
