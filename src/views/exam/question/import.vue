@@ -80,7 +80,7 @@ export default {
 
         // 请求导入api
         this.$refs.form.reset();
-        this.$api.Exam.Question.Import({ data: parseData })
+        this.$api.Exam.Question.Import({ line: 3, data: parseData })
           .then(() => {
             this.loading = false;
             this.$message.success("导入成功");

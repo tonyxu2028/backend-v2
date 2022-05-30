@@ -82,7 +82,7 @@ export default {
         // 请求导入api
         this.$refs.form.reset();
 
-        this.$api.Course.Vod.Videos.ImportAct({ data: parseData })
+        this.$api.Course.Vod.Videos.ImportAct({ line: 3, data: parseData })
           .then(() => {
             this.loading = false;
             this.$message.success("导入成功");
