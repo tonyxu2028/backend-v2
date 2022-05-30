@@ -24,7 +24,7 @@
             <span v-else class="c-red">学员不存在</span>
           </template>
         </el-table-column>
-        <el-table-column label="点赞" width="120"
+        <el-table-column label="点赞" width="110"
           ><template slot-scope="scope">
             <span>{{ scope.row.vote_count }}次</span>
           </template>

@@ -71,7 +71,7 @@
               <span>{{ scope.row.expired_minutes }}分钟</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="150">
+          <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
               <el-link
                 type="primary"
@@ -83,24 +83,23 @@
                 "
                 >学员</el-link
               >
-              <p-link
-                text="编辑"
-                class="ml-5"
-                p="addons.Paper.mock_paper.update"
-                type="primary"
-                @click="
-                  $router.push({
-                    name: 'ExamMockpaperUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
-              >
-              </p-link>
               <el-dropdown>
                 <el-link type="primary" class="el-dropdown-link ml-5">
                   更多<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
+                  <p-dropdown-item
+                    text="编辑"
+                    p="addons.Paper.mock_paper.update"
+                    type="primary"
+                    @click="
+                      $router.push({
+                        name: 'ExamMockpaperUpdate',
+                        query: { id: scope.row.id },
+                      })
+                    "
+                  >
+                  </p-dropdown-item>
                   <p-dropdown-item
                     text="删除"
                     p="addons.Paper.mock_paper.delete"

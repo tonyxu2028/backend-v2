@@ -34,7 +34,7 @@
               <span class="c-red" v-else>学员不存在</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="200">
+          <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
               <p-link
                 text="删除"
