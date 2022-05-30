@@ -15,10 +15,15 @@
           </el-form-item>
 
           <el-form-item label="幻灯片" prop="thumb">
-            <upload-image v-model="form.thumb" :width="400" :height="100" helper="推荐1200x400 宽高比3:1"></upload-image>
+            <upload-image
+              v-model="form.thumb"
+              :width="400"
+              :height="100"
+              helper="推荐1200x400 宽高比3:1"
+            ></upload-image>
           </el-form-item>
 
-          <el-form-item label="链接地址" prop="url">
+          <el-form-item label="链接地址">
             <div class="d-flex">
               <div>
                 <el-input v-model="form.url" class="w-200px"></el-input>
@@ -83,13 +88,13 @@ export default {
             trigger: "blur",
           },
         ],
-        url: [
-          {
-            required: true,
-            message: "请输入链接地址",
-            trigger: "blur",
-          },
-        ],
+        // url: [
+        //   {
+        //     required: true,
+        //     message: "请输入链接地址",
+        //     trigger: "blur",
+        //   },
+        // ],
       },
     };
   },
