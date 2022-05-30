@@ -54,7 +54,7 @@
           ></el-input>
         </el-form-item>
 
-        <el-form-item label="仅邀请" prop="is_invite">
+        <el-form-item label="仅添加学员" prop="is_invite">
           <div class="d-flex">
             <div>
               <el-switch
@@ -66,7 +66,7 @@
             </div>
             <div class="ml-10">
               <helper-text
-                text="开启仅邀请的话，只有后台添加的用户可以参与考试"
+                text="开启仅添加学员的话，只有后台添加的用户可以参与考试"
               ></helper-text>
             </div>
           </div>
