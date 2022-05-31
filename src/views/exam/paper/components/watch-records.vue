@@ -1,8 +1,9 @@
 <template>
-  <div class="meedu-main-body">
-    <back-bar class="mb-30" title="考试记录"></back-bar>
+  <div class="float-left">
     <div class="float-left j-b-flex mb-30">
-      <div class="d-flex"></div>
+      <div class="d-flex">
+        <el-button @click="exportexcel" type="primary">导出表格</el-button>
+      </div>
       <div class="d-flex">
         <div>
           <el-select class="w-150px" placeholder="状态" v-model="filter.status">
@@ -18,15 +19,14 @@
         <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
-          <el-button @click="exportexcel" type="primary">导出表格</el-button>
         </div>
         <div class="drawerMore d-flex ml-10" @click="drawer = true">
           <template v-if="showStatus">
-            <img src="../../../assets/img/icon-filter-h.png" />
+            <img src="@/assets/img/icon-filter-h.png" />
             <span class="act">已选</span>
           </template>
           <template v-else>
-            <img src="../../../assets/img/icon-filter.png" />
+            <img src="@/assets/img/icon-filter.png" />
             <span>更多</span>
           </template>
         </div>
@@ -104,7 +104,7 @@
                   $router.push({
                     name: 'ExamPaperScore',
                     query: {
-                      id: pagination.id,
+                      id: id,
                       user_paper_id: scope.row.id,
                     },
                   })
@@ -210,11 +210,11 @@ export default {
   components: {
     DurationText,
   },
+  props: ["id"],
   data() {
     return {
       pageName: "paperRecord-list",
       pagination: {
-        id: this.$route.query.id,
         page: 1,
         size: 10,
         sort: "id",
@@ -265,7 +265,7 @@ export default {
       return false;
     },
   },
-  activated() {
+  mounted() {
     this.getResults();
     this.$utils.scrollTopSet(this.pageName);
   },
@@ -307,9 +307,8 @@ export default {
       }
       this.loading = true;
       let params = {};
-      this.pagination.id = this.$route.query.id;
       Object.assign(params, this.filter, this.pagination);
-      this.$api.Exam.Paper.Userpaper(this.pagination.id, params).then((res) => {
+      this.$api.Exam.Paper.Userpaper(this.id, params).then((res) => {
         this.loading = false;
         this.list = res.data.data.data;
         this.total = res.data.data.total;
@@ -361,10 +360,9 @@ export default {
         page: 1,
         size: this.total,
       };
-      this.pagination.id = this.$route.query.id;
       Object.assign(params, this.filter);
 
-      this.$api.Exam.Paper.Userpaper(this.pagination.id, params).then((res) => {
+      this.$api.Exam.Paper.Userpaper(this.id, params).then((res) => {
         if (res.data.data.total === 0) {
           this.$message.error("数据为空");
           this.loading = false;

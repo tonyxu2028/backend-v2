@@ -1377,24 +1377,6 @@ const routes = [
     },
   },
   {
-    path: "/exam/paper/userpaper",
-    component: () => import("@/views/exam/paper/userpaper"),
-    name: "ExamPaperUserpaper",
-    meta: {
-      title: "title.exam.paper.userpaper",
-      keepAlive: true,
-    },
-  },
-  {
-    path: "/exam/paper/stat",
-    component: () => import("@/views/exam/paper/statistics"),
-    name: "ExamPaperStat",
-    meta: {
-      title: "title.exam.paper.stat",
-      keepAlive: true,
-    },
-  },
-  {
     path: "/exam/paper/marking",
     component: () => import("@/views/exam/paper/marking"),
     name: "ExamPaperScore",
@@ -1502,7 +1484,6 @@ const routes = [
     name: "PaperUser",
     meta: {
       title: "title.exam.paper.user",
-      keepAlive: true,
     },
   },
   {
@@ -1553,25 +1534,6 @@ const routes = [
     name: "MockpaperUser",
     meta: {
       title: "title.exam.mockpaper.user",
-      keepAlive: true,
-    },
-  },
-  {
-    path: "/exam/mockpaper/stat",
-    component: () => import("@/views/exam/mockpaper/statistics"),
-    name: "ExamMockpaperStat",
-    meta: {
-      title: "title.exam.mockpaper.stat",
-      keepAlive: true,
-    },
-  },
-  {
-    path: "/exam/mockpaper/userpaper",
-    component: () => import("@/views/exam/mockpaper/userpaper"),
-    name: "ExamMockpaperUserpaper",
-    meta: {
-      title: "title.exam.mockpaper.userpaper",
-      keepAlive: true,
     },
   },
   {

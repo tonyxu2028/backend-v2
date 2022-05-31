@@ -161,7 +161,7 @@
             scope.row.updated_at | dateFormat
           }}</template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right" :width="100">
+        <el-table-column label="操作" fixed="right" :width="120">
           <template slot-scope="scope">
             <p-link
               text="查看"

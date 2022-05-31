@@ -39,15 +39,15 @@ export default {
     return {
       pageName: "vodview-list",
       id: this.$route.params.id,
-      tabActive: "sub-users",
+      tabActive: "watch-records",
       tabs: [
+        {
+          name: "学习记录",
+          key: "watch-records",
+        },
         {
           name: "付费学员",
           key: "sub-users",
-        },
-        {
-          name: "观看记录",
-          key: "watch-records",
         },
       ],
     };

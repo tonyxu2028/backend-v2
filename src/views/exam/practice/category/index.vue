@@ -13,7 +13,6 @@
       <div class="float-left">
         <el-table
           :data="categories"
-          
           row-key="id"
           :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
           class="float-left"
@@ -27,7 +26,7 @@
               <span>{{ scope.row.name }} </span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="150">
+          <el-table-column fixed="right" label="操作" width="160">
             <template slot-scope="scope">
               <el-link
                 style="margin-right: 10px"

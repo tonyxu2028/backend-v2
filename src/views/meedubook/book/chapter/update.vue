@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" :model="chapter" :rules="rules" label-width="200px">
         <el-form-item label="章节名" prop="name">
-          <el-input v-model="chapter.name" class="w-200px"></el-input>
+          <el-input v-model="chapter.name" class="w-300px"></el-input>
         </el-form-item>
         <el-form-item label="升序" prop="sort">
           <div class="d-flex">
@@ -12,7 +12,7 @@
               <el-input
                 type="number"
                 v-model="chapter.sort"
-                class="w-200px"
+                class="w-300px"
               ></el-input>
             </div>
             <div class="ml-10">

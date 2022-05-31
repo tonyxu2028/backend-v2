@@ -14,7 +14,19 @@
           }"
         ></div>
       </div>
-      <div class="ml-10" style="max-width: 250px">
+      <div
+        class="ml-10"
+        style="
+          max-width: 340px;
+          text-overflow: -o-ellipsis-lastline;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          line-clamp: 3;
+          -webkit-box-orient: vertical;
+        "
+      >
         {{ title }}
       </div>
     </template>

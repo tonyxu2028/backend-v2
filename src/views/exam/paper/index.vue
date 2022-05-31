@@ -70,7 +70,7 @@
               <span>{{ scope.row.expired_minutes }}m</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="140">
+          <el-table-column fixed="right" label="操作" width="160">
             <template slot-scope="scope">
               <p-link
                 text="组卷"
@@ -84,10 +84,14 @@
                 "
               ></p-link>
               <p-link
-                text="学员"
-                p="addons.Paper.paper.users"
                 type="primary"
+                text="学员"
                 class="ml-5"
+                :p-box="[
+                  'addons.Paper.paper.userPaper',
+                  'addons.Paper.paper.statistics',
+                  'addons.Paper.paper.users',
+                ]"
                 @click="
                   $router.push({
                     name: 'PaperUser',
@@ -107,30 +111,6 @@
                     @click="
                       $router.push({
                         name: 'ExamPaperUpdate',
-                        query: { id: scope.row.id },
-                      })
-                    "
-                  >
-                  </p-dropdown-item>
-                  <p-dropdown-item
-                    text="统计"
-                    p="addons.Paper.paper.statistics"
-                    type="primary"
-                    @click="
-                      $router.push({
-                        name: 'ExamPaperStat',
-                        query: { id: scope.row.id },
-                      })
-                    "
-                  >
-                  </p-dropdown-item>
-                  <p-dropdown-item
-                    text="考试记录"
-                    p="addons.Paper.paper.userPaper"
-                    type="primary"
-                    @click="
-                      $router.push({
-                        name: 'ExamPaperUserpaper',
                         query: { id: scope.row.id },
                       })
                     "

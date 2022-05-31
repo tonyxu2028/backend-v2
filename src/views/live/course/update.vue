@@ -75,7 +75,7 @@
           <el-form-item label="课程名" prop="title">
             <el-input
               v-model="course.title"
-              class="w-600px"
+              class="w-300px"
               placeholder="课程名"
             ></el-input>
           </el-form-item>
@@ -84,6 +84,7 @@
             <div class="d-flex">
               <div>
                 <el-date-picker
+                  style="width: 300px"
                   v-model="course.published_at"
                   type="datetime"
                   format="yyyy-MM-dd HH:mm"
@@ -116,7 +117,7 @@
                 <el-input
                   v-model="course.charge"
                   placeholder="价格"
-                  class="w-200px"
+                  class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-10">
@@ -151,7 +152,7 @@
               maxlength="150"
               show-word-limit
               v-model="course.short_description"
-              class="w-500px"
+              class="w-800px"
               rows="3"
             ></el-input>
           </el-form-item>

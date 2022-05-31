@@ -105,6 +105,21 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="visible"
+      width="500px"
+      @close="$router.replace({ name: 'ExamPractice' })"
+    >
+      <div class="text-center">
+        <span>新建练习成功，请在添加章节后再在试题库中选择试题组卷吧！</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="$router.replace({ name: 'ExamPractice' })"
+          >暂不组卷</el-button
+        >
+        <el-button @click="goArticle" type="primary">立即组卷</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -138,6 +153,7 @@ export default {
       categories: [],
       courses: [],
       loading: false,
+      visible: false,
     };
   },
   mounted() {
@@ -163,13 +179,27 @@ export default {
       this.loading = true;
       this.$api.Exam.Practice.Store(this.addform)
         .then(() => {
+          this.loading = false;
           this.$message.success(this.$t("common.success"));
-          this.$router.back();
+          this.visible = true;
         })
         .catch((e) => {
           this.loading = false;
           this.$message.error(e.message);
         });
+    },
+    goArticle() {
+      this.$api.Exam.Practice.List({
+        page: 1,
+        size: 10,
+        sort: "id",
+        order: "desc",
+      }).then((res) => {
+        this.$router.replace({
+          name: "PracticeChapter",
+          query: { id: res.data.data.data[0].id },
+        });
+      });
     },
   },
 };

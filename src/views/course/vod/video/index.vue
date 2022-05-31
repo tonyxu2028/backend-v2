@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="课程课时管理"></back-bar>
+    <back-bar class="mb-30" title="课时管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
         text="添加课时"
@@ -60,10 +60,10 @@
           :default-sort="{ prop: 'published_at', order: 'ascending' }"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" sortable label="课时ID" width="120">
+          <el-table-column type="selection" min-width="3%"></el-table-column>
+          <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="课时" widt="500">
+          <el-table-column label="课时" min-width="39%">
             <template slot-scope="scope">
               <template>
                 <template v-if="scope.row.chapter">
@@ -74,12 +74,16 @@
               </template>
             </template>
           </el-table-column>
-          <el-table-column property="charge" label="价格" sortable width="120"
+          <!--<el-table-column property="charge" label="价格" sortable width="120"
             ><template slot-scope="scope">
               <span>￥{{ scope.row.charge }} </span>
             </template>
-          </el-table-column>
-          <el-table-column property="duration" label="时长" sortable width="120"
+          </el-table-column>-->
+          <el-table-column
+            property="duration"
+            label="课时时长"
+            sortable
+            min-width="15%"
             ><template slot-scope="scope">
               <duration-text
                 v-if="!loading"
@@ -87,31 +91,27 @@
               ></duration-text>
             </template>
           </el-table-column>
-          <el-table-column sortable label="上架时间">
+          <el-table-column sortable label="上架时间" min-width="17%">
             <template slot-scope="scope">{{
               scope.row.published_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="150">
+          <el-table-column label="是否显示" min-width="8%">
+            <template slot-scope="scope">
+              <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
+              <span class="c-red" v-else>· 隐藏</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            min-width="12%"
+            align="right"
+          >
             <template slot-scope="scope">
               <p-link
-                p="video.subscribes"
                 text="学员"
-                type="primary"
-                @click="
-                  $router.push({
-                    name: 'VideoSubscribe',
-                    query: {
-                      course_id: scope.row.course_id,
-                      video_id: scope.row.id,
-                    },
-                  })
-                "
-              ></p-link>
-              <p-link
-                text="观看"
                 p="video.watch.records"
-                class="ml-5"
                 type="primary"
                 @click="
                   $router.push({
@@ -132,6 +132,28 @@
                   })
                 "
               ></p-link>
+              <el-dropdown>
+                <el-link type="primary" class="el-dropdown-link ml-5">
+                  更多<i class="el-icon-arrow-down el-icon--right"></i>
+                </el-link>
+                <el-dropdown-menu slot="dropdown">
+                  <p-dropdown-item
+                    text="单独订阅"
+                    p="video.subscribes"
+                    type="primary"
+                    @click="
+                      $router.push({
+                        name: 'VideoSubscribe',
+                        query: {
+                          course_id: scope.row.course_id,
+                          video_id: scope.row.id,
+                        },
+                      })
+                    "
+                  >
+                  </p-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </template>
           </el-table-column>
         </el-table>

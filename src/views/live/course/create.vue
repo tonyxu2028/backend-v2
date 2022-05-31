@@ -77,7 +77,7 @@
           <el-form-item label="课程名" prop="title">
             <el-input
               v-model="course.title"
-              class="w-600px"
+              class="w-300px"
               placeholder="课程名"
             ></el-input>
           </el-form-item>
@@ -86,6 +86,7 @@
             <div class="d-flex">
               <div>
                 <el-date-picker
+                  style="width: 300px"
                   v-model="course.published_at"
                   type="datetime"
                   format="yyyy-MM-dd HH:mm"
@@ -118,7 +119,7 @@
                 <el-input
                   v-model="course.charge"
                   placeholder="价格"
-                  class="w-200px"
+                  class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-10">
@@ -153,7 +154,7 @@
               show-word-limit
               maxlength="150"
               v-model="course.short_description"
-              class="w-500px"
+              class="w-800px"
               rows="3"
             ></el-input>
           </el-form-item>
@@ -217,6 +218,21 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="visible"
+      width="500px"
+      @close="$router.replace({ name: 'LiveCourse' })"
+    >
+      <div class="text-center">
+        <span>新建直播课成功，请在课程中添加直播排课吧！</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="$router.replace({ name: 'LiveCourse' })"
+          >暂不排课</el-button
+        >
+        <el-button @click="goVideo" type="primary">立即排课</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -319,6 +335,7 @@ export default {
       categories: [],
       teachers: [],
       loading: false,
+      visible: false,
     };
   },
   mounted() {
@@ -361,13 +378,27 @@ export default {
       this.course.render_desc = this.course.original_desc;
       this.$api.Course.Live.Course.Store(this.course)
         .then(() => {
+          this.loading = false;
           this.$message.success(this.$t("common.success"));
-          this.$router.back();
+          this.visible = true;
         })
         .catch((e) => {
           this.loading = false;
           this.$message.error(e.message);
         });
+    },
+    goVideo() {
+      this.$api.Course.Live.Course.List({
+        page: 1,
+        size: 10,
+        sort: "id",
+        order: "desc",
+      }).then((res) => {
+        this.$router.replace({
+          name: "LiveCourseVideo",
+          query: { id: res.data.data.data[0].id },
+        });
+      });
     },
   },
 };

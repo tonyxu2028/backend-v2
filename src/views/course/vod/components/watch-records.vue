@@ -242,7 +242,7 @@ export default {
         }
 
         let users = res.data.users;
-        let filename = "课程观看记录|" + Utils.currentDate() + ".xlsx";
+        let filename = "课程学习记录|" + Utils.currentDate() + ".xlsx";
         let sheetName = "sheet1";
 
         let data = [

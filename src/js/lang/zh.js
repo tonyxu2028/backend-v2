@@ -237,14 +237,14 @@ const zh = {
           create: "添加课程附件",
         },
         record: {
-          index: "观看记录",
+          index: "学习记录",
         },
         video: {
           index: "课时管理",
           create: "添加课时",
           update: "编辑课时",
           subscribe: "课时销售记录",
-          "watch-records": "课时观看记录",
+          "watch-records": "课时学习记录",
           comments: "课时评论",
           hls: {
             aliyun: "阿里云加密",
@@ -313,7 +313,7 @@ const zh = {
         create: "新建试卷",
         update: "编辑试卷",
         userpaper: "考试记录",
-        user: "订阅学员",
+        user: "试卷学员",
         stat: "分数统计",
         question: "组卷",
         questionadd: "添加试题",
@@ -330,7 +330,7 @@ const zh = {
         create: "新建模拟试卷",
         update: "编辑模拟试卷",
         userpaper: "考试记录",
-        user: "订阅学员",
+        user: "模拟试卷学员",
         stat: "分数统计",
         category: {
           index: "模拟试卷分类",

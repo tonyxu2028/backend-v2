@@ -41,7 +41,7 @@
         <el-form-item label="标题" prop="title">
           <el-input
             v-model="article.title"
-            class="w-600px"
+            class="w-300px"
             placeholder="请输入标题"
           ></el-input>
         </el-form-item>
@@ -50,6 +50,7 @@
           <div class="d-flex">
             <div>
               <el-date-picker
+                style="width: 300px"
                 v-model="article.published_at"
                 type="datetime"
                 format="yyyy-MM-dd HH:mm"
@@ -201,6 +202,9 @@ export default {
       this.$api.Meedubook.Book.Article.Detail(this.article_id).then((res) => {
         this.article = res.data;
         this.form.trySee = this.article.charge === 0;
+        if (this.article.book_cid === 0) {
+          this.article.book_cid = null;
+        }
       });
     },
     getBook() {

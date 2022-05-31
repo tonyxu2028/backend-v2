@@ -1,6 +1,5 @@
 <template>
-  <div class="meedu-main-body">
-    <back-bar class="mb-30" title="分数统计"></back-bar>
+  <div class="float-left">
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <el-button @click="exportXlsx()" type="primary"> 导出成绩 </el-button>
@@ -102,12 +101,12 @@
           </el-table-column>
           <el-table-column label="最高得分">
             <template slot-scope="scope">
-              <span>{{ scope.row.score }}分</span>
+              <span>{{ scope.row.get_score }}分</span>
             </template>
           </el-table-column>
           <el-table-column label="及格">
             <template slot-scope="scope">
-              <span v-if="scope.row.score >= pass_score">及格</span>
+              <span v-if="scope.row.get_score >= pass_score">及格</span>
               <span class="c-red" v-else>不及格</span>
             </template>
           </el-table-column>
@@ -118,7 +117,7 @@
           </el-table-column>
           <el-table-column label="交卷时间">
             <template slot-scope="scope">{{
-              scope.row.submit_at | dateFormat
+              scope.row.updated_at | dateFormat
             }}</template>
           </el-table-column>
         </el-table>
@@ -142,11 +141,11 @@
 
 <script>
 export default {
+  props: ["id"],
   data() {
     return {
-      pageName: "paperStat-list",
+      pageName: "mockpaperStat-list",
       pagination: {
-        id: this.$route.query.id,
         page: 1,
         size: 10,
       },
@@ -171,14 +170,7 @@ export default {
       },
     };
   },
-  watch: {
-    "$route.query.id"() {
-      this.pagination.page = 1;
-      this.filter.created_at = null;
-      this.filter.submit_at = null;
-    },
-  },
-  activated() {
+  mounted() {
     this.getResults();
     this.$utils.scrollTopSet(this.pageName);
   },
@@ -211,9 +203,8 @@ export default {
       }
       this.loading = true;
       let params = {};
-      this.pagination.id = this.$route.query.id;
       Object.assign(params, this.pagination, this.filter);
-      this.$api.Exam.Paper.Stat(this.pagination.id, params).then((res) => {
+      this.$api.Exam.Mockpaper.Stat(this.id, params).then((res) => {
         this.loading = false;
         this.list = res.data.data;
         this.users = res.data.users;
@@ -227,7 +218,7 @@ export default {
       this.loading = true;
       let params = {};
       Object.assign(params, this.pagination);
-      this.$api.Exam.Paper.Stat(this.pagination.id, params).then((res) => {
+      this.$api.Exam.Mockpaper.Stat(this.id, params).then((res) => {
         this.loading = false;
         let filename = "成绩导出|" + this.$utils.currentDate() + ".xlsx";
         let sheetName = "默认";
@@ -239,15 +230,15 @@ export default {
             return;
           }
 
-          let isPass = item.score >= res.data.pass_score ? "是" : "否";
+          let isPass = item.get_score >= res.data.pass_score ? "是" : "否";
 
           rows.push([
             item.user_id,
             user.nick_name,
             user.mobile,
-            item.score + "分",
+            item.get_score + "分",
             isPass,
-            item.created_at,
+            item.updated_at,
           ]);
         });
 

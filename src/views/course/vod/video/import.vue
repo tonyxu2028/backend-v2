@@ -8,9 +8,12 @@
           <el-button type="primary" @click="choiceFile"> 导入表格 </el-button>
         </div>
         <div class="ml-30">
-          <el-link type="primary" @click="model()">
+          <!--<el-link type="primary" @click="model()">
             下载「课时批量导入模板」
-          </el-link>
+          </el-link>-->
+          <a class="download-link" @click="download">
+            下载「课时批量导入模板」
+          </a>
         </div>
       </div>
       <div class="float-left">
@@ -39,6 +42,10 @@ export default {
     });
   },
   methods: {
+    download() {
+      let url = this.$utils.getUrl() + "template/课时批量导入模板.xlsx";
+      window.open(url);
+    },
     choiceFile() {
       this.$refs.xlsfile.click();
     },
@@ -64,7 +71,7 @@ export default {
         let data = new Uint8Array(e.target.result);
         let workbook = XLSX.read(data, { type: "array", cellDates: true });
         let parseData = this.parseData(workbook);
-        parseData.splice(0, 1);
+        parseData.splice(0, 2);
         if (parseData.length === 0) {
           this.$message.error("数据为空");
           return;
@@ -75,14 +82,19 @@ export default {
         // 请求导入api
         this.$refs.form.reset();
 
-        this.$api.Course.Vod.Videos.ImportAct({ data: parseData })
+        this.$api.Course.Vod.Videos.ImportAct({ line: 3, data: parseData })
           .then(() => {
             this.loading = false;
             this.$message.success("导入成功");
           })
           .catch((e) => {
             this.loading = false;
-            this.$message.error(e.message);
+            this.$message({
+              showClose: true,
+              message: e.message,
+              type: "error",
+              duration: 0,
+            });
           });
       };
       reader.readAsArrayBuffer(f);

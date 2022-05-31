@@ -87,7 +87,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="仅邀请" prop="enabled_invite">
+        <el-form-item label="仅添加学员" prop="enabled_invite">
           <div class="d-flex">
             <div>
               <el-switch
@@ -204,6 +204,21 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="visible"
+      width="500px"
+      @close="$router.replace({ name: 'ExamPaper' })"
+    >
+      <div class="text-center">
+        <span>新建考试成功，请在试题库中选择试题组卷吧！</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="$router.replace({ name: 'ExamPaper' })"
+          >暂不组卷</el-button
+        >
+        <el-button @click="goArticle" type="primary">立即组卷</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -301,6 +316,7 @@ export default {
       categories: [],
       courses: [],
       loading: false,
+      visible: false,
     };
   },
   mounted() {
@@ -339,13 +355,27 @@ export default {
       this.addform.required_courses = ids;
       this.$api.Exam.Paper.Store(this.addform)
         .then(() => {
+          this.loading = false;
           this.$message.success(this.$t("common.success"));
-          this.$router.back();
+          this.visible = true;
         })
         .catch((e) => {
           this.loading = false;
           this.$message.error(e.message);
         });
+    },
+    goArticle() {
+      this.$api.Exam.Paper.List({
+        page: 1,
+        size: 10,
+        sort: "id",
+        order: "desc",
+      }).then((res) => {
+        this.$router.replace({
+          name: "ExamPaperQuestion",
+          query: { id: res.data.data.data[0].id },
+        });
+      });
     },
   },
 };

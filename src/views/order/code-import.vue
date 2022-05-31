@@ -30,7 +30,6 @@
   </div>
 </template>
 
-
 <script>
 import XLSX from "xlsx";
 
@@ -90,7 +89,12 @@ export default {
           })
           .catch((e) => {
             this.loading = false;
-            this.$message.error(e.message);
+            this.$message({
+              showClose: true,
+              message: e.message,
+              type: "error",
+              duration: 0,
+            });
           });
       };
       reader.readAsArrayBuffer(f);
