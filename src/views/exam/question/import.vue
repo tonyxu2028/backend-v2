@@ -46,9 +46,7 @@ export default {
   },
   methods: {
     download() {
-      let url =
-        this.$utils.getShareHost().replace("#/", "") +
-        "template/试题批量导入模板.xlsx";
+      let url = this.$utils.getUrl() + "template/试题批量导入模板.xlsx";
       window.open(url);
     },
     choiceFile() {
