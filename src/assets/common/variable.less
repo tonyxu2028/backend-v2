@@ -32,6 +32,24 @@
   transform: translateY(-50%);
 }
 
+body .el-table th.gutter {
+  display: table-cell !important;
+}
+
+body .el-table colgroup.gutter {
+  display: table-cell !important;
+}
+
+table {
+  width: 100% !important;
+}
+
+.el-table__body {
+  width: 100%;
+  // 使表格兼容safari，不错位
+  table-layout: fixed !important;
+}
+
 body {
   margin: 0 !important;
   font-family: ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI",
