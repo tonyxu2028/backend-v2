@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     downloadUrl() {
-      return this.$utils.getShareHost() + "/model/vod-video-import.xlsx";
+      return this.$utils.getShareHost() + "template/vod-video-import.xlsx";
     },
   },
   mounted() {

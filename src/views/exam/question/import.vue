@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     downloadUrl() {
-      return this.$utils.getShareHost() + "/model/question-import.xlsx";
+      return this.$utils.getShareHost() + "template/question-import.xlsx";
     },
   },
   mounted() {
