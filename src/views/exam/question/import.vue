@@ -13,11 +13,7 @@
           <!--<el-link type="primary" @click="model()">
             点击链接下载「试题批量导入模板」
           </el-link>-->
-          <a
-            class="download-link"
-            :href="downloadUrl"
-            download="试题批量导入模板.xlsx"
-          >
+          <a class="download-link" @click="download">
             下载「试题批量导入模板」
           </a>
         </div>
@@ -42,17 +38,19 @@ export default {
       loading: false,
     };
   },
-  computed: {
-    downloadUrl() {
-      return this.$utils.getShareHost() + "template/question-import.xlsx";
-    },
-  },
+
   mounted() {
     this.$nextTick(() => {
       this.$refs.xlsfile.addEventListener("change", this.handleFile, false);
     });
   },
   methods: {
+    download() {
+      let url =
+        this.$utils.getShareHost().replace("#/", "") +
+        "template/试题批量导入模板.xlsx";
+      window.open(url);
+    },
     choiceFile() {
       this.$refs.xlsfile.click();
     },
