@@ -42,7 +42,7 @@ export default {
       tabActive: "watch-records",
       tabs: [
         {
-          name: "观看记录",
+          name: "学习记录",
           key: "watch-records",
         },
         {
