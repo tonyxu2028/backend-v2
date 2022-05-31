@@ -15,7 +15,7 @@
           </el-link>-->
           <a
             class="download-link"
-            href="/model/question-import.xlsx"
+            :href="downloadUrl"
             download="试题批量导入模板.xlsx"
           >
             下载「试题批量导入模板」
@@ -41,6 +41,11 @@ export default {
     return {
       loading: false,
     };
+  },
+  computed: {
+    downloadUrl() {
+      return this.$utils.getShareHost() + "/model/question-import.xlsx";
+    },
   },
   mounted() {
     this.$nextTick(() => {

@@ -13,7 +13,7 @@
           </el-link>-->
           <a
             class="download-link"
-            href="/model/vod-video-import.xlsx"
+            :href="downloadUrl"
             download="课时批量导入模板.xlsx"
           >
             下载「课时批量导入模板」
@@ -39,6 +39,11 @@ export default {
     return {
       loading: false,
     };
+  },
+  computed: {
+    downloadUrl() {
+      return this.$utils.getShareHost() + "/model/vod-video-import.xlsx";
+    },
   },
   mounted() {
     this.$nextTick(() => {

@@ -193,6 +193,17 @@ export default {
       window.location.pathname
     );
   },
+  getShareHost() {
+    let hash = window.location.hash;
+    if (hash.match("#")) {
+      hash = "/#/";
+    } else {
+      hash = "";
+    }
+    let host = window.location.protocol + "//" + window.location.host + hash;
+
+    return host;
+  },
   passwordRules(value) {
     let re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{12,25}$/;
     let result = re.test(value);
