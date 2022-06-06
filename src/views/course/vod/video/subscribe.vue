@@ -64,7 +64,7 @@
               scope.row.created_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="50">
+          <el-table-column fixed="right" label="操作" width="60">
             <template slot-scope="scope">
               <p-link
                 slot="reference"

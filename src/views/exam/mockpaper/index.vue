@@ -68,7 +68,7 @@
           </el-table-column>
           <el-table-column label="时长">
             <template slot-scope="scope">
-              <span>{{ scope.row.expired_minutes }}分钟</span>
+              <span>{{ scope.row.expired_minutes }}m</span>
             </template>
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="120">

@@ -31,7 +31,7 @@
               <span>{{ scope.row.download_times }}次 </span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="50">
+          <el-table-column fixed="right" label="操作" width="60">
             <template slot-scope="scope">
               <p-link
                 text="删除"
