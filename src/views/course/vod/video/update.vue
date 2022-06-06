@@ -141,58 +141,19 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item
-            label="课时单独订阅"
-            prop="is_ban_sell"
-            v-if="course.is_free !== 1"
-          >
+
+          <el-form-item label="隐藏课时" prop="is_show">
             <div class="d-flex">
               <div>
                 <el-switch
-                  v-model="video.is_ban_sell"
+                  v-model="video.is_show"
                   :active-value="0"
                   :inactive-value="1"
                 >
                 </el-switch>
               </div>
               <div class="ml-10">
-                <helper-text text="打开后学员可单独购买本节课时"></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item
-            label="单独订阅价格"
-            v-if="video.is_ban_sell === 0 && course.is_free !== 1"
-          >
-            <div class="d-flex">
-              <div>
-                <el-input
-                  v-model="video.charge"
-                  class="w-300px"
-                  placeholder="请输入整数"
-                ></el-input>
-              </div>
-              <div class="ml-10">
-                <helper-text text="最小单位“元”，不支持小数"></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item label="显示" prop="is_show">
-            <div class="d-flex">
-              <div>
-                <el-switch
-                  v-model="video.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="该字段控制学员是否可以看到该课时。"
-                ></helper-text>
+                <helper-text text="打开后课时在前台将隐藏显示"></helper-text>
               </div>
             </div>
           </el-form-item>
@@ -355,10 +316,6 @@ export default {
     },
     confirm() {
       if (this.loading) {
-        return;
-      }
-      if (this.video.is_ban_sell === 0 && parseInt(this.video.charge) === 0) {
-        this.$message.error("打开课时单独订阅后单独订阅价格应该大于0");
         return;
       }
       this.loading = true;
