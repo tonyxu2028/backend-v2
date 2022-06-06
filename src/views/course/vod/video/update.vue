@@ -150,8 +150,8 @@
               <div>
                 <el-switch
                   v-model="video.is_ban_sell"
-                  :active-value="1"
-                  :inactive-value="0"
+                  :active-value="0"
+                  :inactive-value="1"
                 >
                 </el-switch>
               </div>
@@ -163,7 +163,7 @@
 
           <el-form-item
             label="单独订阅价格"
-            v-if="video.is_ban_sell === 1 && course.is_free !== 1"
+            v-if="video.is_ban_sell === 0 && course.is_free !== 1"
           >
             <div class="d-flex">
               <div>
