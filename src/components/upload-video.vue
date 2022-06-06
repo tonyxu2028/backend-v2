@@ -43,7 +43,7 @@
             class="float-left mb-15"
             v-loading="loading"
           >
-            <el-table-column label width="45">
+            <el-table-column label width="55">
               <template slot-scope="scope">
                 <el-radio :label="scope.row.id" v-model="radio"
                   ><span></span
@@ -70,7 +70,7 @@
                 <span>{{ scope.row.created_at | dateFormat }}</span>
               </template>
             </el-table-column>
-            <el-table-column fixed="right" label="操作" width="50">
+            <el-table-column fixed="right" label="操作" width="60">
               <template slot-scope="scope">
                 <el-popconfirm
                   title="确认删除吗？"
