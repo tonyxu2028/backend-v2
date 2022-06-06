@@ -1,7 +1,7 @@
 <template>
   <div class="float-left" v-if="init">
     <div class="float-left mb-15">
-      <div class="float-left helper-text mb-10">
+      <div class="float-left helper-label mb-10">
         <span class="c-red">*</span>
         <span class="ml-5">题帽</span>
       </div>
@@ -21,7 +21,7 @@
         <div class="btn-close" @click="remove(index)">
           <close-icon></close-icon>
         </div>
-        <div class="float-left mb-15 helper-text">
+        <div class="float-left mb-15 helper-label">
           <span v-if="item.type === 1">单选题</span>
           <span v-if="item.type === 2">多选题</span>
           <span v-if="item.type === 3">填空题</span>
@@ -84,7 +84,7 @@
     </div>
 
     <div class="float-left mb-15">
-      <div class="float-left helper-text mb-10">
+      <div class="float-left helper-label mb-10">
         <span>总分</span>
       </div>
       <div class="float-left">
@@ -93,7 +93,7 @@
     </div>
 
     <div class="float-left mb-15">
-      <div class="float-left helper-text mb-10">解析</div>
+      <div class="float-left helper-label mb-10">解析</div>
       <div class="float-left">
         <quill-editor
           class="quill-content"
