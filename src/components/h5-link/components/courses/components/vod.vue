@@ -2,8 +2,7 @@
   <div class="float-left" v-loading="loading">
     <div class="float-left mb-15">
       <div class="float-left d-flex">
-        <div class="flex-1"></div>
-        <div class="d-flex">
+        <div class="d-flex" style="margin-left: 345px">
           <el-input
             class="w-200px"
             v-model="pagination.keywords"
@@ -24,7 +23,7 @@
       @current-change="tableItemChoice"
       class="float-left"
     >
-      <el-table-column label width="45">
+      <el-table-column label width="55">
         <template slot-scope="scope">
           <el-radio :label="scope.row.id" v-model="radio"
             ><span></span
