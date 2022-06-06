@@ -14,20 +14,20 @@
         >
         </p-button>
         <p-button
-          text="批量导入"
+          text="试题分类"
+          p="addons.Paper.question_category.list"
+          @click="$router.push({ name: 'ExamQuestionCategories' })"
+          type="primary"
+        >
+        </p-button>
+        <p-button
+          text="试题批量导入"
           p="addons.Paper.question.import.csv"
           @click="
             $router.push({
               name: 'ExamQuestionImport',
             })
           "
-          type="primary"
-        >
-        </p-button>
-        <p-button
-          text="分类管理"
-          p="addons.Paper.question_category.list"
-          @click="$router.push({ name: 'ExamQuestionCategories' })"
           type="primary"
         >
         </p-button>

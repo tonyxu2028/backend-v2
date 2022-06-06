@@ -1,7 +1,7 @@
 <template>
   <div class="float-left" v-if="init">
     <div class="float-left mb-15">
-      <div class="float-left helper-text mb-10">
+      <div class="float-left helper-label mb-10">
         <span class="c-red">*</span>
         <span class="ml-5">分数</span>
       </div>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="float-left mb-15">
-      <div class="float-left helper-text mb-10">
+      <div class="float-left helper-label mb-10">
         <span class="c-red">*</span>
         <span class="ml-5">试题内容</span>
       </div>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="float-left mb-15">
-      <div class="float-left helper-text mb-10">
+      <div class="float-left helper-label mb-10">
         <span>答案</span>
       </div>
       <div class="float-left">
@@ -61,7 +61,7 @@
     </div>
 
     <div class="float-left">
-      <div class="float-left helper-text mb-10">解析</div>
+      <div class="float-left helper-label mb-10">解析</div>
       <div class="float-left">
         <quill-editor
           class="quill-content"
