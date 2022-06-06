@@ -293,6 +293,10 @@ export default {
         this.$message.error("课程未设置免费时价格应该大于0");
         return;
       }
+      if (this.course.charge % 1 !== 0) {
+        this.$message.error("课程价格必须为整数");
+        return;
+      }
       this.loading = true;
       this.course.render_desc = this.course.original_desc;
       if (this.course.is_free === 1) {
