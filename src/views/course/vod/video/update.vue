@@ -357,6 +357,10 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.video.is_ban_sell === 0 && parseInt(this.video.charge) === 0) {
+        this.$message.error("打开课时单独订阅后单独订阅价格应该大于0");
+        return;
+      }
       this.loading = true;
       this.$api.Course.Vod.Videos.Update(this.video_id, this.video)
         .then(() => {
