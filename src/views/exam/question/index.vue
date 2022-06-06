@@ -286,11 +286,15 @@ export default {
         this.$message.error("请选择需要操作的数据");
         return;
       }
-      this.$confirm("确认操作？", "警告", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
+      this.$confirm(
+        "删除试题会同步删除包含该试题的考试内容，确认删除？",
+        "警告",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      )
         .then(() => {
           //点击确定按钮的操作
           if (this.loading) {
