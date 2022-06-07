@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="练习章节"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加章节"
         p="addons.Paper.practice_chapter.store"
         @click="
           $router.push({
@@ -40,10 +40,10 @@
               <span>{{ scope.row.question_count }}个</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
+          <el-table-column fixed="right" label="操作" width="140">
             <template slot-scope="scope">
               <p-link
-                text="组卷"
+                text="添加试题"
                 p="addons.Paper.practice_chapter.questions"
                 type="primary"
                 @click="
