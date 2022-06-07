@@ -76,7 +76,12 @@ export default {
           this.$message.error("数据为空");
           return;
         }
-
+        for (let i = 0; i < parseData.length; i++) {
+          let data = parseData[i];
+          data.splice(7, 0, 1000);
+          data.splice(9, 0, "");
+          data.splice(10, 0, "");
+        }
         this.loading = true;
 
         // 请求导入api
