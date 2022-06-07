@@ -3,7 +3,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="新建"
+          text="新建试卷"
           p="addons.Paper.paper.store"
           @click="$router.push({ name: 'ExamPaperCreate' })"
           type="primary"
