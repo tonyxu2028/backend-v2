@@ -43,7 +43,7 @@
           <el-table-column fixed="right" label="操作" width="140">
             <template slot-scope="scope">
               <p-link
-                text="添加试题"
+                text="章节组卷"
                 p="addons.Paper.practice_chapter.questions"
                 type="primary"
                 @click="
