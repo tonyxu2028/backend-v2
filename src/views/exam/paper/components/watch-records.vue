@@ -56,12 +56,12 @@
               <span class="c-red" v-else>学员不存在</span>
             </template>
           </el-table-column>
-          <el-table-column label="得分" property="score" sortable>
+          <el-table-column label="得分" property="score" sortable width="150">
             <template slot-scope="scope">
               <span v-if="scope.row.status === 2">{{ scope.row.score }}分</span>
             </template>
           </el-table-column>
-          <el-table-column label="用时" width="150">
+          <el-table-column label="用时">
             <template slot-scope="scope">
               <duration-text
                 v-if="!loading && scope.row.status === 2"
