@@ -185,7 +185,7 @@
               </div>
             </div>
           </el-form-item>
-            <el-form-item label="判断题数量">
+          <el-form-item label="判断题数量">
             <div class="d-flex">
               <div>
                 <el-input
