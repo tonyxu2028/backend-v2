@@ -256,7 +256,7 @@ export default {
           this.$message.success(this.$t("common.success"));
 
           // 重新加载数据
-          this.getLocal();
+          location.reload();
         })
         .catch((e) => {
           this.loading = false;
