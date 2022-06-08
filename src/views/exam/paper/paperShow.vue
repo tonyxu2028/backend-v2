@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" :title="paper.title"></back-bar>
+    <back-bar class="mb-30" title="查看考试"></back-bar>
     <el-button @click="download()" type="primary">下载pdf格式试卷 </el-button>
     <div class="float-left" id="pdfDom">
       <div class="paper-box">
@@ -159,7 +159,7 @@ export default {
       this.$api.Exam.PaperJoinRecord(this.id, this.pid)
         .then((res) => {
           this.paper = res.data.paper;
-          document.title = res.data.paper.title;
+          // document.title = res.data.paper.title;
           this.userPaper = res.data.user_paper;
           this.user = res.data.user;
           let normaldata = res.data.questions;
