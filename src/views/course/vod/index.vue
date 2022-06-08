@@ -76,7 +76,7 @@
         >
           <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="课程" min-width="31%">
+          <el-table-column label="课程" min-width="30%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -127,7 +127,7 @@
           <el-table-column
             fixed="right"
             label="操作"
-            min-width="13%"
+            min-width="14%"
             align="right"
           >
             <template slot-scope="scope">
