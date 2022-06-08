@@ -249,22 +249,32 @@ export default {
         this.$message.warning("请选择需要操作的数据");
         return;
       }
-      this.loading = true;
-
-      let ids = [];
-      this.selectedRows.forEach((item) => {
-        ids.push(item.id);
-      });
-
-      this.$api.Course.Vod.Comment.Destroy({ ids: ids })
+      this.$confirm("确认操作？", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
         .then(() => {
-          this.loading = false;
-          this.$message.success(this.$t("common.success"));
-          this.firstPageLoad();
+          this.loading = true;
+
+          let ids = [];
+          this.selectedRows.forEach((item) => {
+            ids.push(item.id);
+          });
+
+          this.$api.Course.Vod.Comment.Destroy({ ids: ids })
+            .then(() => {
+              this.loading = false;
+              this.$message.success(this.$t("common.success"));
+              this.firstPageLoad();
+            })
+            .catch((e) => {
+              this.loading = false;
+              this.$message.error(e.message);
+            });
         })
-        .catch((e) => {
-          this.loading = false;
-          this.$message.error(e.message);
+        .catch(() => {
+          //点击删除按钮的操作
         });
     },
   },

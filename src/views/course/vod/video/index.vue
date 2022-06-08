@@ -63,7 +63,7 @@
           <el-table-column type="selection" min-width="3%"></el-table-column>
           <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="课时" min-width="39%">
+          <el-table-column label="课时" min-width="38%">
             <template slot-scope="scope">
               <template>
                 <template v-if="scope.row.chapter">
@@ -91,7 +91,7 @@
               ></duration-text>
             </template>
           </el-table-column>
-          <el-table-column sortable label="上架时间" min-width="17%">
+          <el-table-column sortable label="上架时间" min-width="16%">
             <template slot-scope="scope">{{
               scope.row.published_at | dateFormat
             }}</template>
@@ -105,7 +105,7 @@
           <el-table-column
             fixed="right"
             label="操作"
-            min-width="12%"
+            min-width="14%"
             align="right"
           >
             <template slot-scope="scope">

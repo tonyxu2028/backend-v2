@@ -318,6 +318,10 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.chapters.length > 0 && !this.video.chapter_id) {
+        this.$message.error("请选择所属章节");
+        return;
+      }
       this.loading = true;
       this.$api.Course.Vod.Videos.Update(this.video_id, this.video)
         .then(() => {

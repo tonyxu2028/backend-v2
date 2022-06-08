@@ -203,6 +203,10 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.score.length === 0) {
+        this.$message.error("请打分后再提交");
+        return;
+      }
       this.loading = true;
       var data = {};
       for (let i = 0; i < this.list.length; i++) {

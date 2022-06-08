@@ -231,9 +231,13 @@ export default {
       let params = {
         page: 1,
         size: this.total,
+        sort: "id",
+        order: "desc",
       };
       Object.assign(params, this.filter);
-
+      if (params.is_watched === null) {
+        params.is_watched = -1;
+      }
       this.$api.Course.Vod.Records.List(this.course_id, params).then((res) => {
         if (res.data.data.total === 0) {
           this.$message.error("数据为空");
