@@ -68,20 +68,18 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="价格">
+          <el-form-item label="图文价格">
             <div class="d-flex">
               <div>
                 <el-input
                   type="number"
-                  placeholder="价格"
+                  placeholder="图文价格"
                   v-model="topic.charge"
                   class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="最小单位：元。不支持小数。价格为0意味着文章免费可直接观看。"
-                ></helper-text>
+                <helper-text text="最小单位“元”，不支持小数"></helper-text>
               </div>
             </div>
           </el-form-item>
