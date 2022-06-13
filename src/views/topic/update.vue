@@ -73,7 +73,7 @@
               <div>
                 <el-input
                   type="number"
-                  placeholder="图文价格"
+                  placeholder="单位：元"
                   v-model="topic.charge"
                   class="w-300px"
                 ></el-input>
@@ -307,6 +307,10 @@ export default {
     },
     confirm() {
       if (this.loading) {
+        return;
+      }
+      if (this.topic.charge % 1 !== 0) {
+        this.$message.error("图文价格必须为整数");
         return;
       }
       this.loading = true;

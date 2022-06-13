@@ -56,27 +56,6 @@
             ></el-input>
           </el-form-item>
 
-          <el-form-item label="上架时间" prop="published_at">
-            <div class="d-flex">
-              <div>
-                <el-date-picker
-                  style="width: 300px"
-                  v-model="course.published_at"
-                  type="datetime"
-                  format="yyyy-MM-dd HH:mm"
-                  value-format="yyyy-MM-dd HH:mm"
-                  placeholder="请选择日期"
-                >
-                </el-date-picker>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="上架时间决定了电子书的排名，时间越早排名越靠后。如果是未来时间，则必须等到时间达到学员才能看到。"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
           <el-form-item prop="thumb" label="封面">
             <upload-image
               v-model="course.thumb"
@@ -87,7 +66,7 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="价格" prop="charge">
+          <el-form-item label="电子书价格" prop="charge">
             <div class="d-flex">
               <div>
                 <el-input
@@ -98,9 +77,7 @@
                 ></el-input>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="最小单位：元。不支持小数。价格为0意味着学员可免费直接观看。"
-                ></helper-text>
+                <helper-text text="最小单位“元”，不支持小数"></helper-text>
               </div>
             </div>
           </el-form-item>
@@ -167,6 +144,26 @@
               </div>
             </div>
           </el-form-item>
+          <el-form-item label="排序时间" prop="published_at">
+            <div class="d-flex">
+              <div>
+                <el-date-picker
+                  style="width: 300px"
+                  v-model="course.published_at"
+                  type="datetime"
+                  format="yyyy-MM-dd HH:mm"
+                  value-format="yyyy-MM-dd HH:mm"
+                  placeholder="请选择日期"
+                >
+                </el-date-picker>
+              </div>
+              <div class="ml-10">
+                <helper-text
+                  text="排序时间决定了电子书的排名，时间越早排名越靠后。如果是未来时间，则必须等到时间达到学员才能看到。"
+                ></helper-text>
+              </div>
+            </div>
+          </el-form-item>
         </div>
       </el-form>
 
@@ -210,13 +207,6 @@ export default {
           {
             required: true,
             message: "价格不能为空",
-            trigger: "blur",
-          },
-        ],
-        published_at: [
-          {
-            required: true,
-            message: "上架时间不能为空",
             trigger: "blur",
           },
         ],
@@ -290,6 +280,10 @@ export default {
     },
     confirm() {
       if (this.loading) {
+        return;
+      }
+      if (this.course.charge % 1 !== 0) {
+        this.$message.error("电子书价格必须为整数");
         return;
       }
       this.loading = true;
