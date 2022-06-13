@@ -138,23 +138,23 @@
         </div>
 
         <div class="float-left" v-show="tab.active === 'dev'">
-          <el-form-item label="显示" prop="is_show">
+          <el-form-item label="隐藏图文" prop="is_show">
             <div class="d-flex">
               <div>
                 <el-switch
                   v-model="topic.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
+                  :active-value="0"
+                  :inactive-value="1"
                 >
                 </el-switch>
               </div>
               <div class="ml-10">
-                <helper-text text="控制文章是否可以被学员看到。"></helper-text>
+                <helper-text text="打开后图文在前台隐藏显示"></helper-text>
               </div>
             </div>
           </el-form-item>
 
-          <el-form-item label="排序" prop="sorted_at">
+          <el-form-item label="图文排序" prop="sorted_at">
             <div class="d-flex">
               <div>
                 <el-date-picker

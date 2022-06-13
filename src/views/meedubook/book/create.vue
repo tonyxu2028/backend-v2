@@ -127,24 +127,22 @@
         </div>
 
         <div class="float-left" v-show="tab.active === 'dev'">
-          <el-form-item label="显示" prop="is_show">
+          <el-form-item label="隐藏电子书" prop="is_show">
             <div class="d-flex">
               <div>
                 <el-switch
                   v-model="course.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
+                  :active-value="0"
+                  :inactive-value="1"
                 >
                 </el-switch>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="控制学员是否能够看到该电子书。"
-                ></helper-text>
+                <helper-text text="打开后电子书在前台隐藏显示"></helper-text>
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="排序时间" prop="published_at">
+          <el-form-item label="电子书排序" prop="published_at">
             <div class="d-flex">
               <div>
                 <el-date-picker
