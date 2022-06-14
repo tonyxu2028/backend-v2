@@ -291,7 +291,7 @@ export default {
     goArticle() {
       this.$api.Meedubook.Book.List({
         page: 1,
-        size: 10,
+        size: 1,
         sort: "id",
         order: "desc",
       }).then((res) => {

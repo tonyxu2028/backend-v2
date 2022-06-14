@@ -238,7 +238,6 @@ export default {
       });
     },
     formValidate() {
-      this.visible = true;
       this.$refs["form"].validate((valid) => {
         if (valid) {
           this.confirm();
@@ -264,7 +263,7 @@ export default {
     goStep() {
       this.$api.Course.LearnPath.Path.List({
         page: 1,
-        size: 10,
+        size: 1,
         category_id: null,
         keywords: null,
       }).then((res) => {
