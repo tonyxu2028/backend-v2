@@ -2,19 +2,6 @@
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="编辑图文"></back-bar>
 
-    <div class="center-tabs mb-30">
-      <div>
-        <el-tabs v-model="tab.active">
-          <el-tab-pane
-            :label="item.name"
-            :name="item.key"
-            v-for="(item, index) in tab.list"
-            :key="index"
-          ></el-tab-pane>
-        </el-tabs>
-      </div>
-    </div>
-
     <div class="float-left" v-if="topic">
       <el-form
         ref="form"
@@ -23,7 +10,7 @@
         :rules="rules"
         label-width="200px"
       >
-        <div class="float-left" v-show="tab.active === 'base'">
+        <div class="float-left">
           <el-form-item prop="cid" label="分类">
             <div class="d-flex">
               <div>
@@ -101,7 +88,40 @@
               </div>
             </div>
           </el-form-item>
+          <el-form-item label="隐藏图文">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="topic.is_show"
+                  :active-value="0"
+                  :inactive-value="1"
+                >
+                </el-switch>
+              </div>
+              <div class="ml-10">
+                <helper-text text="打开后图文在前台隐藏显示"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
 
+          <el-form-item label="上架时间">
+            <div class="d-flex">
+              <div>
+                <el-date-picker
+                  style="width: 300px"
+                  v-model="topic.sorted_at"
+                  type="datetime"
+                  format="yyyy-MM-dd HH:mm"
+                  value-format="yyyy-MM-dd HH:mm"
+                  placeholder="请选择日期"
+                >
+                </el-date-picker>
+              </div>
+              <div class="ml-10">
+                <helper-text text="上架时间越晚，排序越靠前"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
           <el-form-item
             prop="free_content"
             label="免费内容"
@@ -154,45 +174,6 @@
                 v-model="topic.original_content"
                 :height="458"
               ></quill-editor>
-            </div>
-          </el-form-item>
-        </div>
-
-        <div class="float-left" v-show="tab.active === 'dev'">
-          <el-form-item label="隐藏图文" prop="is_show">
-            <div class="d-flex">
-              <div>
-                <el-switch
-                  v-model="topic.is_show"
-                  :active-value="0"
-                  :inactive-value="1"
-                >
-                </el-switch>
-              </div>
-              <div class="ml-10">
-                <helper-text text="打开后图文在前台隐藏显示"></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item label="图文排序" prop="sorted_at">
-            <div class="d-flex">
-              <div>
-                <el-date-picker
-                  style="width: 300px"
-                  v-model="topic.sorted_at"
-                  type="datetime"
-                  format="yyyy-MM-dd HH:mm"
-                  value-format="yyyy-MM-dd HH:mm"
-                  placeholder="请选择日期"
-                >
-                </el-date-picker>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="控制文章在学员端的显示顺序，时间越早越靠后"
-                ></helper-text>
-              </div>
             </div>
           </el-form-item>
         </div>
@@ -260,19 +241,6 @@ export default {
       },
       chapters: [],
       loading: false,
-      tab: {
-        active: "base",
-        list: [
-          {
-            name: "基础信息",
-            key: "base",
-          },
-          {
-            name: "可选信息",
-            key: "dev",
-          },
-        ],
-      },
     };
   },
   mounted() {
