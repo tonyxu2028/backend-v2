@@ -66,10 +66,9 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
-          <el-table-column prop="id" sortable label="ID" width="100">
+          <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column prop="category.name" label="分类"> </el-table-column>
-          <el-table-column label="电子书" width="400">
+          <el-table-column label="电子书" min-width="30%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -79,37 +78,56 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column label="价格" property="charge" sortable width="100">
+          <el-table-column prop="category.name" label="分类" min-width="10%">
+          </el-table-column>
+          <el-table-column
+            label="价格"
+            property="charge"
+            sortable
+            min-width="7%"
+          >
             <template slot-scope="scope">
               <span>{{ scope.row.charge }}元</span>
             </template>
           </el-table-column>
-          <el-table-column
-            label="浏览"
-            property="view_times"
-            sortable
-            width="100"
-          >
-            <template slot-scope="scope">
-              <span>{{ scope.row.view_times }}次</span>
-            </template>
-          </el-table-column>
+
           <el-table-column
             label="销量"
             property="user_count"
             sortable
-            width="150"
+            min-width="7%"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.user_count }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="上架时间" sortable width="200">
+          <el-table-column
+            label="阅读"
+            property="view_times"
+            sortable
+            min-width="7%"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.view_times }}次</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="上架时间" sortable min-width="13%">
             <template slot-scope="scope">{{
               scope.row.published_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="160">
+          <el-table-column label="是否显示" min-width="8%">
+            <template slot-scope="scope">
+              <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
+              <span class="c-red" v-else>· 隐藏</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            min-width="12%"
+            align="right"
+          >
             <template slot-scope="scope">
               <p-link
                 text="文章"

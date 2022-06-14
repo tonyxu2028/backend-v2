@@ -68,10 +68,9 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
-          <el-table-column prop="id" sortable label="ID" width="100">
+          <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column prop="category.name" label="分类"> </el-table-column>
-          <el-table-column label="标题" width="400">
+          <el-table-column label="图文" min-width="24%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -81,62 +80,67 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column label="价格" sortable property="charge" width="100">
-            <template slot-scope="scope">
-              <span>{{ scope.row.charge }}元</span>
-            </template>
+          <el-table-column prop="category.name" label="分类" min-width="9%">
           </el-table-column>
           <el-table-column
-            label="浏览"
+            label="价格"
             sortable
-            property="view_times"
-            width="100"
+            property="charge"
+            min-width="7%"
           >
             <template slot-scope="scope">
-              <span>{{ scope.row.view_times }}次</span>
+              <span v-if="scope.row.charge > 0">{{ scope.row.charge }}元</span>
+              <span v-else>免费</span>
             </template>
           </el-table-column>
           <el-table-column
             label="销量"
             sortable
             property="user_count"
-            width="100"
+            min-width="7%"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.user_count }}</span>
             </template>
           </el-table-column>
           <el-table-column
-            prop="comments_count"
+            label="阅读"
             sortable
-            label="评论"
-            width="100"
+            property="view_times"
+            min-width="7%"
+          >
+            <template slot-scope="scope">
+              <span>{{ scope.row.view_times }}次</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="vote_count"
+            sortable
+            label="点赞"
+            min-width="7%"
           >
           </el-table-column>
-          <el-table-column prop="vote_count" sortable label="点赞" width="100">
-          </el-table-column>
-          <el-table-column sortable label="上架时间" width="200">
+          <el-table-column sortable label="上架时间" min-width="13%">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="160">
+          <el-table-column label="是否显示" min-width="8%">
             <template slot-scope="scope">
-              <p-link
-                text="学员"
-                type="primary"
-                @click="
-                  $router.push({
-                    name: 'TopicOrder',
-                    query: { id: scope.row.id },
-                  })
-                "
-                p="addons.meedu_topics.orders"
-              ></p-link>
+              <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
+              <span class="c-red" v-else>· 隐藏</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            min-width="12%"
+            align="right"
+          >
+            <template slot-scope="scope">
               <p-link
                 text="编辑"
                 type="primary"
-                class="ml-5"
                 @click="
                   $router.push({
                     name: 'TopicUpdate',
@@ -146,12 +150,31 @@
                 p="addons.meedu_topics.topic.update"
               ></p-link>
               <p-link
-                text="删除"
+                text="学员"
                 class="ml-5"
-                type="danger"
-                @click="destory(scope.row.id)"
-                p="addons.meedu_topics.topic.delete"
+                type="primary"
+                @click="
+                  $router.push({
+                    name: 'TopicOrder',
+                    query: { id: scope.row.id },
+                  })
+                "
+                p="addons.meedu_topics.orders"
               ></p-link>
+              <el-dropdown>
+                <el-link type="primary" class="el-dropdown-link ml-5">
+                  更多<i class="el-icon-arrow-down el-icon--right"></i>
+                </el-link>
+                <el-dropdown-menu slot="dropdown">
+                  <p-dropdown-item
+                    text="删除"
+                    p="addons.meedu_topics.topic.delete"
+                    type="danger"
+                    @click="destory(scope.row.id)"
+                  >
+                  </p-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </template>
           </el-table-column>
         </el-table>
