@@ -23,11 +23,16 @@
         :data="list"
         class="float-left"
       >
-        <el-table-column prop="sort" label="排序" min-width="9%">
+        <el-table-column prop="sort" label="排序" min-width="6%">
         </el-table-column>
         <el-table-column prop="name" label="学习步骤" min-width="15%">
         </el-table-column>
-        <el-table-column label="步骤简介" min-width="64%">
+        <el-table-column label="课程数" min-width="10%">
+          <template slot-scope="scope">
+            <span>{{ scope.row.courses_count }}课程</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="步骤简介" min-width="57%">
           <template slot-scope="scope">
             <div v-html="scope.row.desc"></div>
           </template>
@@ -63,13 +68,20 @@
                 })
               "
             ></p-link>
-            <p-link
-              type="danger"
-              class="ml-5"
-              text="删除"
-              p="addons.learnPaths.step.delete"
-              @click="destory(scope.row.id)"
-            ></p-link>
+            <el-dropdown>
+              <el-link type="primary" class="el-dropdown-link ml-5">
+                更多<i class="el-icon-arrow-down el-icon--right"></i>
+              </el-link>
+              <el-dropdown-menu slot="dropdown">
+                <p-dropdown-item
+                  text="删除"
+                  p="addons.learnPaths.step.delete"
+                  type="danger"
+                  @click="destory(scope.row.id)"
+                >
+                </p-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
