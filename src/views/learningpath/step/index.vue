@@ -23,15 +23,21 @@
         :data="list"
         class="float-left"
       >
-        <el-table-column prop="sort" label="升序" width="120">
+        <el-table-column prop="sort" label="排序" min-width="9%">
         </el-table-column>
-        <el-table-column prop="name" label="步骤名"> </el-table-column>
-        <el-table-column label="简述" width="500">
+        <el-table-column prop="name" label="学习步骤" min-width="15%">
+        </el-table-column>
+        <el-table-column label="步骤简介" min-width="64%">
           <template slot-scope="scope">
             <div v-html="scope.row.desc"></div>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="160">
+        <el-table-column
+          fixed="right"
+          label="操作"
+          min-width="12%"
+          align="right"
+        >
           <template slot-scope="scope">
             <p-link
               text="课程"
