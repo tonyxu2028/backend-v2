@@ -4,7 +4,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="添加"
+          text="添加文章"
           @click="
             $router.push({
               name: 'MeedubookArticleCreate',
@@ -13,6 +13,18 @@
           "
           type="primary"
           p="addons.meedu_books.book_article.store"
+        >
+        </p-button>
+        <p-button
+          text="文章章节"
+          @click="
+            $router.push({
+              name: 'MeedubookChapter',
+              query: { bid: filter.book_id },
+            })
+          "
+          type="primary"
+          p="addons.meedu_books.book_chapter.list"
         >
         </p-button>
       </div>
