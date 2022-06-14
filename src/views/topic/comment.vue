@@ -53,10 +53,8 @@
           <el-table
             :header-cell-style="{ background: '#f1f2f9' }"
             :data="list"
-            @selection-change="handleSelectionChange"
             class="float-left"
           >
-            <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="id" label="ID" width="120">
             </el-table-column>
             <el-table-column prop="user_id" label="学员ID" width="120">
