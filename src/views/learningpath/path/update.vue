@@ -33,8 +33,9 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="路径名" prop="name">
-          <el-input v-model="course.name" class="w-500px"></el-input>
+
+        <el-form-item label="路径名称" prop="name">
+          <el-input v-model="course.name" class="w-300px"></el-input>
         </el-form-item>
 
         <el-form-item prop="thumb" label="封面">
@@ -52,7 +53,7 @@
             type="number"
             placeholder="单位：元"
             v-model="course.original_charge"
-            class="w-200px"
+            class="w-300px"
           ></el-input>
         </el-form-item>
 
@@ -61,39 +62,15 @@
             type="number"
             placeholder="单位：元"
             v-model="course.charge"
-            class="w-200px"
+            class="w-300px"
           ></el-input>
         </el-form-item>
-        <el-form-item prop="desc" label="描述">
-          <el-input
-            type="textarea"
-            v-model="course.desc"
-            class="w-600px"
-            maxlength="150"
-            rows="4"
-            show-word-limit
-            placeholder="描述"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="显示" prop="is_show">
-          <div class="d-flex">
-            <div>
-              <el-switch
-                v-model="course.is_show"
-                :active-value="1"
-                :inactive-value="0"
-              >
-              </el-switch>
-            </div>
-            <div class="ml-10">
-              <helper-text text="该字段控制学员能否看到该路径"></helper-text>
-            </div>
-          </div>
-        </el-form-item>
-        <el-form-item label="上架时间" prop="published_at">
+
+        <el-form-item label="上架时间">
           <div class="d-flex">
             <div>
               <el-date-picker
+                style="width: 300px"
                 v-model="course.published_at"
                 type="datetime"
                 format="yyyy-MM-dd HH:mm"
@@ -104,12 +81,38 @@
             </div>
             <div class="ml-15">
               <div class="helper-text">
-                <helper-text
-                  text="该字段控制路径的排序，时间越大越靠前。"
-                ></helper-text>
+                <helper-text text="上架时间越晚，排序越靠前"></helper-text>
               </div>
             </div>
           </div>
+        </el-form-item>
+
+        <el-form-item label="隐藏路径">
+          <div class="d-flex">
+            <div>
+              <el-switch
+                v-model="course.is_show"
+                :active-value="0"
+                :inactive-value="1"
+              >
+              </el-switch>
+            </div>
+            <div class="ml-10">
+              <helper-text text="打开后学习路径在前台隐藏"></helper-text>
+            </div>
+          </div>
+        </el-form-item>
+
+        <el-form-item prop="desc" label="简短介绍">
+          <el-input
+            type="textarea"
+            v-model="course.desc"
+            class="w-800px"
+            maxlength="150"
+            rows="4"
+            show-word-limit
+            placeholder="简短介绍"
+          ></el-input>
         </el-form-item>
       </el-form>
 
@@ -184,24 +187,10 @@ export default {
             trigger: "blur",
           },
         ],
-        is_show: [
-          {
-            required: true,
-            message: "请选择是否显示",
-            trigger: "blur",
-          },
-        ],
         desc: [
           {
             required: true,
             message: "描述不能为空",
-            trigger: "blur",
-          },
-        ],
-        published_at: [
-          {
-            required: true,
-            message: "请选择上架时间",
             trigger: "blur",
           },
         ],

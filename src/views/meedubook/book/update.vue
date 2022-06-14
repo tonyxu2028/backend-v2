@@ -90,21 +90,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="隐藏电子书">
-            <div class="d-flex">
-              <div>
-                <el-switch
-                  v-model="course.is_show"
-                  :active-value="0"
-                  :inactive-value="1"
-                >
-                </el-switch>
-              </div>
-              <div class="ml-10">
-                <helper-text text="打开后电子书在前台隐藏显示"></helper-text>
-              </div>
-            </div>
-          </el-form-item>
+
           <el-form-item label="上架时间">
             <div class="d-flex">
               <div>
@@ -120,6 +106,22 @@
               </div>
               <div class="ml-10">
                 <helper-text text="上架时间越晚，排序越靠前"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="隐藏电子书">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="course.is_show"
+                  :active-value="0"
+                  :inactive-value="1"
+                >
+                </el-switch>
+              </div>
+              <div class="ml-10">
+                <helper-text text="打开后电子书在前台隐藏显示"></helper-text>
               </div>
             </div>
           </el-form-item>
