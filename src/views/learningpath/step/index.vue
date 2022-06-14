@@ -23,7 +23,7 @@
         :data="list"
         class="float-left"
       >
-        <el-table-column prop="sort" label="排序" min-width="6%">
+        <el-table-column prop="sort" sortable label="排序" min-width="6%">
         </el-table-column>
         <el-table-column prop="name" label="学习步骤" min-width="15%">
         </el-table-column>
