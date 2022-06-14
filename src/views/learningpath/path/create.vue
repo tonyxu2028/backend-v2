@@ -129,6 +129,21 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="visible"
+      width="500px"
+      @close="$router.replace({ name: 'Meedubook' })"
+    >
+      <div class="text-center">
+        <span>新建学习路径成功，请在路径下添加学习步骤吧！</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="$router.replace({ name: 'LearningPath' })"
+          >暂不添加</el-button
+        >
+        <el-button @click="goStep" type="primary">立即添加</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -196,6 +211,7 @@ export default {
       },
       categories: [],
       loading: false,
+      visible: false,
     };
   },
   mounted() {
@@ -222,6 +238,7 @@ export default {
       });
     },
     formValidate() {
+      this.visible = true;
       this.$refs["form"].validate((valid) => {
         if (valid) {
           this.confirm();
@@ -235,13 +252,27 @@ export default {
       this.loading = true;
       this.$api.Course.LearnPath.Path.Store(this.course)
         .then(() => {
+          this.loading = false;
           this.$message.success(this.$t("common.success"));
-          this.$router.back();
+          this.visible = true;
         })
         .catch((e) => {
           this.loading = false;
           this.$message.error(e.message);
         });
+    },
+    goStep() {
+      this.$api.Course.LearnPath.Path.List({
+        page: 1,
+        size: 10,
+        category_id: null,
+        keywords: null,
+      }).then((res) => {
+        this.$router.replace({
+          name: "LearningStep",
+          query: { id: res.data.data[0].id },
+        });
+      });
     },
   },
 };
