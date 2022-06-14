@@ -13,7 +13,7 @@
         <el-form-item prop="book_cid" label="章节">
           <div class="d-flex">
             <div>
-              <el-select class="w-300px" v-model="article.book_cid">
+              <el-select class="w-300px" clearable v-model="article.book_cid">
                 <el-option
                   v-for="(item, index) in chapters"
                   :key="index"
