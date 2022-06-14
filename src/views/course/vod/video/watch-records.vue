@@ -175,6 +175,7 @@ export default {
       this.getWatchRecords();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getWatchRecords();
     },

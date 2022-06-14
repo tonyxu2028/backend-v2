@@ -85,6 +85,7 @@ export default {
       this.getList();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getList();
     },
@@ -137,4 +138,3 @@ export default {
   },
 };
 </script>
-

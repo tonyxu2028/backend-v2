@@ -326,6 +326,7 @@ export default {
       this.drawer = false;
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getData();
     },

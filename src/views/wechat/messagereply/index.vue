@@ -104,6 +104,7 @@ export default {
       this.getMessages();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getMessages();
     },
