@@ -173,6 +173,7 @@ export default {
         sort: null,
         decs: "",
         desc: null,
+        courses: [],
       },
       categories: [],
       rules: {
@@ -290,8 +291,26 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.coursesData.length === 0) {
+        this.$message.warning("请添加学习步骤关联课程");
+        return;
+      }
+      let params = [];
+      if (this.coursesData.length > 0) {
+        for (let i = 0; i < this.coursesData.length; i++) {
+          let item = {
+            type: this.coursesData[i].type,
+            other_id: this.coursesData[i].id,
+            name: this.coursesData[i].title,
+            thumb: this.coursesData[i].thumb,
+            charge: this.coursesData[i].charge,
+          };
+          params.push(item);
+        }
+      }
+      this.form.courses = params;
       this.loading = true;
-      this.$api.Course.LearnPath.Step.Store(this.form)
+      this.$api.Course.LearnPath.NewStep.Store(this.form)
         .then(() => {
           this.$message.success(this.$t("common.success"));
           this.$router.back();

@@ -23,11 +23,11 @@
         :data="list"
         class="float-left"
       >
-        <el-table-column prop="sort" sortable label="排序" min-width="6%">
+        <el-table-column prop="sort" sortable label="排序" min-width="7%">
         </el-table-column>
         <el-table-column prop="name" label="学习步骤" min-width="15%">
         </el-table-column>
-        <el-table-column label="课程数" min-width="10%">
+        <el-table-column label="课程数" min-width="11%">
           <template slot-scope="scope">
             <span>{{ scope.row.courses_count }}课程</span>
           </template>
@@ -40,11 +40,11 @@
         <el-table-column
           fixed="right"
           label="操作"
-          min-width="12%"
+          min-width="10%"
           align="right"
         >
           <template slot-scope="scope">
-            <p-link
+            <!--<p-link
               text="课程"
               p="addons.learnPaths.relation.list"
               type="primary"
@@ -54,13 +54,11 @@
                   query: { id: scope.row.id },
                 })
               "
-            ></p-link>
-
+            ></p-link>-->
             <p-link
               text="编辑"
               p="addons.learnPaths.step.update"
               type="primary"
-              class="ml-5"
               @click="
                 $router.push({
                   name: 'LearningStepUpdate',
@@ -130,9 +128,9 @@ export default {
       this.loading = true;
       this.id = this.$route.query.id;
       let params = { path_id: this.id };
-      this.$api.Course.LearnPath.Step.List(params).then((res) => {
+      this.$api.Course.LearnPath.NewStep.List(params).then((res) => {
         this.loading = false;
-        this.list = res.data.data;
+        this.list = res.data;
       });
     },
     destory(item) {
@@ -147,7 +145,7 @@ export default {
             return;
           }
           this.loading = true;
-          this.$api.Course.LearnPath.Step.Destory(item)
+          this.$api.Course.LearnPath.NewStep.Destory(item)
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));

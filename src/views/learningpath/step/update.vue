@@ -276,9 +276,24 @@ export default {
       });
     },
     detail() {
-      this.$api.Course.LearnPath.Step.Detail(this.id).then((res) => {
+      this.$api.Course.LearnPath.NewStep.Detail(this.id).then((res) => {
         var data = res.data;
-        this.form = data;
+        this.form = data.step;
+        let courses = data.courses;
+        let params = [];
+        if (courses.length > 0) {
+          for (let i = 0; i < courses.length; i++) {
+            let item = {
+              type: courses[i].type,
+              id: courses[i].other_id,
+              title: courses[i].name,
+              thumb: courses[i].thumb,
+              charge: courses[i].charge,
+            };
+            params.push(item);
+          }
+        }
+        this.coursesData = params;
       });
     },
     formValidate() {
@@ -292,8 +307,26 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.coursesData.length === 0) {
+        this.$message.warning("请添加学习步骤关联课程");
+        return;
+      }
+      let params = [];
+      if (this.coursesData.length > 0) {
+        for (let i = 0; i < this.coursesData.length; i++) {
+          let item = {
+            type: this.coursesData[i].type,
+            other_id: this.coursesData[i].id,
+            name: this.coursesData[i].title,
+            thumb: this.coursesData[i].thumb,
+            charge: this.coursesData[i].charge,
+          };
+          params.push(item);
+        }
+      }
+      this.form.courses = params;
       this.loading = true;
-      this.$api.Course.LearnPath.Step.Update(this.id, this.form)
+      this.$api.Course.LearnPath.NewStep.Update(this.id, this.form)
         .then(() => {
           this.$message.success(this.$t("common.success"));
           this.$router.back();

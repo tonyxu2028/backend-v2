@@ -699,6 +699,26 @@ const Api = {
           },
         },
       },
+      NewStep: {
+        List(params) {
+          return get(`/backend/addons/LearningPaths/v2/step/index`, params);
+        },
+        Create() {
+          return get(`/backend/addons/LearningPaths/v2/step/create`);
+        },
+        Store(params) {
+          return post(`/backend/addons/LearningPaths/v2/step/create`, params);
+        },
+        Destory(id) {
+          return destroy(`/backend/addons/LearningPaths/v2/step/${id}`);
+        },
+        Detail(id) {
+          return get(`/backend/addons/LearningPaths/v2/step/${id}`);
+        },
+        Update(id, params) {
+          return put(`/backend/addons/LearningPaths/v2/step/${id}`, params);
+        },
+      },
       Step: {
         List(params) {
           return get(`/backend/addons/LearningPaths/step/index`, params);
