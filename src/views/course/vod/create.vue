@@ -325,7 +325,6 @@ export default {
       this.$api.Course.Vod.Store(this.course)
         .then(() => {
           this.loading = false;
-          this.$message.success(this.$t("common.success"));
           this.visible = true;
         })
         .catch((e) => {

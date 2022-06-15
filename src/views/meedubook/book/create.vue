@@ -280,7 +280,6 @@ export default {
       this.$api.Meedubook.Book.Store(this.course)
         .then(() => {
           this.loading = false;
-          this.$message.success(this.$t("common.success"));
           this.visible = true;
         })
         .catch((e) => {
