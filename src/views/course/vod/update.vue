@@ -60,7 +60,7 @@
                   type="number"
                   placeholder="单位：元"
                   v-model="course.charge"
-                  class="w-200px"
+                  class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-15">
@@ -102,7 +102,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="隐藏课程" prop="is_show">
+          <el-form-item label="隐藏课程">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -193,13 +193,13 @@ export default {
             trigger: "blur",
           },
         ],
-        is_show: [
-          {
-            required: true,
-            message: "请选择显示",
-            trigger: "blur",
-          },
-        ],
+        // is_show: [
+        //   {
+        //     required: true,
+        //     message: "请选择显示",
+        //     trigger: "blur",
+        //   },
+        // ],
         title: [
           {
             required: true,

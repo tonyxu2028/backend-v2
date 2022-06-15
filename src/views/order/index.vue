@@ -479,6 +479,7 @@ export default {
       return "¥" + amount.toFixed(2);
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getList();
     },

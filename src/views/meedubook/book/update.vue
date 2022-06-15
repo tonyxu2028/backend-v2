@@ -2,19 +2,6 @@
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="编辑电子书"></back-bar>
 
-    <div class="center-tabs mb-30">
-      <div>
-        <el-tabs v-model="tab.active">
-          <el-tab-pane
-            :label="item.name"
-            :name="item.key"
-            v-for="(item, index) in tab.list"
-            :key="index"
-          ></el-tab-pane>
-        </el-tabs>
-      </div>
-    </div>
-
     <div class="float-left" v-if="course">
       <el-form
         ref="form"
@@ -23,7 +10,7 @@
         class="float-left"
         label-width="200px"
       >
-        <div class="float-left" v-show="tab.active === 'base'">
+        <div class="float-left">
           <el-form-item prop="cid" label="分类">
             <div class="d-flex">
               <div>
@@ -56,27 +43,6 @@
             ></el-input>
           </el-form-item>
 
-          <el-form-item label="上架时间" prop="published_at">
-            <div class="d-flex">
-              <div>
-                <el-date-picker
-                  style="width: 300px"
-                  v-model="course.published_at"
-                  type="datetime"
-                  format="yyyy-MM-dd HH:mm"
-                  value-format="yyyy-MM-dd HH:mm"
-                  placeholder="请选择日期"
-                >
-                </el-date-picker>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="上架时间决定了电子书的排名，时间越早排名越靠后。如果是未来时间，则必须等到时间达到学员才能看到。"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
           <el-form-item prop="thumb" label="封面">
             <upload-image
               v-model="course.thumb"
@@ -87,7 +53,7 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="价格" prop="charge">
+          <el-form-item label="电子书价格" prop="charge">
             <div class="d-flex">
               <div>
                 <el-input
@@ -98,9 +64,7 @@
                 ></el-input>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="最小单位：元。不支持小数。价格为0意味着学员可免费直接观看。"
-                ></helper-text>
+                <helper-text text="最小单位“元”，不支持小数"></helper-text>
               </div>
             </div>
           </el-form-item>
@@ -127,6 +91,41 @@
             </div>
           </el-form-item>
 
+          <el-form-item label="上架时间">
+            <div class="d-flex">
+              <div>
+                <el-date-picker
+                  style="width: 300px"
+                  v-model="course.published_at"
+                  type="datetime"
+                  format="yyyy-MM-dd HH:mm"
+                  value-format="yyyy-MM-dd HH:mm"
+                  placeholder="请选择日期"
+                >
+                </el-date-picker>
+              </div>
+              <div class="ml-10">
+                <helper-text text="上架时间越晚，排序越靠前"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="隐藏电子书">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="course.is_show"
+                  :active-value="0"
+                  :inactive-value="1"
+                >
+                </el-switch>
+              </div>
+              <div class="ml-10">
+                <helper-text text="打开后电子书在前台隐藏显示"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
           <el-form-item prop="short_desc" label="简短介绍">
             <el-input
               class="w-800px"
@@ -145,26 +144,6 @@
                 :height="400"
                 v-model="course.original_desc"
               ></quill-editor>
-            </div>
-          </el-form-item>
-        </div>
-
-        <div class="float-left" v-show="tab.active === 'dev'">
-          <el-form-item label="显示" prop="is_show">
-            <div class="d-flex">
-              <div>
-                <el-switch
-                  v-model="course.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="控制学员是否能够看到该电子书。"
-                ></helper-text>
-              </div>
             </div>
           </el-form-item>
         </div>
@@ -210,13 +189,6 @@ export default {
           {
             required: true,
             message: "价格不能为空",
-            trigger: "blur",
-          },
-        ],
-        published_at: [
-          {
-            required: true,
-            message: "上架时间不能为空",
             trigger: "blur",
           },
         ],
@@ -290,6 +262,10 @@ export default {
     },
     confirm() {
       if (this.loading) {
+        return;
+      }
+      if (this.course.charge % 1 !== 0) {
+        this.$message.error("电子书价格必须为整数");
         return;
       }
       this.loading = true;

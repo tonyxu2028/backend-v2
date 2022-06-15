@@ -4,7 +4,7 @@
 
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加步骤"
         p="addons.learnPaths.step.store"
         @click="
           $router.push({
@@ -23,17 +23,28 @@
         :data="list"
         class="float-left"
       >
-        <el-table-column prop="sort" label="升序" width="120">
+        <el-table-column prop="sort" sortable label="排序" min-width="7%">
         </el-table-column>
-        <el-table-column prop="name" label="步骤名"> </el-table-column>
-        <el-table-column label="简述" width="500">
+        <el-table-column prop="name" label="学习步骤" min-width="15%">
+        </el-table-column>
+        <el-table-column label="课程数" min-width="11%">
+          <template slot-scope="scope">
+            <span>{{ scope.row.courses_count }}课程</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="步骤简介" min-width="57%">
           <template slot-scope="scope">
             <div v-html="scope.row.desc"></div>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="160">
+        <el-table-column
+          fixed="right"
+          label="操作"
+          min-width="10%"
+          align="right"
+        >
           <template slot-scope="scope">
-            <p-link
+            <!--<p-link
               text="课程"
               p="addons.learnPaths.relation.list"
               type="primary"
@@ -43,13 +54,11 @@
                   query: { id: scope.row.id },
                 })
               "
-            ></p-link>
-
+            ></p-link>-->
             <p-link
               text="编辑"
               p="addons.learnPaths.step.update"
               type="primary"
-              class="ml-5"
               @click="
                 $router.push({
                   name: 'LearningStepUpdate',
@@ -57,13 +66,20 @@
                 })
               "
             ></p-link>
-            <p-link
-              type="danger"
-              class="ml-5"
-              text="删除"
-              p="addons.learnPaths.step.delete"
-              @click="destory(scope.row.id)"
-            ></p-link>
+            <el-dropdown>
+              <el-link type="primary" class="el-dropdown-link ml-5">
+                更多<i class="el-icon-arrow-down el-icon--right"></i>
+              </el-link>
+              <el-dropdown-menu slot="dropdown">
+                <p-dropdown-item
+                  text="删除"
+                  p="addons.learnPaths.step.delete"
+                  type="danger"
+                  @click="destory(scope.row.id)"
+                >
+                </p-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -97,6 +113,7 @@ export default {
       this.getData();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getData();
     },
@@ -111,9 +128,9 @@ export default {
       this.loading = true;
       this.id = this.$route.query.id;
       let params = { path_id: this.id };
-      this.$api.Course.LearnPath.Step.List(params).then((res) => {
+      this.$api.Course.LearnPath.NewStep.List(params).then((res) => {
         this.loading = false;
-        this.list = res.data.data;
+        this.list = res.data;
       });
     },
     destory(item) {
@@ -128,7 +145,7 @@ export default {
             return;
           }
           this.loading = true;
-          this.$api.Course.LearnPath.Step.Destory(item)
+          this.$api.Course.LearnPath.NewStep.Destory(item)
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));

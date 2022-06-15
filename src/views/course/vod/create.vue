@@ -60,7 +60,7 @@
                   type="number"
                   placeholder="单位：元"
                   v-model="course.charge"
-                  class="w-200px"
+                  class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-15">
@@ -102,7 +102,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="隐藏课程" prop="is_show">
+          <el-form-item label="隐藏课程">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -220,13 +220,13 @@ export default {
             trigger: "blur",
           },
         ],
-        is_show: [
-          {
-            required: true,
-            message: "请选择显示",
-            trigger: "blur",
-          },
-        ],
+        // is_show: [
+        //   {
+        //     required: true,
+        //     message: "请选择显示",
+        //     trigger: "blur",
+        //   },
+        // ],
         title: [
           {
             required: true,
@@ -325,7 +325,6 @@ export default {
       this.$api.Course.Vod.Store(this.course)
         .then(() => {
           this.loading = false;
-          this.$message.success(this.$t("common.success"));
           this.visible = true;
         })
         .catch((e) => {
@@ -336,7 +335,7 @@ export default {
     goVideo() {
       this.$api.Course.Vod.List({
         page: 1,
-        size: 10,
+        size: 1,
         sort: "id",
         order: "desc",
       }).then((res) => {

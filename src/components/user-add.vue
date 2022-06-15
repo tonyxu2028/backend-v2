@@ -141,6 +141,7 @@ export default {
       this.getUser();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getUser();
     },

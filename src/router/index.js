@@ -975,6 +975,15 @@ const routes = [
     },
   },
   {
+    path: "/learningpath/path/user",
+    component: () => import("@/views/learningpath/path/user"),
+    name: "LearningUser",
+    meta: {
+      title: "title.learningpath.path.user",
+      keepAlive: true,
+    },
+  },
+  {
     path: "/learningpath/step/index",
     component: () => import("@/views/learningpath/step/index"),
     name: "LearningStep",

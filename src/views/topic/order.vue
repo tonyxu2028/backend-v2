@@ -1,19 +1,19 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="图文学员"></back-bar>
+    <back-bar class="mb-30" title="付费学员"></back-bar>
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
-        <p-button
-          type="danger"
-          text="删除学员"
-          @click="delUser"
-          p="addons.meedu_topics.orders.user.del"
-        ></p-button>
         <p-button
           text="添加学员"
           type="primary"
           p="addons.meedu_topics.orders.user.add"
           @click="showUserAddWin = true"
+        ></p-button>
+        <p-button
+          type="danger"
+          text="删除学员"
+          @click="delUser"
+          p="addons.meedu_topics.orders.user.del"
         ></p-button>
       </div>
       <div class="d-flex">
@@ -142,6 +142,7 @@ export default {
       this.getData();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getData();
     },

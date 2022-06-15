@@ -379,7 +379,6 @@ export default {
       this.$api.Course.Live.Course.Store(this.course)
         .then(() => {
           this.loading = false;
-          this.$message.success(this.$t("common.success"));
           this.visible = true;
         })
         .catch((e) => {
@@ -390,7 +389,7 @@ export default {
     goVideo() {
       this.$api.Course.Live.Course.List({
         page: 1,
-        size: 10,
+        size: 1,
         sort: "id",
         order: "desc",
       }).then((res) => {

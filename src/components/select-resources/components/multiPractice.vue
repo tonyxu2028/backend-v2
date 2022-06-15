@@ -2,35 +2,42 @@
   <div class="float-left" v-loading="loading">
     <div class="float-left mb-15">
       <div class="float-left d-flex">
-        <div class="d-flex" style="margin-left: 345px">
+        <div class="d-flex">
           <el-input
-            class="w-200px"
-            v-model="pagination.keywords"
+            class="w-150px"
+            v-model="pagination.key"
             placeholder="关键字"
           ></el-input>
         </div>
-        <div class="ml-15">
+
+        <div class="ml-10">
+          <el-button @click="paginationReset">清空</el-button>
           <el-button @click="firstPageLoad" type="primary">筛选</el-button>
-          <el-button class="ml-15" @click="paginationReset">清空</el-button>
         </div>
       </div>
     </div>
     <el-table
+      ref="multipleTable"
+      :header-cell-style="{ background: '#f1f2f9' }"
       :data="courses"
-      highlight-current-row
-      @current-change="tableItemChoice"
+      @row-click="handleRowClick"
+      @selection-change="handleSelectionChange"
       class="float-left"
+      v-loading="loading"
     >
-      <el-table-column prop="id" label="ID" width="120"> </el-table-column>
-      <el-table-column label="秒杀课程">
+      <el-table-column
+        type="selection"
+        width="55"
+        :selectable="checkSelectable"
+      ></el-table-column>
+      <el-table-column prop="id" label="练习ID" width="120"> </el-table-column>
+      <el-table-column label="练习">
         <template slot-scope="scope">
-          <div class="d-flex">
-            <div>
-              <img :src="scope.row.goods_thumb" width="100" height="80" />
-            </div>
-            <div class="ml-15">{{ scope.row.goods_title }}</div>
-          </div>
+          {{ scope.row.name }}
         </template>
+      </el-table-column>
+      <el-table-column label="价格" width="120">
+        <template slot-scope="scope"> ￥{{ scope.row.charge }} </template>
       </el-table-column>
     </el-table>
 
@@ -51,7 +58,7 @@
 
 <script>
 export default {
-  props: ["value"],
+  props: ["selected"],
   data() {
     return {
       link: null,
@@ -60,29 +67,30 @@ export default {
         size: 10,
         sort: "created_at",
         order: "desc",
-        keywords: null,
+        key: null,
+      },
+      spids: {
+        ids: [],
       },
       loading: false,
       total: 0,
       courses: [],
     };
   },
-  watch: {
-    link(newVal) {
-      if (newVal) {
-        this.$emit("input", newVal);
-      }
-    },
-  },
   mounted() {
-    this.link = this.value;
-
     this.getCourse();
   },
   methods: {
+    checkSelectable(row) {
+      let id = row.id;
+      if (!this.selected) {
+        return true;
+      }
+      return this.selected.indexOf(id) <= -1;
+    },
     paginationReset() {
       this.pagination.page = 1;
-      this.pagination.keywords = null;
+      this.pagination.key = null;
       this.getCourse();
     },
     paginationSizeChange(size) {
@@ -98,9 +106,28 @@ export default {
       this.pagination.page = 1;
       this.getCourse();
     },
-    tableItemChoice(row) {
-      if (row) {
-        this.link = "/pages/ms/show?id=" + row.id;
+    handleSelectionChange(val) {
+      var newbox = [];
+      for (var i = 0; i < val.length; i++) {
+        let item = {
+          type: "practice",
+          id: val[i].id,
+          title: val[i].name,
+          thumb: null,
+          charge: val[i].charge,
+        };
+        newbox.push(item);
+      }
+      this.spids.ids = newbox;
+      this.$emit("change", this.spids.ids);
+    },
+    handleRowClick(row) {
+      let id = row.id;
+      if (this.checkSelectable(row)) {
+        this.$refs.multipleTable.toggleRowSelection(row);
+        // 获取当前选中的数据
+        const _selectData = this.$refs.multipleTable.selection;
+        this.handleSelectionChange(_selectData);
       }
     },
     getCourse() {
@@ -108,7 +135,7 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.MiaoSha.List(this.pagination).then((res) => {
+      this.$api.Exam.Practice.List(this.pagination).then((res) => {
         this.loading = false;
         this.courses = res.data.data.data;
         this.total = res.data.data.total;

@@ -1,68 +1,46 @@
 <template>
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="付费学员"></back-bar>
-    <div class="float-left j-b-flex mb-30">
-      <div class="d-flex">
-        <p-button
-          type="primary"
-          text="添加学员"
-          p="addons.meedu_books.book.user.add"
-          @click="showUserAddWin = true"
-        ></p-button>
-        <p-button
-          text="删除学员"
-          type="danger"
-          p="addons.meedu_books.book.user.del"
-          @click="delUser"
-        ></p-button>
-      </div>
-      <div class="d-flex">
-        <div>
-          <el-input
-            v-model="filter.user_id"
-            class="w-150px"
-            placeholder="学员ID"
-          ></el-input>
-        </div>
-        <div class="ml-10">
-          <el-button @click="paginationReset">清空</el-button>
-          <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
-          <el-button @click="exportexcel" type="primary">导出表格</el-button>
-        </div>
-      </div>
+    <div class="float-left mb-30">
+      <el-button @click="exportexcel" type="primary">导出表格</el-button>
     </div>
     <div class="float-left" v-loading="loading">
-      <el-table
-        :header-cell-style="{ background: '#f1f2f9' }"
-        :data="list"
-        @selection-change="handleSelectionChange"
-        class="float-left"
-      >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="user_id" label="学员ID" width="150">
-        </el-table-column>
-        <el-table-column label="学员">
-          <template slot-scope="scope">
-            <div class="user-item d-flex" v-if="scope.row.user">
-              <div class="avatar">
-                <img :src="scope.row.user.avatar" width="40" height="40" />
+      <div class="float-left">
+        <el-table
+          :header-cell-style="{ background: '#f1f2f9' }"
+          :data="list"
+          @selection-change="handleSelectionChange"
+          class="float-left"
+        >
+          <!--<el-table-column type="selection" width="55"></el-table-column>-->
+          <el-table-column prop="id" label="ID" width="120"> </el-table-column>
+          <el-table-column prop="user_id" label="学员ID" width="120">
+          </el-table-column>
+          <el-table-column label="学员" width="300">
+            <template slot-scope="scope">
+              <div class="user-item d-flex" v-if="scope.row.user">
+                <div class="avatar">
+                  <img :src="scope.row.user.avatar" width="40" height="40" />
+                </div>
+                <div class="ml-10">
+                  {{ scope.row.user.nick_name }}
+                </div>
               </div>
-              <div class="ml-10">{{ scope.row.user.nick_name }}</div>
-            </div>
-            <span class="c-red" v-else>学员不存在</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="价格" width="200">
-          <template slot-scope="scope">
-            <span>￥{{ scope.row.charge }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="订阅时间" width="200">
-          <template slot-scope="scope">{{
-            scope.row.created_at | dateFormat
-          }}</template>
-        </el-table-column>
-      </el-table>
+              <span v-else class="c-red">学员不存在</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="价格" width="150">
+            <template slot-scope="scope">
+              <span>{{ scope.row.charge }}元</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="时间">
+            <template slot-scope="scope">{{
+              scope.row.updated_at | dateFormat
+            }}</template>
+          </el-table-column>
+        </el-table>
+      </div>
 
       <div class="float-left mt-30 text-center">
         <el-pagination
@@ -96,15 +74,15 @@ export default {
   },
   data() {
     return {
-      pageName: "bookUsers-list",
+      pageName: "learningUser-list",
       showUserAddWin: false,
       pagination: {
-        id: this.$route.query.bid,
         page: 1,
         size: 10,
       },
       filter: {
-        user_id: null,
+        id: this.$route.query.id,
+        user_id: "",
       },
       total: 0,
       loading: false,
@@ -113,9 +91,9 @@ export default {
     };
   },
   watch: {
-    "$route.query.bid"() {
+    "$route.query.id"() {
       this.pagination.page = 1;
-      this.filter.user_id = null;
+      this.filter.user_id = "";
     },
   },
   activated() {
@@ -154,9 +132,9 @@ export default {
       }
       this.loading = true;
       let params = {};
-      this.pagination.id = this.$route.query.bid;
+      this.filter.id = this.$route.query.id;
       Object.assign(params, this.filter, this.pagination);
-      this.$api.Meedubook.Book.Users.List(this.pagination.id, params).then(
+      this.$api.Course.LearnPath.Path.Users(this.$route.query.id, params).then(
         (res) => {
           this.loading = false;
           this.list = res.data.data;
@@ -180,7 +158,8 @@ export default {
             ids.push(item.id);
           });
 
-          this.$api.Meedubook.Book.Users.Del(this.pagination.id, {
+          this.$api.Course.Topic.Topic.DelUser({
+            topic_id: this.filter.topic_id,
             ids: ids.join(","),
           })
             .then(() => {
@@ -199,8 +178,9 @@ export default {
         ids.push(item.id);
       });
 
-      this.$api.Meedubook.Book.Users.Add(this.pagination.id, {
-        user_ids: ids.join(","),
+      this.$api.Course.Topic.Topic.AddUser({
+        topic_id: this.filter.topic_id,
+        ids: ids,
       })
         .then(() => {
           this.$message.success(this.$t("common.success"));
@@ -221,10 +201,10 @@ export default {
         page: 1,
         size: this.total,
       };
-      this.pagination.id = this.$route.query.bid;
+      this.filter.topic_id = this.$route.query.id;
       Object.assign(params, this.filter);
 
-      this.$api.Meedubook.Book.Users.List(this.pagination.id, params).then(
+      this.$api.Course.LearnPath.Path.Users(this.$route.query.id, params).then(
         (res) => {
           if (res.data.total === 0) {
             this.$message.error("数据为空");
@@ -232,7 +212,7 @@ export default {
             return;
           }
 
-          let filename = "电子书订阅学员.xlsx";
+          let filename = "学习路径订阅学员.xlsx";
           let sheetName = "sheet1";
 
           let data = [["学员ID", "学员", "手机号", "价格", "时间"]];
@@ -242,7 +222,9 @@ export default {
               item.user.nick_name,
               item.user.mobile,
               item.charge === 0 ? "-" : "￥" + item.charge,
-              moment(item.created_at).format("YYYY-MM-DD HH:mm"),
+              item.updated_at
+                ? moment(item.updated_at).format("YYYY-MM-DD HH:mm")
+                : "",
             ]);
           });
           let wscols = [
@@ -260,3 +242,5 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped></style>
