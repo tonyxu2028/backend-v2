@@ -17,8 +17,10 @@
       </div>
     </div>
     <el-table
+      ref="multipleTable"
       :header-cell-style="{ background: '#f1f2f9' }"
       :data="courses"
+      @row-click="handleRowClick"
       @selection-change="handleSelectionChange"
       class="float-left"
       v-loading="loading"
@@ -118,6 +120,15 @@ export default {
       }
       this.spids.ids = newbox;
       this.$emit("change", this.spids.ids);
+    },
+    handleRowClick(row) {
+      let id = row.id;
+      if (this.checkSelectable(row)) {
+        this.$refs.multipleTable.toggleRowSelection(row);
+        // 获取当前选中的数据
+        const _selectData = this.$refs.multipleTable.selection;
+        this.handleSelectionChange(_selectData);
+      }
     },
     getCourse() {
       if (this.loading) {
