@@ -122,7 +122,7 @@
           </el-table-column>
           <el-table-column sortable label="上架时间" min-width="13%">
             <template slot-scope="scope">{{
-              scope.row.created_at | dateFormat
+              scope.row.sorted_at | dateFormat
             }}</template>
           </el-table-column>
           <el-table-column label="是否显示" min-width="8%">
