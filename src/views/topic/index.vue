@@ -70,7 +70,7 @@
         >
           <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="图文" min-width="24%">
+          <el-table-column label="图文" min-width="21%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -120,7 +120,7 @@
             min-width="7%"
           >
           </el-table-column>
-          <el-table-column sortable label="上架时间" min-width="13%">
+          <el-table-column sortable label="上架时间" min-width="14%">
             <template slot-scope="scope">{{
               scope.row.sorted_at | dateFormat
             }}</template>
@@ -134,7 +134,7 @@
           <el-table-column
             fixed="right"
             label="操作"
-            min-width="12%"
+            min-width="14%"
             align="right"
           >
             <template slot-scope="scope">
