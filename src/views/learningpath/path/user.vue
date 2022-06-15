@@ -1,6 +1,9 @@
 <template>
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="付费学员"></back-bar>
+    <div class="float-left mb-30">
+      <el-button @click="exportexcel" type="primary">导出表格</el-button>
+    </div>
     <div class="float-left" v-loading="loading">
       <div class="float-left">
         <el-table
@@ -209,7 +212,7 @@ export default {
             return;
           }
 
-          let filename = "图文订阅学员.xlsx";
+          let filename = "学习路径订阅学员.xlsx";
           let sheetName = "sheet1";
 
           let data = [["学员ID", "学员", "手机号", "价格", "时间"]];
