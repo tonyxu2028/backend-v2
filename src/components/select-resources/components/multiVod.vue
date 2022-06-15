@@ -116,6 +116,7 @@ export default {
           id: val[i].id,
           title: val[i].title,
           thumb: val[i].thumb,
+          charge: val[i].charge,
         };
         newbox.push(item);
       }

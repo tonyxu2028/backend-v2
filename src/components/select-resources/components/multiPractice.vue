@@ -1,16 +1,17 @@
 <template>
-  <div class="float-left">
+  <div class="float-left" v-loading="loading">
     <div class="float-left mb-15">
       <div class="float-left d-flex">
         <div class="d-flex">
           <el-input
             class="w-150px"
-            v-model="pagination.keywords"
+            v-model="pagination.key"
             placeholder="关键字"
           ></el-input>
         </div>
+
         <div class="ml-10">
-          <el-button @click="paginationReset"> 清空 </el-button>
+          <el-button @click="paginationReset">清空</el-button>
           <el-button @click="firstPageLoad" type="primary">筛选</el-button>
         </div>
       </div>
@@ -19,7 +20,7 @@
       :header-cell-style="{ background: '#f1f2f9' }"
       :data="courses"
       @selection-change="handleSelectionChange"
-      class="float-left mb-15"
+      class="float-left"
       v-loading="loading"
     >
       <el-table-column
@@ -27,15 +28,10 @@
         width="55"
         :selectable="checkSelectable"
       ></el-table-column>
-      <el-table-column prop="id" label="课程ID" width="120"> </el-table-column>
-      <el-table-column label="课程">
+      <el-table-column prop="id" label="练习ID" width="120"> </el-table-column>
+      <el-table-column label="练习">
         <template slot-scope="scope">
-          <div class="d-flex">
-            <div>
-              <img :src="scope.row.thumb" width="80" height="60" />
-            </div>
-            <div class="ml-15">{{ scope.row.title }}</div>
-          </div>
+          {{ scope.row.name }}
         </template>
       </el-table-column>
       <el-table-column label="价格" width="120">
@@ -63,12 +59,13 @@ export default {
   props: ["selected"],
   data() {
     return {
+      link: null,
       pagination: {
         page: 1,
         size: 10,
         sort: "created_at",
         order: "desc",
-        keywords: null,
+        key: null,
       },
       spids: {
         ids: [],
@@ -91,7 +88,7 @@ export default {
     },
     paginationReset() {
       this.pagination.page = 1;
-      this.pagination.keywords = null;
+      this.pagination.key = null;
       this.getCourse();
     },
     paginationSizeChange(size) {
@@ -111,10 +108,10 @@ export default {
       var newbox = [];
       for (var i = 0; i < val.length; i++) {
         let item = {
-          type: "live",
+          type: "practice",
           id: val[i].id,
-          title: val[i].title,
-          thumb: val[i].thumb,
+          title: val[i].name,
+          thumb: null,
           charge: val[i].charge,
         };
         newbox.push(item);
@@ -127,7 +124,7 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.Course.Live.Course.List(this.pagination).then((res) => {
+      this.$api.Exam.Practice.List(this.pagination).then((res) => {
         this.loading = false;
         this.courses = res.data.data.data;
         this.total = res.data.data.total;

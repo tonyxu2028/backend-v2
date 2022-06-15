@@ -24,11 +24,21 @@
             :selected="selectedLive"
             @change="change"
           ></live-comp>
+          <book-comp
+            v-else-if="activeResource === 'book'"
+            :selected="selectedBook"
+            @change="change"
+          ></book-comp>
           <paper-comp
             v-else-if="activeResource === 'paper'"
             :selected="selectedPaper"
             @change="change"
           ></paper-comp>
+          <practice-comp
+            v-else-if="activeResource === 'practice'"
+            :selected="selectedPractice"
+            @change="change"
+          ></practice-comp>
         </div>
       </div>
       <div class="meedu-dialog-footer">
@@ -43,21 +53,28 @@
 import { mapState } from "vuex";
 import VodComp from "./components/multiVod.vue";
 import LiveComp from "./components/multiLive.vue";
+import BookComp from "./components/multiBook.vue";
 import PaperComp from "./components/multiPaper.vue";
+import PracticeComp from "./components/multiPractice.vue";
 
 export default {
   components: {
     VodComp,
     LiveComp,
+    BookComp,
     PaperComp,
+    PracticeComp,
   },
   props: [
     "show",
+    "type",
     "selectedIds",
     "enabledResource",
     "selectedVod",
     "selectedLive",
+    "selectedBook",
     "selectedPaper",
+    "selectedPractice",
   ],
   data() {
     return {
@@ -83,12 +100,23 @@ export default {
           key: "live",
         });
       }
-
+      if (this.enabledResourceMap["book"] && this.enabledAddons["MeeduBooks"]) {
+        resources.push({
+          name: "电子书",
+          key: "book",
+        });
+      }
       if (this.enabledAddons["Paper"]) {
         if (this.enabledResourceMap["paper"]) {
           resources.push({
             name: "试卷",
             key: "paper",
+          });
+        }
+        if (this.enabledResourceMap["practice"]) {
+          resources.push({
+            name: "练习",
+            key: "practice",
           });
         }
       }
@@ -108,7 +136,7 @@ export default {
     },
     resourceActive() {
       let r = null;
-      if (this.enabledResourceMap["paper"]) {
+      if (this.enabledResourceMap["paper"] && !this.type) {
         r = "paper";
       } else {
         r = "vod";

@@ -5,7 +5,7 @@
         <div class="d-flex">
           <el-input
             class="w-150px"
-            v-model="pagination.keywords"
+            v-model="pagination.key"
             placeholder="关键字"
           ></el-input>
         </div>
@@ -27,14 +27,15 @@
         width="55"
         :selectable="checkSelectable"
       ></el-table-column>
-      <el-table-column prop="id" label="课程ID" width="120"> </el-table-column>
-      <el-table-column label="课程">
+      <el-table-column prop="id" label="电子书ID" width="120">
+      </el-table-column>
+      <el-table-column label="电子书">
         <template slot-scope="scope">
           <div class="d-flex">
             <div>
-              <img :src="scope.row.thumb" width="80" height="60" />
+              <img :src="scope.row.thumb" width="60" height="80" />
             </div>
-            <div class="ml-15">{{ scope.row.title }}</div>
+            <div class="ml-15">{{ scope.row.name }}</div>
           </div>
         </template>
       </el-table-column>
@@ -68,7 +69,7 @@ export default {
         size: 10,
         sort: "created_at",
         order: "desc",
-        keywords: null,
+        key: null,
       },
       spids: {
         ids: [],
@@ -111,9 +112,9 @@ export default {
       var newbox = [];
       for (var i = 0; i < val.length; i++) {
         let item = {
-          type: "live",
+          type: "book",
           id: val[i].id,
-          title: val[i].title,
+          title: val[i].name,
           thumb: val[i].thumb,
           charge: val[i].charge,
         };
@@ -127,7 +128,7 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.Course.Live.Course.List(this.pagination).then((res) => {
+      this.$api.Meedubook.Book.List(this.pagination).then((res) => {
         this.loading = false;
         this.courses = res.data.data.data;
         this.total = res.data.data.total;

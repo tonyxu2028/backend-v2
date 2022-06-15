@@ -34,6 +34,9 @@
           {{ scope.row.title }}
         </template>
       </el-table-column>
+      <el-table-column label="价格" width="120">
+        <template slot-scope="scope"> ￥{{ scope.row.charge }} </template>
+      </el-table-column>
     </el-table>
 
     <div class="float-left mt-15 text-center">
@@ -109,6 +112,7 @@ export default {
           id: val[i].id,
           title: val[i].title,
           thumb: null,
+          charge: val[i].charge,
         };
         newbox.push(item);
       }

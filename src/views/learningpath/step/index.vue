@@ -4,7 +4,7 @@
 
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加步骤"
         p="addons.learnPaths.step.store"
         @click="
           $router.push({
