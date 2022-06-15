@@ -106,6 +106,7 @@ const zh = {
           create: "添加学习路径分类",
           update: "编辑学习路径分类",
         },
+        user: "付费学员",
       },
       step: {
         name: "步骤",

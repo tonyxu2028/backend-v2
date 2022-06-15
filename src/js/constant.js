@@ -112,6 +112,7 @@ export default {
     LearningPathCategories: "LearningPath",
     LearningPathCategoriesCreate: "LearningPath",
     LearningPathCategoriesUpdate: "LearningPath",
+    LearningUser: "LearningPath",
     LearningStep: "LearningPath",
     LearningStepCreate: "LearningPath",
     LearningStepUpdate: "LearningPath",
