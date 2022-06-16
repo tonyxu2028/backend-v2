@@ -1,5 +1,43 @@
 @primary-color: #409eff;
 
+@keyframes scaleBig {
+  0% {
+    transform: scale(0.6, 0.6);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade-enter-active {
+  animation: fadeIn 0.2s linear;
+}
+
+.fade-leave-active {
+  animation: fadeOut 0.2s linear;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -563,6 +601,7 @@ a {
     margin-left: -400px;
     background-color: white;
     border-radius: 8px;
+    animation: scaleBig 0.3s;
     .meedu-dialog-header {
       width: 100%;
       height: auto;
@@ -602,7 +641,7 @@ a {
     margin-left: -600px;
     background-color: white;
     border-radius: 8px;
-
+    animation: scaleBig 0.3s;
     .meedu-dialog-header {
       width: 100%;
       height: auto;

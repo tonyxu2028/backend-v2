@@ -68,7 +68,8 @@
       </div>
     </div>
     <categories-dialog
-      :show="showAddWin"
+      :key="updateId"
+      v-if="showAddWin"
       :categories="categories"
       :text="tit"
       :id="updateId"
