@@ -5,7 +5,7 @@
     <div class="float-left mb-30">
       <p-button
         text="添加分类"
-        @click="$router.push({ name: 'LiveCourseCategoryCreate' })"
+        @click="addCategory"
         type="primary"
         p="addons.Zhibo.course_category.store"
       >
@@ -34,12 +34,7 @@
               <p-link
                 text="编辑"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'LiveCourseCategoryUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
+                @click="updateCategory(scope.row.id)"
                 p="addons.Zhibo.course_category.update"
               ></p-link>
               <p-link
@@ -54,17 +49,37 @@
         </el-table>
       </div>
     </div>
+    <categories-dialog
+      :show="showAddWin"
+      :categories="categories"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></categories-dialog>
   </div>
 </template>
 
 <script>
+import CategoriesDialog from "./components/categories-dialog";
 export default {
+  components: {
+    CategoriesDialog,
+  },
   data() {
     return {
       pageName: "liveCategory-list",
       loading: false,
       list: [],
+      categories: [],
+      userRemark: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
+  },
+  mounted() {
+    this.params();
   },
   activated() {
     this.getData();
@@ -75,6 +90,24 @@ export default {
     next();
   },
   methods: {
+    addCategory() {
+      this.tit = "添加分类";
+      this.showAddWin = true;
+    },
+    updateCategory(id) {
+      this.tit = "编辑分类";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.getData();
+    },
+    params() {
+      this.$api.Course.Live.Course.Category.Create().then((res) => {
+        this.categories = res.data.categories;
+      });
+    },
     getData() {
       if (this.loading) {
         return;

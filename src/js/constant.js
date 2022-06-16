@@ -41,8 +41,6 @@ export default {
     VodUpdate: "Vod",
     VodView: "Vod",
     CourseCategories: "Vod",
-    CategoriesCreate: "Vod",
-    CategoriesUpdate: "Vod",
     CourseChapters: "Vod",
     ChaptersCreate: "Vod",
     ChaptersUpdate: "Vod",
