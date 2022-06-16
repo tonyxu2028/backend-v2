@@ -1,151 +1,153 @@
 <template>
-  <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">上传视频</div>
-      <div class="meedu-dialog-body">
-        <div class="float-left">
-          <el-tabs v-model="tab.active">
-            <el-tab-pane
-              :label="item.name"
-              :name="item.key"
-              v-for="(item, index) in tab.list"
-              :key="index"
-            ></el-tab-pane>
-          </el-tabs>
-        </div>
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-if="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">上传视频</div>
+        <div class="meedu-dialog-body">
+          <div class="float-left">
+            <el-tabs v-model="tab.active">
+              <el-tab-pane
+                :label="item.name"
+                :name="item.key"
+                v-for="(item, index) in tab.list"
+                :key="index"
+              ></el-tab-pane>
+            </el-tabs>
+          </div>
 
-        <div class="float-left" v-show="tab.active === 'list'">
-          <div class="float-left mb-15">
-            <div class="float-left d-flex">
-              <div class="d-flex">
-                <el-input
-                  class="w-150px"
-                  v-model="pagination.keywords"
-                  placeholder="关键字"
-                ></el-input>
-              </div>
+          <div class="float-left" v-show="tab.active === 'list'">
+            <div class="float-left mb-15">
+              <div class="float-left d-flex">
+                <div class="d-flex">
+                  <el-input
+                    class="w-150px"
+                    v-model="pagination.keywords"
+                    placeholder="关键字"
+                  ></el-input>
+                </div>
 
-              <div class="ml-10">
-                <el-button @click="paginationReset"> 清空 </el-button>
-                <el-button @click="firstPageLoad" type="primary">
-                  筛选
-                </el-button>
+                <div class="ml-10">
+                  <el-button @click="paginationReset"> 清空 </el-button>
+                  <el-button @click="firstPageLoad" type="primary">
+                    筛选
+                  </el-button>
+                </div>
               </div>
+            </div>
+
+            <el-table
+              :header-cell-style="{ background: '#f1f2f9' }"
+              :data="list"
+              ref="table"
+              highlight-current-row
+              @current-change="handleCurrentChange"
+              class="float-left mb-15"
+              v-loading="loading"
+            >
+              <el-table-column label width="55">
+                <template slot-scope="scope">
+                  <el-radio :label="scope.row.id" v-model="radio"
+                    ><span></span
+                  ></el-radio>
+                </template>
+              </el-table-column>
+              <el-table-column prop="id" label="ID" width="120">
+              </el-table-column>
+              <el-table-column prop="title" label="视频"> </el-table-column>
+              <el-table-column label="时长" width="150">
+                <template slot-scope="scope">
+                  <duration-text :duration="scope.row.duration"></duration-text>
+                </template>
+              </el-table-column>
+              <el-table-column prop="storage_driver" label="存储" width="100">
+              </el-table-column>
+              <el-table-column label="大小" width="150">
+                <template slot-scope="scope">
+                  <span>{{ scope.row.size_mb }}MB</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="时间" width="200">
+                <template slot-scope="scope">
+                  <span>{{ scope.row.created_at | dateFormat }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column fixed="right" label="操作" width="60">
+                <template slot-scope="scope">
+                  <el-popconfirm
+                    title="确认删除吗？"
+                    @confirm="destory(scope.row.id)"
+                  >
+                    <p-link
+                      slot="reference"
+                      text="删除"
+                      p="media.video.delete.multi"
+                      type="danger"
+                    ></p-link>
+                  </el-popconfirm>
+                </template>
+              </el-table-column>
+            </el-table>
+
+            <div class="float-left mt-15 text-center">
+              <el-pagination
+                @size-change="paginationSizeChange"
+                @current-change="paginationPageChange"
+                :current-page="pagination.page"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="pagination.size"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+              >
+              </el-pagination>
             </div>
           </div>
 
-          <el-table
-            :header-cell-style="{ background: '#f1f2f9' }"
-            :data="list"
-            ref="table"
-            highlight-current-row
-            @current-change="handleCurrentChange"
-            class="float-left mb-15"
-            v-loading="loading"
-          >
-            <el-table-column label width="55">
-              <template slot-scope="scope">
-                <el-radio :label="scope.row.id" v-model="radio"
-                  ><span></span
-                ></el-radio>
-              </template>
-            </el-table-column>
-            <el-table-column prop="id" label="ID" width="120">
-            </el-table-column>
-            <el-table-column prop="title" label="视频"> </el-table-column>
-            <el-table-column label="时长" width="150">
-              <template slot-scope="scope">
-                <duration-text :duration="scope.row.duration"></duration-text>
-              </template>
-            </el-table-column>
-            <el-table-column prop="storage_driver" label="存储" width="100">
-            </el-table-column>
-            <el-table-column label="大小" width="150">
-              <template slot-scope="scope">
-                <span>{{ scope.row.size_mb }}MB</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="时间" width="200">
-              <template slot-scope="scope">
-                <span>{{ scope.row.created_at | dateFormat }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column fixed="right" label="操作" width="60">
-              <template slot-scope="scope">
-                <el-popconfirm
-                  title="确认删除吗？"
-                  @confirm="destory(scope.row.id)"
-                >
-                  <p-link
-                    slot="reference"
-                    text="删除"
-                    p="media.video.delete.multi"
-                    type="danger"
-                  ></p-link>
-                </el-popconfirm>
-              </template>
-            </el-table-column>
-          </el-table>
+          <div class="float-left" v-show="tab.active === 'upload'">
+            <div class="float-left mb-30">
+              <el-button
+                type="primary"
+                :disabled="upload.loading"
+                plain
+                @click="uploadAliyunVod"
+                >上传到阿里云点播</el-button
+              >
+              <el-button
+                type="primary"
+                :disabled="upload.loading"
+                plain
+                @click="uploadTencentVod"
+                >上传到腾讯云点播</el-button
+              >
+            </div>
 
-          <div class="float-left mt-15 text-center">
-            <el-pagination
-              @size-change="paginationSizeChange"
-              @current-change="paginationPageChange"
-              :current-page="pagination.page"
-              :page-sizes="[10, 20, 50, 100]"
-              :page-size="pagination.size"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="total"
-            >
-            </el-pagination>
-          </div>
-        </div>
-
-        <div class="float-left" v-show="tab.active === 'upload'">
-          <div class="float-left mb-30">
-            <el-button
-              type="primary"
-              :disabled="upload.loading"
-              plain
-              @click="uploadAliyunVod"
-              >上传到阿里云点播</el-button
-            >
-            <el-button
-              type="primary"
-              :disabled="upload.loading"
-              plain
-              @click="uploadTencentVod"
-              >上传到腾讯云点播</el-button
-            >
-          </div>
-
-          <template v-if="upload.loading || upload.fileId">
-            <div class="upload-process-box mb-30 mt-30">
-              <div>
-                <el-progress
-                  type="circle"
-                  :stroke-width="15"
-                  :percentage="upload.process"
-                ></el-progress>
+            <template v-if="upload.loading || upload.fileId">
+              <div class="upload-process-box mb-30 mt-30">
+                <div>
+                  <el-progress
+                    type="circle"
+                    :stroke-width="15"
+                    :percentage="upload.process"
+                  ></el-progress>
+                </div>
               </div>
-            </div>
-            <div class="float-left text-center">
-              <span class="helper-text">{{ upload.file.title }}</span>
-            </div>
-          </template>
+              <div class="float-left text-center">
+                <span class="helper-text">{{ upload.file.title }}</span>
+              </div>
+            </template>
 
-          <div style="display: none">
-            <input type="file" ref="video-file" @change="fileChange" />
-            <video ref="video-play" @loadedmetadata="videoPlayEvt"></video>
+            <div style="display: none">
+              <input type="file" ref="video-file" @change="fileChange" />
+              <video ref="video-play" @loadedmetadata="videoPlayEvt"></video>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="confirm"> 确定 </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

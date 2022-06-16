@@ -1,79 +1,81 @@
 <template>
-  <div class="meedu-dialog-mask">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">添加导航</div>
-      <div class="meedu-dialog-body">
-        <el-form ref="form" :model="form" :rules="rules" label-width="200px">
-          <el-form-item label="父导航" prop="parent_id">
-            <el-select
-              v-model="form.parent_id"
-              placeholder="请选择"
-              class="w-200px"
-            >
-              <el-option
-                v-for="item in parentNavs"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
+  <transition name="fade">
+    <div class="meedu-dialog-mask">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">添加导航</div>
+        <div class="meedu-dialog-body">
+          <el-form ref="form" :model="form" :rules="rules" label-width="200px">
+            <el-form-item label="父导航" prop="parent_id">
+              <el-select
+                v-model="form.parent_id"
+                placeholder="请选择"
+                class="w-200px"
               >
-              </el-option>
-            </el-select>
-          </el-form-item>
+                <el-option
+                  v-for="item in parentNavs"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
 
-          <el-form-item prop="sort">
-            <template slot="label">
-              <form-label
-                text="排序值"
-                helper="请填写整数，小数靠前，大数靠后"
-              ></form-label>
-            </template>
-            <el-input v-model="form.sort" class="w-200px"></el-input>
-          </el-form-item>
+            <el-form-item prop="sort">
+              <template slot="label">
+                <form-label
+                  text="排序值"
+                  helper="请填写整数，小数靠前，大数靠后"
+                ></form-label>
+              </template>
+              <el-input v-model="form.sort" class="w-200px"></el-input>
+            </el-form-item>
 
-          <el-form-item label="导航名" prop="name">
-            <el-input v-model="form.name" class="w-200px"></el-input>
-          </el-form-item>
+            <el-form-item label="导航名" prop="name">
+              <el-input v-model="form.name" class="w-200px"></el-input>
+            </el-form-item>
 
-          <el-form-item label="链接地址" prop="url">
-            <div class="d-flex">
-              <div>
-                <el-input
-                  @input="handlerValue"
-                  v-model="form.url"
-                  class="w-200px"
-                ></el-input>
+            <el-form-item label="链接地址" prop="url">
+              <div class="d-flex">
+                <div>
+                  <el-input
+                    @input="handlerValue"
+                    v-model="form.url"
+                    class="w-200px"
+                  ></el-input>
+                </div>
+                <div class="ml-15">
+                  <el-link type="primary" @click="showLinkWin = true">
+                    选择链接
+                  </el-link>
+                </div>
               </div>
-              <div class="ml-15">
-                <el-link type="primary" @click="showLinkWin = true">
-                  选择链接
-                </el-link>
-              </div>
-            </div>
-          </el-form-item>
+            </el-form-item>
 
-          <el-form-item label="新窗口打开" prop="blank" v-if="linkStatus">
-            <el-switch
-              v-model="form.blank"
-              :active-value="1"
-              :inactive-value="0"
-            ></el-switch>
-          </el-form-item>
-        </el-form>
+            <el-form-item label="新窗口打开" prop="blank" v-if="linkStatus">
+              <el-switch
+                v-model="form.blank"
+                :active-value="1"
+                :inactive-value="0"
+              ></el-switch>
+            </el-form-item>
+          </el-form>
+        </div>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="formValidate" :loading="loading">
+            确定
+          </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
+        </div>
       </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="formValidate" :loading="loading">
-          确定
-        </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
-      </div>
+
+      <pc-link
+        @close="showLinkWin = false"
+        @change="linkChange"
+        :show="showLinkWin"
+      ></pc-link>
     </div>
-
-    <pc-link
-      @close="showLinkWin = false"
-      @change="linkChange"
-      :show="showLinkWin"
-    ></pc-link>
-  </div>
+  </transition>
 </template>
 
 <script>
