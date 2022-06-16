@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="学习路径分类"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加分类"
         p="addons.learnPaths.category.store"
         @click="$router.push({ name: 'LearningPathCategoriesCreate' })"
         type="primary"

@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="电子书分类管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加分类"
         p="addons.meedu_books.book_category.store"
         @click="$router.push({ name: 'MeedubookCategoryCreate' })"
         type="primary"

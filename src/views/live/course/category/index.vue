@@ -4,7 +4,7 @@
 
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加分类"
         @click="$router.push({ name: 'LiveCourseCategoryCreate' })"
         type="primary"
         p="addons.Zhibo.course_category.store"
