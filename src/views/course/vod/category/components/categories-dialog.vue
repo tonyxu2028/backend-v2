@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
+    <div class="meedu-cate-dialog-box">
       <div class="meedu-dialog-header">{{ text }}</div>
       <div class="meedu-dialog-body">
         <div class="float-left">
@@ -9,10 +9,10 @@
             class="float-left"
             :model="form"
             :rules="rules"
-            label-width="200px"
+            label-width="100px"
           >
             <el-form-item label="父级分类" prop="parent_id">
-              <el-select v-model="form.parent_id">
+              <el-select class="w-300px" clearable v-model="form.parent_id">
                 <el-option
                   v-for="(item, index) in categories"
                   :key="index"
@@ -24,7 +24,11 @@
             </el-form-item>
 
             <el-form-item label="分类名称" prop="name">
-              <el-input v-model="form.name" class="w-200px"></el-input>
+              <el-input
+                v-model="form.name"
+                class="w-300px"
+                placeholder="填写分类名称"
+              ></el-input>
             </el-form-item>
 
             <el-form-item label="排序" prop="sort">
@@ -33,15 +37,24 @@
                   <el-input
                     type="number"
                     v-model="form.sort"
-                    class="w-200px"
+                    class="w-300px"
                   ></el-input>
                 </div>
                 <div class="ml-10">
                   <helper-text
-                    text="请输入整数。小数排在前面，大数排在后面。"
+                    text="填写整数，数字越小排序越靠前"
                   ></helper-text>
                 </div>
               </div>
+            </el-form-item>
+
+            <el-form-item label="显示" prop="is_show">
+              <el-switch
+                v-model="form.is_show"
+                :active-value="1"
+                :inactive-value="0"
+              >
+              </el-switch>
             </el-form-item>
           </el-form>
         </div>
@@ -57,13 +70,14 @@
 </template>
 <script>
 export default {
-  props: ["show", "text", "categories"],
+  props: ["show", "id", "text", "categories"],
   data() {
     return {
       form: {
         sort: null,
         name: null,
         parent_id: null,
+        is_show: 1,
       },
       rules: {
         sort: [
@@ -84,8 +98,22 @@ export default {
       loading: false,
     };
   },
+  watch: {
+    id() {
+      this.getDetail();
+    },
+  },
   mounted() {},
   methods: {
+    getDetail() {
+      this.$api.Course.Vod.Categories.Detail(this.id).then((res) => {
+        var data = res.data;
+        this.form.name = data.name;
+        this.form.sort = data.sort;
+        this.form.is_show = data.is_show;
+        this.form.parent_id = data.parent_id === 0 ? null : data.parent_id;
+      });
+    },
     formValidate() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -97,7 +125,34 @@ export default {
       this.$emit("close");
     },
     confirm() {
-      this.$emit("confirm", this.form);
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+      if (this.text === "添加分类") {
+        this.$api.Course.Vod.Categories.Store(this.form)
+          .then(() => {
+            this.loading = false;
+            this.$message.success(this.$t("common.success"));
+            this.$emit("success");
+          })
+          .catch((e) => {
+            this.loading = false;
+            this.$message.error(e.message);
+          });
+      } else {
+        this.$api.Course.Vod.Categories.Update(this.id, this.form)
+          .then(() => {
+            this.loading = false;
+            this.$message.success(this.$t("common.success"));
+            this.$emit("success");
+          })
+          .catch((e) => {
+            this.loading = false;
+            this.$message.error(e.message);
+            e;
+          });
+      }
     },
   },
 };
