@@ -11,7 +11,7 @@
         label-width="200px"
       >
         <div class="float-left">
-          <el-form-item prop="cid" label="分类">
+          <el-form-item prop="cid" label="所属分类">
             <div class="d-flex">
               <div>
                 <el-select class="w-300px" v-model="course.cid">
@@ -35,15 +35,15 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="书名" prop="name">
+          <el-form-item label="电子书名称" prop="name">
             <el-input
               v-model="course.name"
               class="w-300px"
-              placeholder="书名"
+              placeholder="请输入电子书名称"
             ></el-input>
           </el-form-item>
 
-          <el-form-item prop="thumb" label="封面">
+          <el-form-item prop="thumb" label="电子书封面">
             <upload-image
               v-model="course.thumb"
               helper="长宽比3:4，建议尺寸：300x400像素"
@@ -53,7 +53,20 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="电子书价格" prop="charge">
+          <el-form-item label="免费" prop="is_free">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="is_free"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="价格" prop="charge" v-if="is_free === 0">
             <div class="d-flex">
               <div>
                 <el-input
@@ -110,7 +123,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="隐藏电子书">
+          <el-form-item label="隐藏">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -138,7 +151,7 @@
             ></el-input>
           </el-form-item>
 
-          <el-form-item prop="original_desc" label="详细介绍">
+          <el-form-item prop="original_desc" label="详情介绍">
             <div class="w-800px">
               <quill-editor
                 :height="400"
@@ -175,6 +188,7 @@ export default {
   },
   data() {
     return {
+      is_free: null,
       book_id: this.$route.query.id,
       course: null,
       rules: {
@@ -195,7 +209,7 @@ export default {
         name: [
           {
             required: true,
-            message: "书名不能为空",
+            message: "电子书名称不能为空",
             trigger: "blur",
           },
         ],
@@ -236,7 +250,17 @@ export default {
           },
         ],
       },
+      original_charge: null,
     };
+  },
+  watch: {
+    is_free(val) {
+      if (val === 1) {
+        this.course.charge = 0;
+      } else {
+        this.course.charge = this.original_charge;
+      }
+    },
   },
   mounted() {
     this.params();
@@ -251,6 +275,12 @@ export default {
     getDetail() {
       this.$api.Meedubook.Book.Detail(this.book_id).then((res) => {
         this.course = res.data;
+        if (this.course.charge > 0) {
+          this.original_charge = this.course.charge;
+          this.is_free = 0;
+        } else {
+          this.is_free = 1;
+        }
       });
     },
     formValidate() {

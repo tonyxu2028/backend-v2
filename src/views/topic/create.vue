@@ -254,6 +254,8 @@ export default {
     is_free(val) {
       if (val === 0) {
         this.topic.charge = 199;
+      } else {
+        this.topic.charge = 0;
       }
     },
   },
