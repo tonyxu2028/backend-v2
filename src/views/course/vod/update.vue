@@ -33,7 +33,17 @@
             <el-input v-model="course.title" class="w-300px"></el-input>
           </el-form-item>
 
-          <el-form-item label="课程免费" prop="is_free">
+          <el-form-item prop="thumb" label="课程封面">
+            <upload-image
+              v-model="course.thumb"
+              helper="长宽比4:3，建议尺寸：400x300像素"
+              width="200"
+              height="150"
+              name="上传封面"
+            ></upload-image>
+          </el-form-item>
+
+          <el-form-item label="免费" prop="is_free">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -49,11 +59,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item
-            label="课程价格"
-            prop="charge"
-            v-if="course.is_free === 0"
-          >
+          <el-form-item label="价格" prop="charge" v-if="course.is_free === 0">
             <div class="d-flex">
               <div>
                 <el-input
@@ -67,16 +73,6 @@
                 <helper-text text="最小单位“元”，不支持小数"></helper-text>
               </div>
             </div>
-          </el-form-item>
-
-          <el-form-item prop="thumb" label="课程封面">
-            <upload-image
-              v-model="course.thumb"
-              helper="长宽比4:3，建议尺寸：400x300像素"
-              width="200"
-              height="150"
-              name="上传封面"
-            ></upload-image>
           </el-form-item>
 
           <el-form-item label="上架时间" prop="published_at">
@@ -102,7 +98,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="隐藏课程">
+          <el-form-item label="隐藏">
             <div class="d-flex">
               <div>
                 <el-switch
