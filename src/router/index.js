@@ -1624,22 +1624,6 @@ const routes = [
     },
   },
   {
-    path: "/K12/XiaoBanKe/categories/create",
-    component: () => import("@/views/course/K12/categories/create"),
-    name: "K12CategoriesCreate",
-    meta: {
-      title: "title.course.xiaobanke.categories.create",
-    },
-  },
-  {
-    path: "/K12/XiaoBanKe/categories/update",
-    component: () => import("@/views/course/K12/categories/update"),
-    name: "K12CategoriesUpdate",
-    meta: {
-      title: "title.course.xiaobanke.categories.update",
-    },
-  },
-  {
     path: "/K12/XiaoBanKe/order/index",
     component: () => import("@/views/course/K12/order/index"),
     name: "K12CourseOrder",

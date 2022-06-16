@@ -5,7 +5,7 @@
     <div class="float-left mb-30">
       <p-button
         text="添加分类"
-        @click="$router.push({ name: 'K12CategoriesCreate' })"
+        @click="addCategory"
         type="primary"
         p="addons.XiaoBanKe.course_category.store"
       >
@@ -28,12 +28,7 @@
               <p-link
                 text="编辑"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'K12CategoriesUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
+                @click="updateCategory(scope.row.id)"
                 p="addons.XiaoBanKe.course_category.update"
               ></p-link>
               <p-link
@@ -48,17 +43,36 @@
         </el-table>
       </div>
     </div>
+    <categories-dialog
+      :show="showAddWin"
+      :categories="categories"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></categories-dialog>
   </div>
 </template>
 
 <script>
+import CategoriesDialog from "./components/categories-dialog";
 export default {
+  components: {
+    CategoriesDialog,
+  },
   data() {
     return {
       pageName: "k12Category-list",
       loading: false,
       list: [],
+      categories: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
+  },
+  mounted() {
+    this.create();
   },
   activated() {
     this.getData();
@@ -69,6 +83,26 @@ export default {
     next();
   },
   methods: {
+    create() {
+      this.$api.xiaoBanKe.CourseCategory.Create().then((res) => {
+        var data = res.data;
+        this.categories = data.categories;
+      });
+    },
+    addCategory() {
+      this.tit = "添加分类";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateCategory(id) {
+      this.tit = "编辑分类";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.getData();
+    },
     getData() {
       if (this.loading) {
         return;
