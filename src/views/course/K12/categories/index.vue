@@ -101,6 +101,7 @@ export default {
     },
     successEvt() {
       this.showAddWin = false;
+      this.create();
       this.getData();
     },
     getData() {
@@ -129,6 +130,7 @@ export default {
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));
+              this.create();
               this.getData();
             })
             .catch((e) => {

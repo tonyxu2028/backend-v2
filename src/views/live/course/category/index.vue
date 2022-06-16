@@ -101,6 +101,7 @@ export default {
     },
     successEvt() {
       this.showAddWin = false;
+      this.params();
       this.getData();
     },
     params() {
@@ -134,6 +135,7 @@ export default {
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));
+              this.params();
               this.getData();
             })
             .catch((e) => {

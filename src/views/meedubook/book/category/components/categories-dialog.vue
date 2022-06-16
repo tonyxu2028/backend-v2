@@ -76,12 +76,15 @@ export default {
     };
   },
   watch: {
+    show(val) {
+      if (!val) {
+        this.form.name = null;
+        this.form.sort = null;
+      }
+    },
     id(val) {
       if (val) {
         this.getDetail();
-      } else {
-        this.form.name = null;
-        this.form.sort = null;
       }
     },
   },

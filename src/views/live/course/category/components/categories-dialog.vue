@@ -99,14 +99,17 @@ export default {
     };
   },
   watch: {
-    id(val) {
-      if (val) {
-        this.getDetail();
-      } else {
+    show(val) {
+      if (!val) {
         this.form.name = null;
         this.form.sort = null;
         this.form.is_show = 1;
         this.form.parent_id = null;
+      }
+    },
+    id(val) {
+      if (val) {
+        this.getDetail();
       }
     },
   },
