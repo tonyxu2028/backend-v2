@@ -283,7 +283,7 @@ export default {
         let params = [];
         if (courses.length > 0) {
           for (let i = 0; i < courses.length; i++) {
-            let type = this.courses[i].type;
+            let type = courses[i].type;
             if (type === "paper_practice") {
               type = "practice";
             }
