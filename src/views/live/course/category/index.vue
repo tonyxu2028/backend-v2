@@ -72,7 +72,6 @@ export default {
       loading: false,
       list: [],
       categories: [],
-      userRemark: [],
       showAddWin: false,
       tit: null,
       updateId: null,

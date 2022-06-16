@@ -5,7 +5,7 @@
       <p-button
         text="添加分类"
         p="addons.learnPaths.category.store"
-        @click="$router.push({ name: 'LearningPathCategoriesCreate' })"
+        @click="addCategory"
         type="primary"
       >
       </p-button>
@@ -34,12 +34,7 @@
                 text="编辑"
                 p="addons.learnPaths.category.update"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'LearningPathCategoriesUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
+                @click="updateCategory(scope.row.id)"
               ></p-link>
               <p-link
                 text="删除"
@@ -66,10 +61,22 @@
         </el-pagination>
       </div>
     </div>
+    <categories-dialog
+      :show="showAddWin"
+      :categories="categories"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></categories-dialog>
   </div>
 </template>
 <script>
+import CategoriesDialog from "./components/categories-dialog";
 export default {
+  components: {
+    CategoriesDialog,
+  },
   data() {
     return {
       pageName: "learnPathCategory-list",
@@ -80,7 +87,9 @@ export default {
       total: 0,
       loading: false,
       categories: [],
-      userRemark: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -92,6 +101,20 @@ export default {
     next();
   },
   methods: {
+    addCategory() {
+      this.tit = "添加分类";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateCategory(id) {
+      this.tit = "编辑分类";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.paginationReset();
+    },
     paginationReset() {
       this.pagination.page = 1;
       this.getCategories();

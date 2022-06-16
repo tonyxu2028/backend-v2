@@ -65,7 +65,6 @@ export default {
       pageName: "bookCategory-list",
       loading: false,
       categories: [],
-      userRemark: [],
       showAddWin: false,
       tit: null,
       updateId: null,

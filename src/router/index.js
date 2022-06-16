@@ -927,22 +927,6 @@ const routes = [
     },
   },
   {
-    path: "/learningpath/path/category/create",
-    component: () => import("@/views/learningpath/path/category/create"),
-    name: "LearningPathCategoriesCreate",
-    meta: {
-      title: "title.learningpath.path.category.create",
-    },
-  },
-  {
-    path: "/learningpath/path/category/update",
-    component: () => import("@/views/learningpath/path/category/update"),
-    name: "LearningPathCategoriesUpdate",
-    meta: {
-      title: "title.learningpath.path.category.update",
-    },
-  },
-  {
     path: "/learningpath/path/user",
     component: () => import("@/views/learningpath/path/user"),
     name: "LearningUser",

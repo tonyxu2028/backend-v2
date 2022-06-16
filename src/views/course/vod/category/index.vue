@@ -93,7 +93,6 @@ export default {
       total: 0,
       loading: false,
       categories: [],
-      userRemark: [],
       showAddWin: false,
       tit: null,
       updateId: null,
