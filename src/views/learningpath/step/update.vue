@@ -284,6 +284,9 @@ export default {
         if (courses.length > 0) {
           for (let i = 0; i < courses.length; i++) {
             let type = courses[i].type;
+            if (type === "course") {
+              type = "vod";
+            }
             if (type === "paper_practice") {
               type = "practice";
             }
@@ -322,6 +325,9 @@ export default {
       if (this.coursesData.length > 0) {
         for (let i = 0; i < this.coursesData.length; i++) {
           let type = this.coursesData[i].type;
+          if (type === "vod") {
+            type = "course";
+          }
           if (type === "practice") {
             type = "paper_practice";
           }
