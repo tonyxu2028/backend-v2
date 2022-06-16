@@ -257,12 +257,13 @@ export default {
       },
       chapters: [],
       loading: false,
+      original_charge: null,
     };
   },
   watch: {
     is_free(val) {
       if (val === 0) {
-        this.topic.charge = 199;
+        this.topic.charge = this.original_charge;
       } else {
         this.topic.charge = 0;
       }
@@ -289,6 +290,7 @@ export default {
     getDetail() {
       this.$api.Course.Topic.Topic.Detail(this.id).then((res) => {
         this.topic = res.data;
+        this.original_charge = this.topic.charge;
         if (this.topic.charge > 0) {
           this.is_free = 0;
         } else {

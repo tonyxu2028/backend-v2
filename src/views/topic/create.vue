@@ -252,9 +252,7 @@ export default {
   },
   watch: {
     is_free(val) {
-      if (val === 0) {
-        this.topic.charge = 199;
-      } else {
+      if (val === 1) {
         this.topic.charge = 0;
       }
     },

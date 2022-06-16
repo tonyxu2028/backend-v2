@@ -275,8 +275,8 @@ export default {
     getDetail() {
       this.$api.Meedubook.Book.Detail(this.book_id).then((res) => {
         this.course = res.data;
+        this.original_charge = this.course.charge;
         if (this.course.charge > 0) {
-          this.original_charge = this.course.charge;
           this.is_free = 0;
         } else {
           this.is_free = 1;
