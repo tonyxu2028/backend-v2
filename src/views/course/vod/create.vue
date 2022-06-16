@@ -53,17 +53,10 @@
                 >
                 </el-switch>
               </div>
-              <div class="ml-10">
-                <helper-text text="打开后课程免费学习"></helper-text>
-              </div>
             </div>
           </el-form-item>
 
-          <el-form-item
-            label="价格"
-            prop="charge"
-            v-if="course.is_free === 0"
-          >
+          <el-form-item label="价格" prop="charge" v-if="course.is_free === 0">
             <div class="d-flex">
               <div>
                 <el-input

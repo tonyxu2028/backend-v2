@@ -53,9 +53,6 @@
                 >
                 </el-switch>
               </div>
-              <div class="ml-10">
-                <helper-text text="打开后课程免费学习"></helper-text>
-              </div>
             </div>
           </el-form-item>
 

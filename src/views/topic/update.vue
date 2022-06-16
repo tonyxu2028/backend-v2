@@ -11,7 +11,7 @@
         label-width="200px"
       >
         <div class="float-left">
-          <el-form-item prop="cid" label="分类">
+          <el-form-item prop="cid" label="所属分类">
             <div class="d-flex">
               <div>
                 <el-select class="w-300px" v-model="topic.cid">
@@ -39,11 +39,11 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="标题" prop="title">
+          <el-form-item label="图文名称" prop="title">
             <el-input
               v-model="topic.title"
               class="w-300px"
-              placeholder="请输入标题"
+              placeholder="请输入图文名称"
             ></el-input>
           </el-form-item>
           <el-form-item prop="thumb" label="封面">
@@ -55,7 +55,20 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="图文价格">
+          <el-form-item label="免费" prop="is_free">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="is_free"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="价格" v-if="is_free === 0">
             <div class="d-flex">
               <div>
                 <el-input
@@ -108,7 +121,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="隐藏图文">
+          <el-form-item label="隐藏">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -210,6 +223,7 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
+      is_free: null,
       topic: null,
       rules: {
         cid: [
@@ -229,7 +243,7 @@ export default {
         title: [
           {
             required: true,
-            message: "标题不能为空",
+            message: "图文名称不能为空",
             trigger: "blur",
           },
         ],
@@ -266,6 +280,11 @@ export default {
     getDetail() {
       this.$api.Course.Topic.Topic.Detail(this.id).then((res) => {
         this.topic = res.data;
+        if (this.topic.charge > 0) {
+          this.is_free = 0;
+        } else {
+          this.is_free = 1;
+        }
       });
     },
     formValidate() {
