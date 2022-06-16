@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       selectedResult: null,
-      resourceActive: "vod",
+      resourceActive: null,
     };
   },
   computed: {
@@ -194,6 +194,18 @@ export default {
 
       return r;
     },
+  },
+  watch: {
+    avaliableResources() {
+      if (this.avaliableResources.length > 0) {
+        this.resourceActive = this.avaliableResources[0].key;
+      }
+    },
+  },
+  mounted() {
+    if (this.avaliableResources.length > 0) {
+      this.resourceActive = this.avaliableResources[0].key;
+    }
   },
   methods: {
     close() {
