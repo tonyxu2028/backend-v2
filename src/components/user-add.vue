@@ -49,9 +49,11 @@
         <div class="float-left mt-30" v-loading="loading">
           <div class="float-left">
             <el-table
+              ref="multipleTable"
               :header-cell-style="{ background: '#f1f2f9' }"
               :data="users"
               class="float-left"
+              @row-click="handleRowClick"
               @sort-change="sortChange"
               :default-sort="{ prop: 'id', order: 'descending' }"
               @selection-change="handleSelectionChange"
@@ -160,6 +162,13 @@ export default {
     },
     handleSelectionChange(rows) {
       this.selectedRows = rows;
+    },
+    handleRowClick(row) {
+      let id = row.id;
+      this.$refs.multipleTable.toggleRowSelection(row);
+      // 获取当前选中的数据
+      const _selectData = this.$refs.multipleTable.selection;
+      this.handleSelectionChange(_selectData);
     },
     getUser() {
       if (this.loading) {
