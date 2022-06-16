@@ -9,7 +9,7 @@
         :rules="rules"
         label-width="200px"
       >
-        <el-form-item label="分类" prop="category_id">
+        <el-form-item label="所属分类" prop="category_id">
           <div class="d-flex">
             <div>
               <el-select class="w-300px" v-model="course.category_id">
@@ -38,7 +38,7 @@
           <el-input v-model="course.name" class="w-300px"></el-input>
         </el-form-item>
 
-        <el-form-item prop="thumb" label="封面">
+        <el-form-item prop="thumb" label="路径封面">
           <upload-image
             v-model="course.thumb"
             helper="长宽比4:3，建议尺寸：400x300像素"
@@ -87,7 +87,7 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="隐藏路径">
+        <el-form-item label="隐藏">
           <div class="d-flex">
             <div>
               <el-switch
