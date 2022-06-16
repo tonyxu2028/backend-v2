@@ -147,8 +147,6 @@ export default {
     TopicCreate: "Topic",
     TopicUpdate: "Topic",
     TopicCategory: "Topic",
-    TopicCategoryCreate: "Topic",
-    TopicCategoryUpdate: "Topic",
     TopicComment: "Topic",
     TopicOrder: "Topic",
     ExamPaper: "ExamPaper",

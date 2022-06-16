@@ -1262,22 +1262,6 @@ const routes = [
     },
   },
   {
-    path: "/topic/category/create",
-    component: () => import("@/views/topic/category/create"),
-    name: "TopicCategoryCreate",
-    meta: {
-      title: "title.topic.category.create",
-    },
-  },
-  {
-    path: "/topic/category/update",
-    component: () => import("@/views/topic/category/update"),
-    name: "TopicCategoryUpdate",
-    meta: {
-      title: "title.topic.category.update",
-    },
-  },
-  {
     path: "/topic/comment",
     component: () => import("@/views/topic/comment"),
     name: "TopicComment",
