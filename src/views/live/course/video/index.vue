@@ -25,8 +25,7 @@
           <el-table-column prop="id" label="ID" min-width="10%">
           </el-table-column>
           <el-table-column prop="name" label="标题" min-width="42%">
-            <template slot-scope="scope"
-              >s
+            <template slot-scope="scope">
               <template v-if="scope.row.chapter">
                 <span>{{ scope.row.chapter.name }}</span>
                 <span class="mx-5">/</span>
