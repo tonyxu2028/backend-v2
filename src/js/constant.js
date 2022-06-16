@@ -62,8 +62,6 @@ export default {
     MeedubookComment: "Meedubook",
     MeedubookUsers: "Meedubook",
     MeedubookCategory: "Meedubook",
-    MeedubookCategoryCreate: "Meedubook",
-    MeedubookCategoryUpdate: "Meedubook",
     MeedubookChapter: "Meedubook",
     MeedubookChapterCreate: "Meedubook",
     MeedubookChapterUpdate: "Meedubook",

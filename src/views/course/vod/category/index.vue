@@ -34,7 +34,7 @@
               <span v-else>否</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="160">
+          <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
               <p-link
                 text="编辑"
@@ -110,6 +110,7 @@ export default {
   methods: {
     addCategory() {
       this.tit = "添加分类";
+      this.updateId = null;
       this.showAddWin = true;
     },
     updateCategory(id) {

@@ -569,22 +569,6 @@ const routes = [
     },
   },
   {
-    path: "/meedubook/category/create",
-    component: () => import("@/views/meedubook/book/category/create"),
-    name: "MeedubookCategoryCreate",
-    meta: {
-      title: "title.meedubook.book.category.create",
-    },
-  },
-  {
-    path: "/meedubook/category/update",
-    component: () => import("@/views/meedubook/book/category/update"),
-    name: "MeedubookCategoryUpdate",
-    meta: {
-      title: "title.meedubook.book.category.update",
-    },
-  },
-  {
     path: "/meedubook/chapter/index",
     component: () => import("@/views/meedubook/book/chapter/index"),
     name: "MeedubookChapter",

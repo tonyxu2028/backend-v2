@@ -34,7 +34,7 @@
               ></p-link>
               <p-link
                 text="删除"
-                style="margin-right: 10px"
+                class="ml-5"
                 type="danger"
                 @click="destory(scope.row.id)"
                 p="addons.meedu_topics.category.delete"
@@ -82,6 +82,7 @@ export default {
   methods: {
     addCategory() {
       this.tit = "添加分类";
+      this.updateId = null;
       this.showAddWin = true;
     },
     updateCategory(id) {

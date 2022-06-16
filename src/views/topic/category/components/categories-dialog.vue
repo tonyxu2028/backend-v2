@@ -76,8 +76,13 @@ export default {
     };
   },
   watch: {
-    id() {
-      this.getDetail();
+    id(val) {
+      if (val) {
+        this.getDetail();
+      } else {
+        this.form.name = null;
+        this.form.sort = null;
+      }
     },
   },
   mounted() {},

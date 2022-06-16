@@ -92,6 +92,7 @@ export default {
   methods: {
     addCategory() {
       this.tit = "添加分类";
+      this.updateId = null;
       this.showAddWin = true;
     },
     updateCategory(id) {

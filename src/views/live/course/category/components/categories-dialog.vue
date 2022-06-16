@@ -99,8 +99,15 @@ export default {
     };
   },
   watch: {
-    id() {
-      this.getDetail();
+    id(val) {
+      if (val) {
+        this.getDetail();
+      } else {
+        this.form.name = null;
+        this.form.sort = null;
+        this.form.is_show = 1;
+        this.form.parent_id = null;
+      }
     },
   },
   mounted() {},

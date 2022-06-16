@@ -11,18 +11,6 @@
             :rules="rules"
             label-width="100px"
           >
-            <el-form-item label="父级分类" prop="parent_id">
-              <el-select class="w-300px" clearable v-model="form.parent_id">
-                <el-option
-                  v-for="(item, index) in categories"
-                  :key="index"
-                  :label="item.name"
-                  :value="item.id"
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
-
             <el-form-item label="分类名称" prop="name">
               <el-input
                 v-model="form.name"
@@ -47,15 +35,6 @@
                 </div>
               </div>
             </el-form-item>
-
-            <el-form-item label="显示" prop="is_show">
-              <el-switch
-                v-model="form.is_show"
-                :active-value="1"
-                :inactive-value="0"
-              >
-              </el-switch>
-            </el-form-item>
           </el-form>
         </div>
       </div>
@@ -76,8 +55,6 @@ export default {
       form: {
         sort: null,
         name: null,
-        parent_id: null,
-        is_show: 1,
       },
       rules: {
         sort: [
@@ -105,20 +82,16 @@ export default {
       } else {
         this.form.name = null;
         this.form.sort = null;
-        this.form.is_show = 1;
-        this.form.parent_id = null;
       }
     },
   },
   mounted() {},
   methods: {
     getDetail() {
-      this.$api.Course.Vod.Categories.Detail(this.id).then((res) => {
+      this.$api.Meedubook.Book.Categories.Detail(this.id).then((res) => {
         var data = res.data;
         this.form.name = data.name;
         this.form.sort = data.sort;
-        this.form.is_show = data.is_show;
-        this.form.parent_id = data.parent_id === 0 ? null : data.parent_id;
       });
     },
     formValidate() {
@@ -137,7 +110,7 @@ export default {
       }
       this.loading = true;
       if (this.text === "添加分类") {
-        this.$api.Course.Vod.Categories.Store(this.form)
+        this.$api.Meedubook.Book.Categories.Store(this.form)
           .then(() => {
             this.loading = false;
             this.$message.success(this.$t("common.success"));
@@ -148,7 +121,7 @@ export default {
             this.$message.error(e.message);
           });
       } else {
-        this.$api.Course.Vod.Categories.Update(this.id, this.form)
+        this.$api.Meedubook.Book.Categories.Update(this.id, this.form)
           .then(() => {
             this.loading = false;
             this.$message.success(this.$t("common.success"));
