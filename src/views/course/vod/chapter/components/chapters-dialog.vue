@@ -12,23 +12,11 @@
               :rules="rules"
               label-width="100px"
             >
-              <el-form-item label="父级分类" prop="parent_id">
-                <el-select class="w-300px" clearable v-model="form.parent_id">
-                  <el-option
-                    v-for="(item, index) in categories"
-                    :key="index"
-                    :label="item.name"
-                    :value="item.id"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-
-              <el-form-item label="分类名称" prop="name">
+              <el-form-item label="章节名称" prop="title">
                 <el-input
-                  v-model="form.name"
+                  v-model="form.title"
                   class="w-300px"
-                  placeholder="填写分类名称"
+                  placeholder="填写章节名称"
                 ></el-input>
               </el-form-item>
 
@@ -63,14 +51,12 @@
 </template>
 <script>
 export default {
-  props: ["id", "text", "categories"],
+  props: ["id", "courseId", "text"],
   data() {
     return {
       form: {
         sort: null,
-        name: null,
-        parent_id: null,
-        is_show: 1,
+        title: null,
       },
       rules: {
         sort: [
@@ -80,10 +66,10 @@ export default {
             trigger: "blur",
           },
         ],
-        name: [
+        title: [
           {
             required: true,
-            message: "分类名称不能为空",
+            message: "章节名称不能为空",
             trigger: "blur",
           },
         ],
@@ -93,21 +79,22 @@ export default {
   },
 
   mounted() {
-    this.form.name = null;
+    this.form.title = null;
     this.form.sort = null;
-    this.form.parent_id = null;
+
     if (this.id) {
       this.getDetail();
     }
   },
   methods: {
     getDetail() {
-      this.$api.Course.Vod.Categories.Detail(this.id).then((res) => {
-        var data = res.data;
-        this.form.name = data.name;
-        this.form.sort = data.sort;
-        this.form.parent_id = data.parent_id === 0 ? null : data.parent_id;
-      });
+      this.$api.Course.Vod.Chapters.Detail(this.courseId, this.id).then(
+        (res) => {
+          var data = res.data;
+          this.form.title = data.title;
+          this.form.sort = data.sort;
+        }
+      );
     },
     formValidate() {
       this.$refs["form"].validate((valid) => {
@@ -124,8 +111,8 @@ export default {
         return;
       }
       this.loading = true;
-      if (this.text === "添加分类") {
-        this.$api.Course.Vod.Categories.Store(this.form)
+      if (this.text === "添加章节") {
+        this.$api.Course.Vod.Chapters.Store(this.courseId, this.form)
           .then(() => {
             this.loading = false;
             this.$message.success(this.$t("common.success"));
@@ -136,7 +123,7 @@ export default {
             this.$message.error(e.message);
           });
       } else {
-        this.$api.Course.Vod.Categories.Update(this.id, this.form)
+        this.$api.Course.Vod.Chapters.Update(this.courseId, this.id, this.form)
           .then(() => {
             this.loading = false;
             this.$message.success(this.$t("common.success"));

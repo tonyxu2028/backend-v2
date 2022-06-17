@@ -12,23 +12,11 @@
               :rules="rules"
               label-width="100px"
             >
-              <el-form-item label="父级分类" prop="parent_id">
-                <el-select class="w-300px" clearable v-model="form.parent_id">
-                  <el-option
-                    v-for="(item, index) in categories"
-                    :key="index"
-                    :label="item.name"
-                    :value="item.id"
-                  >
-                  </el-option>
-                </el-select>
-              </el-form-item>
-
-              <el-form-item label="分类名称" prop="name">
+              <el-form-item label="章节名称" prop="name">
                 <el-input
                   v-model="form.name"
                   class="w-300px"
-                  placeholder="填写分类名称"
+                  placeholder="填写章节名称"
                 ></el-input>
               </el-form-item>
 
@@ -63,14 +51,13 @@
 </template>
 <script>
 export default {
-  props: ["id", "text", "categories"],
+  props: ["id", "courseId", "text"],
   data() {
     return {
       form: {
+        bid: null,
         sort: null,
         name: null,
-        parent_id: null,
-        is_show: 1,
       },
       rules: {
         sort: [
@@ -83,7 +70,7 @@ export default {
         name: [
           {
             required: true,
-            message: "分类名称不能为空",
+            message: "章节名称不能为空",
             trigger: "blur",
           },
         ],
@@ -91,22 +78,21 @@ export default {
       loading: false,
     };
   },
-
   mounted() {
+    this.form.bid = this.courseId;
     this.form.name = null;
     this.form.sort = null;
-    this.form.parent_id = null;
+
     if (this.id) {
       this.getDetail();
     }
   },
   methods: {
     getDetail() {
-      this.$api.Course.Vod.Categories.Detail(this.id).then((res) => {
+      this.$api.Meedubook.Book.Chapters.Detail(this.id).then((res) => {
         var data = res.data;
         this.form.name = data.name;
         this.form.sort = data.sort;
-        this.form.parent_id = data.parent_id === 0 ? null : data.parent_id;
       });
     },
     formValidate() {
@@ -124,8 +110,8 @@ export default {
         return;
       }
       this.loading = true;
-      if (this.text === "添加分类") {
-        this.$api.Course.Vod.Categories.Store(this.form)
+      if (this.text === "添加章节") {
+        this.$api.Meedubook.Book.Chapters.Store(this.form)
           .then(() => {
             this.loading = false;
             this.$message.success(this.$t("common.success"));
@@ -136,7 +122,7 @@ export default {
             this.$message.error(e.message);
           });
       } else {
-        this.$api.Course.Vod.Categories.Update(this.id, this.form)
+        this.$api.Meedubook.Book.Chapters.Update(this.id, this.form)
           .then(() => {
             this.loading = false;
             this.$message.success(this.$t("common.success"));

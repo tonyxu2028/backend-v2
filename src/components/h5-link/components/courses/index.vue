@@ -167,7 +167,7 @@ export default {
 }
 .select {
   position: absolute;
-  width: 770px;
+  width: 340px;
   top: 0;
 }
 </style>

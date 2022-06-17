@@ -134,7 +134,7 @@
                 </el-switch>
               </div>
               <div class="ml-10">
-                <helper-text text="打开后电子书在前台隐藏显示"></helper-text>
+                <helper-text text="打开后此电子书在前台隐藏显示"></helper-text>
               </div>
             </div>
           </el-form-item>

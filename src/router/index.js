@@ -371,22 +371,6 @@ const routes = [
     },
   },
   {
-    path: "/course/vod/chapter/create",
-    component: () => import("@/views/course/vod/chapter/create"),
-    name: "ChaptersCreate",
-    meta: {
-      title: "title.course.vod.chapter.create",
-    },
-  },
-  {
-    path: "/course/vod/chapter/update",
-    component: () => import("@/views/course/vod/chapter/update"),
-    name: "ChaptersUpdate",
-    meta: {
-      title: "title.course.vod.chapter.update",
-    },
-  },
-  {
     path: "/course/vod/attach/index",
     component: () => import("@/views/course/vod/attach/index"),
     name: "CourseAttach",
@@ -575,22 +559,6 @@ const routes = [
     meta: {
       title: "title.meedubook.book.chapter.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/meedubook/chapter/create",
-    component: () => import("@/views/meedubook/book/chapter/create"),
-    name: "MeedubookChapterCreate",
-    meta: {
-      title: "title.meedubook.book.chapter.create",
-    },
-  },
-  {
-    path: "/meedubook/chapter/update",
-    component: () => import("@/views/meedubook/book/chapter/update"),
-    name: "MeedubookChapterUpdate",
-    meta: {
-      title: "title.meedubook.book.chapter.update",
     },
   },
   {
@@ -1108,22 +1076,6 @@ const routes = [
     meta: {
       title: "title.live.course.chapter.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/live/course/chapter/create",
-    component: () => import("@/views/live/course/chapter/create"),
-    name: "LiveCourseChapterCreate",
-    meta: {
-      title: "title.live.course.chapter.create",
-    },
-  },
-  {
-    path: "/live/course/chapter/update",
-    component: () => import("@/views/live/course/chapter/update"),
-    name: "LiveCourseChapterUpdate",
-    meta: {
-      title: "title.live.course.chapter.update",
     },
   },
   {

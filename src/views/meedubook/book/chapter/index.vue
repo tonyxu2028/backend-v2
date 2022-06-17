@@ -3,14 +3,9 @@
     <back-bar class="mb-30" title="电子书章节管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加章节"
         p="addons.meedu_books.book_chapter.store"
-        @click="
-          $router.push({
-            name: 'MeedubookChapterCreate',
-            query: { bid: box.bid },
-          })
-        "
+        @click="addChapter"
         type="primary"
       ></p-button>
     </div>
@@ -36,12 +31,7 @@
                 text="编辑"
                 p="addons.meedu_books.book_chapter.update"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'MeedubookChapterUpdate',
-                    query: { bid: box.bid, id: scope.row.id },
-                  })
-                "
+                @click="updateChapter(scope.row.id)"
               ></p-link>
               <p-link
                 text="删除"
@@ -55,10 +45,23 @@
         </el-table>
       </div>
     </div>
+    <chapters-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      :courseId="box.bid"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></chapters-dialog>
   </div>
 </template>
 <script>
+import ChaptersDialog from "./components/chapters-dialog";
 export default {
+  components: {
+    ChaptersDialog,
+  },
   data() {
     return {
       pageName: "bookChapters-list",
@@ -67,6 +70,9 @@ export default {
       },
       loading: false,
       chapters: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -78,6 +84,20 @@ export default {
     next();
   },
   methods: {
+    addChapter() {
+      this.tit = "添加章节";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateChapter(id) {
+      this.tit = "编辑章节";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.getChapters();
+    },
     getChapters() {
       if (this.loading) {
         return;

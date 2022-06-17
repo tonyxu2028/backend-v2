@@ -82,6 +82,44 @@
             ></el-input>
           </el-form-item>
 
+          <el-form-item prop="thumb" label="课程封面">
+            <upload-image
+              v-model="course.thumb"
+              width="400"
+              height="300"
+              name="上传课程封面"
+              helper="推荐尺寸400x300 宽高比4:3"
+            ></upload-image>
+          </el-form-item>
+
+          <el-form-item label="免费" prop="is_free">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="is_free"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="价格" prop="charge" v-if="is_free === 0">
+            <div class="d-flex">
+              <div>
+                <el-input
+                  v-model="course.charge"
+                  placeholder="价格"
+                  class="w-300px"
+                ></el-input>
+              </div>
+              <div class="ml-10">
+                <helper-text text="最小单位“元”，不支持小数"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
           <el-form-item label="上架时间" prop="published_at">
             <div class="d-flex">
               <div>
@@ -96,41 +134,28 @@
                 </el-date-picker>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="上架时间决定了课程在学员端的排名，时间越早排名越靠后。如果是未来时间，则需要等到时间到达学员才能看到该课程。"
-                ></helper-text>
+                <helper-text text="上架时间越晚，排序越靠前"></helper-text>
               </div>
             </div>
           </el-form-item>
 
-          <el-form-item prop="thumb" label="课程封面">
-            <upload-image
-              v-model="course.thumb"
-              width="400"
-              height="300"
-              name="上传课程封面"
-              helper="推荐尺寸400x300 宽高比4:3"
-            ></upload-image>
-          </el-form-item>
-
-          <el-form-item label="价格" prop="charge">
+          <el-form-item label="隐藏">
             <div class="d-flex">
               <div>
-                <el-input
-                  v-model="course.charge"
-                  placeholder="价格"
-                  class="w-300px"
-                ></el-input>
+                <el-switch
+                  v-model="course.is_show"
+                  :active-value="0"
+                  :inactive-value="1"
+                >
+                </el-switch>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="最小单位：元。不支持小数。价格为0意味着学员可以直接观看直播，价格大于0则需要学员购买后才能观看直播。"
-                ></helper-text>
+                <helper-text text="打开后此直播课在前台隐藏显示"></helper-text>
               </div>
             </div>
           </el-form-item>
 
-          <el-form-item label="会员免费" v-if="course.charge > 0">
+          <el-form-item label="会员免费" v-if="is_free === 0">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -184,24 +209,6 @@
               </div>
             </div>
           </el-form-item>
-
-          <el-form-item label="显示" prop="is_show">
-            <div class="d-flex">
-              <div>
-                <el-switch
-                  v-model="course.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="该字段控制学员是否可以看到课程。"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
         </div>
       </el-form>
 
@@ -246,6 +253,7 @@ export default {
   },
   data() {
     return {
+      is_free: 0,
       course: {
         category_id: null,
         is_show: 1,
@@ -338,6 +346,14 @@ export default {
       visible: false,
     };
   },
+  watch: {
+    is_free(val) {
+      if (val === 1) {
+        this.course.charge = 0;
+        this.course.vip_can_view = 0;
+      }
+    },
+  },
   mounted() {
     this.create();
   },
@@ -375,6 +391,9 @@ export default {
         return;
       }
       this.loading = true;
+      if (this.course.charge == 0) {
+        this.course.vip_can_view = 0;
+      }
       this.course.render_desc = this.course.original_desc;
       this.$api.Course.Live.Course.Store(this.course)
         .then(() => {

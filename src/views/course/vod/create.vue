@@ -87,9 +87,7 @@
               </div>
               <div class="ml-15">
                 <div class="helper-text">
-                  <helper-text
-                    text="上架时间越早，课程排序越靠后"
-                  ></helper-text>
+                  <helper-text text="上架时间越晚，排序越靠前"></helper-text>
                 </div>
               </div>
             </div>
@@ -107,7 +105,7 @@
               </div>
               <div class="ml-15">
                 <div class="helper-text">
-                  <helper-text text="打开后课程在前台将隐藏显示"></helper-text>
+                  <helper-text text="打开后此课程在前台隐藏显示"></helper-text>
                 </div>
               </div>
             </div>
