@@ -1095,22 +1095,6 @@ const routes = [
     },
   },
   {
-    path: "/live/course/chapter/create",
-    component: () => import("@/views/live/course/chapter/create"),
-    name: "LiveCourseChapterCreate",
-    meta: {
-      title: "title.live.course.chapter.create",
-    },
-  },
-  {
-    path: "/live/course/chapter/update",
-    component: () => import("@/views/live/course/chapter/update"),
-    name: "LiveCourseChapterUpdate",
-    meta: {
-      title: "title.live.course.chapter.update",
-    },
-  },
-  {
     path: "/live/course/users/index",
     component: () => import("@/views/live/course/users/index"),
     name: "LiveCourseUsers",

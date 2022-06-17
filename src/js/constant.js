@@ -126,8 +126,6 @@ export default {
     LiveCourseComment: "LiveCourse",
     LiveCourseCategory: "LiveCourse",
     LiveCourseChapter: "LiveCourse",
-    LiveCourseChapterCreate: "LiveCourse",
-    LiveCourseChapterUpdate: "LiveCourse",
     LiveCourseUsers: "LiveCourse",
     LiveCourseVideo: "LiveCourse",
     LiveCourseVideoCreate: "LiveCourse",

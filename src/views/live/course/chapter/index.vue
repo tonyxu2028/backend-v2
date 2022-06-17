@@ -3,14 +3,9 @@
     <back-bar class="mb-30" title="直播课程章节"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加章节"
         p="addons.Zhibo.course_chapter.store"
-        @click="
-          $router.push({
-            name: 'LiveCourseChapterCreate',
-            query: { course_id: id },
-          })
-        "
+        @click="addChapter"
         type="primary"
       >
       </p-button>
@@ -29,39 +24,50 @@
           <el-table-column fixed="right" label="操作" width="160">
             <template slot-scope="scope">
               <p-link
+                text="编辑"
+                type="primary"
+                @click="updateChapter(scope.row.id)"
+                p="addons.Zhibo.course_chapter.update"
+              ></p-link>
+              <p-link
                 text="删除"
+                class="ml-5"
                 p="addons.Zhibo.course_chapter.delete"
                 type="danger"
                 @click="destory(scope.row.id)"
-              ></p-link>
-              <p-link
-                text="编辑"
-                type="primary"
-                class="ml-5"
-                @click="
-                  $router.push({
-                    name: 'LiveCourseChapterUpdate',
-                    query: { id: scope.row.id, course_id: id },
-                  })
-                "
-                p="addons.Zhibo.course_chapter.update"
               ></p-link>
             </template>
           </el-table-column>
         </el-table>
       </div>
     </div>
+    <chapters-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      :courseId="id"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></chapters-dialog>
   </div>
 </template>
 
 <script>
+import ChaptersDialog from "./components/chapters-dialog";
 export default {
+  components: {
+    ChaptersDialog,
+  },
   data() {
     return {
       pageName: "liveChapter-list",
       id: this.$route.query.id,
       loading: false,
       results: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -73,6 +79,20 @@ export default {
     next();
   },
   methods: {
+    addChapter() {
+      this.tit = "添加章节";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateChapter(id) {
+      this.tit = "编辑章节";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.getResults();
+    },
     getResults() {
       if (this.loading) {
         return;
