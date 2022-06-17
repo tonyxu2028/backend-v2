@@ -283,8 +283,18 @@ export default {
         let params = [];
         if (courses.length > 0) {
           for (let i = 0; i < courses.length; i++) {
+            let type = courses[i].type;
+            if (type === "course") {
+              type = "vod";
+            }
+            if (type === "paper_practice") {
+              type = "practice";
+            }
+            if (type === "paper_paper") {
+              type = "paper";
+            }
             let item = {
-              type: courses[i].type,
+              type: type,
               id: courses[i].other_id,
               title: courses[i].name,
               thumb: courses[i].thumb,
@@ -314,8 +324,18 @@ export default {
       let params = [];
       if (this.coursesData.length > 0) {
         for (let i = 0; i < this.coursesData.length; i++) {
+          let type = this.coursesData[i].type;
+          if (type === "vod") {
+            type = "course";
+          }
+          if (type === "practice") {
+            type = "paper_practice";
+          }
+          if (type === "paper") {
+            type = "paper_paper";
+          }
           let item = {
-            type: this.coursesData[i].type,
+            type: type,
             other_id: this.coursesData[i].id,
             name: this.coursesData[i].title,
             thumb: this.coursesData[i].thumb,

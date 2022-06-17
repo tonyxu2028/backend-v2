@@ -1,44 +1,52 @@
 <template>
-  <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">首页导航</div>
-      <div class="meedu-dialog-body" v-loading="loading">
-        <div class="float-left mb-15">
-          <el-button type="primary" @click="showCreateWin = true"
-            >添加</el-button
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-if="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">首页导航</div>
+        <div class="meedu-dialog-body" v-loading="loading">
+          <div class="float-left mb-15">
+            <el-button type="primary" @click="showCreateWin = true"
+              >添加</el-button
+            >
+          </div>
+          <el-table
+            :data="list"
+            class="float-left"
+            row-key="id"
+            :tree-props="{ children: 'children' }"
+            v-loading="loading"
           >
+            <el-table-column prop="sort" label="排序值" width="120">
+            </el-table-column>
+            <el-table-column prop="name" label="导航名"> </el-table-column>
+            <el-table-column prop="url" label="链接" width="300">
+            </el-table-column>
+            <el-table-column label="操作" width="120">
+              <template slot-scope="scope">
+                <el-link type="primary" @click="editNav(scope.row)"
+                  >编辑</el-link
+                >
+                <el-link type="danger" class="ml-10" @click="delNav(scope.row)">
+                  删除
+                </el-link>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
-        <el-table
-          :data="list"
-          class="float-left"
-          row-key="id"
-          :tree-props="{ children: 'children' }"
-          v-loading="loading"
-        >
-          <el-table-column prop="sort" label="排序值" width="120">
-          </el-table-column>
-          <el-table-column prop="name" label="导航名"> </el-table-column>
-          <el-table-column prop="url" label="链接" width="300">
-          </el-table-column>
-          <el-table-column label="操作" width="120">
-            <template slot-scope="scope">
-              <el-link type="primary" @click="editNav(scope.row)">编辑</el-link>
-              <el-link type="danger" class="ml-10" @click="delNav(scope.row)">
-                删除
-              </el-link>
-            </template>
-          </el-table-column>
-        </el-table>
+        <div class="meedu-dialog-footer">
+          <el-button @click="close">取消</el-button>
+        </div>
       </div>
-      <div class="meedu-dialog-footer">
-        <el-button @click="close">取消</el-button>
-      </div>
+
+      <create-comp @close="closeEvt" v-if="showCreateWin"></create-comp>
+
+      <edit-comp
+        @close="closeEvt"
+        :id="editItem.id"
+        v-if="showEditWin"
+      ></edit-comp>
     </div>
-
-    <create-comp @close="closeEvt" v-if="showCreateWin"></create-comp>
-
-    <edit-comp @close="closeEvt" :id="editItem.id" v-if="showEditWin"></edit-comp>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -48,7 +56,7 @@ import EditComp from "./edit.vue";
 export default {
   components: {
     CreateComp,
-    EditComp
+    EditComp,
   },
   props: ["show"],
   data() {

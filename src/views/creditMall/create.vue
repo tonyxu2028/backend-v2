@@ -134,7 +134,7 @@
 <script>
 import QuillEditor from "@/components/quill-editor";
 import UploadImage from "@/components/upload-image";
-import SelectResource from "@/components/select-resources/newIndex";
+import SelectResource from "@/components/select-resources/index";
 
 export default {
   components: {

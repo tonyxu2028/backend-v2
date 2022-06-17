@@ -1,64 +1,69 @@
 <template>
-  <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">选择</div>
-      <div class="meedu-dialog-body">
-        <div class="float-left">
-          <el-tabs v-model="resourceActive">
-            <el-tab-pane
-              :label="item.name"
-              :name="item.key"
-              v-for="(item, index) in avaliableResources"
-              :key="index"
-            ></el-tab-pane>
-          </el-tabs>
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-if="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">选择</div>
+        <div class="meedu-dialog-body">
+          <div class="float-left">
+            <el-tabs v-model="resourceActive">
+              <el-tab-pane
+                :label="item.name"
+                :name="item.key"
+                v-for="(item, index) in avaliableResources"
+                :key="index"
+              ></el-tab-pane>
+            </el-tabs>
+          </div>
+          <div class="float-left">
+            <vod-comp
+              v-if="resourceActive === 'vod'"
+              @change="change"
+            ></vod-comp>
+            <live-comp
+              v-else-if="resourceActive === 'live'"
+              @change="change"
+            ></live-comp>
+            <book-comp
+              v-else-if="resourceActive === 'book'"
+              @change="change"
+            ></book-comp>
+            <topic-comp
+              v-else-if="resourceActive === 'topic'"
+              @change="change"
+            ></topic-comp>
+            <paper-comp
+              v-else-if="resourceActive === 'paper'"
+              @change="change"
+            ></paper-comp>
+            <mock-paper-comp
+              v-else-if="resourceActive === 'mock-paper'"
+              @change="change"
+            ></mock-paper-comp>
+            <practice-comp
+              v-else-if="resourceActive === 'practice'"
+              @change="change"
+            ></practice-comp>
+            <learn-path-comp
+              v-else-if="resourceActive === 'learn-path'"
+              @change="change"
+            ></learn-path-comp>
+            <vip-comp
+              v-else-if="resourceActive === 'vip'"
+              @change="change"
+            ></vip-comp>
+            <video-comp
+              v-else-if="resourceActive === 'video'"
+              @change="change"
+            ></video-comp>
+          </div>
         </div>
-        <div class="float-left">
-          <vod-comp v-if="resourceActive === 'vod'" @change="change"></vod-comp>
-          <live-comp
-            v-else-if="resourceActive === 'live'"
-            @change="change"
-          ></live-comp>
-          <book-comp
-            v-else-if="resourceActive === 'book'"
-            @change="change"
-          ></book-comp>
-          <topic-comp
-            v-else-if="resourceActive === 'topic'"
-            @change="change"
-          ></topic-comp>
-          <paper-comp
-            v-else-if="resourceActive === 'paper'"
-            @change="change"
-          ></paper-comp>
-          <mock-paper-comp
-            v-else-if="resourceActive === 'mock-paper'"
-            @change="change"
-          ></mock-paper-comp>
-          <practice-comp
-            v-else-if="resourceActive === 'practice'"
-            @change="change"
-          ></practice-comp>
-          <learn-path-comp
-            v-else-if="resourceActive === 'learn-path'"
-            @change="change"
-          ></learn-path-comp>
-          <vip-comp
-            v-else-if="resourceActive === 'vip'"
-            @change="change"
-          ></vip-comp>
-          <video-comp
-            v-else-if="resourceActive === 'video'"
-            @change="change"
-          ></video-comp>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
         </div>
-      </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="confirm"> 确定 </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -91,7 +96,7 @@ export default {
   data() {
     return {
       selectedResult: null,
-      resourceActive: "vod",
+      resourceActive: null,
     };
   },
   computed: {
@@ -189,6 +194,18 @@ export default {
 
       return r;
     },
+  },
+  watch: {
+    avaliableResources() {
+      if (this.avaliableResources.length > 0) {
+        this.resourceActive = this.avaliableResources[0].key;
+      }
+    },
+  },
+  mounted() {
+    if (this.avaliableResources.length > 0) {
+      this.resourceActive = this.avaliableResources[0].key;
+    }
   },
   methods: {
     close() {

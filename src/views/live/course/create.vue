@@ -24,7 +24,7 @@
         label-width="200px"
       >
         <div class="float-left" v-show="tab.active === 'base'">
-          <el-form-item label="分类" prop="category_id">
+          <el-form-item label="所属分类" prop="category_id">
             <div class="d-flex">
               <div>
                 <el-select class="w-300px" v-model="course.category_id">

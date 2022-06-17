@@ -268,7 +268,6 @@ export default {
       total: 0,
       loading: false,
       courses: [],
-      userRemark: [],
       filterData: {
         categories: [],
       },

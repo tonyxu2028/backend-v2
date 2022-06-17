@@ -92,7 +92,6 @@ export default {
       total: 0,
       loading: false,
       users: [],
-      userRemark: [],
       filterData: {
         tags: [],
         roles: [],

@@ -362,22 +362,6 @@ const routes = [
     },
   },
   {
-    path: "/course/vod/category/create",
-    component: () => import("@/views/course/vod/category/create"),
-    name: "CategoriesCreate",
-    meta: {
-      title: "title.course.vod.category.create",
-    },
-  },
-  {
-    path: "/course/vod/category/update",
-    component: () => import("@/views/course/vod/category/update"),
-    name: "CategoriesUpdate",
-    meta: {
-      title: "title.course.vod.category.update",
-    },
-  },
-  {
     path: "/course/vod/chapter/index",
     component: () => import("@/views/course/vod/chapter/index"),
     name: "CourseChapters",
@@ -582,22 +566,6 @@ const routes = [
     meta: {
       title: "title.meedubook.book.category.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/meedubook/category/create",
-    component: () => import("@/views/meedubook/book/category/create"),
-    name: "MeedubookCategoryCreate",
-    meta: {
-      title: "title.meedubook.book.category.create",
-    },
-  },
-  {
-    path: "/meedubook/category/update",
-    component: () => import("@/views/meedubook/book/category/update"),
-    name: "MeedubookCategoryUpdate",
-    meta: {
-      title: "title.meedubook.book.category.update",
     },
   },
   {
@@ -959,22 +927,6 @@ const routes = [
     },
   },
   {
-    path: "/learningpath/path/category/create",
-    component: () => import("@/views/learningpath/path/category/create"),
-    name: "LearningPathCategoriesCreate",
-    meta: {
-      title: "title.learningpath.path.category.create",
-    },
-  },
-  {
-    path: "/learningpath/path/category/update",
-    component: () => import("@/views/learningpath/path/category/update"),
-    name: "LearningPathCategoriesUpdate",
-    meta: {
-      title: "title.learningpath.path.category.update",
-    },
-  },
-  {
     path: "/learningpath/path/user",
     component: () => import("@/views/learningpath/path/user"),
     name: "LearningUser",
@@ -1150,22 +1102,6 @@ const routes = [
     },
   },
   {
-    path: "/live/course/category/create",
-    component: () => import("@/views/live/course/category/create"),
-    name: "LiveCourseCategoryCreate",
-    meta: {
-      title: "title.live.course.category.create",
-    },
-  },
-  {
-    path: "/live/course/category/update",
-    component: () => import("@/views/live/course/category/update"),
-    name: "LiveCourseCategoryUpdate",
-    meta: {
-      title: "title.live.course.category.update",
-    },
-  },
-  {
     path: "/live/course/chapter/index",
     component: () => import("@/views/live/course/chapter/index"),
     name: "LiveCourseChapter",
@@ -1291,22 +1227,6 @@ const routes = [
     meta: {
       title: "title.topic.category.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/topic/category/create",
-    component: () => import("@/views/topic/category/create"),
-    name: "TopicCategoryCreate",
-    meta: {
-      title: "title.topic.category.create",
-    },
-  },
-  {
-    path: "/topic/category/update",
-    component: () => import("@/views/topic/category/update"),
-    name: "TopicCategoryUpdate",
-    meta: {
-      title: "title.topic.category.update",
     },
   },
   {
@@ -1701,22 +1621,6 @@ const routes = [
     meta: {
       title: "title.course.xiaobanke.categories.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/K12/XiaoBanKe/categories/create",
-    component: () => import("@/views/course/K12/categories/create"),
-    name: "K12CategoriesCreate",
-    meta: {
-      title: "title.course.xiaobanke.categories.create",
-    },
-  },
-  {
-    path: "/K12/XiaoBanKe/categories/update",
-    component: () => import("@/views/course/K12/categories/update"),
-    name: "K12CategoriesUpdate",
-    meta: {
-      title: "title.course.xiaobanke.categories.update",
     },
   },
   {

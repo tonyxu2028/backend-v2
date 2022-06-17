@@ -1,52 +1,54 @@
 <template>
-  <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">选择</div>
-      <div class="meedu-dialog-body">
-        <div class="float-left">
-          <el-tabs v-model="activeResource">
-            <el-tab-pane
-              :label="item.name"
-              :name="item.key"
-              v-for="(item, index) in avaliableResources"
-              :key="index"
-            ></el-tab-pane>
-          </el-tabs>
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-if="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">选择</div>
+        <div class="meedu-dialog-body">
+          <div class="float-left">
+            <el-tabs v-model="activeResource">
+              <el-tab-pane
+                :label="item.name"
+                :name="item.key"
+                v-for="(item, index) in avaliableResources"
+                :key="index"
+              ></el-tab-pane>
+            </el-tabs>
+          </div>
+          <div class="float-left">
+            <vod-comp
+              v-if="activeResource === 'vod'"
+              :selected="selectedVod"
+              @change="change"
+            ></vod-comp>
+            <live-comp
+              v-else-if="activeResource === 'live'"
+              :selected="selectedLive"
+              @change="change"
+            ></live-comp>
+            <book-comp
+              v-else-if="activeResource === 'book'"
+              :selected="selectedBook"
+              @change="change"
+            ></book-comp>
+            <paper-comp
+              v-else-if="activeResource === 'paper'"
+              :selected="selectedPaper"
+              @change="change"
+            ></paper-comp>
+            <practice-comp
+              v-else-if="activeResource === 'practice'"
+              :selected="selectedPractice"
+              @change="change"
+            ></practice-comp>
+          </div>
         </div>
-        <div class="float-left">
-          <vod-comp
-            v-if="activeResource === 'vod'"
-            :selected="selectedVod"
-            @change="change"
-          ></vod-comp>
-          <live-comp
-            v-else-if="activeResource === 'live'"
-            :selected="selectedLive"
-            @change="change"
-          ></live-comp>
-          <book-comp
-            v-else-if="activeResource === 'book'"
-            :selected="selectedBook"
-            @change="change"
-          ></book-comp>
-          <paper-comp
-            v-else-if="activeResource === 'paper'"
-            :selected="selectedPaper"
-            @change="change"
-          ></paper-comp>
-          <practice-comp
-            v-else-if="activeResource === 'practice'"
-            :selected="selectedPractice"
-            @change="change"
-          ></practice-comp>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
         </div>
-      </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="confirm"> 确定 </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

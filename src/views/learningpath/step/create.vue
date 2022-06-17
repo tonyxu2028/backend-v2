@@ -298,8 +298,18 @@ export default {
       let params = [];
       if (this.coursesData.length > 0) {
         for (let i = 0; i < this.coursesData.length; i++) {
+          let type = this.coursesData[i].type;
+          if (type === "vod") {
+            type = "course";
+          }
+          if (type === "practice") {
+            type = "paper_practice";
+          }
+          if (type === "paper") {
+            type = "paper_paper";
+          }
           let item = {
-            type: this.coursesData[i].type,
+            type: type,
             other_id: this.coursesData[i].id,
             name: this.coursesData[i].title,
             thumb: this.coursesData[i].thumb,

@@ -1,36 +1,38 @@
 <template>
-  <div class="meedu-dialog-mask">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">编辑友情链接</div>
-      <div class="meedu-dialog-body">
-        <el-form ref="form" :model="form" :rules="rules" label-width="200px">
-          <el-form-item prop="sort">
-            <template slot="label">
-              <form-label
-                text="排序值"
-                helper="请填写整数，小数靠前，大数靠后"
-              ></form-label>
-            </template>
-            <el-input v-model="form.sort" class="w-200px"></el-input>
-          </el-form-item>
+  <transition name="fade">
+    <div class="meedu-dialog-mask">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">编辑友情链接</div>
+        <div class="meedu-dialog-body">
+          <el-form ref="form" :model="form" :rules="rules" label-width="200px">
+            <el-form-item prop="sort">
+              <template slot="label">
+                <form-label
+                  text="排序值"
+                  helper="请填写整数，小数靠前，大数靠后"
+                ></form-label>
+              </template>
+              <el-input v-model="form.sort" class="w-200px"></el-input>
+            </el-form-item>
 
-          <el-form-item label="链接名" prop="name">
-            <el-input v-model="form.name" class="w-200px"></el-input>
-          </el-form-item>
+            <el-form-item label="链接名" prop="name">
+              <el-input v-model="form.name" class="w-200px"></el-input>
+            </el-form-item>
 
-          <el-form-item label="链接地址" prop="url">
-            <el-input v-model="form.url" class="w-200px"></el-input>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="formValidate" :loading="loading">
-          确定
-        </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
+            <el-form-item label="链接地址" prop="url">
+              <el-input v-model="form.url" class="w-200px"></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="formValidate" :loading="loading">
+            确定
+          </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

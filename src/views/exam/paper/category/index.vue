@@ -80,7 +80,6 @@ export default {
       total: 0,
       loading: false,
       categories: [],
-      userRemark: [],
     };
   },
   activated() {
