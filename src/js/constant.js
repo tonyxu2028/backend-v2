@@ -61,8 +61,6 @@ export default {
     MeedubookUsers: "Meedubook",
     MeedubookCategory: "Meedubook",
     MeedubookChapter: "Meedubook",
-    MeedubookChapterCreate: "Meedubook",
-    MeedubookChapterUpdate: "Meedubook",
     MeedubookArticle: "Meedubook",
     MeedubookArticleCreate: "Meedubook",
     MeedubookArticleUpdate: "Meedubook",
