@@ -78,7 +78,6 @@ export default {
       loading: false,
     };
   },
-
   mounted() {
     this.form.course_id = this.courseId;
     this.form.name = null;
