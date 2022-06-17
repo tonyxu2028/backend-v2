@@ -92,7 +92,20 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="价格" prop="charge">
+          <el-form-item label="免费" prop="is_free">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="is_free"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="价格" prop="charge" v-if="is_free === 0">
             <div class="d-flex">
               <div>
                 <el-input
@@ -137,9 +150,7 @@
                 </el-switch>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="打开后此直播课在前台隐藏显示"
-                ></helper-text>
+                <helper-text text="打开后此直播课在前台隐藏显示"></helper-text>
               </div>
             </div>
           </el-form-item>
@@ -242,6 +253,7 @@ export default {
   },
   data() {
     return {
+      is_free: 0,
       course: {
         category_id: null,
         is_show: 1,
@@ -333,6 +345,13 @@ export default {
       loading: false,
       visible: false,
     };
+  },
+  watch: {
+    is_free(val) {
+      if (val === 1) {
+        this.course.charge = 0;
+      }
+    },
   },
   mounted() {
     this.create();

@@ -90,7 +90,20 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="价格" prop="charge">
+          <el-form-item label="免费" prop="is_free">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="is_free"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="价格" prop="charge" v-if="is_free === 0">
             <div class="d-flex">
               <div>
                 <el-input
@@ -223,6 +236,7 @@ export default {
   },
   data() {
     return {
+      is_free: null,
       id: this.$route.query.id,
       course: null,
       rules: {
@@ -300,7 +314,17 @@ export default {
       categories: [],
       teachers: [],
       loading: false,
+      original_charge: null,
     };
+  },
+  watch: {
+    is_free(val) {
+      if (val === 1) {
+        this.course.charge = 0;
+      } else {
+        this.course.charge = this.original_charge;
+      }
+    },
   },
   mounted() {
     this.create();
@@ -331,6 +355,12 @@ export default {
     getDetail() {
       this.$api.Course.Live.Course.Detail(this.id).then((res) => {
         this.course = res.data;
+        this.original_charge = this.course.charge;
+        if (this.course.charge > 0) {
+          this.is_free = 0;
+        } else {
+          this.is_free = 1;
+        }
       });
     },
     formValidate() {
