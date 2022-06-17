@@ -48,15 +48,6 @@
                   </div>
                 </div>
               </el-form-item>
-
-              <el-form-item label="显示" prop="is_show">
-                <el-switch
-                  v-model="form.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
-                >
-                </el-switch>
-              </el-form-item>
             </el-form>
           </div>
         </div>
@@ -103,7 +94,6 @@ export default {
   mounted() {
     this.form.name = null;
     this.form.sort = null;
-    this.form.is_show = 1;
     this.form.parent_id = null;
     if (this.id) {
       this.getDetail();
@@ -115,7 +105,6 @@ export default {
         var data = res.data;
         this.form.name = data.name;
         this.form.sort = data.sort;
-        this.form.is_show = data.is_show;
         this.form.parent_id = data.parent_id === 0 ? null : data.parent_id;
       });
     },
