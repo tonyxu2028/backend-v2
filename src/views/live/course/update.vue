@@ -315,14 +315,17 @@ export default {
       teachers: [],
       loading: false,
       original_charge: null,
+      original_vip_can_view: null,
     };
   },
   watch: {
     is_free(val) {
       if (val === 1) {
         this.course.charge = 0;
+        this.course.vip_can_view = 0;
       } else {
         this.course.charge = this.original_charge;
+        this.course.vip_can_view = this.original_vip_can_view;
       }
     },
   },
@@ -356,6 +359,7 @@ export default {
       this.$api.Course.Live.Course.Detail(this.id).then((res) => {
         this.course = res.data;
         this.original_charge = this.course.charge;
+        this.original_vip_can_view = this.course.vip_can_view;
         if (this.course.charge > 0) {
           this.is_free = 0;
         } else {

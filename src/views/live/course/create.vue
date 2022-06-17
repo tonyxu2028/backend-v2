@@ -350,6 +350,7 @@ export default {
     is_free(val) {
       if (val === 1) {
         this.course.charge = 0;
+        this.course.vip_can_view = 0;
       }
     },
   },
