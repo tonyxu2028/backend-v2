@@ -153,7 +153,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="会员免费" v-if="course.charge > 0">
+          <el-form-item label="会员免费" v-if="is_free === 0">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -379,6 +379,9 @@ export default {
         return;
       }
       this.loading = true;
+      if (this.course.charge == 0) {
+        this.course.vip_can_view = 0;
+      }
       this.course.render_desc = this.course.original_desc;
       this.$api.Course.Live.Course.Update(this.id, this.course)
         .then(() => {
