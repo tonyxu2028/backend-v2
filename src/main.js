@@ -10,6 +10,7 @@ import utils from "./js/utils";
 import "@/js/remote-js.js";
 import htmlToPdf from "./js/htmlToPdf";
 import moment from "moment";
+import { Message } from "element-ui";
 
 // 全局样式
 import "./assets/common/variable.less";
@@ -55,6 +56,30 @@ Vue.config.productionTip = false;
 Vue.prototype.$api = api;
 Vue.prototype.$utils = utils;
 Vue.prototype.$htmlToPdf = htmlToPdf;
+Vue.prototype.$message = function (msg) {
+  return Message({
+    message: msg,
+    duration: 3000,
+  });
+};
+Vue.prototype.$message.success = function (msg) {
+  return Message.success({
+    message: msg,
+    duration: 3000,
+  });
+};
+Vue.prototype.$message.warning = function (msg) {
+  return Message.warning({
+    message: msg,
+    duration: 3000,
+  });
+};
+Vue.prototype.$message.error = function (msg) {
+  return Message.error({
+    message: msg,
+    duration: 5000,
+  });
+};
 
 utils.copyright();
 
