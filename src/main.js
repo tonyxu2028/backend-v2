@@ -77,7 +77,7 @@ Vue.prototype.$message.warning = function (msg) {
 Vue.prototype.$message.error = function (msg) {
   return Message.error({
     message: msg,
-    duration: 3000,
+    duration: 5000,
   });
 };
 
