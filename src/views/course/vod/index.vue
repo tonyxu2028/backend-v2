@@ -373,10 +373,7 @@ export default {
             })
             .catch((e) => {
               this.loading = false;
-              this.$message.error({
-                duration: 3000,
-                content: e.message,
-              });
+              this.$message.error(e.message);
             });
         })
         .catch(() => {});
