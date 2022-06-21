@@ -51,7 +51,6 @@
 
           <el-form-item
             label="可试看时长"
-            prop="free_seconds"
             v-if="course.is_free !== 1 && video.charge > 0"
           >
             <div class="d-flex">
@@ -242,13 +241,6 @@ export default {
           {
             required: true,
             message: "视频时长不能为空",
-            trigger: "blur",
-          },
-        ],
-        free_seconds: [
-          {
-            required: true,
-            message: "试看秒数不能为空",
             trigger: "blur",
           },
         ],
