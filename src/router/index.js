@@ -1011,22 +1011,6 @@ const routes = [
     },
   },
   {
-    path: "/live/teacher/create",
-    component: () => import("@/views/live/teacher/create"),
-    name: "LiveTeacherCreate",
-    meta: {
-      title: "title.live.teacher.create",
-    },
-  },
-  {
-    path: "/live/teacher/update",
-    component: () => import("@/views/live/teacher/update"),
-    name: "LiveTeacherUpdate",
-    meta: {
-      title: "title.live.teacher.update",
-    },
-  },
-  {
     path: "/live/course/index",
     component: () => import("@/views/live/course/index"),
     name: "LiveCourse",

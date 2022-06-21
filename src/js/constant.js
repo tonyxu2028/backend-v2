@@ -117,8 +117,6 @@ export default {
     ShareGoodsUpdate: "ShareGoods",
     LiveCourse: "LiveCourse",
     LiveTeacher: "LiveCourse",
-    LiveTeacherCreate: "LiveCourse",
-    LiveTeacherUpdate: "LiveCourse",
     LiveCourseCreate: "LiveCourse",
     LiveCourseUpdate: "LiveCourse",
     LiveCourseComment: "LiveCourse",

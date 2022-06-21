@@ -4,7 +4,7 @@
     <div class="float-left mb-30">
       <p-button
         text="添加"
-        @click="$router.push({ name: 'LiveTeacherCreate' })"
+        @click="addTeacher"
         type="primary"
         p="addons.Zhibo.teacher.store"
       >
@@ -63,12 +63,7 @@
               <p-link
                 text="编辑"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'LiveTeacherUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
+                @click="updateTeacher(scope.row.id)"
                 p="addons.Zhibo.teacher.update"
               ></p-link>
               <p-link
@@ -95,11 +90,23 @@
         </el-pagination>
       </div>
     </div>
+    <teacher-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></teacher-dialog>
   </div>
 </template>
 
 <script>
+import TeacherDialog from "./components/teacher-dialog";
 export default {
+  components: {
+    TeacherDialog,
+  },
   data() {
     return {
       pageName: "liveTeacher-list",
@@ -111,6 +118,9 @@ export default {
       total: 0,
       currentId: null,
       results: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -122,6 +132,20 @@ export default {
     next();
   },
   methods: {
+    addTeacher() {
+      this.tit = "添加讲师";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateTeacher(id) {
+      this.tit = "编辑讲师";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.getData();
+    },
     setCurrent(id) {
       if (this.currentId === id) {
         this.currentId = null;
