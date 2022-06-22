@@ -103,10 +103,15 @@
           </el-table-column>
           <el-table-column label="下一场直播时间" sortable min-width="18%">
             <template slot-scope="scope">
-              <span class="c-gray" v-if="scope.row.status === 2"
-                >· {{ scope.row.status_text }}</span
-              >
-              <span v-else>{{ scope.row.published_at | dateFormat }}</span>
+              <template v-if="scope.row.status === 2">
+                <span class="c-gray">· {{ scope.row.status_text }}</span>
+              </template>
+              <template v-else>
+                <span v-if="scope.row.next_video.length === 0">-</span>
+                <span v-else>
+                  {{ scope.row.next_video.published_at | dateFormat }}</span
+                >
+              </template>
             </template>
           </el-table-column>
           <el-table-column label="是否显示" min-width="8%">
