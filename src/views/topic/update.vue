@@ -102,7 +102,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="上架时间">
+          <el-form-item label="上架时间" prop="sorted_at">
             <div class="d-flex">
               <div>
                 <el-date-picker
@@ -251,6 +251,13 @@ export default {
           {
             required: true,
             message: "内容不能为空",
+            trigger: "blur",
+          },
+        ],
+        sorted_at: [
+          {
+            required: true,
+            message: "上架时间不能为空",
             trigger: "blur",
           },
         ],
