@@ -220,7 +220,7 @@ const zh = {
         create: "新建录播课程",
         update: "编辑录播课程",
         detail: "录播学员",
-        "video-import": "视频批量导入",
+        "video-import": "课时批量导入",
         "user-import": "学员批量导入",
         comment: "课程评论",
         category: {

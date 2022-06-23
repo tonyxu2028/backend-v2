@@ -56,12 +56,6 @@ Vue.config.productionTip = false;
 Vue.prototype.$api = api;
 Vue.prototype.$utils = utils;
 Vue.prototype.$htmlToPdf = htmlToPdf;
-Vue.prototype.$message = function (msg) {
-  return Message({
-    message: msg,
-    duration: 3000,
-  });
-};
 Vue.prototype.$message.success = function (msg) {
   return Message.success({
     message: msg,
