@@ -24,7 +24,7 @@
               ></upload-image>
             </el-form-item>
 
-            <el-form-item label="链接地址" prop="url">
+            <el-form-item label="链接地址">
               <div class="d-flex">
                 <div>
                   <el-input v-model="form.url" class="w-200px"></el-input>
@@ -90,13 +90,13 @@ export default {
             trigger: "blur",
           },
         ],
-        url: [
-          {
-            required: true,
-            message: "请输入链接地址",
-            trigger: "blur",
-          },
-        ],
+        // url: [
+        //   {
+        //     required: true,
+        //     message: "请输入链接地址",
+        //     trigger: "blur",
+        //   },
+        // ],
       },
     };
   },
