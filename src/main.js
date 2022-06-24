@@ -56,6 +56,13 @@ Vue.config.productionTip = false;
 Vue.prototype.$api = api;
 Vue.prototype.$utils = utils;
 Vue.prototype.$htmlToPdf = htmlToPdf;
+
+Vue.prototype.$message = function (msg) {
+  return Message({
+    message: msg,
+    duration: 3000,
+  });
+};
 Vue.prototype.$message.success = function (msg) {
   return Message.success({
     message: msg,
@@ -68,10 +75,11 @@ Vue.prototype.$message.warning = function (msg) {
     duration: 3000,
   });
 };
-Vue.prototype.$message.error = function (msg) {
+Vue.prototype.$message.error = function (msg, duration) {
   return Message.error({
     message: msg,
-    duration: 5000,
+    duration: duration === 0 ? 0 : 5000,
+    showClose: true,
   });
 };
 
