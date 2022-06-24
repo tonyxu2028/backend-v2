@@ -75,11 +75,11 @@ Vue.prototype.$message.warning = function (msg) {
     duration: 3000,
   });
 };
-Vue.prototype.$message.error = function (msg, duration, showClose) {
+Vue.prototype.$message.error = function (msg, duration) {
   return Message.error({
     message: msg,
     duration: duration ? duration : 5000,
-    showClose: showClose,
+    showClose: true,
   });
 };
 
