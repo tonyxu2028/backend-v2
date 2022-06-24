@@ -94,7 +94,7 @@ export default {
           })
           .catch((e) => {
             this.loading = false;
-            this.$message.noCloseError(e.message);
+            this.$message.error(e.message, 0, true);
           });
       };
       reader.readAsArrayBuffer(f);

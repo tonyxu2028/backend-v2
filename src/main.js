@@ -75,18 +75,11 @@ Vue.prototype.$message.warning = function (msg) {
     duration: 3000,
   });
 };
-Vue.prototype.$message.error = function (msg) {
+Vue.prototype.$message.error = function (msg, duration, showClose) {
   return Message.error({
     message: msg,
-    duration: 5000,
-  });
-};
-Vue.prototype.$message.noCloseError = function (msg) {
-  return Message.error({
-    showClose: true,
-    message: msg,
-    type: "error",
-    duration: 0,
+    duration: duration ? duration : 5000,
+    showClose: showClose,
   });
 };
 
