@@ -362,44 +362,12 @@ const routes = [
     },
   },
   {
-    path: "/course/vod/category/create",
-    component: () => import("@/views/course/vod/category/create"),
-    name: "CategoriesCreate",
-    meta: {
-      title: "title.course.vod.category.create",
-    },
-  },
-  {
-    path: "/course/vod/category/update",
-    component: () => import("@/views/course/vod/category/update"),
-    name: "CategoriesUpdate",
-    meta: {
-      title: "title.course.vod.category.update",
-    },
-  },
-  {
     path: "/course/vod/chapter/index",
     component: () => import("@/views/course/vod/chapter/index"),
     name: "CourseChapters",
     meta: {
       title: "title.course.vod.chapter.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/course/vod/chapter/create",
-    component: () => import("@/views/course/vod/chapter/create"),
-    name: "ChaptersCreate",
-    meta: {
-      title: "title.course.vod.chapter.create",
-    },
-  },
-  {
-    path: "/course/vod/chapter/update",
-    component: () => import("@/views/course/vod/chapter/update"),
-    name: "ChaptersUpdate",
-    meta: {
-      title: "title.course.vod.chapter.update",
     },
   },
   {
@@ -585,44 +553,12 @@ const routes = [
     },
   },
   {
-    path: "/meedubook/category/create",
-    component: () => import("@/views/meedubook/book/category/create"),
-    name: "MeedubookCategoryCreate",
-    meta: {
-      title: "title.meedubook.book.category.create",
-    },
-  },
-  {
-    path: "/meedubook/category/update",
-    component: () => import("@/views/meedubook/book/category/update"),
-    name: "MeedubookCategoryUpdate",
-    meta: {
-      title: "title.meedubook.book.category.update",
-    },
-  },
-  {
     path: "/meedubook/chapter/index",
     component: () => import("@/views/meedubook/book/chapter/index"),
     name: "MeedubookChapter",
     meta: {
       title: "title.meedubook.book.chapter.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/meedubook/chapter/create",
-    component: () => import("@/views/meedubook/book/chapter/create"),
-    name: "MeedubookChapterCreate",
-    meta: {
-      title: "title.meedubook.book.chapter.create",
-    },
-  },
-  {
-    path: "/meedubook/chapter/update",
-    component: () => import("@/views/meedubook/book/chapter/update"),
-    name: "MeedubookChapterUpdate",
-    meta: {
-      title: "title.meedubook.book.chapter.update",
     },
   },
   {
@@ -959,19 +895,12 @@ const routes = [
     },
   },
   {
-    path: "/learningpath/path/category/create",
-    component: () => import("@/views/learningpath/path/category/create"),
-    name: "LearningPathCategoriesCreate",
+    path: "/learningpath/path/user",
+    component: () => import("@/views/learningpath/path/user"),
+    name: "LearningUser",
     meta: {
-      title: "title.learningpath.path.category.create",
-    },
-  },
-  {
-    path: "/learningpath/path/category/update",
-    component: () => import("@/views/learningpath/path/category/update"),
-    name: "LearningPathCategoriesUpdate",
-    meta: {
-      title: "title.learningpath.path.category.update",
+      title: "title.learningpath.path.user",
+      keepAlive: true,
     },
   },
   {
@@ -1082,22 +1011,6 @@ const routes = [
     },
   },
   {
-    path: "/live/teacher/create",
-    component: () => import("@/views/live/teacher/create"),
-    name: "LiveTeacherCreate",
-    meta: {
-      title: "title.live.teacher.create",
-    },
-  },
-  {
-    path: "/live/teacher/update",
-    component: () => import("@/views/live/teacher/update"),
-    name: "LiveTeacherUpdate",
-    meta: {
-      title: "title.live.teacher.update",
-    },
-  },
-  {
     path: "/live/course/index",
     component: () => import("@/views/live/course/index"),
     name: "LiveCourse",
@@ -1141,44 +1054,12 @@ const routes = [
     },
   },
   {
-    path: "/live/course/category/create",
-    component: () => import("@/views/live/course/category/create"),
-    name: "LiveCourseCategoryCreate",
-    meta: {
-      title: "title.live.course.category.create",
-    },
-  },
-  {
-    path: "/live/course/category/update",
-    component: () => import("@/views/live/course/category/update"),
-    name: "LiveCourseCategoryUpdate",
-    meta: {
-      title: "title.live.course.category.update",
-    },
-  },
-  {
     path: "/live/course/chapter/index",
     component: () => import("@/views/live/course/chapter/index"),
     name: "LiveCourseChapter",
     meta: {
       title: "title.live.course.chapter.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/live/course/chapter/create",
-    component: () => import("@/views/live/course/chapter/create"),
-    name: "LiveCourseChapterCreate",
-    meta: {
-      title: "title.live.course.chapter.create",
-    },
-  },
-  {
-    path: "/live/course/chapter/update",
-    component: () => import("@/views/live/course/chapter/update"),
-    name: "LiveCourseChapterUpdate",
-    meta: {
-      title: "title.live.course.chapter.update",
     },
   },
   {
@@ -1282,22 +1163,6 @@ const routes = [
     meta: {
       title: "title.topic.category.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/topic/category/create",
-    component: () => import("@/views/topic/category/create"),
-    name: "TopicCategoryCreate",
-    meta: {
-      title: "title.topic.category.create",
-    },
-  },
-  {
-    path: "/topic/category/update",
-    component: () => import("@/views/topic/category/update"),
-    name: "TopicCategoryUpdate",
-    meta: {
-      title: "title.topic.category.update",
     },
   },
   {
@@ -1692,22 +1557,6 @@ const routes = [
     meta: {
       title: "title.course.xiaobanke.categories.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/K12/XiaoBanKe/categories/create",
-    component: () => import("@/views/course/K12/categories/create"),
-    name: "K12CategoriesCreate",
-    meta: {
-      title: "title.course.xiaobanke.categories.create",
-    },
-  },
-  {
-    path: "/K12/XiaoBanKe/categories/update",
-    component: () => import("@/views/course/K12/categories/update"),
-    name: "K12CategoriesUpdate",
-    meta: {
-      title: "title.course.xiaobanke.categories.update",
     },
   },
   {

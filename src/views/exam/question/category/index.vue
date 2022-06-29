@@ -81,7 +81,6 @@ export default {
       total: 0,
       loading: false,
       categories: [],
-      userRemark: [],
     };
   },
   activated() {
@@ -98,6 +97,7 @@ export default {
       this.getCategories();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getCategories();
     },

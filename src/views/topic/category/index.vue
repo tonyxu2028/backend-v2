@@ -3,8 +3,8 @@
     <back-bar class="mb-30" title="图文分类管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
-        @click="$router.push({ name: 'TopicCategoryCreate' })"
+        text="添加分类"
+        @click="addCategory"
         type="primary"
         p="addons.meedu_topics.category.store"
       ></p-button>
@@ -27,37 +27,48 @@
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
               <p-link
+                text="编辑"
+                type="primary"
+                @click="updateCategory(scope.row.id)"
+                p="addons.meedu_topics.category.update"
+              ></p-link>
+              <p-link
                 text="删除"
-                style="margin-right: 10px"
+                class="ml-5"
                 type="danger"
                 @click="destory(scope.row.id)"
                 p="addons.meedu_topics.category.delete"
-              ></p-link>
-              <p-link
-                text="编辑"
-                type="primary"
-                @click="
-                  $router.push({
-                    name: 'TopicCategoryUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
-                p="addons.meedu_topics.category.update"
               ></p-link>
             </template>
           </el-table-column>
         </el-table>
       </div>
     </div>
+    <categories-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :categories="categories"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></categories-dialog>
   </div>
 </template>
 <script>
+import CategoriesDialog from "./components/categories-dialog";
 export default {
+  components: {
+    CategoriesDialog,
+  },
   data() {
     return {
       pageName: "topicCategory-list",
       loading: false,
       categories: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -69,6 +80,20 @@ export default {
     next();
   },
   methods: {
+    addCategory() {
+      this.tit = "添加分类";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateCategory(id) {
+      this.tit = "编辑分类";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.getCategories();
+    },
     getCategories() {
       if (this.loading) {
         return;

@@ -33,7 +33,17 @@
             <el-input v-model="course.title" class="w-300px"></el-input>
           </el-form-item>
 
-          <el-form-item label="课程免费" prop="is_free">
+          <el-form-item prop="thumb" label="课程封面">
+            <upload-image
+              v-model="course.thumb"
+              helper="长宽比4:3，建议尺寸：400x300像素"
+              width="200"
+              height="150"
+              name="上传封面"
+            ></upload-image>
+          </el-form-item>
+
+          <el-form-item label="免费" prop="is_free">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -43,40 +53,23 @@
                 >
                 </el-switch>
               </div>
-              <div class="ml-10">
-                <helper-text text="打开后课程免费学习"></helper-text>
-              </div>
             </div>
           </el-form-item>
 
-          <el-form-item
-            label="课程价格"
-            prop="charge"
-            v-if="course.is_free === 0"
-          >
+          <el-form-item label="价格" prop="charge" v-if="course.is_free === 0">
             <div class="d-flex">
               <div>
                 <el-input
                   type="number"
                   placeholder="单位：元"
                   v-model="course.charge"
-                  class="w-200px"
+                  class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-15">
                 <helper-text text="最小单位“元”，不支持小数"></helper-text>
               </div>
             </div>
-          </el-form-item>
-
-          <el-form-item prop="thumb" label="课程封面">
-            <upload-image
-              v-model="course.thumb"
-              helper="长宽比4:3，建议尺寸：400x300像素"
-              width="200"
-              height="150"
-              name="上传封面"
-            ></upload-image>
           </el-form-item>
 
           <el-form-item label="上架时间" prop="published_at">
@@ -94,15 +87,13 @@
               </div>
               <div class="ml-15">
                 <div class="helper-text">
-                  <helper-text
-                    text="上架时间越早，课程排序越靠后"
-                  ></helper-text>
+                  <helper-text text="上架时间越晚，排序越靠前"></helper-text>
                 </div>
               </div>
             </div>
           </el-form-item>
 
-          <el-form-item label="隐藏课程" prop="is_show">
+          <el-form-item label="隐藏">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -114,7 +105,7 @@
               </div>
               <div class="ml-15">
                 <div class="helper-text">
-                  <helper-text text="打开后课程在前台将隐藏显示"></helper-text>
+                  <helper-text text="打开后此课程在前台隐藏显示"></helper-text>
                 </div>
               </div>
             </div>
@@ -193,13 +184,13 @@ export default {
             trigger: "blur",
           },
         ],
-        is_show: [
-          {
-            required: true,
-            message: "请选择显示",
-            trigger: "blur",
-          },
-        ],
+        // is_show: [
+        //   {
+        //     required: true,
+        //     message: "请选择显示",
+        //     trigger: "blur",
+        //   },
+        // ],
         title: [
           {
             required: true,

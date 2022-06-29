@@ -106,6 +106,7 @@ const zh = {
           create: "添加学习路径分类",
           update: "编辑学习路径分类",
         },
+        user: "付费学员",
       },
       step: {
         name: "步骤",
@@ -193,7 +194,7 @@ const zh = {
       index: "图文",
       create: "新建图文",
       update: "编辑图文",
-      order: "图文学员",
+      order: "付费学员",
       comment: "图文文章评论",
       category: {
         index: "图文分类管理",
@@ -219,7 +220,7 @@ const zh = {
         create: "新建录播课程",
         update: "编辑录播课程",
         detail: "录播学员",
-        "video-import": "视频批量导入",
+        "video-import": "课时批量导入",
         "user-import": "学员批量导入",
         comment: "课程评论",
         category: {
@@ -286,7 +287,7 @@ const zh = {
         create: "新建电子书",
         update: "编辑电子书",
         comment: "电子书评论",
-        users: "学员",
+        users: "付费学员",
         category: {
           index: "电子书分类管理",
           create: "添加电子书分类",

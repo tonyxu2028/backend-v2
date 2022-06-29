@@ -2,19 +2,6 @@
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="编辑图文"></back-bar>
 
-    <div class="center-tabs mb-30">
-      <div>
-        <el-tabs v-model="tab.active">
-          <el-tab-pane
-            :label="item.name"
-            :name="item.key"
-            v-for="(item, index) in tab.list"
-            :key="index"
-          ></el-tab-pane>
-        </el-tabs>
-      </div>
-    </div>
-
     <div class="float-left" v-if="topic">
       <el-form
         ref="form"
@@ -23,8 +10,8 @@
         :rules="rules"
         label-width="200px"
       >
-        <div class="float-left" v-show="tab.active === 'base'">
-          <el-form-item prop="cid" label="分类">
+        <div class="float-left">
+          <el-form-item prop="cid" label="所属分类">
             <div class="d-flex">
               <div>
                 <el-select class="w-300px" v-model="topic.cid">
@@ -52,11 +39,11 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="标题" prop="title">
+          <el-form-item label="图文名称" prop="title">
             <el-input
               v-model="topic.title"
               class="w-300px"
-              placeholder="请输入标题"
+              placeholder="请输入图文名称"
             ></el-input>
           </el-form-item>
           <el-form-item prop="thumb" label="封面">
@@ -68,20 +55,31 @@
             ></upload-image>
           </el-form-item>
 
-          <el-form-item label="价格">
+          <el-form-item label="免费" prop="is_free">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="is_free"
+                  :active-value="1"
+                  :inactive-value="0"
+                >
+                </el-switch>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="价格" v-if="is_free === 0">
             <div class="d-flex">
               <div>
                 <el-input
                   type="number"
-                  placeholder="价格"
+                  placeholder="单位：元"
                   v-model="topic.charge"
                   class="w-300px"
                 ></el-input>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="最小单位：元。不支持小数。价格为0意味着文章免费可直接观看。"
-                ></helper-text>
+                <helper-text text="最小单位“元”，不支持小数"></helper-text>
               </div>
             </div>
           </el-form-item>
@@ -100,6 +98,41 @@
                 <helper-text
                   text="开启VIP免费的话，购买VIP会员的学员可无需购买直接观看文章。"
                 ></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="上架时间" prop="sorted_at">
+            <div class="d-flex">
+              <div>
+                <el-date-picker
+                  style="width: 300px"
+                  v-model="topic.sorted_at"
+                  type="datetime"
+                  format="yyyy-MM-dd HH:mm"
+                  value-format="yyyy-MM-dd HH:mm"
+                  placeholder="请选择日期"
+                >
+                </el-date-picker>
+              </div>
+              <div class="ml-10">
+                <helper-text text="上架时间越晚，排序越靠前"></helper-text>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="隐藏">
+            <div class="d-flex">
+              <div>
+                <el-switch
+                  v-model="topic.is_show"
+                  :active-value="0"
+                  :inactive-value="1"
+                >
+                </el-switch>
+              </div>
+              <div class="ml-10">
+                <helper-text text="打开后此图文在前台隐藏显示"></helper-text>
               </div>
             </div>
           </el-form-item>
@@ -159,45 +192,6 @@
             </div>
           </el-form-item>
         </div>
-
-        <div class="float-left" v-show="tab.active === 'dev'">
-          <el-form-item label="显示" prop="is_show">
-            <div class="d-flex">
-              <div>
-                <el-switch
-                  v-model="topic.is_show"
-                  :active-value="1"
-                  :inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="ml-10">
-                <helper-text text="控制文章是否可以被学员看到。"></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item label="排序" prop="sorted_at">
-            <div class="d-flex">
-              <div>
-                <el-date-picker
-                  style="width: 300px"
-                  v-model="topic.sorted_at"
-                  type="datetime"
-                  format="yyyy-MM-dd HH:mm"
-                  value-format="yyyy-MM-dd HH:mm"
-                  placeholder="请选择日期"
-                >
-                </el-date-picker>
-              </div>
-              <div class="ml-10">
-                <helper-text
-                  text="控制文章在学员端的显示顺序，时间越早越靠后"
-                ></helper-text>
-              </div>
-            </div>
-          </el-form-item>
-        </div>
       </el-form>
 
       <div class="bottom-menus">
@@ -229,6 +223,7 @@ export default {
   data() {
     return {
       id: this.$route.query.id,
+      is_free: null,
       topic: null,
       rules: {
         cid: [
@@ -248,7 +243,7 @@ export default {
         title: [
           {
             required: true,
-            message: "标题不能为空",
+            message: "图文名称不能为空",
             trigger: "blur",
           },
         ],
@@ -259,23 +254,27 @@ export default {
             trigger: "blur",
           },
         ],
-      },
-      chapters: [],
-      loading: false,
-      tab: {
-        active: "base",
-        list: [
+        sorted_at: [
           {
-            name: "基础信息",
-            key: "base",
-          },
-          {
-            name: "可选信息",
-            key: "dev",
+            required: true,
+            message: "上架时间不能为空",
+            trigger: "blur",
           },
         ],
       },
+      chapters: [],
+      loading: false,
+      original_charge: null,
     };
+  },
+  watch: {
+    is_free(val) {
+      if (val === 0) {
+        this.topic.charge = this.original_charge;
+      } else {
+        this.topic.charge = 0;
+      }
+    },
   },
   mounted() {
     this.params();
@@ -298,6 +297,12 @@ export default {
     getDetail() {
       this.$api.Course.Topic.Topic.Detail(this.id).then((res) => {
         this.topic = res.data;
+        this.original_charge = this.topic.charge;
+        if (this.topic.charge > 0) {
+          this.is_free = 0;
+        } else {
+          this.is_free = 1;
+        }
       });
     },
     formValidate() {
@@ -309,6 +314,10 @@ export default {
     },
     confirm() {
       if (this.loading) {
+        return;
+      }
+      if (this.topic.charge % 1 !== 0) {
+        this.$message.error("图文价格必须为整数");
         return;
       }
       this.loading = true;

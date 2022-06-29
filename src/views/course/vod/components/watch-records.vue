@@ -185,6 +185,7 @@ export default {
       this.getRecords();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getRecords();
     },

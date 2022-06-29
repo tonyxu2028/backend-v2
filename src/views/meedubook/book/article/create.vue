@@ -13,7 +13,7 @@
         <el-form-item prop="book_cid" label="章节">
           <div class="d-flex">
             <div>
-              <el-select class="w-300px" v-model="article.book_cid">
+              <el-select class="w-300px" clearable v-model="article.book_cid">
                 <el-option
                   v-for="(item, index) in chapters"
                   :key="index"
@@ -60,9 +60,7 @@
               </el-date-picker>
             </div>
             <div class="ml-10">
-              <helper-text
-                text="上架时间决定了电子书下文章的排序，时间越早越靠后。如果是未来时间，则需要等到时间到达学员才可以看到该篇文章。"
-              ></helper-text>
+              <helper-text text="上架时间越晚，排序越靠前"></helper-text>
             </div>
           </div>
         </el-form-item>
@@ -85,18 +83,20 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="显示" prop="is_show">
+        <el-form-item label="隐藏文章">
           <div class="d-flex">
             <div>
               <el-switch
                 v-model="article.is_show"
-                :active-value="1"
-                :inactive-value="0"
+                :active-value="0"
+                :inactive-value="1"
               >
               </el-switch>
             </div>
             <div class="ml-10">
-              <helper-text text="控制学员是否可以看到该篇文章。"></helper-text>
+              <helper-text
+                text="打开后电子书文章在前台隐藏显示。"
+              ></helper-text>
             </div>
           </div>
         </el-form-item>
@@ -151,13 +151,6 @@ export default {
         trySee: false,
       },
       rules: {
-        published_at: [
-          {
-            required: true,
-            message: "上架时间不能为空",
-            trigger: "blur",
-          },
-        ],
         title: [
           {
             required: true,
@@ -169,6 +162,13 @@ export default {
           {
             required: true,
             message: "内容不能为空",
+            trigger: "blur",
+          },
+        ],
+        published_at: [
+          {
+            required: true,
+            message: "上架时间不能为空",
             trigger: "blur",
           },
         ],

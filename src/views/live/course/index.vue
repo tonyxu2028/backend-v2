@@ -67,11 +67,7 @@
         >
           <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column prop="category.name" label="分类" min-width="8%">
-          </el-table-column>
-          <el-table-column prop="teacher.name" label="讲师" min-width="8%">
-          </el-table-column>
-          <el-table-column label="课程" min-width="21%">
+          <el-table-column label="直播课程" min-width="22%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -80,6 +76,10 @@
                 :title="scope.row.title"
               ></thumb-bar>
             </template>
+          </el-table-column>
+          <el-table-column prop="category.name" label="分类" min-width="8%">
+          </el-table-column>
+          <el-table-column prop="teacher.name" label="讲师" min-width="8%">
           </el-table-column>
           <el-table-column
             label="价格"
@@ -101,33 +101,29 @@
               <span>{{ scope.row.join_user_times }}</span>
             </template>
           </el-table-column>
+          <el-table-column label="下一场直播时间" sortable min-width="18%">
+            <template slot-scope="scope">
+              <template v-if="scope.row.status === 2">
+                <span class="c-gray">· {{ scope.row.status_text }}</span>
+              </template>
+              <template v-else>
+                <span v-if="scope.row.next_video.length === 0">-</span>
+                <span v-else>
+                  {{ scope.row.next_video.published_at | dateFormat }}</span
+                >
+              </template>
+            </template>
+          </el-table-column>
           <el-table-column label="是否显示" min-width="8%">
             <template slot-scope="scope">
               <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
-              <span class="c-gray" v-else>· 隐藏</span>
+              <span class="c-red" v-else>· 隐藏</span>
             </template>
-          </el-table-column>
-          <el-table-column label="状态" min-width="8%">
-            <template slot-scope="scope">
-              <span
-                :class="{
-                  'c-green': scope.row.status === 1,
-                  'c-yellow': scope.row.status === 0,
-                  'c-gray': scope.row.status === 2,
-                }"
-                >· {{ scope.row.status_text }}</span
-              >
-            </template>
-          </el-table-column>
-          <el-table-column label="上架时间" sortable min-width="13%">
-            <template slot-scope="scope">{{
-              scope.row.published_at | dateFormat
-            }}</template>
           </el-table-column>
           <el-table-column
             fixed="right"
             label="操作"
-            min-width="12%"
+            min-width="14%"
             align="right"
           >
             <template slot-scope="scope">
@@ -326,6 +322,7 @@ export default {
       this.drawer = false;
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getData();
     },

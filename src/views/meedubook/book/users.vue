@@ -1,19 +1,19 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="电子书学员"></back-bar>
+    <back-bar class="mb-30" title="付费学员"></back-bar>
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
-        <p-button
-          text="删除学员"
-          type="danger"
-          p="addons.meedu_books.book.user.del"
-          @click="delUser"
-        ></p-button>
         <p-button
           type="primary"
           text="添加学员"
           p="addons.meedu_books.book.user.add"
           @click="showUserAddWin = true"
+        ></p-button>
+        <p-button
+          text="删除学员"
+          type="danger"
+          p="addons.meedu_books.book.user.del"
+          @click="delUser"
         ></p-button>
       </div>
       <div class="d-flex">
@@ -137,6 +137,7 @@ export default {
       this.getData();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getData();
     },

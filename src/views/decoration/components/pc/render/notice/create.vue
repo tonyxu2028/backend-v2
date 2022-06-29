@@ -1,29 +1,31 @@
 <template>
-  <div class="meedu-dialog-mask">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">添加公告</div>
-      <div class="meedu-dialog-body">
-        <el-form ref="form" :model="form" :rules="rules" label-width="200px">
-          <el-form-item label="标题" prop="title">
-            <el-input v-model="form.title"></el-input>
-          </el-form-item>
+  <transition name="fade">
+    <div class="meedu-dialog-mask">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">添加公告</div>
+        <div class="meedu-dialog-body">
+          <el-form ref="form" :model="form" :rules="rules" label-width="200px">
+            <el-form-item label="标题" prop="title">
+              <el-input v-model="form.title"></el-input>
+            </el-form-item>
 
-          <el-form-item label="内容" prop="announcement">
-            <quill-editor
-              :height="400"
-              v-model="form.announcement"
-            ></quill-editor>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="formValidate" :loading="loading">
-          确定
-        </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
+            <el-form-item label="内容" prop="announcement">
+              <quill-editor
+                :height="400"
+                v-model="form.announcement"
+              ></quill-editor>
+            </el-form-item>
+          </el-form>
+        </div>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="formValidate" :loading="loading">
+            确定
+          </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

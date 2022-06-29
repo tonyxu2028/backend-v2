@@ -1,104 +1,110 @@
 <template>
-  <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">添加学员</div>
-      <div class="meedu-dialog-body">
-        <div class="float-left">
-          <div class="float-left d-flex">
-            <div>
-              <el-input
-                class="w-150px"
-                v-model="filter.keywords"
-                placeholder="关键字"
-              ></el-input>
-            </div>
-            <div class="ml-10">
-              <el-select
-                v-model="filter.tag_id"
-                class="w-150px"
-                placeholder="学员标签"
-                filterable
-              >
-                <el-option
-                  v-for="(item, index) in filterData.tags"
-                  :key="index"
-                  :label="item.name"
-                  :value="item.id"
-                >
-                </el-option>
-              </el-select>
-            </div>
-            <div class="ml-10">
-              <el-date-picker
-                v-model="filter.created_at"
-                type="daterange"
-                align="right"
-                unlink-panels
-                range-separator="至"
-                start-placeholder="注册开始日期"
-                end-placeholder="注册结束日期"
-              >
-              </el-date-picker>
-            </div>
-            <div class="ml-10">
-              <el-button @click="paginationReset">清空</el-button>
-              <el-button @click="firstPageLoad" type="primary">筛选</el-button>
-            </div>
-          </div>
-        </div>
-        <div class="float-left mt-30" v-loading="loading">
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-if="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">添加学员</div>
+        <div class="meedu-dialog-body">
           <div class="float-left">
-            <el-table
-              :header-cell-style="{ background: '#f1f2f9' }"
-              :data="users"
-              class="float-left"
-              @sort-change="sortChange"
-              :default-sort="{ prop: 'id', order: 'descending' }"
-              @selection-change="handleSelectionChange"
-            >
-              <el-table-column type="selection" width="55"> </el-table-column>
-              <el-table-column prop="id" sortable label="学员ID" width="120">
-              </el-table-column>
-              <el-table-column label="学员">
-                <template slot-scope="scope">
-                  <div class="user-item d-flex">
-                    <div class="avatar">
-                      <img :src="scope.row.avatar" width="40" height="40" />
-                    </div>
-                    <div class="ml-10">{{ scope.row.nick_name }}</div>
-                  </div>
-                </template>
-              </el-table-column>
-              <el-table-column prop="mobile" label="手机号" width="200">
-              </el-table-column>
-              <el-table-column sortable="" label="注册时间" width="200">
-                <template slot-scope="scope">
-                  <span>{{ scope.row.created_at | dateFormat }}</span>
-                </template>
-              </el-table-column>
-            </el-table>
+            <div class="float-left d-flex">
+              <div>
+                <el-input
+                  class="w-150px"
+                  v-model="filter.keywords"
+                  placeholder="关键字"
+                ></el-input>
+              </div>
+              <div class="ml-10">
+                <el-select
+                  v-model="filter.tag_id"
+                  class="w-150px"
+                  placeholder="学员标签"
+                  filterable
+                >
+                  <el-option
+                    v-for="(item, index) in filterData.tags"
+                    :key="index"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
+              </div>
+              <div class="ml-10">
+                <el-date-picker
+                  v-model="filter.created_at"
+                  type="daterange"
+                  align="right"
+                  unlink-panels
+                  range-separator="至"
+                  start-placeholder="注册开始日期"
+                  end-placeholder="注册结束日期"
+                >
+                </el-date-picker>
+              </div>
+              <div class="ml-10">
+                <el-button @click="paginationReset">清空</el-button>
+                <el-button @click="firstPageLoad" type="primary"
+                  >筛选</el-button
+                >
+              </div>
+            </div>
           </div>
+          <div class="float-left mt-30" v-loading="loading">
+            <div class="float-left">
+              <el-table
+                ref="multipleTable"
+                :header-cell-style="{ background: '#f1f2f9' }"
+                :data="users"
+                class="float-left"
+                @row-click="handleRowClick"
+                @sort-change="sortChange"
+                :default-sort="{ prop: 'id', order: 'descending' }"
+                @selection-change="handleSelectionChange"
+              >
+                <el-table-column type="selection" width="55"> </el-table-column>
+                <el-table-column prop="id" sortable label="学员ID" width="120">
+                </el-table-column>
+                <el-table-column label="学员">
+                  <template slot-scope="scope">
+                    <div class="user-item d-flex">
+                      <div class="avatar">
+                        <img :src="scope.row.avatar" width="40" height="40" />
+                      </div>
+                      <div class="ml-10">{{ scope.row.nick_name }}</div>
+                    </div>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="mobile" label="手机号" width="200">
+                </el-table-column>
+                <el-table-column sortable="" label="注册时间" width="200">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.created_at | dateFormat }}</span>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
 
-          <div class="float-left mt-30 text-center">
-            <el-pagination
-              @size-change="paginationSizeChange"
-              @current-change="paginationPageChange"
-              :current-page="pagination.page"
-              :page-sizes="[10, 20, 50, 100]"
-              :page-size="pagination.size"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="total"
-            >
-            </el-pagination>
+            <div class="float-left mt-30 text-center">
+              <el-pagination
+                @size-change="paginationSizeChange"
+                @current-change="paginationPageChange"
+                :current-page="pagination.page"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="pagination.size"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+              >
+              </el-pagination>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="confirm"> 确定 </el-button>
-        <el-button @click="close"> 取消 </el-button>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
+          <el-button @click="close"> 取消 </el-button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -141,6 +147,7 @@ export default {
       this.getUser();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getUser();
     },
@@ -159,6 +166,13 @@ export default {
     },
     handleSelectionChange(rows) {
       this.selectedRows = rows;
+    },
+    handleRowClick(row) {
+      let id = row.id;
+      this.$refs.multipleTable.toggleRowSelection(row);
+      // 获取当前选中的数据
+      const _selectData = this.$refs.multipleTable.selection;
+      this.handleSelectionChange(_selectData);
     },
     getUser() {
       if (this.loading) {

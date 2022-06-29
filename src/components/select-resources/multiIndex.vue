@@ -1,63 +1,82 @@
 <template>
-  <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">选择</div>
-      <div class="meedu-dialog-body">
-        <div class="float-left">
-          <el-tabs v-model="activeResource">
-            <el-tab-pane
-              :label="item.name"
-              :name="item.key"
-              v-for="(item, index) in avaliableResources"
-              :key="index"
-            ></el-tab-pane>
-          </el-tabs>
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-if="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">选择</div>
+        <div class="meedu-dialog-body">
+          <div class="float-left">
+            <el-tabs v-model="activeResource">
+              <el-tab-pane
+                :label="item.name"
+                :name="item.key"
+                v-for="(item, index) in avaliableResources"
+                :key="index"
+              ></el-tab-pane>
+            </el-tabs>
+          </div>
+          <div class="float-left">
+            <vod-comp
+              v-if="activeResource === 'vod'"
+              :selected="selectedVod"
+              @change="change"
+            ></vod-comp>
+            <live-comp
+              v-else-if="activeResource === 'live'"
+              :selected="selectedLive"
+              @change="change"
+            ></live-comp>
+            <book-comp
+              v-else-if="activeResource === 'book'"
+              :selected="selectedBook"
+              @change="change"
+            ></book-comp>
+            <paper-comp
+              v-else-if="activeResource === 'paper'"
+              :selected="selectedPaper"
+              @change="change"
+            ></paper-comp>
+            <practice-comp
+              v-else-if="activeResource === 'practice'"
+              :selected="selectedPractice"
+              @change="change"
+            ></practice-comp>
+          </div>
         </div>
-        <div class="float-left">
-          <vod-comp
-            v-if="activeResource === 'vod'"
-            :selected="selectedVod"
-            @change="change"
-          ></vod-comp>
-          <live-comp
-            v-else-if="activeResource === 'live'"
-            :selected="selectedLive"
-            @change="change"
-          ></live-comp>
-          <paper-comp
-            v-else-if="activeResource === 'paper'"
-            :selected="selectedPaper"
-            @change="change"
-          ></paper-comp>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
         </div>
-      </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="confirm"> 确定 </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import VodComp from "./components/multiVod.vue";
 import LiveComp from "./components/multiLive.vue";
+import BookComp from "./components/multiBook.vue";
 import PaperComp from "./components/multiPaper.vue";
+import PracticeComp from "./components/multiPractice.vue";
 
 export default {
   components: {
     VodComp,
     LiveComp,
+    BookComp,
     PaperComp,
+    PracticeComp,
   },
   props: [
     "show",
+    "type",
     "selectedIds",
     "enabledResource",
     "selectedVod",
     "selectedLive",
+    "selectedBook",
     "selectedPaper",
+    "selectedPractice",
   ],
   data() {
     return {
@@ -83,12 +102,23 @@ export default {
           key: "live",
         });
       }
-
+      if (this.enabledResourceMap["book"] && this.enabledAddons["MeeduBooks"]) {
+        resources.push({
+          name: "电子书",
+          key: "book",
+        });
+      }
       if (this.enabledAddons["Paper"]) {
         if (this.enabledResourceMap["paper"]) {
           resources.push({
             name: "试卷",
             key: "paper",
+          });
+        }
+        if (this.enabledResourceMap["practice"]) {
+          resources.push({
+            name: "练习",
+            key: "practice",
           });
         }
       }
@@ -108,7 +138,7 @@ export default {
     },
     resourceActive() {
       let r = null;
-      if (this.enabledResourceMap["paper"]) {
+      if (this.enabledResourceMap["paper"] && !this.type) {
         r = "paper";
       } else {
         r = "vod";

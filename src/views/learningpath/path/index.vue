@@ -53,8 +53,9 @@
           :data="results"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" width="120"> </el-table-column>
-          <el-table-column label="路径" width="400">
+          <el-table-column prop="id" label="ID" min-width="6%">
+          </el-table-column>
+          <el-table-column label="学习路径" min-width="22%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -64,7 +65,9 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column label="价格">
+          <el-table-column label="分类" prop="category.name" min-width="8%">
+          </el-table-column>
+          <el-table-column label="价格" min-width="12%">
             <template slot-scope="scope">
               <div>现价：{{ scope.row.charge }}元</div>
               <div style="color: #666" class="original-charge">
@@ -72,19 +75,33 @@
               </div>
             </template>
           </el-table-column>
-
-          <el-table-column label="步骤" width="200">
+          <el-table-column label="包含步骤" min-width="8%">
             <template slot-scope="scope">
               <span>{{ scope.row.steps_count }}个步骤</span>
             </template>
           </el-table-column>
-          <el-table-column label="课程" width="200">
+          <el-table-column label="包含课程" min-width="8%">
             <template slot-scope="scope">
               <span>{{ scope.row.courses_count }}个课程</span>
             </template>
           </el-table-column>
-
-          <el-table-column fixed="right" label="操作" width="160">
+          <el-table-column label="上架时间" min-width="14%">
+            <template slot-scope="scope">
+              {{ scope.row.published_at | dateFormat }}
+            </template>
+          </el-table-column>
+          <el-table-column label="是否显示" min-width="8%">
+            <template slot-scope="scope">
+              <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
+              <span class="c-red" v-else>· 隐藏</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            min-width="14%"
+            align="right"
+          >
             <template slot-scope="scope">
               <p-link
                 text="步骤"
@@ -97,26 +114,44 @@
                   })
                 "
               ></p-link>
-
               <p-link
-                text="编辑"
-                p="addons.learnPaths.path.update"
+                text="学员"
+                p="addons.learnPaths.path.users"
                 type="primary"
                 class="ml-5"
                 @click="
                   $router.push({
-                    name: 'LearningPathUpdate',
+                    name: 'LearningUser',
                     query: { id: scope.row.id },
                   })
                 "
               ></p-link>
-              <p-link
-                text="删除"
-                class="ml-5"
-                p="addons.learnPaths.path.delete"
-                type="danger"
-                @click="destory(scope.row.id)"
-              ></p-link>
+              <el-dropdown>
+                <el-link type="primary" class="el-dropdown-link ml-5">
+                  更多<i class="el-icon-arrow-down el-icon--right"></i>
+                </el-link>
+                <el-dropdown-menu slot="dropdown">
+                  <p-dropdown-item
+                    text="编辑"
+                    p="addons.learnPaths.path.update"
+                    type="primary"
+                    @click="
+                      $router.push({
+                        name: 'LearningPathUpdate',
+                        query: { id: scope.row.id },
+                      })
+                    "
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
+                    text="删除"
+                    p="addons.learnPaths.path.delete"
+                    type="danger"
+                    @click="destory(scope.row.id)"
+                  >
+                  </p-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </template>
           </el-table-column>
         </el-table>
@@ -180,6 +215,7 @@ export default {
       this.getResults();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getResults();
     },

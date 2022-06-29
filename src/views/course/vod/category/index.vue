@@ -5,7 +5,7 @@
       <p-button
         text="添加分类"
         p="courseCategory.store"
-        @click="$router.push({ name: 'CategoriesCreate' })"
+        @click="addCategory"
         type="primary"
       >
       </p-button>
@@ -34,18 +34,13 @@
               <span v-else>否</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="160">
+          <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
               <p-link
                 text="编辑"
                 p="courseCategory.update"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'CategoriesUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
+                @click="updateCategory(scope.row.id)"
               ></p-link>
               <p-link
                 text="删除"
@@ -72,10 +67,23 @@
         </el-pagination>
       </div>
     </div>
+    <categories-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :categories="categories"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></categories-dialog>
   </div>
 </template>
 <script>
+import CategoriesDialog from "./components/categories-dialog";
 export default {
+  components: {
+    CategoriesDialog,
+  },
   data() {
     return {
       pageName: "vodCategory-list",
@@ -86,7 +94,9 @@ export default {
       total: 0,
       loading: false,
       categories: [],
-      userRemark: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -98,11 +108,26 @@ export default {
     next();
   },
   methods: {
+    addCategory() {
+      this.tit = "添加分类";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateCategory(id) {
+      this.tit = "编辑分类";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.paginationReset();
+    },
     paginationReset() {
       this.pagination.page = 1;
       this.getCategories();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getCategories();
     },

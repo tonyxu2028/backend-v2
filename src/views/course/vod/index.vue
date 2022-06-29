@@ -268,7 +268,6 @@ export default {
       total: 0,
       loading: false,
       courses: [],
-      userRemark: [],
       filterData: {
         categories: [],
       },
@@ -321,6 +320,7 @@ export default {
       this.drawer = false;
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getCourse();
     },

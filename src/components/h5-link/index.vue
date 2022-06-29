@@ -1,51 +1,53 @@
 <template>
-  <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">选择链接</div>
-      <div class="meedu-dialog-body">
-        <div class="link-box">
-          <div class="tabs">
-            <div
-              class="tab-item"
-              :class="{ active: item.key === tabActive }"
-              v-for="(item, index) in tabs"
-              :key="index"
-              @click="tabActive = item.key"
-            >
-              {{ item.name }}
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-if="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">选择链接</div>
+        <div class="meedu-dialog-body">
+          <div class="link-box">
+            <div class="tabs">
+              <div
+                class="tab-item"
+                :class="{ active: item.key === tabActive }"
+                v-for="(item, index) in tabs"
+                :key="index"
+                @click="tabActive = item.key"
+              >
+                {{ item.name }}
+              </div>
+            </div>
+            <div class="link-body">
+              <template v-if="tabActive === 'func'">
+                <div
+                  class="func-link-item"
+                  v-for="(item, index) in funcLinks"
+                  :key="index"
+                >
+                  <el-radio v-model="link" :label="item.url">
+                    {{ item.name }}
+                  </el-radio>
+                </div>
+              </template>
+
+              <course-category
+                v-else-if="tabActive === 'category'"
+                v-model="link"
+              ></course-category>
+
+              <courses
+                v-model="link"
+                v-else-if="tabActive === 'course'"
+              ></courses>
             </div>
           </div>
-          <div class="link-body">
-            <template v-if="tabActive === 'func'">
-              <div
-                class="func-link-item"
-                v-for="(item, index) in funcLinks"
-                :key="index"
-              >
-                <el-radio v-model="link" :label="item.url">
-                  {{ item.name }}
-                </el-radio>
-              </div>
-            </template>
-
-            <course-category
-              v-else-if="tabActive === 'category'"
-              v-model="link"
-            ></course-category>
-
-            <courses
-              v-model="link"
-              v-else-if="tabActive === 'course'"
-            ></courses>
-          </div>
+        </div>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
         </div>
       </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="confirm"> 确定 </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
-      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

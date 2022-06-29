@@ -1,33 +1,35 @@
 <template>
-  <div class="meedu-dialog-mask" v-show="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">学员批量导入</div>
-      <div class="meedu-dialog-body">
-        <div class="d-flex float-left">
-          <div>
-            <el-button :loading="loading" type="primary" @click="choiceFile">
-              选择Excel表格文件
-            </el-button>
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-show="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">学员批量导入</div>
+        <div class="meedu-dialog-body">
+          <div class="d-flex float-left">
+            <div>
+              <el-button :loading="loading" type="primary" @click="choiceFile">
+                选择Excel表格文件
+              </el-button>
+            </div>
+            <div class="ml-30">
+              <el-link type="primary" @click="model()">
+                点击链接下载「{{ name || "学员批量导入模板" }}」
+              </el-link>
+            </div>
           </div>
-          <div class="ml-30">
-            <el-link type="primary" @click="model()">
-              点击链接下载「{{ name || "学员批量导入模板" }}」
-            </el-link>
+          <div class="float-left">
+            <div style="display: none">
+              <form ref="form">
+                <input type="file" ref="xlsfile" />
+              </form>
+            </div>
           </div>
         </div>
-        <div class="float-left">
-          <div style="display: none">
-            <form ref="form">
-              <input type="file" ref="xlsfile" />
-            </form>
-          </div>
+        <div class="meedu-dialog-footer">
+          <el-button @click="close">取消</el-button>
         </div>
-      </div>
-      <div class="meedu-dialog-footer">
-        <el-button @click="close">取消</el-button>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

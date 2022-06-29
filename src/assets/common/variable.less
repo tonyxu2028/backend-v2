@@ -1,5 +1,43 @@
 @primary-color: #409eff;
 
+@keyframes scaleBig {
+  0% {
+    transform: scale(0.6, 0.6);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade-enter-active {
+  animation: fadeIn 0.2s linear;
+}
+
+.fade-leave-active {
+  animation: fadeOut 0.2s linear;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -553,6 +591,48 @@ a {
   bottom: 0;
   z-index: 2001;
   background-color: rgba(0, 0, 0, 0.5);
+  .meedu-cate-dialog-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: auto;
+    margin-top: -200px;
+    margin-left: -400px;
+    background-color: white;
+    border-radius: 8px;
+    animation: scaleBig 0.3s;
+    &.teacher {
+      margin-top: -300px;
+    }
+    .meedu-dialog-header {
+      width: 100%;
+      height: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 30px;
+      font-size: 18px;
+      font-weight: 400;
+      color: #333333;
+      line-height: 18px;
+    }
+
+    .meedu-dialog-body {
+      width: 100%;
+      height: auto;
+      float: left;
+      box-sizing: border-box;
+    }
+
+    .meedu-dialog-footer {
+      width: 100%;
+      height: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 20px 30px;
+      border-top: 1px solid #ccc;
+    }
+  }
 
   .meedu-dialog-box {
     position: absolute;
@@ -563,7 +643,8 @@ a {
     margin-top: -330px;
     margin-left: -600px;
     background-color: white;
-
+    border-radius: 8px;
+    animation: scaleBig 0.3s;
     .meedu-dialog-header {
       width: 100%;
       height: auto;

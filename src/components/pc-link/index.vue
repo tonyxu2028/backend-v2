@@ -1,24 +1,26 @@
 <template>
-  <div class="meedu-dialog-mask" v-if="show">
-    <div class="meedu-dialog-box">
-      <div class="meedu-dialog-header">选择链接</div>
-      <div class="meedu-dialog-body">
-        <div
-          class="func-link-item"
-          v-for="(item, index) in funcLinks"
-          :key="index"
-        >
-          <el-radio v-model="link" :label="index">
-            {{ item.name }}
-          </el-radio>
+  <transition name="fade">
+    <div class="meedu-dialog-mask" v-if="show">
+      <div class="meedu-dialog-box">
+        <div class="meedu-dialog-header">选择链接</div>
+        <div class="meedu-dialog-body">
+          <div
+            class="func-link-item"
+            v-for="(item, index) in funcLinks"
+            :key="index"
+          >
+            <el-radio v-model="link" :label="index">
+              {{ item.name }}
+            </el-radio>
+          </div>
+        </div>
+        <div class="meedu-dialog-footer">
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
         </div>
       </div>
-      <div class="meedu-dialog-footer">
-        <el-button type="primary" @click="confirm"> 确定 </el-button>
-        <el-button @click="close" class="ml-30">取消</el-button>
-      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

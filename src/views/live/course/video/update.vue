@@ -40,12 +40,13 @@
         <el-form-item label="直播标题" prop="title">
           <el-input
             v-model="course.title"
-            class="w-600px"
+            class="w-300px"
             placeholder="直播标题"
           ></el-input>
         </el-form-item>
         <el-form-item label="直播时间" prop="published_at">
           <el-date-picker
+            style="width: 300px"
             v-model="course.published_at"
             type="datetime"
             format="yyyy-MM-dd HH:mm"

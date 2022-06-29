@@ -92,7 +92,6 @@ export default {
       total: 0,
       loading: false,
       users: [],
-      userRemark: [],
       filterData: {
         tags: [],
         roles: [],
@@ -113,6 +112,7 @@ export default {
       this.getAdministrator();
     },
     paginationSizeChange(size) {
+      this.pagination.page = 1;
       this.pagination.size = size;
       this.getAdministrator();
     },

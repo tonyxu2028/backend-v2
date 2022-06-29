@@ -3,14 +3,9 @@
     <back-bar class="mb-30" title="课程章节管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加章节"
         p="course_chapter.store"
-        @click="
-          $router.push({
-            name: 'ChaptersCreate',
-            query: { course_id: box.course_id },
-          })
-        "
+        @click="addChapter"
         type="primary"
       ></p-button>
     </div>
@@ -31,12 +26,7 @@
                 text="编辑"
                 p="course_chapter.update"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'ChaptersUpdate',
-                    query: { course_id: box.course_id, id: scope.row.id },
-                  })
-                "
+                @click="updateChapter(scope.row.id)"
               ></p-link>
               <p-link
                 text="删除"
@@ -50,10 +40,23 @@
         </el-table>
       </div>
     </div>
+    <chapters-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      :courseId="box.course_id"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></chapters-dialog>
   </div>
 </template>
 <script>
+import ChaptersDialog from "./components/chapters-dialog";
 export default {
+  components: {
+    ChaptersDialog,
+  },
   data() {
     return {
       pageName: "vodChapter-list",
@@ -62,6 +65,9 @@ export default {
       },
       loading: false,
       chapters: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -73,6 +79,20 @@ export default {
     next();
   },
   methods: {
+    addChapter() {
+      this.tit = "添加章节";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateChapter(id) {
+      this.tit = "编辑章节";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.getChapters();
+    },
     getChapters() {
       if (this.loading) {
         return;
