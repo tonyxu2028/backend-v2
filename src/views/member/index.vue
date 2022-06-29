@@ -86,7 +86,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="手机号码" min-width="8%">
+          <el-table-column label="手机号码" min-width="9%">
             <template slot-scope="scope">
               <span v-if="scope.row.mobile">{{ scope.row.mobile }}</span>
               <span v-else>-</span>
@@ -118,7 +118,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="备注信息" min-width="10%">
+          <el-table-column label="备注信息" min-width="9%">
             <template slot-scope="scope">
               <div
                 v-if="userRemark[scope.row.id]"
