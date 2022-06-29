@@ -20,9 +20,7 @@
             <el-link
               type="primary"
               class="edit-profile"
-              @click="
-                $router.push({ name: 'MemberEdit', params: { userId: id } })
-              "
+              @click="updateMember(id)"
             >
               修改资料
             </el-link>
@@ -152,6 +150,14 @@
         ></user-video-watch-records-comp>
       </div>
     </div>
+    <member-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></member-dialog>
   </div>
 </template>
 
@@ -165,6 +171,7 @@ import UserRolesComp from "./detail/roles.vue";
 import UserInviteComp from "./detail/invite.vue";
 import UserVodWatchRecordsComp from "./detail/vod-watch-records.vue";
 import UserVideoWatchRecordsComp from "./detail/video-watch-records.vue";
+import MemberDialog from "./components/member-dialog";
 
 export default {
   components: {
@@ -176,6 +183,7 @@ export default {
     UserInviteComp,
     UserVodWatchRecordsComp,
     UserVideoWatchRecordsComp,
+    MemberDialog,
   },
   data() {
     return {
@@ -183,6 +191,9 @@ export default {
       user: null,
       loading: false,
       courseTabActive: "vod",
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   computed: {
@@ -256,6 +267,15 @@ export default {
     this.getUser();
   },
   methods: {
+    updateMember(id) {
+      this.tit = "编辑学员资料";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.getUser();
+    },
     getUser() {
       if (this.loading) {
         return;

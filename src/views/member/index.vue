@@ -5,7 +5,7 @@
         <p-button
           text="添加学员"
           p="member.store"
-          @click="$router.push({ name: 'MemberCreate' })"
+          @click="addMember"
           type="primary"
         >
         </p-button>
@@ -161,12 +161,7 @@
                     text="编辑资料"
                     p="member.edit"
                     type="primary"
-                    @click="
-                      $router.push({
-                        name: 'MemberEdit',
-                        params: { userId: scope.row.id },
-                      })
-                    "
+                    @click="updateMember(scope.row.id)"
                   >
                   </p-dropdown-item>
                   <p-dropdown-item
@@ -376,11 +371,23 @@
         <el-button @click="editConfirmMulti" type="primary">确认</el-button>
       </div>
     </el-dialog>
+    <member-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></member-dialog>
   </div>
 </template>
 
 <script>
+import MemberDialog from "./components/member-dialog";
 export default {
+  components: {
+    MemberDialog,
+  },
   data() {
     return {
       pageName: "member-list",
@@ -454,6 +461,9 @@ export default {
         // },
       ],
       dialogLoading: false,
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -478,6 +488,20 @@ export default {
     },
   },
   methods: {
+    addMember() {
+      this.tit = "添加学员资料";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateMember(id) {
+      this.tit = "编辑学员资料";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.paginationReset();
+    },
     handleSelectionChange(val) {
       var newbox = [];
       for (var i = 0; i < val.length; i++) {

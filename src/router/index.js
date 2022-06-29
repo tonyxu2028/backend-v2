@@ -605,14 +605,6 @@ const routes = [
     },
   },
   {
-    path: "/member/create",
-    component: () => import("@/views/member/create"),
-    name: "MemberCreate",
-    meta: {
-      title: "title.member.create",
-    },
-  },
-  {
     path: "/member/import",
     component: () => import("@/views/member/user-import"),
     name: "MemberImport",
@@ -634,14 +626,6 @@ const routes = [
     name: "MemberDetail",
     meta: {
       title: "title.member.detail",
-    },
-  },
-  {
-    path: "/member/:userId/edit",
-    component: () => import("@/views/member/edit"),
-    name: "MemberEdit",
-    meta: {
-      title: "title.member.edit",
     },
   },
   {
