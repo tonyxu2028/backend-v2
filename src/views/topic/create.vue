@@ -200,7 +200,7 @@ export default {
   },
   data() {
     return {
-      is_free: 1,
+      is_free: 0,
       topic: {
         cid: null,
         free_content: null,
