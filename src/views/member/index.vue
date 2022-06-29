@@ -135,8 +135,8 @@
           </el-table-column>
           <el-table-column label="账号状态" min-width="8%">
             <template slot-scope="scope">
-              <span v-if="scope.row.is_lock === 0" class="c-green">·正常</span>
-              <span v-else class="c-red">·冻结</span>
+              <span v-if="scope.row.is_lock === 1" class="c-red">·冻结</span>
+              <span v-else class="c-green">·正常</span>
             </template>
           </el-table-column>
           <el-table-column
