@@ -103,7 +103,7 @@
           <el-table-column prop="credit1" sortable label="积分" min-width="8%">
           </el-table-column>
 
-          <el-table-column label="标签" min-width="9%">
+          <el-table-column label="标签" min-width="10%">
             <template slot-scope="scope">
               <template v-if="scope.row.tags.length > 0">
                 <el-tag
@@ -142,7 +142,7 @@
           <el-table-column
             fixed="right"
             label="操作"
-            min-width="11%"
+            min-width="10%"
             align="right"
           >
             <template slot-scope="scope">
