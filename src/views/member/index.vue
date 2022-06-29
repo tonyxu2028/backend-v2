@@ -158,10 +158,29 @@
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
                   <p-dropdown-item
+                    text="编辑资料"
+                    p="member.edit"
+                    type="primary"
+                    @click="
+                      $router.push({
+                        name: 'MemberEdit',
+                        params: { userId: scope.row.id },
+                      })
+                    "
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
                     text="站内消息"
                     p="member.message.send"
                     type="primary"
                     @click="sendMessage(scope.row)"
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
+                    text="冻结账号"
+                    p="member.edit"
+                    type="danger"
+                    @click="lockMember(scope.row)"
                   >
                   </p-dropdown-item>
                 </el-dropdown-menu>
@@ -289,7 +308,7 @@
         </div>
         <template v-if="current === 'role_id'">
           <div class="d-flex mt-20">
-            <label class="w-100px mr-20">选择VIP</label>
+            <label class="w-100px mr-20">设置会员</label>
             <el-select :key="current" class="el-item" v-model="form.role_id">
               <el-option
                 v-for="(item, index) in filterData.roles"
@@ -301,7 +320,7 @@
             </el-select>
           </div>
           <div class="d-flex mt-20">
-            <label class="w-100px mr-20">VIP过期时间</label>
+            <label class="w-100px mr-20">会员到期时间</label>
             <el-date-picker
               class="el-item"
               v-model="form.role_expired_at"
@@ -335,7 +354,7 @@
           </el-switch>
         </div>
         <div class="d-flex mt-20" v-if="current === 'tag'">
-          <label class="w-100px mr-20">选择标签</label>
+          <label class="w-100px mr-20">设置标签</label>
           <el-select
             :key="current"
             class="el-item"
@@ -414,15 +433,15 @@ export default {
       current: null,
       types: [
         {
-          name: "修改VIP",
+          name: "批量设置会员",
           key: "role_id",
         },
         {
-          name: "修改标签",
+          name: "批量设置标签",
           key: "tag",
         },
         {
-          name: "是否禁止登录",
+          name: "批量冻结账号",
           key: "is_lock",
         },
         // {
@@ -615,6 +634,19 @@ export default {
           this.visible = false;
           this.$message.error(e.message);
         });
+    },
+    lockMember(item) {
+      let text = "冻结后此账号将无法登录，确认冻结？";
+      if (item.is_lock === 1) {
+        text = "解冻后此账号将正常登录，确认解冻？";
+      }
+      this.$confirm(text, "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {})
+        .catch(() => {});
     },
   },
 };
