@@ -70,10 +70,12 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" sortable label="学员ID" width="100">
+          <el-table-column type="selection" min-width="4%"></el-table-column>
+
+          <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="学员" width="210">
+
+          <el-table-column label="学员昵称" min-width="15%">
             <template slot-scope="scope">
               <div class="user-item">
                 <div class="avatar">
@@ -83,46 +85,69 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column sortable="" label="注册时间" width="250">
-            <template slot-scope="scope">{{
-              scope.row.created_at | dateFormat
-            }}</template>
-          </el-table-column>
-          <el-table-column prop="mobile" label="手机号" width="180">
-          </el-table-column>
-          <el-table-column label="VIP会员" width="150">
+
+          <el-table-column label="手机号码" min-width="8%">
             <template slot-scope="scope">
-              <span v-if="scope.row.role">{{ scope.row.role.name }}</span>
-              <span v-else></span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="credit1" sortable label="积分" width="120">
-          </el-table-column>
-          <el-table-column label="标签" width="200">
-            <template slot-scope="scope">
-              <el-tag
-                class="ml-5"
-                v-for="(item, index) in scope.row.tags"
-                :key="index"
-              >
-                {{ item.name }}
-              </el-tag>
+              <span v-if="scope.row.mobile">{{ scope.row.mobile }}</span>
+              <span v-else>-</span>
             </template>
           </el-table-column>
 
-          <el-table-column label="备注">
+          <el-table-column label="VIP类型" min-width="8%">
+            <template slot-scope="scope">
+              <span v-if="scope.row.role">{{ scope.row.role.name }}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="credit1" sortable label="积分" min-width="8%">
+          </el-table-column>
+
+          <el-table-column label="标签" min-width="9%">
+            <template slot-scope="scope">
+              <template v-if="scope.row.tags.length > 0">
+                <el-tag
+                  class="ml-5 mb-5"
+                  v-for="(item, index) in scope.row.tags"
+                  :key="index"
+                >
+                  {{ item.name }}
+                </el-tag>
+              </template>
+              <template v-else>-</template>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="备注信息" min-width="10%">
             <template slot-scope="scope">
               <div
                 v-if="userRemark[scope.row.id]"
                 v-html="userRemark[scope.row.id].remark"
               ></div>
+              <span v-else>-</span>
             </template>
           </el-table-column>
 
-          <el-table-column fixed="right" label="操作" width="120">
+          <el-table-column sortable="" label="注册时间" min-width="14%">
+            <template slot-scope="scope">{{
+              scope.row.created_at | dateFormat
+            }}</template>
+          </el-table-column>
+          <el-table-column label="账号状态" min-width="8%">
+            <template slot-scope="scope">
+              <span v-if="scope.row.is_lock === 0" class="c-green">·正常</span>
+              <span v-else class="c-red">·冻结</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            fixed="right"
+            label="操作"
+            min-width="11%"
+            align="right"
+          >
             <template slot-scope="scope">
               <p-link
-                text="查看"
+                text="详情"
                 p="member.detail"
                 type="primary"
                 @click="detail(scope.row)"
