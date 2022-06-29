@@ -637,15 +637,30 @@ export default {
     },
     lockMember(item) {
       let text = "冻结后此账号将无法登录，确认冻结？";
+      let value = 1;
       if (item.is_lock === 1) {
         text = "解冻后此账号将正常登录，确认解冻？";
+        value = 0;
       }
       this.$confirm(text, "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
-        .then(() => {})
+        .then(() => {
+          this.$api.Member.EditMulti({
+            user_ids: [item.id],
+            field: "is_lock",
+            value: value,
+          })
+            .then((res) => {
+              this.$message.success(this.$t("common.success"));
+              this.getUser();
+            })
+            .catch((e) => {
+              this.$message.error(e.message);
+            });
+        })
         .catch(() => {});
     },
   },
