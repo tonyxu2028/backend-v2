@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div class="meedu-dialog-mask">
-      <div class="meedu-cate-dialog-box">
+      <div class="meedu-cate-dialog-box teacher">
         <div class="meedu-dialog-header">{{ text }}</div>
         <div class="meedu-dialog-body">
           <div class="float-left">
