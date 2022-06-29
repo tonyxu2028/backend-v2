@@ -158,7 +158,7 @@
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
                   <p-dropdown-item
-                    text="发消息"
+                    text="站内消息"
                     p="member.message.send"
                     type="primary"
                     @click="sendMessage(scope.row)"
