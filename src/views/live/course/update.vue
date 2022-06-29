@@ -83,8 +83,8 @@
           <el-form-item prop="thumb" label="课程封面">
             <upload-image
               v-model="course.thumb"
-              width="400"
-              height="300"
+              width="200"
+              height="150"
               name="上传课程封面"
               helper="推荐尺寸400x300 宽高比4:3"
             ></upload-image>
