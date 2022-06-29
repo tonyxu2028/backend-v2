@@ -10,7 +10,7 @@
         >
         </p-button>
         <p-button
-          text="批量导入"
+          text="学员批量导入"
           p="member.import"
           @click="$router.push({ name: 'MemberImport' })"
           type="primary"
@@ -26,7 +26,7 @@
         >
         </p-button>
         <p-button
-          text="批量修改"
+          text="批量设置"
           p="member.update.field.multi"
           @click="editMulti()"
           type="primary"
@@ -497,7 +497,7 @@ export default {
     },
     editMulti() {
       if (this.spids.ids == "") {
-        this.$message.error("请选择需要修改的学员");
+        this.$message.error("请先勾选要批量设置的学员");
         return;
       }
       this.editVisible = true;
