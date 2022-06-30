@@ -69,7 +69,6 @@ export default {
     MemberProfile: "MemberIndex",
     MemberImport: "MemberIndex",
     MemberDetail: "MemberIndex",
-    MemberTag: "MemberIndex",
     MemberTagIndex: "MemberIndex",
     MemberTagCreate: "MemberIndex",
     MemberTagEdit: "MemberIndex",

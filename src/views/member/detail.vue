@@ -28,16 +28,6 @@
                 "
                 >实名信息</el-link
               >
-              <p-link
-                text="修改标签"
-                type="primary"
-                class="edit-profile"
-                @click="
-                  $router.push({ name: 'MemberTag', params: { userId: id } })
-                "
-                p="member.tags"
-              >
-              </p-link>
             </div>
           </div>
         </div>

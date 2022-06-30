@@ -629,14 +629,6 @@ const routes = [
     },
   },
   {
-    path: "/member/:userId/tags",
-    component: () => import("@/views/member/tag"),
-    name: "MemberTag",
-    meta: {
-      title: "title.member.tags",
-    },
-  },
-  {
     path: "/member/tag/index",
     component: () => import("@/views/member/tag/index"),
     name: "MemberTagIndex",
