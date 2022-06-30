@@ -6,29 +6,35 @@
       :data="list"
       class="float-left"
     >
-      <el-table-column label="课时名称">
+      <el-table-column label="课程">
         <template slot-scope="scope">
-          <span v-if="videos[scope.row.video_id]">
-            {{ videos[scope.row.video_id].title }}
-          </span>
-          <span v-else class="c-red">课时不存在</span>
+          <div class="d-flex" v-if="courses[scope.row.course_id]">
+            <div>
+              <img
+                :src="courses[scope.row.course_id].thumb"
+                width="100"
+                height="80"
+              />
+            </div>
+            <div class="flex-1 ml-15">
+              {{ courses[scope.row.course_id].title }}
+            </div>
+          </div>
+          <span v-else class="c-red">课程不存在</span>
         </template>
       </el-table-column>
-      <el-table-column label="已学时长" width="200">
+      <el-table-column label="进度" :width="120">
         <template slot-scope="scope">
-          <duration-text
-            v-if="!loading"
-            :duration="scope.row.watch_seconds"
-          ></duration-text>
+          <span>{{ scope.row.progress }}%</span>
         </template>
       </el-table-column>
-      <el-table-column label="是否学完" :width="200">
+      <el-table-column label="看完" :width="80">
         <template slot-scope="scope">
-          <span class="c-green" v-if="scope.row.watched_at">已学完</span>
-          <span v-else>未学完</span>
+          <span class="c-red" v-if="scope.row.is_watched === 1">是</span>
+          <span v-else>否</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始学习时间" :width="200">
+      <el-table-column label="开始时间" :width="200">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
         }}</template></el-table-column
@@ -36,8 +42,8 @@
       <el-table-column label="看完时间" :width="200">
         <template slot-scope="scope">{{
           scope.row.watched_at | dateFormat
-        }}</template>
-      </el-table-column>
+        }}</template></el-table-column
+      >
     </el-table>
 
     <div class="float-left mt-15">
@@ -54,11 +60,7 @@
   </div>
 </template>
 <script>
-import DurationText from "@/components/duration-text";
 export default {
-  components: {
-    DurationText,
-  },
   props: ["id"],
   data() {
     return {
@@ -68,7 +70,7 @@ export default {
       },
       total: 0,
       list: [],
-      videos: [],
+      courses: [],
       loading: false,
     };
   },
@@ -85,11 +87,11 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.Member.UserVideoWatchRecords(this.id, this.pagination).then(
+      this.$api.Member.UserVodWatchRecords(this.id, this.pagination).then(
         (res) => {
           this.loading = false;
 
-          this.videos = res.data.videos;
+          this.courses = res.data.courses;
           this.list = res.data.data.data;
           this.total = res.data.data.total;
         }

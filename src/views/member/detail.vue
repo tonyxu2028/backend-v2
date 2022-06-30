@@ -130,17 +130,9 @@
       </el-tabs>
 
       <div class="float-left mt-30">
-        <user-courses-comp
-          :id="id"
-          v-if="courseTabActive === 'vod'"
-        ></user-courses-comp>
-        <user-videos-comp
-          :id="id"
-          v-else-if="courseTabActive === 'video'"
-        ></user-videos-comp>
         <user-orders-comp
           :id="id"
-          v-else-if="courseTabActive === 'order'"
+          v-if="courseTabActive === 'order'"
         ></user-orders-comp>
         <user-credit1-comp
           :id="id"
@@ -158,6 +150,10 @@
           :id="id"
           v-else-if="courseTabActive === 'video-watch-records'"
         ></user-video-watch-records-comp>
+        <user-live-watch-records-comp
+          :id="id"
+          v-else-if="courseTabActive === 'live'"
+        ></user-live-watch-records-comp>
       </div>
     </div>
     <member-dialog
@@ -194,8 +190,7 @@
 
 <script>
 import { mapState } from "vuex";
-import UserCoursesComp from "./detail/vod.vue";
-import UserVideosComp from "./detail/video.vue";
+import UserLiveWatchRecordsComp from "./detail/live-watch-records.vue";
 import UserOrdersComp from "./detail/orders.vue";
 import UserCredit1Comp from "./detail/credit1.vue";
 import UserInviteComp from "./detail/invite.vue";
@@ -208,13 +203,12 @@ import TagsDialog from "./components/tags-dialog";
 
 export default {
   components: {
-    UserCoursesComp,
-    UserVideosComp,
     UserOrdersComp,
     UserCredit1Comp,
     UserInviteComp,
     UserVodWatchRecordsComp,
     UserVideoWatchRecordsComp,
+    UserLiveWatchRecordsComp,
     MemberDialog,
     CreditDialog,
     RemarkDialog,
@@ -243,21 +237,17 @@ export default {
           key: "order",
         },
         {
-          name: "录播",
-          key: "vod",
-        },
-        {
-          name: "视频",
-          key: "video",
+          name: "录播课学习",
+          key: "vod-watch-records",
         },
       ];
 
-      // if (this.enabledAddons["Zhibo"]) {
-      //   types.push({
-      //     name: "直播",
-      //     key: "live",
-      //   });
-      // }
+      if (this.enabledAddons["Zhibo"]) {
+        types.push({
+          name: "直播课学习",
+          key: "live",
+        });
+      }
       // if (this.enabledAddons["MeeduBooks"]) {
       //   types.push({
       //     name: "电子书",
@@ -274,11 +264,7 @@ export default {
       types.push(
         ...[
           {
-            name: "录播观看",
-            key: "vod-watch-records",
-          },
-          {
-            name: "视频观看",
+            name: "单独订阅课时",
             key: "video-watch-records",
           },
           {
