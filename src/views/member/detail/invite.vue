@@ -10,8 +10,8 @@
       </el-table-column>
       <el-table-column label="邀请学员">
         <template slot-scope="scope">
-          <div class="user-item">
-            <div class="avatar">
+          <div class="user-item d-flex">
+            <div class="avatar mr-10">
               <img :src="scope.row.avatar" width="40" height="40" />
             </div>
             <div class="nickname">{{ scope.row.nick_name }}</div>
@@ -26,6 +26,11 @@
       <el-table-column prop="created_at" label="注册时间" width="200">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
+        }}</template></el-table-column
+      >
+      <el-table-column prop="created_at" label="邀请关系有效期至" width="200">
+        <template slot-scope="scope">{{
+          scope.row.invite_user_expired_at | dateFormat
         }}</template></el-table-column
       >
     </el-table>
