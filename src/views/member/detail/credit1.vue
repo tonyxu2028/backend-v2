@@ -6,10 +6,18 @@
       :data="list"
       class="float-left"
     >
-      <el-table-column prop="id" label="记录ID" width="120"></el-table-column>
-      <el-table-column prop="sum" label="变动" width="200"></el-table-column>
-      <el-table-column prop="remark" label="备注"></el-table-column>
-      <el-table-column label="时间" width="200">
+      <el-table-column
+        prop="id"
+        label="积分记录ID"
+        width="300"
+      ></el-table-column>
+      <el-table-column
+        prop="sum"
+        label="积分变更"
+        width="300"
+      ></el-table-column>
+      <el-table-column prop="remark" label="变更原因"></el-table-column>
+      <el-table-column label="变更时间" width="200">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
         }}</template></el-table-column

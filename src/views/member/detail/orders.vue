@@ -59,7 +59,7 @@
       </el-table-column>
       <el-table-column prop="charge" label="支付金额" width="200">
       </el-table-column>
-      <el-table-column prop="status_text" label="支付状态" width="150">
+      <el-table-column prop="status_text" label="支付状态" width="200">
         <template slot-scope="scope">
           <span
             :class="{
