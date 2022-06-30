@@ -231,7 +231,7 @@ export default {
       id: null,
       user: null,
       loading: false,
-      courseTabActive: "vod",
+      courseTabActive: "order",
       showAddWin: false,
       tit: null,
       updateId: null,
@@ -244,6 +244,10 @@ export default {
     ...mapState(["enabledAddons"]),
     courseTypes() {
       let types = [
+        {
+          name: "订单明细",
+          key: "order",
+        },
         {
           name: "录播",
           key: "vod",
@@ -284,20 +288,16 @@ export default {
             key: "video-watch-records",
           },
           {
-            name: "订单",
-            key: "order",
-          },
-          {
-            name: "积分明细",
-            key: "credit1",
-          },
-          {
             name: "VIP记录",
             key: "roles",
           },
           {
             name: "邀请记录",
             key: "invite",
+          },
+          {
+            name: "积分明细",
+            key: "credit1",
           },
         ]
       );

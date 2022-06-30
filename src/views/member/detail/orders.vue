@@ -6,13 +6,50 @@
       :data="list"
       class="float-left"
     >
-      <el-table-column prop="order_id" label="订单编号" width="300">
+      <el-table-column prop="order_id" label="订单编号" width="200">
       </el-table-column>
-      <el-table-column label="商品">
+      <el-table-column label="订单商品">
         <template slot-scope="scope">
           <div class="d-flex" v-for="item in scope.row.goods" :key="item.id">
             <div>
-              <img :src="item.goods_thumb" width="100" height="80" />
+              <template v-if="item.goods_type === 'ROLE'">
+                <thumb-bar
+                  :value="require('@/assets/img/default-vip.png')"
+                  :width="120"
+                  :height="90"
+                  :border="4"
+                ></thumb-bar>
+              </template>
+              <template
+                v-else-if="
+                  item.goods_type === '模拟试卷' ||
+                  item.goods_type === '试卷' ||
+                  item.goods_type === '练习'
+                "
+              >
+                <thumb-bar
+                  :value="require('@/assets/img/default-paper.png')"
+                  :width="120"
+                  :height="90"
+                  :border="4"
+                ></thumb-bar>
+              </template>
+              <template v-else-if="item.goods_type === 'BOOK'">
+                <thumb-bar
+                  :value="item.goods_thumb"
+                  :width="67.5"
+                  :height="90"
+                  :border="4"
+                ></thumb-bar>
+              </template>
+              <template v-else>
+                <thumb-bar
+                  :value="item.goods_thumb"
+                  :width="120"
+                  :height="90"
+                  :border="4"
+                ></thumb-bar>
+              </template>
             </div>
             <div class="flex-1 ml-15">
               {{ item.goods_name }}
@@ -20,11 +57,23 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="charge" label="总价" width="200">
+      <el-table-column prop="charge" label="支付金额" width="200">
       </el-table-column>
-      <el-table-column prop="status_text" label="状态" width="100">
+      <el-table-column prop="status_text" label="支付状态" width="150">
+        <template slot-scope="scope">
+          <span
+            :class="{
+              'c-green': scope.row.status_text === '已支付',
+              'c-red': scope.row.status_text === '未支付',
+              'c-yellow': scope.row.status_text === '支付中',
+              'c-gray': scope.row.status_text === '已取消',
+            }"
+          >
+            · {{ scope.row.status_text }}
+          </span>
+        </template>
       </el-table-column>
-      <el-table-column label="时间" width="200">
+      <el-table-column label="付款时间" width="200">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
         }}</template>
