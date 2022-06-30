@@ -6,15 +6,15 @@
       :data="list"
       class="float-left"
     >
-      <el-table-column prop="id" label="邀请学员ID" width="120">
+      <el-table-column prop="id" label="邀请学员ID" width="200">
       </el-table-column>
       <el-table-column label="邀请学员">
         <template slot-scope="scope">
-          <div class="d-flex">
-            <div>
+          <div class="user-item">
+            <div class="avatar">
               <img :src="scope.row.avatar" width="40" height="40" />
             </div>
-            <div class="flex-1 ml-15">{{ scope.row.nick_name }}</div>
+            <div class="nickname">{{ scope.row.nick_name }}</div>
           </div>
         </template>
       </el-table-column>
