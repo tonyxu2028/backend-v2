@@ -242,12 +242,12 @@ export default {
         },
       ];
 
-      if (this.enabledAddons["Zhibo"]) {
-        types.push({
-          name: "直播课学习",
-          key: "live",
-        });
-      }
+      // if (this.enabledAddons["Zhibo"]) {
+      //   types.push({
+      //     name: "直播课学习",
+      //     key: "live",
+      //   });
+      // }
       // if (this.enabledAddons["MeeduBooks"]) {
       //   types.push({
       //     name: "电子书",
