@@ -10,7 +10,7 @@
               class="float-left"
               :model="form"
               :rules="rules"
-              label-width="100px"
+              label-width="110px"
             >
               <el-form-item label="学员昵称" prop="nick_name">
                 <el-input
