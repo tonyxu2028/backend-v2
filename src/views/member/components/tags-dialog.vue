@@ -2,7 +2,7 @@
   <transition name="fade">
     <div class="meedu-dialog-mask">
       <div class="meedu-cate-dialog-box">
-        <div class="meedu-dialog-header">修改备注</div>
+        <div class="meedu-dialog-header">修改标签</div>
         <div class="meedu-dialog-body">
           <div class="float-left">
             <el-form
@@ -12,14 +12,28 @@
               :rules="rules"
               label-width="110px"
             >
-              <el-form-item label="学员备注" prop="remark">
-                <el-input
-                  type="textarea"
-                  v-model="form.remark"
-                  class="w-300px"
-                  rows="4"
-                  placeholder="请输入备注"
-                ></el-input>
+              <el-form-item label="学员标签" prop="tagIds">
+                <div class="d-flex">
+                  <div>
+                    <el-select multiple filterable v-model="form.tagIds">
+                      <el-option
+                        v-for="(item, index) in tags"
+                        :key="index"
+                        :label="item.name"
+                        :value="item.id"
+                      >
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <div class="ml-15">
+                    <el-link
+                      @click="$router.push({ name: 'MemberTagIndex' })"
+                      type="primary"
+                    >
+                      标签管理
+                    </el-link>
+                  </div>
+                </div>
               </el-form-item>
             </el-form>
           </div>
@@ -40,30 +54,45 @@ export default {
   data() {
     return {
       form: {
-        remark: null,
+        tagIds: [],
       },
       rules: {
-        remark: [
+        tagIds: [
           {
             required: true,
-            message: "请输入变动说明",
+            message: "请选择学员标签",
             trigger: "blur",
           },
         ],
       },
+      tags: [],
       loading: false,
     };
   },
   mounted() {
-    this.form.remark = null;
+    this.form.tagIds = {};
     if (this.id) {
       this.getUser();
+      this.params();
     }
   },
   methods: {
     getUser() {
       this.$api.Member.Edit(this.id).then((res) => {
-        this.form.remark = res.data.remark ? res.data.remark.remark : null;
+        let data = [];
+
+        if (res.data.tags) {
+          for (let i = 0; i < res.data.tags.length; i++) {
+            data.push(res.data.tags[i].id);
+          }
+        }
+
+        this.form.tagIds = data;
+      });
+    },
+    params() {
+      this.$api.Member.Create().then((res) => {
+        this.tags = res.data.tags;
       });
     },
     formValidate() {
@@ -81,7 +110,9 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.Member.RemarkUpdate(this.id, this.form)
+      this.$api.Member.TagUpdate(this.id, {
+        tag_ids: this.form.tagIds.join(","),
+      })
         .then(() => {
           this.loading = false;
           this.$message.success(this.$t("common.success"));

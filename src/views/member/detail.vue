@@ -108,8 +108,8 @@
               class="ml-20"
               text="修改"
               type="primary"
-              p="member.remark.update"
-              @click="changeRemark()"
+              p="member.tags"
+              @click="changeTags()"
             ></p-link>
           </div>
           <div class="panel-info-item large">
@@ -196,6 +196,13 @@
       @close="showRemarkWin = false"
       @success="successEvt"
     ></remark-dialog>
+    <tags-dialog
+      :key="user.id"
+      v-if="showTagsWin"
+      :id="user.id"
+      @close="showTagsWin = false"
+      @success="successEvt"
+    ></tags-dialog>
   </div>
 </template>
 
@@ -212,6 +219,7 @@ import UserVideoWatchRecordsComp from "./detail/video-watch-records.vue";
 import MemberDialog from "./components/member-dialog";
 import CreditDialog from "./components/credit-dialog";
 import RemarkDialog from "./components/remark-dialog";
+import TagsDialog from "./components/tags-dialog";
 
 export default {
   components: {
@@ -226,6 +234,7 @@ export default {
     MemberDialog,
     CreditDialog,
     RemarkDialog,
+    TagsDialog,
   },
   data() {
     return {
@@ -238,6 +247,7 @@ export default {
       updateId: null,
       showCreditWin: false,
       showRemarkWin: false,
+      showTagsWin: false,
     };
   },
   computed: {
@@ -320,6 +330,7 @@ export default {
       this.showAddWin = false;
       this.showCreditWin = false;
       this.showRemarkWin = false;
+      this.showTagsWin = false;
       this.getUser();
     },
     changeCredit() {
@@ -327,6 +338,9 @@ export default {
     },
     changeRemark() {
       this.showRemarkWin = true;
+    },
+    changeTags() {
+      this.showTagsWin = true;
     },
     getUser() {
       if (this.loading) {
