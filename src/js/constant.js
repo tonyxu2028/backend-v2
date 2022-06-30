@@ -70,7 +70,6 @@ export default {
     MemberImport: "MemberIndex",
     MemberDetail: "MemberIndex",
     MemberTag: "MemberIndex",
-    MemberRemark: "MemberIndex",
     MemberTagIndex: "MemberIndex",
     MemberTagCreate: "MemberIndex",
     MemberTagEdit: "MemberIndex",

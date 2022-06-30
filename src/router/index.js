@@ -637,14 +637,6 @@ const routes = [
     },
   },
   {
-    path: "/member/:userId/remark",
-    component: () => import("@/views/member/remark"),
-    name: "MemberRemark",
-    meta: {
-      title: "title.member.remark",
-    },
-  },
-  {
     path: "/member/tag/index",
     component: () => import("@/views/member/tag/index"),
     name: "MemberTagIndex",

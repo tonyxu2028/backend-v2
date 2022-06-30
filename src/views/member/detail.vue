@@ -38,16 +38,6 @@
                 p="member.tags"
               >
               </p-link>
-              <p-link
-                text="修改备注"
-                type="primary"
-                class="edit-profile"
-                @click="
-                  $router.push({ name: 'MemberRemark', params: { userId: id } })
-                "
-                p="member.remark.update"
-              >
-              </p-link>
             </div>
           </div>
         </div>
@@ -114,11 +104,25 @@
                 {{ item.name }}
               </el-tag>
             </template>
+            <p-link
+              class="ml-20"
+              text="修改"
+              type="primary"
+              p="member.remark.update"
+              @click="changeRemark()"
+            ></p-link>
           </div>
-          <div class="panel-info-item">
+          <div class="panel-info-item large">
             备注：<template v-if="user.remark">
-              <span v-html="user.remark.remark"></span>
+              {{ user.remark.remark }}
             </template>
+            <p-link
+              class="ml-20"
+              text="修改"
+              type="primary"
+              p="member.remark.update"
+              @click="changeRemark()"
+            ></p-link>
           </div>
         </div>
       </div>
@@ -185,6 +189,13 @@
       @close="showCreditWin = false"
       @success="successEvt"
     ></credit-dialog>
+    <remark-dialog
+      :key="user.id"
+      v-if="showRemarkWin"
+      :id="user.id"
+      @close="showRemarkWin = false"
+      @success="successEvt"
+    ></remark-dialog>
   </div>
 </template>
 
@@ -200,6 +211,7 @@ import UserVodWatchRecordsComp from "./detail/vod-watch-records.vue";
 import UserVideoWatchRecordsComp from "./detail/video-watch-records.vue";
 import MemberDialog from "./components/member-dialog";
 import CreditDialog from "./components/credit-dialog";
+import RemarkDialog from "./components/remark-dialog";
 
 export default {
   components: {
@@ -213,6 +225,7 @@ export default {
     UserVideoWatchRecordsComp,
     MemberDialog,
     CreditDialog,
+    RemarkDialog,
   },
   data() {
     return {
@@ -224,6 +237,7 @@ export default {
       tit: null,
       updateId: null,
       showCreditWin: false,
+      showRemarkWin: false,
     };
   },
   computed: {
@@ -305,10 +319,14 @@ export default {
     successEvt() {
       this.showAddWin = false;
       this.showCreditWin = false;
+      this.showRemarkWin = false;
       this.getUser();
     },
     changeCredit() {
       this.showCreditWin = true;
+    },
+    changeRemark() {
+      this.showRemarkWin = true;
     },
     getUser() {
       if (this.loading) {
@@ -428,20 +446,23 @@ export default {
     float: left;
     box-sizing: border-box;
     padding-bottom: 20px;
-    padding-top: 30px;
-    display: grid;
-    row-gap: 30px;
-    column-gap: 0px;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding-top: 0px;
+
+    display: flex;
+    flex-wrap: wrap;
     .panel-info-item {
       display: flex;
-      width: auto;
+      width: 325px;
       height: auto;
       font-size: 14px;
       font-weight: 400;
       color: #333333;
       line-height: 14px;
       align-items: center;
+      margin-top: 30px;
+      &.large {
+        width: 650px;
+      }
       .item {
         flex: 1;
         line-height: 20px;
