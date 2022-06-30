@@ -146,10 +146,6 @@
           :id="id"
           v-else-if="courseTabActive === 'credit1'"
         ></user-credit1-comp>
-        <user-roles-comp
-          :id="id"
-          v-else-if="courseTabActive === 'roles'"
-        ></user-roles-comp>
         <user-invite-comp
           :id="id"
           v-else-if="courseTabActive === 'invite'"
@@ -202,7 +198,6 @@ import UserCoursesComp from "./detail/vod.vue";
 import UserVideosComp from "./detail/video.vue";
 import UserOrdersComp from "./detail/orders.vue";
 import UserCredit1Comp from "./detail/credit1.vue";
-import UserRolesComp from "./detail/roles.vue";
 import UserInviteComp from "./detail/invite.vue";
 import UserVodWatchRecordsComp from "./detail/vod-watch-records.vue";
 import UserVideoWatchRecordsComp from "./detail/video-watch-records.vue";
@@ -217,7 +212,6 @@ export default {
     UserVideosComp,
     UserOrdersComp,
     UserCredit1Comp,
-    UserRolesComp,
     UserInviteComp,
     UserVodWatchRecordsComp,
     UserVideoWatchRecordsComp,
@@ -286,10 +280,6 @@ export default {
           {
             name: "视频观看",
             key: "video-watch-records",
-          },
-          {
-            name: "VIP记录",
-            key: "roles",
           },
           {
             name: "邀请记录",
