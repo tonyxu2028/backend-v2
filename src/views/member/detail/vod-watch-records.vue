@@ -6,15 +6,16 @@
       :data="list"
       class="float-left"
     >
-      <el-table-column label="课程">
+      <el-table-column label="录播课程">
         <template slot-scope="scope">
           <div class="d-flex" v-if="courses[scope.row.course_id]">
             <div>
-              <img
-                :src="courses[scope.row.course_id].thumb"
-                width="100"
-                height="80"
-              />
+              <thumb-bar
+                :value="courses[scope.row.course_id].thumb"
+                :width="120"
+                :height="90"
+                :border="4"
+              ></thumb-bar>
             </div>
             <div class="flex-1 ml-15">
               {{ courses[scope.row.course_id].title }}
@@ -23,7 +24,7 @@
           <span v-else class="c-red">课程不存在</span>
         </template>
       </el-table-column>
-      <el-table-column label="进度" :width="120">
+      <el-table-column label="课程学习进度" :width="200">
         <template slot-scope="scope">
           <span>{{ scope.row.progress }}%</span>
         </template>
