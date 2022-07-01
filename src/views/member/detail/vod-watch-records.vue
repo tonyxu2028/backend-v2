@@ -45,6 +45,13 @@
           scope.row.watched_at | dateFormat
         }}</template></el-table-column
       >
+      <el-table-column label="看完时间" :width="200">
+        <template slot-scope="scope">
+          <el-link type="primary" @click="showVideoDialog(scope.row)"
+            >课时学习</el-link
+          >
+        </template>
+      </el-table-column>
     </el-table>
 
     <div class="float-left mt-15">
@@ -58,10 +65,21 @@
       >
       </el-pagination>
     </div>
+    <video-table-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+    ></video-table-dialog>
   </div>
 </template>
 <script>
+import VideoTableDialog from "../components/video-table-dialog";
 export default {
+  components: {
+    VideoTableDialog,
+  },
   props: ["id"],
   data() {
     return {
@@ -73,12 +91,20 @@ export default {
       list: [],
       courses: [],
       loading: false,
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   mounted() {
     this.getData();
   },
   methods: {
+    showVideoDialog(item) {
+      this.tit = this.courses[item.course_id].title;
+      this.updateId = item.course_id;
+      this.showAddWin = true;
+    },
     pageChange(page) {
       this.pagination.page = page;
       this.getData();
