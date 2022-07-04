@@ -15,8 +15,6 @@
             :header-cell-style="{ background: '#f1f2f9' }"
             :data="list"
             class="float-left"
-            @sort-change="sortChange"
-            :default-sort="{ prop: 'published_at', order: 'ascending' }"
           >
             <el-table-column label="课时名称" min-width="32%">
               <template slot-scope="scope">
@@ -31,7 +29,6 @@
             <el-table-column
               property="duration"
               label="课时时长"
-              sortable
               min-width="13%"
               ><template slot-scope="scope">
                 <duration-text
@@ -43,7 +40,6 @@
             <el-table-column
               property="duration"
               label="已学时长"
-              sortable
               min-width="13%"
               ><template slot-scope="scope">
                 <duration-text
@@ -59,7 +55,7 @@
                 <span v-else>未学完</span>
               </template>
             </el-table-column>
-            <el-table-column sortable label="开始学习时间" min-width="16%">
+            <el-table-column label="开始学习时间" min-width="16%">
               <template slot-scope="scope">
                 <span v-if="scope.row.created_at">{{
                   scope.row.created_at | dateFormat
@@ -67,7 +63,7 @@
                 <span v-else>-</span>
               </template>
             </el-table-column>
-            <el-table-column sortable label="最近一次学习" min-width="16%">
+            <el-table-column label="最近一次学习" min-width="16%">
               <template slot-scope="scope">
                 <span v-if="scope.row.watched_at">{{
                   scope.row.watched_at | dateFormat
@@ -93,8 +89,6 @@ export default {
       pagination: {
         page: 1,
         size: 10000,
-        sort: "published_at",
-        order: "asc",
       },
       loading: false,
       list: [],
@@ -108,11 +102,6 @@ export default {
     }
   },
   methods: {
-    sortChange(column) {
-      this.pagination.sort = column.prop;
-      this.pagination.order = column.order === "ascending" ? "asc" : "desc";
-      this.getData();
-    },
     getData() {
       if (this.loading) {
         return;
