@@ -20,7 +20,7 @@
       </el-table-column>
       <el-table-column
         prop="mobile"
-        label="手机号"
+        label="手机号码"
         width="200"
       ></el-table-column>
       <el-table-column prop="created_at" label="注册时间" width="200">
