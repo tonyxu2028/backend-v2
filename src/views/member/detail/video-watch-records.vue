@@ -8,43 +8,68 @@
     >
       <el-table-column label="课时名称">
         <template slot-scope="scope">
-          <span v-if="videos[scope.row.video_id]">
-            {{ videos[scope.row.video_id].title }}
-          </span>
-          <span v-else class="c-red">课时不存在</span>
+          {{ scope.row.video.title }}
         </template>
       </el-table-column>
       <el-table-column label="课时时长" width="200">
         <template slot-scope="scope">
           <duration-text
             v-if="!loading"
-            :duration="scope.row.watch_seconds"
+            :duration="scope.row.duration"
           ></duration-text>
         </template>
       </el-table-column>
       <el-table-column label="已学时长" width="200">
         <template slot-scope="scope">
-          <duration-text
-            v-if="!loading"
-            :duration="scope.row.watch_seconds"
-          ></duration-text>
+          <template
+            v-if="
+              typeof scope.row.watch_record['watch_seconds'] !== 'undefined'
+            "
+          >
+            <duration-text
+              v-if="!loading"
+              :duration="scope.row.watch_record.watch_seconds"
+            ></duration-text>
+          </template>
+          <span v-else>-</span>
         </template>
       </el-table-column>
       <el-table-column label="是否学完" :width="200">
         <template slot-scope="scope">
-          <span class="c-green" v-if="scope.row.watched_at">已学完</span>
+          <span
+            class="c-green"
+            v-if="
+              typeof scope.row.watch_record['watched_at'] !== 'undefined' &&
+              scope.row.watch_record.watched_at
+            "
+            >已学完</span
+          >
           <span v-else>未学完</span>
         </template>
       </el-table-column>
       <el-table-column label="开始学习时间" :width="200">
-        <template slot-scope="scope">{{
-          scope.row.created_at | dateFormat
-        }}</template></el-table-column
+        <template slot-scope="scope"
+          ><span
+            v-if="
+              typeof scope.row.watch_record['created_at'] !== 'undefined' &&
+              scope.row.watch_record.created_at
+            "
+            >{{ scope.row.watch_record.created_at | dateFormat }}</span
+          >
+          <span v-else>-</span>
+        </template></el-table-column
       >
-      <el-table-column label="看完时间" :width="200">
-        <template slot-scope="scope">{{
-          scope.row.watched_at | dateFormat
-        }}</template>
+      <el-table-column label="最近一次学习" :width="200">
+        <template slot-scope="scope">
+          <span
+            v-if="
+              typeof scope.row.watch_record['updated_at'] !== 'undefined' &&
+              scope.row.watch_record.updated_at
+            "
+            >{{ scope.row.watch_record.updated_at | dateFormat }}</span
+          >
+          <span v-else>-</span>
+        </template>
       </el-table-column>
     </el-table>
 
@@ -93,15 +118,13 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.Member.UserVideos(this.id, this.pagination).then(
-        (res) => {
-          this.loading = false;
-
-          this.videos = res.data.videos;
-          this.list = res.data.data.data;
-          this.total = res.data.data.total;
-        }
-      );
+      let params = {};
+      Object.assign(params, this.pagination, { user_id: this.id });
+      this.$api.Member.UserVideos(params).then((res) => {
+        this.loading = false;
+        this.list = res.data.data;
+        this.total = res.data.total;
+      });
     },
   },
 };

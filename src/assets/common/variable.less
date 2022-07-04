@@ -622,10 +622,14 @@ a {
       flex-direction: row;
       justify-content: space-between;
       span {
+        flex: 1;
         font-size: 18px;
         font-weight: 400;
         color: #333333;
         line-height: 18px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       .icon-close {
         width: 18px;

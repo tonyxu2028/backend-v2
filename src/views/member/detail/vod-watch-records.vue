@@ -8,17 +8,17 @@
     >
       <el-table-column label="录播课程">
         <template slot-scope="scope">
-          <div class="d-flex" v-if="courses[scope.row.course_id]">
+          <div class="d-flex" v-if="scope.row.course.id">
             <div>
               <thumb-bar
-                :value="courses[scope.row.course_id].thumb"
+                :value="scope.row.course.thumb"
                 :width="120"
                 :height="90"
                 :border="4"
               ></thumb-bar>
             </div>
             <div class="flex-1 ml-15">
-              {{ courses[scope.row.course_id].title }}
+              {{ scope.row.course.title }}
             </div>
           </div>
           <span v-else class="c-red">课程不存在</span>
@@ -26,30 +26,44 @@
       </el-table-column>
       <el-table-column label="课程学习进度" :width="200">
         <template slot-scope="scope">
-          <span>{{ scope.row.progress }}%</span>
+          <span v-if="scope.row.watch_record.length !== 0">
+            {{ scope.row.watch_record.progress }}%
+          </span>
+          <span v-else>-</span>
         </template>
       </el-table-column>
-      <el-table-column label="看完" :width="80">
+      <el-table-column label="开始学习时间" :width="200">
         <template slot-scope="scope">
-          <span class="c-red" v-if="scope.row.is_watched === 1">是</span>
-          <span v-else>否</span>
+          <span
+            v-if="
+              scope.row.watch_record.length !== 0 &&
+              scope.row.watch_record.created_at
+            "
+            >{{ scope.row.watch_record.created_at | dateFormat }}
+          </span>
+          <span v-else>-</span>
         </template>
       </el-table-column>
-      <el-table-column label="开始时间" :width="200">
-        <template slot-scope="scope">{{
-          scope.row.created_at | dateFormat
-        }}</template></el-table-column
-      >
-      <el-table-column label="看完时间" :width="200">
-        <template slot-scope="scope">{{
-          scope.row.watched_at | dateFormat
-        }}</template></el-table-column
-      >
+      <el-table-column label="最近一次学习" :width="200">
+        <template slot-scope="scope">
+          <span
+            v-if="
+              scope.row.watch_record.length !== 0 &&
+              scope.row.watch_record.updated_at
+            "
+            >{{ scope.row.watch_record.updated_at | dateFormat }}
+          </span>
+          <span v-else>-</span>
+        </template>
+      </el-table-column>
       <el-table-column label="课时学习明细" :width="200">
         <template slot-scope="scope">
-          <el-link type="primary" @click="showVideoDialog(scope.row)"
-            >课时学习</el-link
-          >
+          <p-link
+            text="课时学习"
+            type="primary"
+            p="v2.member.course.progress"
+            @click="showVideoDialog(scope.row)"
+          ></p-link>
         </template>
       </el-table-column>
     </el-table>
@@ -90,7 +104,6 @@ export default {
       },
       total: 0,
       list: [],
-      courses: [],
       loading: false,
       showAddWin: false,
       tit: null,
@@ -102,7 +115,7 @@ export default {
   },
   methods: {
     showVideoDialog(item) {
-      this.tit = this.courses[item.course_id].title;
+      this.tit = item.course.title;
       this.updateId = item.course_id;
       this.showAddWin = true;
     },
@@ -115,15 +128,13 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.Member.UserVodWatchRecords(this.id, this.pagination).then(
-        (res) => {
-          this.loading = false;
-
-          this.courses = res.data.courses;
-          this.list = res.data.data.data;
-          this.total = res.data.data.total;
-        }
-      );
+      let params = {};
+      Object.assign(params, this.pagination, { user_id: this.id });
+      this.$api.Member.UserVodWatchRecords(params).then((res) => {
+        this.loading = false;
+        this.list = res.data.data;
+        this.total = res.data.total;
+      });
     },
   },
 };

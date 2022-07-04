@@ -1111,8 +1111,8 @@ const Api = {
     UserCourses(id, params) {
       return get(`/backend/api/v1/member/${id}/detail/userCourses`, params);
     },
-    UserVideos(id, params) {
-      return get(`/backend/api/v1/member/${id}/detail/userVideos`, params);
+    UserVideos(params) {
+      return get(`/backend/api/v2/member/videos`, params);
     },
     UserRoles(id, params) {
       return get(`/backend/api/v1/member/${id}/detail/userRoles`, params);
@@ -1126,14 +1126,11 @@ const Api = {
     UserInviteRecords(id, params) {
       return get(`/backend/api/v1/member/${id}/detail/userInvite`, params);
     },
-    UserVodWatchRecords(id, params) {
-      return get(`/backend/api/v1/member/${id}/detail/userHistory`, params);
+    UserVodWatchRecords(params) {
+      return get(`/backend/api/v2/member/courses`, params);
     },
-    UserVideoWatchRecords(id, params) {
-      return get(
-        `/backend/api/v1/member/${id}/detail/videoWatchRecords`,
-        params
-      );
+    UserVideoWatchRecords(params) {
+      return get(`/backend/api/v2/member/course/progress`, params);
     },
     TagUpdate(id, params) {
       return put(`/backend/api/v1/member/${id}/tags`, params);
