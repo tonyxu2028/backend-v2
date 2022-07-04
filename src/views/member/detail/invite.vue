@@ -21,14 +21,14 @@
       <el-table-column
         prop="mobile"
         label="手机号码"
-        width="200"
+        width="400"
       ></el-table-column>
-      <el-table-column prop="created_at" label="注册时间" width="200">
+      <el-table-column prop="created_at" label="注册时间" width="215">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
         }}</template></el-table-column
       >
-      <el-table-column prop="created_at" label="邀请关系有效期至" width="200">
+      <el-table-column prop="created_at" label="邀请关系有效期至" width="215">
         <template slot-scope="scope">{{
           scope.row.invite_user_expired_at | dateFormat
         }}</template></el-table-column
