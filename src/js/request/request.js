@@ -1132,6 +1132,9 @@ const Api = {
     UserVideoWatchRecords(params) {
       return get(`/backend/api/v2/member/course/progress`, params);
     },
+    UserLiveWatchRecords(params) {
+      return get(`/backend/api/v2/member/courses`, params);
+    },
     TagUpdate(id, params) {
       return put(`/backend/api/v1/member/${id}/tags`, params);
     },
