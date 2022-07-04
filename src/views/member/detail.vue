@@ -268,7 +268,7 @@ export default {
             key: "video-watch-records",
           },
           {
-            name: "邀请记录",
+            name: "邀请明细",
             key: "invite",
           },
           {

@@ -21,11 +21,10 @@
             <el-table-column label="课时名称" min-width="32%">
               <template slot-scope="scope">
                 <template>
-                  <template v-if="scope.row.chapter">
-                    <span>{{ scope.row.chapter.title }}</span>
-                    <span class="mx-5">/</span>
+                  <template v-if="videos[scope.row.video_id]">
+                    <span>{{ videos[scope.row.video_id].title }}</span>
                   </template>
-                  <span>{{ scope.row.title }}</span>
+                  <span v-else class="c-red">课时不存在</span>
                 </template>
               </template>
             </el-table-column>
@@ -36,10 +35,9 @@
               min-width="13%"
               ><template slot-scope="scope">
                 <duration-text
-                  v-if="scope.row.duration"
-                  :duration="scope.row.duration"
+                  v-if="!loading"
+                  :duration="scope.row.watch_seconds"
                 ></duration-text>
-                <span v-else>-</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -49,32 +47,30 @@
               min-width="13%"
               ><template slot-scope="scope">
                 <duration-text
-                  v-if="scope.row.duration"
-                  :duration="scope.row.duration"
+                  v-if="!loading"
+                  :duration="scope.row.watch_seconds"
                 ></duration-text>
                 <span v-else>-</span>
               </template>
             </el-table-column>
             <el-table-column label="是否学完" min-width="10%">
               <template slot-scope="scope">
-                <span class="c-green" v-if="scope.row.is_show === 1"
-                  >已学完</span
-                >
+                <span class="c-green" v-if="scope.row.watched_at">已学完</span>
                 <span v-else>未学完</span>
               </template>
             </el-table-column>
             <el-table-column sortable label="开始学习时间" min-width="16%">
               <template slot-scope="scope">
-                <span v-if="scope.row.published_at">{{
-                  scope.row.published_at | dateFormat
+                <span v-if="scope.row.created_at">{{
+                  scope.row.created_at | dateFormat
                 }}</span>
                 <span v-else>-</span>
               </template>
             </el-table-column>
             <el-table-column sortable label="最近一次学习" min-width="16%">
               <template slot-scope="scope">
-                <span v-if="scope.row.published_at">{{
-                  scope.row.published_at | dateFormat
+                <span v-if="scope.row.watched_at">{{
+                  scope.row.watched_at | dateFormat
                 }}</span>
                 <span v-else>-</span>
               </template>
@@ -91,7 +87,7 @@ export default {
   components: {
     DurationText,
   },
-  props: ["id", "text"],
+  props: ["id", "text", "userId"],
   data() {
     return {
       pagination: {
@@ -103,6 +99,7 @@ export default {
       loading: false,
       list: [],
       total: 0,
+      videos: [],
     };
   },
   mounted() {
@@ -125,11 +122,14 @@ export default {
       Object.assign(params, this.pagination, {
         cid: this.id,
       });
-      this.$api.Course.Vod.Videos.List(params).then((res) => {
-        this.loading = false;
-        this.list = res.data.videos.data;
-        this.total = res.data.videos.total;
-      });
+      this.$api.Member.UserVideoWatchRecords(this.userId, params).then(
+        (res) => {
+          this.loading = false;
+          this.list = res.data.data.data;
+          this.total = res.data.data.total;
+          this.videos = res.data.videos;
+        }
+      );
     },
     close() {
       this.$emit("close");

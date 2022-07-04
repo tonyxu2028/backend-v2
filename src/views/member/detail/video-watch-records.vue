@@ -93,7 +93,7 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.Member.UserVideoWatchRecords(this.id, this.pagination).then(
+      this.$api.Member.UserVideos(this.id, this.pagination).then(
         (res) => {
           this.loading = false;
 

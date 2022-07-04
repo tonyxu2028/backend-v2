@@ -70,6 +70,7 @@
       v-if="showAddWin"
       :text="tit"
       :id="updateId"
+      :userId="id"
       @close="showAddWin = false"
     ></video-table-dialog>
   </div>
