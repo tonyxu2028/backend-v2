@@ -14,6 +14,14 @@
           <span v-else class="c-red">课时不存在</span>
         </template>
       </el-table-column>
+      <el-table-column label="课时时长" width="200">
+        <template slot-scope="scope">
+          <duration-text
+            v-if="!loading"
+            :duration="scope.row.watch_seconds"
+          ></duration-text>
+        </template>
+      </el-table-column>
       <el-table-column label="已学时长" width="200">
         <template slot-scope="scope">
           <duration-text
