@@ -35,12 +35,14 @@
                 ></thumb-bar>
               </template>
               <template v-else-if="item.goods_type === 'BOOK'">
-                <thumb-bar
-                  :value="item.goods_thumb"
-                  :width="67.5"
-                  :height="90"
-                  :border="4"
-                ></thumb-bar>
+                <div class="item-thumb">
+                  <thumb-bar
+                    :value="item.goods_thumb"
+                    :width="67.5"
+                    :height="90"
+                    :border="4"
+                  ></thumb-bar>
+                </div>
               </template>
               <template v-else>
                 <thumb-bar
@@ -86,7 +88,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 10,
+        size: 8,
         status: 9,
       },
       total: 0,
