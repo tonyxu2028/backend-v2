@@ -45,7 +45,7 @@
           scope.row.watched_at | dateFormat
         }}</template></el-table-column
       >
-      <el-table-column label="看完时间" :width="200">
+      <el-table-column label="课时学习明细" :width="200">
         <template slot-scope="scope">
           <el-link type="primary" @click="showVideoDialog(scope.row)"
             >课时学习</el-link
