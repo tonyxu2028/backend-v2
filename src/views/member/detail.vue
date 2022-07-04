@@ -120,14 +120,14 @@
 
     <!-- 学员课程区域 -->
     <div class="float-left bg-white br-15 p-30 mt-30">
-      <el-tabs v-model="courseTabActive">
-        <el-tab-pane
-          :label="item.name"
-          :name="item.key"
+      <el-radio-group v-model="courseTabActive">
+        <el-radio-button
+          :label="item.key"
           v-for="item in courseTypes"
           :key="item.key"
-        ></el-tab-pane>
-      </el-tabs>
+          >{{ item.name }}</el-radio-button
+        >
+      </el-radio-group>
 
       <div class="float-left mt-30">
         <user-orders-comp

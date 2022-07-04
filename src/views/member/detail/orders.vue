@@ -59,20 +59,6 @@
       </el-table-column>
       <el-table-column prop="charge" label="支付金额" width="200">
       </el-table-column>
-      <el-table-column prop="status_text" label="支付状态" width="200">
-        <template slot-scope="scope">
-          <span
-            :class="{
-              'c-green': scope.row.status_text === '已支付',
-              'c-red': scope.row.status_text === '未支付',
-              'c-yellow': scope.row.status_text === '支付中',
-              'c-gray': scope.row.status_text === '已取消',
-            }"
-          >
-            · {{ scope.row.status_text }}
-          </span>
-        </template>
-      </el-table-column>
       <el-table-column label="付款时间" width="200">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
@@ -100,7 +86,8 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 8,
+        size: 10,
+        status: 9,
       },
       total: 0,
       list: [],
