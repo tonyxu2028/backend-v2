@@ -94,7 +94,6 @@ export default {
       },
       total: 0,
       list: [],
-      courses: [],
       loading: false,
     };
   },
@@ -115,10 +114,8 @@ export default {
       Object.assign(params, this.pagination, { user_id: this.id });
       this.$api.Member.UserLiveWatchRecords(params).then((res) => {
         this.loading = false;
-
-        this.courses = res.data.courses;
-        this.list = res.data.data.data;
-        this.total = res.data.data.total;
+        this.list = res.data.data;
+        this.total = res.data.total;
       });
     },
   },
