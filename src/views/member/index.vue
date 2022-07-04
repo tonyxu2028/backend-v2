@@ -172,7 +172,7 @@
                   >
                   </p-dropdown-item>
                   <p-dropdown-item
-                    text="冻结账号"
+                    :text="lockText(scope.row)"
                     p="member.edit"
                     type="danger"
                     @click="lockMember(scope.row)"
@@ -488,6 +488,13 @@ export default {
     },
   },
   methods: {
+    lockText(item) {
+      let text = "冻结账号";
+      if (item.is_lock === 1) {
+        text = "解冻账号";
+      }
+      return text;
+    },
     addMember() {
       this.tit = "添加学员资料";
       this.updateId = null;
