@@ -86,7 +86,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column label="手机号码" min-width="9%">
+          <el-table-column label="手机号码" min-width="11%">
             <template slot-scope="scope">
               <span v-if="scope.row.mobile">{{ scope.row.mobile }}</span>
               <span v-else>-</span>
@@ -133,7 +133,7 @@
               scope.row.created_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column label="账号状态" min-width="8%">
+          <el-table-column label="状态" min-width="6%">
             <template slot-scope="scope">
               <span v-if="scope.row.is_lock === 1" class="c-red">·冻结</span>
               <span v-else class="c-green">·正常</span>
