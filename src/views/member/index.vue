@@ -39,7 +39,7 @@
           <el-input
             class="w-150px"
             v-model="filter.keywords"
-            placeholder="学员关键字"
+            placeholder="完整昵称或手机号"
           ></el-input>
         </div>
         <div class="ml-10">
