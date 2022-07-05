@@ -30,7 +30,11 @@
           p="addons.Zhibo.course_comment"
         >
         </p-button>
-        <option-bar text="直播服务配置" value="直播"></option-bar>
+        <option-bar
+          text="直播服务配置"
+          value="SystemLiveConfig"
+          :query="{ referer: this.$route.path }"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>

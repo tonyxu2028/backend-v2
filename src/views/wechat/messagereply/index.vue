@@ -13,7 +13,7 @@
         @click="$router.push({ name: 'MpWechatMenu' })"
         type="primary"
       ></p-button>
-      <option-bar text="公众号配置" value="微信公众号"></option-bar>
+      <option-bar text="公众号配置" value="SystemMpwechatConfig"></option-bar>
     </div>
     <div class="float-left" v-loading="loading">
       <el-table

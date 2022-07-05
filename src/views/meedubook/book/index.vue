@@ -30,7 +30,11 @@
           type="primary"
         >
         </p-button>
-        <option-bar text="电子书推荐" value="电子书"></option-bar>
+        <option-bar
+          text="电子书推荐"
+          value="SystemBookConfig"
+          :query="{ referer: this.$route.path }"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>

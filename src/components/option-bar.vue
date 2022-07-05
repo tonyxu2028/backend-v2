@@ -9,50 +9,13 @@
 
 <script>
 export default {
-  props: ["text", "value"],
+  props: ["text", "value", "query"],
   methods: {
     goRouter() {
-      if (this.value === "积分") {
-        this.$router.push({
-          name: "SystemCreditSignConfig",
-        });
-      } else if (this.value === "微信公众号") {
-        this.$router.push({
-          name: "SystemMpwechatConfig",
-        });
-      } else if (this.value === "图文") {
-        this.$router.push({
-          name: "SystemTopicConfig",
-          query: { referer: this.$route.path },
-        });
-      } else if (this.value === "电子书") {
-        this.$router.push({
-          name: "SystemBookConfig",
-          query: { referer: this.$route.path },
-        });
-      } else if (this.value === "播放器配置") {
-        this.$router.push({
-          name: "SystemPlayerConfig",
-          query: { referer: this.$route.path },
-        });
-      } else if (this.value === "直播") {
-        this.$router.push({
-          name: "SystemLiveConfig",
-          query: { referer: this.$route.path },
-        });
-      } else if (
-        this.value === "腾讯云HLS加密" ||
-        this.value === "阿里云HLS加密"
-      ) {
-        this.$router.push({
-          name: "SystemVideoHlsConfig",
-        });
-      } else {
-        this.$router.push({
-          name: "SystemConfig",
-          query: { key: this.value },
-        });
-      }
+      this.$router.push({
+        name: this.value,
+        query: this.query,
+      });
     },
   },
 };

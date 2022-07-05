@@ -10,7 +10,10 @@
           @click="submit"
           type="primary"
         ></p-button>
-        <option-bar text="腾讯云HLS加密" value="腾讯云HLS加密"></option-bar>
+        <option-bar
+          text="腾讯云HLS加密"
+          value="SystemVideoHlsConfig"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>
