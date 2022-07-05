@@ -499,8 +499,10 @@ export default {
 
         this.getConfig();
 
-        if (this.$route.query.key === "referer") {
-          this.$router.back();
+        if (this.$route.query.referer) {
+          this.$router.replace({
+            path: this.$route.query.referer,
+          });
         }
       });
     },
