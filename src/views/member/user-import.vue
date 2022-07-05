@@ -6,12 +6,12 @@
       <div class="float-left d-flex mb-30">
         <div>
           <el-button :loading="loading" type="primary" @click="choiceFile">
-            选择Excel表格文件
+            导入表格
           </el-button>
         </div>
         <div class="ml-30">
           <el-link type="primary" @click="download">
-            点击链接下载「学员批量导入模板」
+            下载「学员批量导入模板」
           </el-link>
         </div>
       </div>
