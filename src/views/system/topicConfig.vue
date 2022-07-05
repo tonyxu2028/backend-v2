@@ -162,7 +162,9 @@ export default {
 
         this.getConfig();
 
-        this.$router.back();
+        if (this.$route.query.key === "referer") {
+          this.$router.back();
+        }
       });
     },
   },

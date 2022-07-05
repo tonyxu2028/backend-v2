@@ -23,18 +23,22 @@ export default {
       } else if (this.value === "图文") {
         this.$router.push({
           name: "SystemTopicConfig",
+          query: { key: "referer" },
         });
       } else if (this.value === "电子书") {
         this.$router.push({
           name: "SystemBookConfig",
+          query: { key: "referer" },
         });
       } else if (this.value === "播放器配置") {
         this.$router.push({
           name: "SystemPlayerConfig",
+          query: { key: "referer" },
         });
       } else if (this.value === "直播") {
         this.$router.push({
           name: "SystemLiveConfig",
+          query: { key: "referer" },
         });
       } else if (
         this.value === "腾讯云HLS加密" ||
