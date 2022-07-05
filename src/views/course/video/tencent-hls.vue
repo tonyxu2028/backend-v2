@@ -13,6 +13,7 @@
         <option-bar
           text="腾讯云HLS加密"
           value="SystemVideoHlsConfig"
+          :query="{ referer: this.$route.path }"
         ></option-bar>
       </div>
       <div class="d-flex">
