@@ -33,7 +33,7 @@
 
         <p-button
           text="课时批量导入"
-          p="video.import"
+          p="video.store"
           @click="$router.push({ name: 'VodImport' })"
           type="primary"
         >

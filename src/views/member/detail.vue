@@ -69,7 +69,7 @@
               <p-link
                 text="解冻"
                 type="primary"
-                p="member.edit"
+                p="member.update"
                 @click="lockMember()"
               ></p-link
             ></template>
@@ -78,7 +78,7 @@
               ><p-link
                 text="冻结"
                 type="primary"
-                p="member.edit"
+                p="member.update"
                 @click="lockMember()"
               ></p-link
             ></template>

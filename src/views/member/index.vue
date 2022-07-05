@@ -11,7 +11,7 @@
         </p-button>
         <p-button
           text="学员批量导入"
-          p="member.import"
+          p="member.store"
           @click="$router.push({ name: 'MemberImport' })"
           type="primary"
           class="ml-15"
@@ -19,7 +19,7 @@
         </p-button>
         <p-button
           text="批量发消息"
-          p="member.message.send.multi"
+          p="member.message.send"
           @click="sendMessageMulti()"
           type="primary"
           class="ml-15"
@@ -27,7 +27,7 @@
         </p-button>
         <p-button
           text="批量设置"
-          p="member.update.field.multi"
+          p="member.update"
           @click="editMulti()"
           type="primary"
           class="ml-15"
@@ -159,7 +159,7 @@
                 <el-dropdown-menu slot="dropdown">
                   <p-dropdown-item
                     text="编辑资料"
-                    p="member.edit"
+                    p="member.update"
                     type="primary"
                     @click="updateMember(scope.row.id)"
                   >
@@ -173,7 +173,7 @@
                   </p-dropdown-item>
                   <p-dropdown-item
                     :text="lockText(scope.row)"
-                    p="member.edit"
+                    p="member.update"
                     type="danger"
                     @click="lockMember(scope.row)"
                   >
