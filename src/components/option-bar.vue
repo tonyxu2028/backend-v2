@@ -12,10 +12,15 @@ export default {
   props: ["text", "value", "query"],
   methods: {
     goRouter() {
-      this.$router.push({
+      let params = {
         name: this.value,
-        query: this.query,
-      });
+      };
+      if (this.query) {
+        Object.assign(params, {
+          query: this.query,
+        });
+      }
+      this.$router.push(params);
     },
   },
 };
