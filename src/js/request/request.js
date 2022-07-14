@@ -1242,6 +1242,9 @@ const Api = {
       Destory(id) {
         return destroy(`/backend/addons/multi_level_share/goods/${id}`);
       },
+      Rewards(params) {
+        return get(`/backend/addons/multi_level_share/reward/index`, params);
+      },
     },
   },
   TuanGou: {
