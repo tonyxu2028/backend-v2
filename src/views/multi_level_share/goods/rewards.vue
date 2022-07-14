@@ -25,72 +25,53 @@
           class="float-left"
         >
           <el-table-column prop="id" label="ID"> </el-table-column>
-          <el-table-column prop="order_id" label="订单ID" width="100">
+          <el-table-column prop="order_id" label="订单ID" width="120">
           </el-table-column>
-          <el-table-column label="订单商品" width="260">
+          <el-table-column label="订单商品" width="300">
             <template slot-scope="scope">
               <div class="d-flex" v-if="scope.row.order.goods">
                 <div
                   v-for="item in scope.row.order.goods"
                   :key="item.id"
-                  class="ml-10"
+                  class="mr-10"
                 >
-                  {{ item.goods_text }}：{{ item.goods_name }}
+                  {{ item.goods_name }}
                 </div>
               </div>
               <span v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column label="订单用户" width="280">
+          <el-table-column label="订单用户" width="300">
             <template slot-scope="scope">
               <div class="user-item d-flex" v-if="scope.row.order_user">
-                <div class="avatar">
-                  <img
-                    :src="scope.row.order_user.avatar"
-                    width="40"
-                    height="40"
-                  />
-                </div>
-                <div class="ml-10">{{ scope.row.order_user.nick_name }}</div>
+                <div>{{ scope.row.order_user.nick_name }}</div>
               </div>
               <span class="c-red" v-else>用户不存在</span>
             </template>
           </el-table-column>
-          <el-table-column label="一级用户及奖励" width="300">
+          <el-table-column label="一级用户及奖励" width="260">
             <template slot-scope="scope">
-              <div class="user-item d-flex" v-if="scope.row.user1">
-                <div class="avatar">
-                  <img :src="scope.row.user1.avatar" width="40" height="40" />
-                </div>
-                <div class="ml-10">
-                  {{ scope.row.user1.nick_name }}：{{ scope.row.reward1 }}元
-                </div>
+              <div class="flex flex-column" v-if="scope.row.user1">
+                <div>用户：{{ scope.row.user1.nick_name }}</div>
+                <div>获得：{{ scope.row.reward1 }}元</div>
               </div>
               <span v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column label="二级用户及奖励" width="300">
+          <el-table-column label="二级用户及奖励" width="260">
             <template slot-scope="scope">
-              <div class="user-item d-flex" v-if="scope.row.user2">
-                <div class="avatar">
-                  <img :src="scope.row.user2.avatar" width="40" height="40" />
-                </div>
-                <div class="ml-10">
-                  {{ scope.row.user2.nick_name }}：{{ scope.row.reward2 }}元
-                </div>
+              <div class="flex flex-column" v-if="scope.row.user2">
+                <div>用户：{{ scope.row.user2.nick_name }}</div>
+                <div>获得：{{ scope.row.reward2 }}元</div>
               </div>
               <span v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column label="三级用户及奖励" width="300">
+          <el-table-column label="三级用户及奖励" width="260">
             <template slot-scope="scope">
-              <div class="user-item d-flex" v-if="scope.row.user3">
-                <div class="avatar">
-                  <img :src="scope.row.user3.avatar" width="40" height="40" />
-                </div>
-                <div class="ml-10">
-                  {{ scope.row.user3.nick_name }}：{{ scope.row.reward3 }}元
-                </div>
+              <div class="flex flex-column" v-if="scope.row.user3">
+                <div>用户：{{ scope.row.user3.nick_name }}</div>
+                <div>获得：{{ scope.row.reward3 }}元</div>
               </div>
               <span v-else>-</span>
             </template>
@@ -120,7 +101,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 10,
+        size: 50,
       },
       filter: {
         order_id: null,
