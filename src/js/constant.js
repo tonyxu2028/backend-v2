@@ -115,6 +115,7 @@ export default {
     ShareGoods: "ShareGoods",
     ShareGoodsCreate: "ShareGoods",
     ShareGoodsUpdate: "ShareGoods",
+    ShareGoodsRewards: "ShareGoods",
     LiveCourse: "LiveCourse",
     LiveTeacher: "LiveCourse",
     LiveCourseCreate: "LiveCourse",

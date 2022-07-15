@@ -131,6 +131,7 @@ const zh = {
         index: "分销课程",
         create: "添加分销课程",
         update: "编辑分销课程",
+        rewards: "奖励记录",
       },
     },
     live: {

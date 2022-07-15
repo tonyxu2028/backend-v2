@@ -93,14 +93,11 @@ const Api = {
     },
     WithdrawOrders: {
       WithdrawOrders(params) {
-        return get(
-          `/backend/api/v1/member/inviteBalance/withdrawOrders`,
-          params
-        );
+        return get(`/backend/addons/multi_level_share/withdraw/index`, params);
       },
       Submit(params) {
         return post(
-          `/backend/api/v1/member/inviteBalance/withdrawOrders`,
+          `/backend/addons/multi_level_share/withdraw/handle`,
           params
         );
       },
@@ -1241,6 +1238,9 @@ const Api = {
       },
       Destory(id) {
         return destroy(`/backend/addons/multi_level_share/goods/${id}`);
+      },
+      Rewards(params) {
+        return get(`/backend/addons/multi_level_share/reward/index`, params);
       },
     },
   },

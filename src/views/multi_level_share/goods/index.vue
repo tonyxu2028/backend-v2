@@ -9,6 +9,13 @@
           type="primary"
         >
         </p-button>
+        <p-button
+          text="奖励记录"
+          p="addons.MultiLevelShare.reward.list"
+          @click="$router.push({ name: 'ShareGoodsRewards' })"
+          type="primary"
+        >
+        </p-button>
         <option-bar text="分销配置" value="三级分销"></option-bar>
       </div>
       <div class="d-flex">
