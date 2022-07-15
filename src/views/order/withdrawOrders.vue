@@ -32,6 +32,7 @@
         <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
+          <el-button @click="importexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
@@ -150,6 +151,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -295,6 +297,78 @@ export default {
         .catch((e) => {
           this.$message.error(e.message);
         });
+    },
+    importexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      Object.assign(params, this.filter);
+
+      this.$api.Order.WithdrawOrders.WithdrawOrders(params).then((res) => {
+        if (res.data.total === 0) {
+          this.$message.error("数据为空");
+          this.loading = false;
+          return;
+        }
+        let filename = "余额提现.xlsx";
+        let sheetName = "sheet1";
+
+        let data = [
+          [
+            "学员ID",
+            "学员",
+            "金额",
+            "收款人渠道",
+            "收款人姓名",
+            "收款人账号",
+            "状态",
+            "备注",
+            "时间",
+          ],
+        ];
+        res.data.data.forEach((item) => {
+          let status;
+          if (item.status === 0) {
+            status = "待处理";
+          } else if (item.status === 3) {
+            status = "已驳回";
+          } else if (item.status === 5) {
+            status = "已处理";
+          }
+          data.push([
+            item.user_id,
+            item.user.nick_name,
+            item.amount + "元",
+            item.channel,
+            item.channel_name,
+            item.channel_account,
+            status,
+            item.remark,
+            item.created_at
+              ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+              : "",
+          ]);
+        });
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
+        this.loading = false;
+      });
     },
   },
 };
