@@ -68,12 +68,12 @@
               <span v-else class="c-red">学员已删除</span>
             </template>
           </el-table-column>
-          <el-table-column label="提现金额">
+          <el-table-column label="金额">
             <template slot-scope="scope">
               <span>{{ scope.row.amount }}元</span>
             </template>
           </el-table-column>
-          <el-table-column label="打款信息" width="300">
+          <el-table-column label="收款人" width="300">
             <template slot-scope="scope">
               <div>渠道：{{ scope.row.channel }}</div>
               <div>姓名：{{ scope.row.channel_name }}</div>
@@ -95,7 +95,7 @@
           </el-table-column>
           <el-table-column prop="remark" label="备注" width="300">
           </el-table-column>
-          <el-table-column label="添加时间" width="200">
+          <el-table-column label="申请时间" width="200">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
             }}</template>
