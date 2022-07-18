@@ -132,6 +132,18 @@
             <el-option label="驳回" :value="3"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item
+          label="是否退回提现金额"
+          prop="is_return"
+          v-if="form.status === 3"
+        >
+          <el-switch
+            v-model="form.is_return"
+            :active-value="1"
+            :inactive-value="0"
+          >
+          </el-switch>
+        </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input
             v-model="form.remark"
@@ -195,6 +207,7 @@ export default {
       form: {
         status: null,
         remark: null,
+        is_return: 1,
       },
       rules: {
         status: [
@@ -208,6 +221,13 @@ export default {
           {
             required: true,
             message: "请输入备注",
+            trigger: "blur",
+          },
+        ],
+        is_return: [
+          {
+            required: true,
+            message: "请选择是否退回提现金额",
             trigger: "blur",
           },
         ],
@@ -292,6 +312,7 @@ export default {
           this.showHandleWin = false;
           this.form.status = null;
           this.form.remark = null;
+          this.form.is_return = 1;
           this.getData();
         })
         .catch((e) => {
