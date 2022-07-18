@@ -1132,6 +1132,12 @@ const Api = {
         params
       );
     },
+    UserBalanceRecords(params) {
+      return get(
+        `/backend/addons/multi_level_share/member/balanceRecords`,
+        params
+      );
+    },
     TagUpdate(id, params) {
       return put(`/backend/api/v1/member/${id}/tags`, params);
     },
