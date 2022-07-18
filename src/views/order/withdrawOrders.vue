@@ -306,6 +306,7 @@ export default {
         ids: this.spids.ids,
         status: this.form.status,
         remark: this.form.remark,
+        is_return: this.form.is_return,
       })
         .then(() => {
           this.$message.success(this.$t("common.success"));
