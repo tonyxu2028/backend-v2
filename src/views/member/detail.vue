@@ -1,11 +1,11 @@
 <template>
-  <div class="user-main-body" v-if="user" v-loading="loading">
+  <div class="user-main-body" v-if="userData" v-loading="loading">
     <div class="float-left bg-white br-15 p-30">
       <back-bar class="mb-30" title="学员详情"></back-bar>
       <div class="user-info-box">
         <div class="user-base-info-box">
           <div class="user-avatar">
-            <img :src="user.avatar" width="80" height="80" />
+            <img :src="userData.avatar" width="80" height="80" />
           </div>
           <div class="user-nickname">{{ user.nick_name }}</div>
           <div class="buttons">
@@ -62,44 +62,48 @@
           </div>
         </div>
         <div class="panel-info-box">
-          <div class="panel-info-item">ID：{{ user.id }}</div>
-          <div class="panel-info-item">手机号：{{ user.mobile }}</div>
-          <div class="panel-info-item">积分：{{ user.credit1 }}</div>
+          <div class="panel-info-item">ID：{{ userData.id }}</div>
+          <div class="panel-info-item">手机号：{{ userData.mobile }}</div>
+          <div class="panel-info-item">积分：{{ userData.credit1 }}</div>
           <div class="panel-info-item">
-            VIP： {{ user.role ? user.role.name : "" }}
+            VIP： {{ userData.role ? userData.role.name : "" }}
           </div>
           <div class="panel-info-item">
-            VIP过期时间：{{ user.role_expired_at | dateFormat }}
+            VIP过期时间：{{ userData.role_expired_at | dateFormat }}
           </div>
           <div class="panel-info-item">
-            一级邀请人：{{ user.invitor ? user.invitor.nick_name : "" }}
-            <template v-if="user.invitor">
+            一级邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
+            <template v-if="userData.invitor">
               <div class="item">
-                (有效期剩 {{ user.invite_user_expired_at | dateFormat }}天)
+                (有效期剩 {{ userData.invite_user_expired_at | dateFormat }}天)
               </div>
             </template>
           </div>
           <div class="panel-info-item">
             学员邀请码：{{
-              user.is_used_promo_code === 1 ? "已使用" : "未使用"
+              userData.is_used_promo_code === 1 ? "已使用" : "未使用"
             }}
           </div>
-          <div class="panel-info-item">推广余额：{{ user.invite_balance }}</div>
           <div class="panel-info-item">
-            锁定登录：{{ user.is_lock === 1 ? "是" : "否" }}
+            推广余额：{{ userData.invite_balance }}
           </div>
-          <div class="panel-info-item">IP地址： {{ user.register_ip }}</div>
-          <div class="panel-info-item">注册区域： {{ user.register_area }}</div>
           <div class="panel-info-item">
-            标签：<template v-if="user.tags">
-              <el-tag class="mr-5" v-for="item in user.tags" :key="item.id">
+            锁定登录：{{ userData.is_lock === 1 ? "是" : "否" }}
+          </div>
+          <div class="panel-info-item">IP地址： {{ userData.register_ip }}</div>
+          <div class="panel-info-item">
+            注册区域： {{ userData.register_area }}
+          </div>
+          <div class="panel-info-item">
+            标签：<template v-if="userData.tags">
+              <el-tag class="mr-5" v-for="item in userData.tags" :key="item.id">
                 {{ item.name }}
               </el-tag>
             </template>
           </div>
           <div class="panel-info-item">
-            备注：<template v-if="user.remark">
-              <span v-html="user.remark.remark"></span>
+            备注：<template v-if="userData.remark">
+              <span v-html="userData.remark.remark"></span>
             </template>
           </div>
         </div>
@@ -150,6 +154,10 @@
           :id="id"
           v-else-if="courseTabActive === 'video-watch-records'"
         ></user-video-watch-records-comp>
+        <user-balance-records-comp
+          :id="id"
+          v-else-if="courseTabActive === 'balanceRecords'"
+        ></user-balance-records-comp>
       </div>
     </div>
   </div>
@@ -165,6 +173,7 @@ import UserRolesComp from "./detail/roles.vue";
 import UserInviteComp from "./detail/invite.vue";
 import UserVodWatchRecordsComp from "./detail/vod-watch-records.vue";
 import UserVideoWatchRecordsComp from "./detail/video-watch-records.vue";
+import UserBalanceRecordsComp from "./detail/balanceRecords.vue";
 
 export default {
   components: {
@@ -176,17 +185,18 @@ export default {
     UserInviteComp,
     UserVodWatchRecordsComp,
     UserVideoWatchRecordsComp,
+    UserBalanceRecordsComp,
   },
   data() {
     return {
       id: null,
-      user: null,
+      userData: null,
       loading: false,
       courseTabActive: "vod",
     };
   },
   computed: {
-    ...mapState(["enabledAddons"]),
+    ...mapState(["user", "enabledAddons"]),
     courseTypes() {
       let types = [
         {
@@ -246,6 +256,15 @@ export default {
           },
         ]
       );
+      if (
+        this.enabledAddons["MultiLevelShare"] &&
+        this.through("addons.MultiLevelShare.member.balanceRecords")
+      ) {
+        types.push({
+          name: "邀请余额明细",
+          key: "balanceRecords",
+        });
+      }
 
       return types;
     },
@@ -256,13 +275,16 @@ export default {
     this.getUser();
   },
   methods: {
+    through(val) {
+      return typeof this.user.permissions[val] !== "undefined";
+    },
     getUser() {
       if (this.loading) {
         return;
       }
       this.loading = true;
       this.$api.Member.Detail(this.id).then((res) => {
-        this.user = res.data.data;
+        this.userData = res.data.data;
         this.loading = false;
       });
     },
