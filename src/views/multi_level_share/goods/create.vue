@@ -23,7 +23,7 @@
                 :show="showSelectResWin"
                 @change="change"
                 @close="showSelectResWin = false"
-                enabled-resource="vod,video,live,book,topic,paper,practice,learnPath,vip"
+                enabled-resource="vod,live,book,topic,paper,practice,learnPath,vip"
               ></select-resource>
             </div>
           </div>

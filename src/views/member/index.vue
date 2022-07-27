@@ -101,7 +101,7 @@
           <el-table-column label="标签" width="200">
             <template slot-scope="scope">
               <el-tag
-                class="ml-5"
+                class="ml-5 mb-5"
                 v-for="(item, index) in scope.row.tags"
                 :key="index"
               >

@@ -2,7 +2,13 @@
   <div class="meedu-main-body">
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
-        <el-button type="primary" @click="handleMulti()"> 批量操作 </el-button>
+        <p-button
+          p="addons.MultiLevelShare.withdraw.handle"
+          text="批量操作"
+          type="primary"
+          @click="handleMulti()"
+        >
+        </p-button>
       </div>
       <div class="d-flex">
         <div>
@@ -26,6 +32,7 @@
         <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
+          <el-button @click="importexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
@@ -51,27 +58,23 @@
           </el-table-column>
           <el-table-column label="学员" width="300">
             <template slot-scope="scope">
-              <div v-if="users[scope.row.user_id]" class="user-item d-flex">
+              <div v-if="scope.row.user" class="user-item d-flex">
                 <div class="avatar">
-                  <img
-                    :src="users[scope.row.user_id].avatar"
-                    width="40"
-                    height="40"
-                  />
+                  <img :src="scope.row.user.avatar" width="40" height="40" />
                 </div>
                 <div class="ml-10">
-                  {{ users[scope.row.user_id].nick_name }}
+                  {{ scope.row.user.nick_name }}
                 </div>
               </div>
               <span v-else class="c-red">学员已删除</span>
             </template>
           </el-table-column>
-          <el-table-column label="提现金额">
+          <el-table-column label="金额">
             <template slot-scope="scope">
-              <span>{{ scope.row.before_balance }}元</span>
+              <span>{{ scope.row.amount }}元</span>
             </template>
           </el-table-column>
-          <el-table-column label="打款信息" width="300">
+          <el-table-column label="收款人" width="300">
             <template slot-scope="scope">
               <div>渠道：{{ scope.row.channel }}</div>
               <div>姓名：{{ scope.row.channel_name }}</div>
@@ -80,20 +83,20 @@
           </el-table-column>
           <el-table-column label="状态" width="150">
             <template slot-scope="scope">
-              <el-tag v-if="scope.row.status === 0" type="primary"
-                >待处理</el-tag
+              <span class="c-yellow" v-if="scope.row.status === 0"
+                >· 待处理</span
               >
-              <el-tag v-else-if="scope.row.status === 2" type="danger"
-                >已驳回</el-tag
+              <span class="c-red" v-else-if="scope.row.status === 3"
+                >· 已驳回</span
               >
-              <el-tag v-else-if="scope.row.status === 1" type="info"
-                >已处理</el-tag
+              <span class="c-green" v-else-if="scope.row.status === 5"
+                >· 已处理</span
               >
             </template>
           </el-table-column>
           <el-table-column prop="remark" label="备注" width="300">
           </el-table-column>
-          <el-table-column label="添加时间" width="200">
+          <el-table-column label="申请时间" width="200">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
             }}</template>
@@ -125,9 +128,21 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="200px">
         <el-form-item label="状态" prop="status">
           <el-select v-model="form.status" placeholder="请选择状态">
-            <el-option label="成功" :value="1"></el-option>
-            <el-option label="驳回" :value="2"></el-option>
+            <el-option label="成功" :value="5"></el-option>
+            <el-option label="驳回" :value="3"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item
+          label="是否退回提现金额"
+          prop="is_return"
+          v-if="form.status === 3"
+        >
+          <el-switch
+            v-model="form.is_return"
+            :active-value="1"
+            :inactive-value="0"
+          >
+          </el-switch>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input
@@ -148,6 +163,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -174,11 +190,11 @@ export default {
           },
           {
             name: "已处理",
-            key: 1,
+            key: 5,
           },
           {
             name: "已驳回",
-            key: 2,
+            key: 3,
           },
         ],
       },
@@ -188,10 +204,10 @@ export default {
         ids: [],
       },
       results: [],
-      users: [],
       form: {
         status: null,
         remark: null,
+        is_return: 1,
       },
       rules: {
         status: [
@@ -205,6 +221,13 @@ export default {
           {
             required: true,
             message: "请输入备注",
+            trigger: "blur",
+          },
+        ],
+        is_return: [
+          {
+            required: true,
+            message: "请选择是否退回提现金额",
             trigger: "blur",
           },
         ],
@@ -260,9 +283,8 @@ export default {
       Object.assign(params, this.filter, this.pagination);
       this.$api.Order.WithdrawOrders.WithdrawOrders(params).then((res) => {
         this.loading = false;
-        this.results = res.data.orders.data;
-        this.users = res.data.users;
-        this.total = res.data.orders.total;
+        this.results = res.data.data;
+        this.total = res.data.total;
       });
     },
     handleMulti() {
@@ -284,15 +306,91 @@ export default {
         ids: this.spids.ids,
         status: this.form.status,
         remark: this.form.remark,
+        is_return: this.form.is_return,
       })
         .then(() => {
           this.$message.success(this.$t("common.success"));
           this.showHandleWin = false;
+          this.form.status = null;
+          this.form.remark = null;
+          this.form.is_return = 1;
           this.getData();
         })
         .catch((e) => {
           this.$message.error(e.message);
         });
+    },
+    importexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      Object.assign(params, this.filter);
+
+      this.$api.Order.WithdrawOrders.WithdrawOrders(params).then((res) => {
+        if (res.data.total === 0) {
+          this.$message.error("数据为空");
+          this.loading = false;
+          return;
+        }
+        let filename = "余额提现.xlsx";
+        let sheetName = "sheet1";
+
+        let data = [
+          [
+            "学员ID",
+            "学员",
+            "金额",
+            "收款人渠道",
+            "收款人姓名",
+            "收款人账号",
+            "状态",
+            "备注",
+            "时间",
+          ],
+        ];
+        res.data.data.forEach((item) => {
+          let status;
+          if (item.status === 0) {
+            status = "待处理";
+          } else if (item.status === 3) {
+            status = "已驳回";
+          } else if (item.status === 5) {
+            status = "已处理";
+          }
+          data.push([
+            item.user_id,
+            item.user.nick_name,
+            item.amount + "元",
+            item.channel,
+            item.channel_name,
+            item.channel_account,
+            status,
+            item.remark,
+            item.created_at
+              ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+              : "",
+          ]);
+        });
+        let wscols = [
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
+        this.loading = false;
+      });
     },
   },
 };
