@@ -962,6 +962,14 @@ const routes = [
     },
   },
   {
+    path: "/multi_level_share/goods/rewards",
+    component: () => import("@/views/multi_level_share/goods/rewards"),
+    name: "ShareGoodsRewards",
+    meta: {
+      title: "title.multi_level_share.goods.rewards",
+    },
+  },
+  {
     path: "/live/teacher/index",
     component: () => import("@/views/live/teacher/index"),
     name: "LiveTeacher",

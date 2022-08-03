@@ -1,14 +1,14 @@
 <template>
-  <div class="user-main-body" v-if="userList" v-loading="loading">
+  <div class="user-main-body" v-if="userData" v-loading="loading">
     <div class="float-left bg-white br-15 p-30">
       <back-bar class="mb-30" title="学员详情"></back-bar>
       <div class="user-info-box">
         <div class="user-base-info-box">
           <div class="user-avatar">
-            <img :src="userList.avatar" width="80" height="80" />
+            <img :src="userData.avatar" width="80" height="80" />
           </div>
           <div class="user-info">
-            <div class="user-nickname">{{ userList.nick_name }}</div>
+            <div class="user-nickname">{{ userData.nick_name }}</div>
             <div class="buttons">
               <el-link
                 type="primary"
@@ -32,39 +32,39 @@
           </div>
         </div>
         <div class="panel-info-box">
-          <div class="panel-info-item">ID：{{ userList.id }}</div>
-          <div class="panel-info-item">手机号：{{ userList.mobile }}</div>
+          <div class="panel-info-item">ID：{{ userData.id }}</div>
+          <div class="panel-info-item">手机号：{{ userData.mobile }}</div>
           <div class="panel-info-item">
-            最近登录时间：{{ userList.updated_at | dateFormat }}
+            最近登录时间：{{ userData.updated_at | dateFormat }}
           </div>
           <div class="panel-info-item">
-            VIP： {{ userList.role ? userList.role.name : "" }}
+            VIP： {{ userData.role ? userData.role.name : "" }}
           </div>
           <div class="panel-info-item">
-            VIP到期时间：{{ userList.role_expired_at | dateFormat }}
+            VIP到期时间：{{ userData.role_expired_at | dateFormat }}
           </div>
           <div class="panel-info-item">
-            一级邀请人：{{ userList.invitor ? userList.invitor.nick_name : "" }}
-            <template v-if="userList.invitor">
+            一级邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
+            <template v-if="userData.invitor">
               <div class="item">
                 (邀请关系剩余{{
-                  userList.invite_user_expired_at | dateFormat
+                  userData.invite_user_expired_at | dateFormat
                 }}天)
               </div>
             </template>
           </div>
           <div class="panel-info-item">
-            邀请码：{{ userList.is_used_promo_code === 1 ? "已使用" : "—" }}
+            邀请码：{{ userData.is_used_promo_code === 1 ? "已使用" : "—" }}
           </div>
           <div class="panel-info-item">
-            推广抽成余额：{{ userList.invite_balance }}
+            推广抽成余额：{{ userData.invite_balance }}
           </div>
-          <div class="panel-info-item">IP地址：{{ userList.register_ip }}</div>
+          <div class="panel-info-item">IP地址：{{ userData.register_ip }}</div>
           <div class="panel-info-item">
-            注册区域： {{ userList.register_area }}
+            注册区域： {{ userData.register_area }}
           </div>
           <div class="panel-info-item">
-            账号状态：<template v-if="userList.is_lock === 1"
+            账号状态：<template v-if="userData.is_lock === 1"
               ><span class="c-red mr-20">已冻结</span>
               <p-link
                 text="解冻"
@@ -84,7 +84,7 @@
             ></template>
           </div>
           <div class="panel-info-item">
-            积分：<span class="mr-20">{{ userList.credit1 }}</span>
+            积分：<span class="mr-20">{{ userData.credit1 }}</span>
             <p-link
               text="变动"
               type="primary"
@@ -93,8 +93,8 @@
             ></p-link>
           </div>
           <div class="panel-info-item">
-            用户标签：<template v-if="userList.tags">
-              <el-tag class="mr-5" v-for="item in userList.tags" :key="item.id">
+            用户标签：<template v-if="userData.tags">
+              <el-tag class="mr-5" v-for="item in userData.tags" :key="item.id">
                 {{ item.name }}
               </el-tag>
             </template>
@@ -107,8 +107,8 @@
             ></p-link>
           </div>
           <div class="panel-info-item large">
-            备注：<template v-if="userList.remark">
-              {{ userList.remark.remark }}
+            备注：<template v-if="userData.remark">
+              {{ userData.remark.remark }}
             </template>
             <p-link
               class="ml-20"
@@ -158,6 +158,10 @@
           :id="id"
           v-else-if="courseTabActive === 'live'"
         ></user-live-watch-records-comp>
+        <user-balance-records-comp
+          :id="id"
+          v-else-if="courseTabActive === 'balanceRecords'"
+        ></user-balance-records-comp>
       </div>
     </div>
     <member-dialog
@@ -169,23 +173,23 @@
       @success="successEvt"
     ></member-dialog>
     <credit-dialog
-      :key="userList.id"
+      :key="userData.id"
       v-if="showCreditWin"
-      :id="userList.id"
+      :id="userData.id"
       @close="showCreditWin = false"
       @success="successEvt"
     ></credit-dialog>
     <remark-dialog
-      :key="userList.id"
+      :key="userData.id"
       v-if="showRemarkWin"
-      :id="userList.id"
+      :id="userData.id"
       @close="showRemarkWin = false"
       @success="successEvt"
     ></remark-dialog>
     <tags-dialog
-      :key="userList.id"
+      :key="userData.id"
       v-if="showTagsWin"
-      :id="userList.id"
+      :id="userData.id"
       @close="showTagsWin = false"
       @success="successEvt"
     ></tags-dialog>
@@ -204,6 +208,7 @@ import MemberDialog from "./components/member-dialog";
 import CreditDialog from "./components/credit-dialog";
 import RemarkDialog from "./components/remark-dialog";
 import TagsDialog from "./components/tags-dialog";
+import UserBalanceRecordsComp from "./detail/balanceRecords.vue";
 
 export default {
   components: {
@@ -217,11 +222,12 @@ export default {
     CreditDialog,
     RemarkDialog,
     TagsDialog,
+    UserBalanceRecordsComp,
   },
   data() {
     return {
       id: null,
-      userList: null,
+      userData: null,
       loading: false,
       courseTabActive: "order",
       showAddWin: false,
@@ -283,6 +289,15 @@ export default {
           },
         ]
       );
+      if (
+        this.enabledAddons["MultiLevelShare"] &&
+        this.through("addons.MultiLevelShare.member.balanceRecords")
+      ) {
+        types.push({
+          name: "邀请余额明细",
+          key: "balanceRecords",
+        });
+      }
 
       return types;
     },
@@ -317,20 +332,23 @@ export default {
     changeTags() {
       this.showTagsWin = true;
     },
+    through(val) {
+      return typeof this.user.permissions[val] !== "undefined";
+    },
     getUser() {
       if (this.loading) {
         return;
       }
       this.loading = true;
       this.$api.Member.Detail(this.id).then((res) => {
-        this.userList = res.data.data;
+        this.userData = res.data.data;
         this.loading = false;
       });
     },
     lockMember() {
       let text = "冻结后此账号将无法登录，确认冻结？";
       let value = 1;
-      if (this.userList.is_lock === 1) {
+      if (this.userData.is_lock === 1) {
         text = "解冻后此账号将正常登录，确认解冻？";
         value = 0;
       }
@@ -341,7 +359,7 @@ export default {
       })
         .then(() => {
           this.$api.Member.EditMulti({
-            user_ids: [this.userList.id],
+            user_ids: [this.userData.id],
             field: "is_lock",
             value: value,
           })

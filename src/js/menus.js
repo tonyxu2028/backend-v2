@@ -131,7 +131,7 @@ export default [
       {
         name: "title.withdrawOrders",
         key: "WithdrawOrders",
-        permission: "member.inviteBalance.withdrawOrders",
+        permission: "addons.MultiLevelShare.withdraw.list",
       },
     ],
   },
