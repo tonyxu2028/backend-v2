@@ -136,7 +136,12 @@
             </template>
 
             <div style="display: none">
-              <input type="file" ref="video-file" @change="fileChange" />
+              <input
+                type="file"
+                accept="video/*"
+                ref="video-file"
+                @change="fileChange"
+              />
               <video ref="video-play" @loadedmetadata="videoPlayEvt"></video>
             </div>
           </div>
@@ -378,6 +383,13 @@ export default {
       this.upload.loading = true;
 
       let file = e.target.files[0];
+      // 文件扩展名检测
+      let extension = file.name.split(".");
+      extension = extension[extension.length - 1];
+      if (extension !== "mp4") {
+        this.$message.error("请选择mp4文件");
+        return;
+      }
 
       // 文件基础信息
       this.upload.file.title = file.name;
