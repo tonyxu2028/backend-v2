@@ -28,6 +28,34 @@
                 "
                 >实名信息</el-link
               >
+              <p-link
+                class="edit-profile"
+                :text="userData.is_lock === 1 ? '解冻账号' : '冻结账号'"
+                type="primary"
+                p="member.update"
+                @click="lockMember()"
+              ></p-link>
+              <p-link
+                class="edit-profile"
+                text="变动积分"
+                type="primary"
+                p="member.credit1.change"
+                @click="changeCredit()"
+              ></p-link>
+              <p-link
+                class="edit-profile"
+                text="修改标签"
+                type="primary"
+                p="member.tags"
+                @click="changeTags()"
+              ></p-link>
+              <p-link
+                class="edit-profile"
+                text="修改备注"
+                type="primary"
+                p="member.remark.update"
+                @click="changeRemark()"
+              ></p-link>
             </div>
           </div>
         </div>
@@ -67,43 +95,17 @@
           <div class="panel-info-item">
             账号状态：<template v-if="userData.is_lock === 1"
               ><span class="c-red">已冻结</span>
-              <div class="item-box">
-                <p-link
-                  text="解冻"
-                  type="primary"
-                  p="member.update"
-                  @click="lockMember()"
-                ></p-link>
-              </div>
             </template>
-            <template v-else
-              ><span class="c-green">正常</span>
-              <div class="item-box">
-                <p-link
-                  text="冻结"
-                  type="primary"
-                  p="member.update"
-                  @click="lockMember()"
-                ></p-link>
-              </div>
-            </template>
+            <template v-else><span class="c-green">正常</span> </template>
           </div>
           <div class="panel-info-item">
             积分：
             <span>{{ userData.credit1 }}</span>
-            <div class="item-box">
-              <p-link
-                text="变动"
-                type="primary"
-                p="member.credit1.change"
-                @click="changeCredit()"
-              ></p-link>
-            </div>
           </div>
           <div class="panel-info-item">
             用户标签：
             <div
-              style="width: 150px"
+              style="flex: 1"
               v-if="userData.tags && userData.tags.length > 0"
             >
               <el-tag
@@ -114,31 +116,15 @@
                 {{ item.name }}
               </el-tag>
             </div>
-            <div class="item-box">
-              <p-link
-                text="修改"
-                type="primary"
-                p="member.tags"
-                @click="changeTags()"
-              ></p-link>
-            </div>
           </div>
           <div class="panel-info-item large">
             备注：<template v-if="userData.remark">
               <div
                 class="remark-text"
-                style="width: 400px"
+                style="flex: 1"
                 v-html="userData.remark.remark"
               ></div>
             </template>
-            <div class="item-box">
-              <p-link
-                text="修改"
-                type="primary"
-                p="member.remark.update"
-                @click="changeRemark()"
-              ></p-link>
-            </div>
           </div>
         </div>
       </div>

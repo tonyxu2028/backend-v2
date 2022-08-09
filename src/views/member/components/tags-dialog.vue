@@ -15,7 +15,12 @@
               <el-form-item label="学员标签" prop="tagIds">
                 <div class="d-flex">
                   <div>
-                    <el-select multiple filterable v-model="form.tagIds">
+                    <el-select
+                      class="w-500px"
+                      multiple
+                      filterable
+                      v-model="form.tagIds"
+                    >
                       <el-option
                         v-for="(item, index) in tags"
                         :key="index"

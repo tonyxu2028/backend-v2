@@ -121,13 +121,13 @@
           <el-table-column
             label="备注信息"
             min-width="9%"
-            show-overflow-tooltip
           >
             <template slot-scope="scope">
-              <div
+              <vhtml-tooltip
+                :key="scope.row.id"
                 v-if="userRemark[scope.row.id]"
-                v-html="userRemark[scope.row.id].remark"
-              ></div>
+                :label="userRemark[scope.row.id].remark"
+              ></vhtml-tooltip>
               <span v-else>-</span>
             </template>
           </el-table-column>
@@ -393,9 +393,12 @@
 
 <script>
 import MemberDialog from "./components/member-dialog";
+import VhtmlTooltip from "@/components/vhtml-tooltip";
+
 export default {
   components: {
     MemberDialog,
+    VhtmlTooltip,
   },
   data() {
     return {
