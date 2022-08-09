@@ -41,12 +41,14 @@ export default {
   computed: {
     ...mapState(["enabledAddons", "user"]),
     courseTypes() {
-      let types = [
-        {
+      let types = [];
+
+      if (this.checkPermission("system.log.admin")) {
+        types.push({
           name: "管理后台日志",
           key: "admin",
-        },
-      ];
+        });
+      }
       if (this.checkPermission("system.log.userLogin")) {
         types.push({
           name: "学员登录日志",
