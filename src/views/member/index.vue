@@ -124,9 +124,10 @@
             show-overflow-tooltip
           >
             <template slot-scope="scope">
-              <span v-if="userRemark[scope.row.id]">{{
-                userRemark[scope.row.id].remark
-              }}</span>
+              <div
+                v-if="userRemark[scope.row.id]"
+                v-html="userRemark[scope.row.id].remark"
+              ></div>
               <span v-else>-</span>
             </template>
           </el-table-column>
