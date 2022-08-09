@@ -4,7 +4,7 @@
       <div class="meedu-cate-dialog-box">
         <div class="meedu-dialog-header">修改标签</div>
         <div class="meedu-dialog-body">
-          <div class="float-left">
+          <div class="float-left" v-if="tags">
             <el-form
               ref="form"
               class="float-left"
@@ -65,7 +65,7 @@ export default {
           },
         ],
       },
-      tags: [],
+      tags: null,
       loading: false,
     };
   },
@@ -73,7 +73,6 @@ export default {
     this.form.tagIds = {};
     if (this.id) {
       this.getUser();
-      this.params();
     }
   },
   methods: {
@@ -88,6 +87,7 @@ export default {
         }
 
         this.form.tagIds = data;
+        this.params();
       });
     },
     params() {
