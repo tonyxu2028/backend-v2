@@ -39,7 +39,6 @@ export default {
         break;
       }
     }
-    console.log(this.current);
   },
 };
 </script>
