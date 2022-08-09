@@ -66,36 +66,46 @@
           </div>
           <div class="panel-info-item">
             账号状态：<template v-if="userData.is_lock === 1"
-              ><span class="c-red mr-20">已冻结</span>
-              <p-link
-                text="解冻"
-                type="primary"
-                p="member.update"
-                @click="lockMember()"
-              ></p-link
-            ></template>
+              ><span class="c-red">已冻结</span>
+              <div class="item-box">
+                <p-link
+                  text="解冻"
+                  type="primary"
+                  p="member.update"
+                  @click="lockMember()"
+                ></p-link>
+              </div>
+            </template>
             <template v-else
-              ><span class="c-green mr-20">正常</span
-              ><p-link
-                text="冻结"
-                type="primary"
-                p="member.update"
-                @click="lockMember()"
-              ></p-link
-            ></template>
+              ><span class="c-green">正常</span>
+              <div class="item-box">
+                <p-link
+                  text="冻结"
+                  type="primary"
+                  p="member.update"
+                  @click="lockMember()"
+                ></p-link>
+              </div>
+            </template>
           </div>
           <div class="panel-info-item">
-            积分：<span class="mr-20">{{ userData.credit1 }}</span>
-            <p-link
-              text="变动"
-              type="primary"
-              p="member.credit1.change"
-              @click="changeCredit()"
-            ></p-link>
+            积分：
+            <span>{{ userData.credit1 }}</span>
+            <div class="item-box">
+              <p-link
+                text="变动"
+                type="primary"
+                p="member.credit1.change"
+                @click="changeCredit()"
+              ></p-link>
+            </div>
           </div>
           <div class="panel-info-item">
             用户标签：
-            <div style="flex: 1" v-if="userData.tags">
+            <div
+              style="width: 150px"
+              v-if="userData.tags && userData.tags.length > 0"
+            >
               <el-tag
                 class="ml-5 mb-5"
                 v-for="item in userData.tags"
@@ -104,25 +114,31 @@
                 {{ item.name }}
               </el-tag>
             </div>
-            <p-link
-              class="ml-20"
-              text="修改"
-              type="primary"
-              p="member.tags"
-              @click="changeTags()"
-            ></p-link>
+            <div class="item-box">
+              <p-link
+                text="修改"
+                type="primary"
+                p="member.tags"
+                @click="changeTags()"
+              ></p-link>
+            </div>
           </div>
           <div class="panel-info-item large">
             备注：<template v-if="userData.remark">
-              <div style="flex: 1" v-html="userData.remark.remark"></div>
+              <div
+                class="remark-text"
+                style="width: 400px"
+                v-html="userData.remark.remark"
+              ></div>
             </template>
-            <p-link
-              class="ml-20"
-              text="修改"
-              type="primary"
-              p="member.remark.update"
-              @click="changeRemark()"
-            ></p-link>
+            <div class="item-box">
+              <p-link
+                text="修改"
+                type="primary"
+                p="member.remark.update"
+                @click="changeRemark()"
+              ></p-link>
+            </div>
           </div>
         </div>
       </div>
@@ -470,8 +486,6 @@ export default {
       font-size: 14px;
       font-weight: 400;
       color: #333333;
-      line-height: 14px;
-      align-items: center;
       box-sizing: border-box;
       padding: 0px 5px;
       margin-top: 30px;
@@ -483,8 +497,10 @@ export default {
         line-height: 20px;
         margin-left: 5px;
       }
-      span {
-        display: inline-block;
+      .item-box {
+        flex: 1;
+        line-height: 14px;
+        margin-left: 20px;
       }
     }
   }
