@@ -47,9 +47,7 @@
             一级邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
             <template v-if="userData.invitor">
               <div class="item">
-                (截{{
-                  userData.invite_user_expired_at | dateFormat
-                }})
+                (截{{ userData.invite_user_expired_at | dateFormat }})
               </div>
             </template>
           </div>
