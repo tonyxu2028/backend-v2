@@ -48,7 +48,7 @@
               </el-form-item>
 
               <el-form-item label="设置会员">
-                <el-select class="w-300px" v-model="form.role_id">
+                <el-select class="w-300px" clearable v-model="form.role_id">
                   <el-option
                     v-for="(item, index) in roles"
                     :key="index"
