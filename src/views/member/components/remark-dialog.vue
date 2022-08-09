@@ -13,13 +13,13 @@
               label-width="110px"
             >
               <el-form-item label="学员备注" prop="remark">
-                <el-input
-                  type="textarea"
-                  v-model="form.remark"
-                  class="w-300px"
-                  rows="4"
-                  placeholder="请输入备注"
-                ></el-input>
+                <div class="w-600px">
+                  <quill-editor
+                    v-if="renderComponent"
+                    v-model="form.remark"
+                    :height="200"
+                  ></quill-editor>
+                </div>
               </el-form-item>
             </el-form>
           </div>
@@ -35,7 +35,11 @@
   </transition>
 </template>
 <script>
+import QuillEditor from "@/components/quill-editor";
 export default {
+  components: {
+    QuillEditor,
+  },
   props: ["id"],
   data() {
     return {
@@ -52,7 +56,16 @@ export default {
         ],
       },
       loading: false,
+      renderComponent: true,
     };
+  },
+  watch: {
+    "form.remark"() {
+      this.renderComponent = false;
+      this.$nextTick(() => {
+        this.renderComponent = true;
+      });
+    },
   },
   mounted() {
     this.form.remark = null;

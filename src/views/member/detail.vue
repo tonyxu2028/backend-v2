@@ -44,7 +44,10 @@
             VIP到期时间：{{ userData.role_expired_at | dateFormat }}
           </div>
           <div class="panel-info-item">
-            一级邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
+            一级邀请人：
+            <div style="flex: 1">
+              {{ userData.invitor ? userData.invitor.nick_name : "" }}
+            </div>
             <template v-if="userData.invitor">
               <div class="item">
                 (截{{ userData.invite_user_expired_at | dateFormat }})
@@ -91,11 +94,16 @@
             ></p-link>
           </div>
           <div class="panel-info-item">
-            用户标签：<template v-if="userData.tags">
-              <el-tag class="mr-5" v-for="item in userData.tags" :key="item.id">
+            用户标签：
+            <div style="flex: 1" v-if="userData.tags">
+              <el-tag
+                class="ml-5 mb-5"
+                v-for="item in userData.tags"
+                :key="item.id"
+              >
                 {{ item.name }}
               </el-tag>
-            </template>
+            </div>
             <p-link
               class="ml-20"
               text="修改"
@@ -106,7 +114,7 @@
           </div>
           <div class="panel-info-item large">
             备注：<template v-if="userData.remark">
-              {{ userData.remark.remark }}
+              <div style="flex: 1" v-html="userData.remark.remark"></div>
             </template>
             <p-link
               class="ml-20"
@@ -464,6 +472,8 @@ export default {
       color: #333333;
       line-height: 14px;
       align-items: center;
+      box-sizing: border-box;
+      padding: 0px 5px;
       margin-top: 30px;
       &.large {
         width: 650px;
