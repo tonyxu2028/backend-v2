@@ -1090,6 +1090,9 @@ const Api = {
     Update(id, params) {
       return put(`/backend/api/v1/member/${id}`, params);
     },
+    Destroy(id) {
+      return destroy(`/backend/api/v2/member/${id}`);
+    },
     Import(params) {
       return post(`/backend/api/v1/member/import`, params);
     },

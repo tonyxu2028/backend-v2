@@ -103,25 +103,19 @@
           <el-table-column prop="credit1" sortable label="积分" min-width="8%">
           </el-table-column>
 
-          <el-table-column label="标签" min-width="10%" show-overflow-tooltip>
+          <el-table-column label="标签" min-width="10%">
             <template slot-scope="scope">
               <template v-if="scope.row.tags.length > 0">
-                <el-tag
-                  class="ml-5 mb-5"
-                  v-for="(item, index) in scope.row.tags"
-                  :key="index"
-                >
-                  {{ item.name }}
-                </el-tag>
+                <tags-tooltip
+                  :key="scope.row.id"
+                  :tags="scope.row.tags"
+                ></tags-tooltip>
               </template>
               <template v-else>-</template>
             </template>
           </el-table-column>
 
-          <el-table-column
-            label="备注信息"
-            min-width="9%"
-          >
+          <el-table-column label="备注信息" min-width="9%">
             <template slot-scope="scope">
               <vhtml-tooltip
                 :key="scope.row.id"
@@ -180,6 +174,13 @@
                     p="member.update"
                     type="danger"
                     @click="lockMember(scope.row)"
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
+                    text="删除账号"
+                    p="member.destroy"
+                    type="danger"
+                    @click="removeMember(scope.row.id)"
                   >
                   </p-dropdown-item>
                 </el-dropdown-menu>
@@ -394,11 +395,13 @@
 <script>
 import MemberDialog from "./components/member-dialog";
 import VhtmlTooltip from "@/components/vhtml-tooltip";
+import TagsTooltip from "@/components/tags-tooltip";
 
 export default {
   components: {
     MemberDialog,
     VhtmlTooltip,
+    TagsTooltip,
   },
   data() {
     return {
@@ -696,6 +699,24 @@ export default {
             field: "is_lock",
             value: value,
           })
+            .then((res) => {
+              this.$message.success(this.$t("common.success"));
+              this.getUser();
+            })
+            .catch((e) => {
+              this.$message.error(e.message);
+            });
+        })
+        .catch(() => {});
+    },
+    removeMember(id) {
+      this.$confirm("即将删除此账号，确认操作？", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$api.Member.Destroy(id)
             .then((res) => {
               this.$message.success(this.$t("common.success"));
               this.getUser();
