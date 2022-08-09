@@ -217,7 +217,7 @@
             v-model="filter.role_id"
             class="w-300px"
             placeholder="VIP会员"
-            filterable
+            clearable
           >
             <el-option
               v-for="(item, index) in filterData.roles"
@@ -234,7 +234,7 @@
             v-model="filter.tag_id"
             class="w-300px"
             placeholder="学员标签"
-            filterable
+            clearable
           >
             <el-option
               v-for="(item, index) in filterData.tags"
@@ -308,7 +308,12 @@
         <template v-if="current === 'role_id'">
           <div class="d-flex mt-20">
             <label class="w-100px mr-20">设置会员</label>
-            <el-select :key="current" class="el-item" v-model="form.role_id">
+            <el-select
+              :key="current"
+              clearable
+              class="el-item"
+              v-model="form.role_id"
+            >
               <el-option
                 v-for="(item, index) in filterData.roles"
                 :key="index"
