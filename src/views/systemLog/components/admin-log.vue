@@ -8,14 +8,20 @@
     >
       <el-table-column prop="admin_id" label="管理员ID" width="100">
       </el-table-column>
-      <el-table-column prop="module" label="操作模块"> </el-table-column>
-      <el-table-column prop="opt" label="操作指令" width="300">
+      <el-table-column prop="module" label="操作模块" width="100">
+      </el-table-column>
+      <el-table-column prop="opt" label="操作指令" width="100">
       </el-table-column>
       <el-table-column prop="ip" label="IP" width="200"> </el-table-column>
       <el-table-column label="时间" width="200">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
         }}</template>
+      </el-table-column>
+      <el-table-column label="备注">
+        <template slot-scope="scope">
+          <code>{{ scope.row.remark }}</code>
+        </template>
       </el-table-column>
     </el-table>
 

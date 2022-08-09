@@ -7,18 +7,24 @@
       class="float-left"
     >
       <el-table-column prop="id" label="ID" width="100"> </el-table-column>
-      <el-table-column label="名称" width="300">
+      <el-table-column label="名称">
         <template slot-scope="scope">
           <div class="user-item d-flex">
             {{ scope.row.name }}
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="visit_url" label="访问地址"> </el-table-column>
-      <el-table-column label="时间" width="200">
+      <el-table-column label="上传时间" width="300">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
         }}</template>
+      </el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
+        <template slot-scope="scope">
+          <el-link type="primary" @click="openUrl(scope.row.visit_url)"
+            >查看</el-link
+          >
+        </template>
       </el-table-column>
     </el-table>
     <div class="float-left mt-15 text-center">
@@ -72,6 +78,9 @@ export default {
         this.list = res.data.data;
         this.total = res.data.total;
       });
+    },
+    openUrl(url) {
+      window.open(url);
     },
   },
 };
