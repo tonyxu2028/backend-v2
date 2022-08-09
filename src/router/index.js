@@ -126,6 +126,14 @@ const routes = [
     },
   },
   {
+    path: "/systemLog/index",
+    component: () => import("@/views/systemLog/index"),
+    name: "SystemLog",
+    meta: {
+      title: "title.system-log",
+    },
+  },
+  {
     path: "/system/index",
     component: () => import("@/views/system/index"),
     name: "SystemIndex",

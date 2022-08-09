@@ -296,6 +296,17 @@ const Api = {
         return post(`/backend/api/v1/video/token/tencent`, params);
       },
     },
+    Log: {
+      Admin(params) {
+        return get(`/backend/api/v1/log/admin`, params);
+      },
+      UserLogin(params) {
+        return get(`/backend/api/v1/log/userLogin`, params);
+      },
+      UploadImages(params) {
+        return get(`/backend/api/v1/log/uploadImages`, params);
+      },
+    },
   },
   Course: {
     Vod: {

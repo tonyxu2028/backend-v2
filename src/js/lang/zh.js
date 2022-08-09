@@ -22,6 +22,7 @@ const zh = {
     system: "系统",
     qa: "问答",
     operate: "运营",
+    "system-log": "系统日志",
     "system-config": "系统配置",
     "mp-wechat": "微信公众号",
     "system-administrator": "管理人员",

@@ -203,6 +203,11 @@ export default [
         permission: "setting",
       },
       {
+        name: "title.system-log",
+        key: "SystemLog",
+        permission: "system.log.admin",
+      },
+      {
         name: "title.system-application",
         key: "SystemApplication",
         permission: "super-slug",

@@ -194,5 +194,6 @@ export default {
     CertificateCreate: "Certificate",
     CertificateUpdate: "Certificate",
     CertificateUsers: "Certificate",
+    SystemLog: "SystemLog",
   },
 };
