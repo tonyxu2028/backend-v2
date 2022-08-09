@@ -18,6 +18,7 @@
                     v-if="renderComponent"
                     v-model="form.remark"
                     :height="200"
+                    mode="remark"
                   ></quill-editor>
                 </div>
               </el-form-item>

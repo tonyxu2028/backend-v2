@@ -111,6 +111,16 @@ export default {
         }
         return ["bold", "italic", "underline", "strike", "video", "image"];
       }
+      if (this.mode && this.mode === "remark") {
+        return [
+          ["bold", "italic", "underline", "strike"],
+          ["blockquote", "code-block"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ size: ["small", false, "large", "huge"] }],
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          [{ color: [] }, { background: [] }],
+        ];
+      }
 
       return [
         ["bold", "italic", "underline", "strike"],
