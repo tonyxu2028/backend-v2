@@ -452,6 +452,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .el_content {
+  min-width: 1169px;
   width: 100%;
   height: 100%;
   position: relative;

@@ -302,6 +302,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .config-box {
+  min-width: 1169px;
   width: 100%;
   height: auto;
   float: left;
