@@ -280,6 +280,9 @@ export default {
     this.getSystemInfo();
     this.getEnabledAddons();
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.myChartResize, false);
+  },
   methods: {
     ...mapMutations(["setEnabledAddons"]),
     checkPermission(val) {
@@ -417,9 +420,13 @@ export default {
           },
         ],
       });
-      window.addEventListener("resize", () => {
-        myChart.resize();
-      });
+
+      window.addEventListener("resize", this.myChartResize, false);
+    },
+    myChartResize() {
+      const echarts = require("echarts");
+      let myChart = echarts.init(document.getElementById("chartLine"));
+      myChart.resize();
     },
     getEnabledAddons() {
       // 获取已开启的插件
