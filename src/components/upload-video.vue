@@ -386,10 +386,10 @@ export default {
       // 文件扩展名检测
       let extension = file.name.split(".");
       extension = extension[extension.length - 1];
-      // if (extension !== "mp4") {
-      //   this.$message.error("请选择mp4文件");
-      //   return;
-      // }
+      if (extension !== "mp4") {
+        this.$message.error("请选择mp4文件");
+        return;
+      }
 
       // 文件基础信息
       this.upload.file.title = file.name;
