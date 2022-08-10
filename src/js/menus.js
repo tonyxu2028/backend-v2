@@ -205,7 +205,7 @@ export default [
       {
         name: "title.system-log",
         key: "SystemLog",
-        permission: "system.log.admin",
+        permission: "system-log",
       },
       {
         name: "title.system-application",
