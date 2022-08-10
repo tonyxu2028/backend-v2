@@ -99,6 +99,7 @@
               </div>
               <div class="ml-10">{{ users[scope.row.user_id].nick_name }}</div>
             </div>
+            <span v-else class="c-red">用户已删除</span>
           </template>
         </el-table-column>
         <el-table-column label="商品名称" :width="300">
