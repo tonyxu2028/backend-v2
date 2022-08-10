@@ -231,7 +231,6 @@ export default {
         meedu_version: null,
         php_version: null,
       },
-      timer: null,
     };
   },
   computed: {
@@ -280,9 +279,6 @@ export default {
     this.getZXTdata();
     this.getSystemInfo();
     this.getEnabledAddons();
-  },
-  beforeDestroy() {
-    window.clearTimeout(this.timer);
   },
   methods: {
     ...mapMutations(["setEnabledAddons"]),
@@ -424,10 +420,6 @@ export default {
       window.addEventListener("resize", () => {
         myChart.resize();
       });
-      window.onresize = () => {
-        clearTimeout(this.timer);
-        this.timer = setTimeout(() => {}, 300);
-      };
     },
     getEnabledAddons() {
       // 获取已开启的插件
