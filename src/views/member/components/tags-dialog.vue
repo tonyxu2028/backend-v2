@@ -12,13 +12,13 @@
               :rules="rules"
               label-width="110px"
             >
-              <el-form-item label="学员标签" prop="tagIds">
+              <el-form-item label="学员标签">
                 <div class="d-flex">
                   <div>
                     <el-select
                       class="w-500px"
                       multiple
-                      filterable
+                      clearable
                       v-model="form.tagIds"
                     >
                       <el-option
@@ -61,15 +61,7 @@ export default {
       form: {
         tagIds: [],
       },
-      rules: {
-        tagIds: [
-          {
-            required: true,
-            message: "请选择学员标签",
-            trigger: "blur",
-          },
-        ],
-      },
+      rules: {},
       tags: null,
       loading: false,
     };
