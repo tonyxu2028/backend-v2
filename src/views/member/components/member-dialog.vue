@@ -61,6 +61,7 @@
 
               <el-form-item label="会员到期" v-if="form.role_id">
                 <el-date-picker
+                  :picker-options="pickerOptions"
                   style="width: 300px"
                   v-model="form.role_expired_at"
                   type="date"
@@ -131,6 +132,11 @@ export default {
       },
       loading: false,
       roles: [],
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now();
+        },
+      },
     };
   },
   computed: {
