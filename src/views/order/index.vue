@@ -211,6 +211,14 @@
     <el-dialog title="退款" :visible.sync="visible" width="420px">
       <div class="j-flex flex-column">
         <div class="d-flex">
+          <el-alert
+            title="退款成功不会自动取消已绑定的课程和vip关系"
+            type="warning"
+            :closable="false"
+          >
+          </el-alert>
+        </div>
+        <div class="d-flex mt-20">
           <label class="mr-20"><span class="c-red mr-5">*</span>退款方式</label>
           <el-select class="el-item" v-model="form.is_local">
             <el-option
