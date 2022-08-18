@@ -15,8 +15,8 @@ export default {
         return "";
       }
       let value = this.removeHtmlStyle(this.label);
-      if (value.length > 8 && window.innerWidth >= 1700) {
-        return value.slice(0, 8) + "...";
+      if (value.length > 7 && window.innerWidth >= 1700) {
+        return value.slice(0, 7) + "...";
       } else if (value.length > 6 && window.innerWidth >= 1600) {
         return value.slice(0, 6) + "...";
       } else if (value.length > 4 && window.innerWidth < 1600) {
