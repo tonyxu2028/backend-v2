@@ -163,7 +163,6 @@ export default {
         } else {
           this.editorIndex = oldRange.index;
         }
-        console.log(this.editorIndex);
       });
 
       // 值变化

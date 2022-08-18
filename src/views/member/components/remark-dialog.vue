@@ -15,7 +15,7 @@
               <el-form-item label="学员备注" prop="remark">
                 <div class="w-600px">
                   <quill-editor
-                    v-if="renderComponent"
+                    v-if="init"
                     v-model="form.remark"
                     :height="200"
                     mode="remark"
@@ -57,17 +57,10 @@ export default {
         ],
       },
       loading: false,
-      renderComponent: true,
+      init: false,
     };
   },
-  watch: {
-    "form.remark"() {
-      this.renderComponent = false;
-      this.$nextTick(() => {
-        this.renderComponent = true;
-      });
-    },
-  },
+
   mounted() {
     this.form.remark = null;
     if (this.id) {
@@ -78,6 +71,9 @@ export default {
     getUser() {
       this.$api.Member.Edit(this.id).then((res) => {
         this.form.remark = res.data.remark ? res.data.remark.remark : null;
+        this.$nextTick(() => {
+          this.init = true;
+        });
       });
     },
     formValidate() {
