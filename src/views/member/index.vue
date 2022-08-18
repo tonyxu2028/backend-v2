@@ -39,7 +39,7 @@
           <el-input
             class="w-150px"
             v-model="filter.keywords"
-            placeholder="完整昵称或手机号"
+            placeholder="昵称或手机号"
           ></el-input>
         </div>
         <div class="ml-10">
@@ -210,7 +210,7 @@
           <el-input
             class="w-300px"
             v-model="filter.keywords"
-            placeholder="学员列表关键字"
+            placeholder="昵称或手机号"
           ></el-input>
         </div>
         <div class="j-flex mt-20">
