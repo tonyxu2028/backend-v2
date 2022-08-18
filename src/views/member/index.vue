@@ -297,7 +297,7 @@
           </el-select>
         </div>
         <div class="d-flex mt-20" v-if="current === 'is_lock'">
-          <label class="w-100px mr-20">是否禁止登录</label>
+          <label class="w-100px mr-20">是否冻结账号</label>
           <el-switch
             :key="current"
             v-model="form.is_lock"
