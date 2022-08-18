@@ -199,12 +199,12 @@ export default {
         //   images: require("../../assets/images/config/invitevip.png"),
         //   sign: "",
         // },
-        {
-          name: "邀请奖励",
-          value: "邀请",
-          images: require("../../assets/images/config/invite.png"),
-          sign: "",
-        },
+        // {
+        //   name: "邀请奖励",
+        //   value: "邀请",
+        //   images: require("../../assets/images/config/invite.png"),
+        //   sign: "",
+        // },
         {
           name: "三级分销",
           value: "三级分销",
