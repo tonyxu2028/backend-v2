@@ -1,6 +1,9 @@
 <template>
   <div class="meedu-main-body" v-loading="loading">
-    <back-bar class="mb-30" :title="key"></back-bar>
+    <back-bar
+      class="mb-30"
+      :title="key === '会员' ? '用户注册' : key"
+    ></back-bar>
     <div class="float-left" v-if="config">
       <el-form ref="form" label-width="205px">
         <template v-for="c in config[key]">
@@ -40,6 +43,12 @@
                   :name="c.name"
                   class="w-200px"
                   v-else-if="c.name === '网站Logo' && c.field_type === 'image'"
+                ></upload-image>
+                 <upload-image
+                  v-model="c.value"
+                  :name="c.name"
+                  class="w-100px"
+                  v-else-if="c.name === '默认头像' && c.field_type === 'image'"
                 ></upload-image>
                 <upload-image
                   v-model="c.value"
