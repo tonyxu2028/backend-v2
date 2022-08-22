@@ -474,7 +474,8 @@ export default {
             "支付渠道",
             "退款金额",
             "状态",
-            "时间",
+            "到账时间",
+            "提交时间",
           ],
         ];
         res.data.data.data.forEach((item) => {
@@ -482,8 +483,7 @@ export default {
           if (item.status === 1) {
             status = "待处理";
           } else if (item.status === 5) {
-            status =
-              "退款成功" + moment(item.success_at).format("YYYY-MM-DD HH:mm");
+            status = "退款成功";
           } else if (item.status === 9) {
             status = "退款已关闭";
           }
@@ -496,6 +496,9 @@ export default {
             item.payment === "" ? "-" : item.payment,
             "¥" + item.amount / 100,
             status,
+            item.status === 5
+              ? moment(item.success_at).format("YYYY-MM-DD HH:mm")
+              : "",
             item.created_at
               ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
               : "",
@@ -509,7 +512,8 @@ export default {
           { wch: 15 },
           { wch: 15 },
           { wch: 15 },
-          { wch: 30 },
+          { wch: 15 },
+          { wch: 20 },
           { wch: 20 },
         ];
         this.$utils.exportExcel(data, filename, sheetName, wscols);
