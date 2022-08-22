@@ -554,13 +554,13 @@ export default {
           return;
         }
         let status;
-        if (this.filter.status === 9) {
+        if (parseInt(this.filter.status) === 9) {
           status = "已支付";
-        } else if (this.filter.status === 5) {
+        } else if (parseInt(this.filter.status) === 5) {
           status = "支付中";
-        } else if (this.filter.status === 1) {
+        } else if (parseInt(this.filter.status) === 1) {
           status = "未支付";
-        } else if (this.filter.status === 7) {
+        } else if (parseInt(this.filter.status) === 7) {
           status = "已取消";
         } else {
           status = "全部";
