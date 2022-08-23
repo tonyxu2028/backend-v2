@@ -80,7 +80,7 @@
           <div class="panel-info-item">
             最近登录时间：{{ userData.updated_at | dateFormat }}
           </div>
-          <div class="panel-info-item">IP地址：{{ userData.register_ip }}</div>
+          <div class="panel-info-item">注册IP：{{ userData.register_ip }}</div>
           <div class="panel-info-item">
             一级邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
             <template v-if="userData.invitor">
