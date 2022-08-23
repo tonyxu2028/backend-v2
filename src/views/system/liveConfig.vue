@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" label-width="205px">
         <div class="title">直播服务商配置</div>
-        <el-form-item :key="1485" label="选择直播服务商">
+        <el-form-item label="选择直播服务商">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-select
@@ -25,7 +25,7 @@
         <template
           v-if="form.config['meedu.addons.zhibo.default_service'] === 'aliyun'"
         >
-          <el-form-item :key="1487" label="阿里云播流域名">
+          <el-form-item label="阿里云播流域名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -35,7 +35,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1488" label="阿里云推流域名">
+          <el-form-item label="阿里云推流域名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -45,7 +45,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1489" label="阿里云AccessKeyId">
+          <el-form-item label="阿里云AccessKeyId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -55,7 +55,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1490" label="阿里云AccessKeySecret">
+          <el-form-item label="阿里云AccessKeySecret">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -67,7 +67,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1491" label="阿里云PlayKey">
+          <el-form-item label="阿里云PlayKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -77,7 +77,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1492" label="阿里云PushKey">
+          <el-form-item label="阿里云PushKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -87,7 +87,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1503" label="阿里云录制回调key">
+          <el-form-item label="阿里云录制回调key">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -114,7 +114,7 @@
             form.config['meedu.addons.zhibo.default_service'] === 'tencent'
           "
         >
-          <el-form-item :key="1494" label="腾讯云AppId">
+          <el-form-item label="腾讯云AppId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -124,7 +124,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1495" label="腾讯云SecretId">
+          <el-form-item label="腾讯云SecretId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -134,7 +134,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1496" label="腾讯云SecretKey">
+          <el-form-item label="腾讯云SecretKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -144,7 +144,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1497" label="腾讯云播流域名">
+          <el-form-item label="腾讯云播流域名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -156,7 +156,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1498" label="腾讯云推流域名">
+          <el-form-item label="腾讯云推流域名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -168,7 +168,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1499" label="腾讯云PlayKey">
+          <el-form-item label="腾讯云PlayKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -178,7 +178,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1500" label="腾讯云PushKey">
+          <el-form-item label="腾讯云PushKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -188,7 +188,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1505" label="腾讯云录制回调秘钥">
+          <el-form-item label="腾讯云录制回调秘钥">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -211,7 +211,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1911" label="腾讯云SRT推流">
+          <el-form-item label="腾讯云SRT推流">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-switch
@@ -230,7 +230,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1912" label="腾讯云WebRtc播放">
+          <el-form-item label="腾讯云WebRtc播放">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-switch
@@ -251,7 +251,7 @@
           </el-form-item>
         </template>
         <div class="title">直播间聊天室服务商配置</div>
-        <el-form-item :key="1506" label="奥点云DMS pub_key">
+        <el-form-item label="奥点云DMS pub_key">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -261,7 +261,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1507" label="奥点云DMS sub_key">
+        <el-form-item label="奥点云DMS sub_key">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -271,7 +271,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1508" label="奥点云DMS s_key">
+        <el-form-item label="奥点云DMS s_key">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input

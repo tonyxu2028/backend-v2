@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="积分配置"></back-bar>
     <div class="float-left">
       <el-form ref="form" label-width="205px">
-        <el-form-item :key="1909" label="积分签到奖励规则">
+        <el-form-item label="积分签到奖励规则">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -13,7 +13,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="88" label="注册奖励">
+        <el-form-item label="注册奖励">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -23,7 +23,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="89" label="邀请奖励">
+        <el-form-item label="邀请奖励">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -33,7 +33,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="90" label="看完课程">
+        <el-form-item label="看完课程">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -43,7 +43,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="91" label="看完视频">
+        <el-form-item label="看完视频">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -53,7 +53,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="92" label="支付订单">
+        <el-form-item label="支付订单">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input

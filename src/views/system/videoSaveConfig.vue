@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" label-width="205px">
         <div class="title">阿里云视频</div>
-        <el-form-item :key="61" label="阿里云视频Region">
+        <el-form-item label="阿里云视频Region">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-select
@@ -23,7 +23,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="62" label="阿里云视频AccessKeyId">
+        <el-form-item label="阿里云视频AccessKeyId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -33,7 +33,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="63" label="阿里云视频AccessKeySecret">
+        <el-form-item label="阿里云视频AccessKeySecret">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -46,7 +46,7 @@
           </div>
         </el-form-item>
         <div class="title">腾讯云视频</div>
-        <el-form-item :key="64" label="腾讯云视频AppId">
+        <el-form-item label="腾讯云视频AppId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -56,7 +56,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="65" label="腾讯云视频SecretId">
+        <el-form-item label="腾讯云视频SecretId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -66,7 +66,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="66" label="腾讯云视频SecretKey">
+        <el-form-item label="腾讯云视频SecretKey">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -76,7 +76,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="67" label="腾讯云播放key">
+        <el-form-item label="腾讯云播放key">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -87,7 +87,7 @@
           </div>
         </el-form-item>
         <div class="title">播放格式白名单</div>
-        <el-form-item :key="2068" label="视频播放格式白名单">
+        <el-form-item label="视频播放格式白名单">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-select

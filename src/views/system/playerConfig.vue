@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" label-width="205px">
         <div class="title">播放器封面</div>
-        <el-form-item :key="98" label="播放器封面">
+        <el-form-item label="播放器封面">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <upload-image
@@ -19,7 +19,7 @@
           </div>
         </el-form-item>
         <div class="title">跑马灯</div>
-        <el-form-item :key="99" label="开关">
+        <el-form-item label="开关">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-switch
@@ -33,7 +33,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1913" label="内容">
+        <el-form-item label="内容">
           <div class="float-left d-flex" style="margin-left: 3px">
             <div>
               <el-input
@@ -53,7 +53,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1914" label="文字大小">
+        <el-form-item label="文字大小">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -66,7 +66,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1915" label="文字颜色">
+        <el-form-item label="文字颜色">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-color-picker
@@ -75,7 +75,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1916" label="文字透明度">
+        <el-form-item label="文字透明度">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div class="w-400px">
               <el-slider
@@ -197,7 +197,7 @@ export default {
       this.$api.System.Config.Save(this.form).then(() => {
         this.$message.success(this.$t("common.success"));
         this.loading = false;
-        
+
         if (this.$route.query.referer) {
           this.$router.replace({
             path: this.$route.query.referer,
