@@ -43,7 +43,7 @@
                   type="password"
                   v-model="form.password"
                   class="w-300px"
-                  placeholder="填写学员登录密码"
+                  placeholder="如需修改请输入新密码"
                 ></el-input>
               </el-form-item>
 
