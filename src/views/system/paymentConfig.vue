@@ -81,7 +81,11 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1814" label="微信支付手机应用AppId">
+        <el-form-item
+          v-if="enabledAddons['TemplateOne']"
+          :key="1814"
+          label="微信支付手机应用AppId"
+        >
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
