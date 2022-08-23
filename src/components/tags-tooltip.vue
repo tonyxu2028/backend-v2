@@ -1,5 +1,10 @@
 <template>
-  <el-tooltip class="cursor-pointer" effect="light" placement="top-start">
+  <el-tooltip
+    class="cursor-pointer"
+    effect="light"
+    placement="top"
+    popper-class="tip-class"
+  >
     <div v-if="current && current > 0">
       <el-tag
         size="mini"

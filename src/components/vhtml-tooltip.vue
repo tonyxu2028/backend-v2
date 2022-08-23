@@ -1,5 +1,10 @@
 <template>
-  <el-tooltip class="cursor-pointer" effect="light" placement="top-start">
+  <el-tooltip
+    class="cursor-pointer"
+    effect="light"
+    placement="top"
+    popper-class="tip-class"
+  >
     <div>{{ title }}</div>
     <div slot="content">
       <div v-html="label"></div>
