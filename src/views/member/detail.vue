@@ -83,9 +83,6 @@
             </template>
           </div>
           <div class="panel-info-item">
-            邀请码：{{ userData.is_used_promo_code === 1 ? "已使用" : "—" }}
-          </div>
-          <div class="panel-info-item">
             推广抽成余额：{{ userData.invite_balance }}
           </div>
           <div class="panel-info-item">IP地址：{{ userData.register_ip }}</div>
