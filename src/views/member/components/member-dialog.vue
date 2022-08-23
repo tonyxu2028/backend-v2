@@ -190,6 +190,10 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.form.role_id && !this.form.role_expired_at) {
+        this.$message.error("请输入会员到期时间");
+        return;
+      }
       this.loading = true;
       if (this.text === "添加学员资料") {
         this.$api.Member.Store(this.form)
