@@ -191,7 +191,7 @@ export default {
         return;
       }
       if (this.form.role_id && !this.form.role_expired_at) {
-        this.$message.error("请输入会员到期时间");
+        this.$message.error("请选择VIP过期时间");
         return;
       }
       this.loading = true;
