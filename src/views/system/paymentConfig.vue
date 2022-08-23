@@ -92,17 +92,6 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="55" label="微信支付小程序AppId">
-          <div class="j-flex flex-column" style="margin-left: 3px">
-            <div>
-              <el-input
-                class="w-200px"
-                v-model="form.config['pay.wechat.miniapp_id']"
-              >
-              </el-input>
-            </div>
-          </div>
-        </el-form-item>
         <el-form-item :key="56" label="微信支付MchId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
@@ -221,7 +210,6 @@ export default {
           "meedu.payment.wechat.enabled": null,
           "pay.wechat.app_id": null,
           "pay.wechat.appid": null,
-          "pay.wechat.miniapp_id": null,
           "pay.wechat.mch_id": null,
           "pay.wechat.key": null,
           "meedu.payment.handPay.enabled": null,
@@ -325,8 +313,6 @@ export default {
             this.form.config["pay.wechat.app_id"] = configData[index].value;
           } else if (configData[index].key === "pay.wechat.appid") {
             this.form.config["pay.wechat.appid"] = configData[index].value;
-          } else if (configData[index].key === "pay.wechat.miniapp_id") {
-            this.form.config["pay.wechat.miniapp_id"] = configData[index].value;
           } else if (configData[index].key === "pay.wechat.mch_id") {
             this.form.config["pay.wechat.mch_id"] = configData[index].value;
           } else if (configData[index].key === "pay.wechat.key") {
