@@ -56,7 +56,10 @@
               <el-table-column prop="title" label="视频"> </el-table-column>
               <el-table-column label="时长" width="150">
                 <template slot-scope="scope">
-                  <duration-text :duration="scope.row.duration"></duration-text>
+                  <duration-text
+                    v-if="!loading"
+                    :duration="scope.row.duration"
+                  ></duration-text>
                 </template>
               </el-table-column>
               <el-table-column prop="storage_driver" label="存储" width="100">
@@ -147,8 +150,12 @@
           </div>
         </div>
         <div class="meedu-dialog-footer">
-          <el-button type="primary" @click="confirm"> 确定 </el-button>
-          <el-button @click="close" class="ml-30">取消</el-button>
+          <el-button type="primary" @click="confirm" :loading="upload.loading">
+            确定
+          </el-button>
+          <el-button @click="close" class="ml-30" :loading="upload.loading"
+            >取消</el-button
+          >
         </div>
       </div>
     </div>
