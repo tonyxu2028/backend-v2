@@ -82,10 +82,7 @@
           </div>
           <div class="panel-info-item">IP地址：{{ userData.register_ip }}</div>
           <div class="panel-info-item">
-            一级邀请人：
-            <div style="flex: 1">
-              {{ userData.invitor ? userData.invitor.nick_name : "" }}
-            </div>
+            一级邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
             <template v-if="userData.invitor">
               <div class="item">
                 (截{{ userData.invite_user_expired_at | dateFormat }})
