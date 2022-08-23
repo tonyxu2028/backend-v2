@@ -388,6 +388,7 @@ export default {
       extension = extension[extension.length - 1];
       if (extension !== "mp4") {
         this.$message.error("请选择mp4文件");
+        this.upload.loading = false;
         return;
       }
 
