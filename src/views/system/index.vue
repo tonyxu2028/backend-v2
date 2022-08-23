@@ -112,12 +112,6 @@ export default {
           sign: "视频加密",
         },
         {
-          name: "微信小程序",
-          value: "微信小程序",
-          images: require("../../assets/images/config/weixin.png"),
-          sign: "",
-        },
-        {
           name: "随机拍照",
           value: "随机拍照",
           images: require("../../assets/images/config/camera.png"),
