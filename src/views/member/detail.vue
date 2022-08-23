@@ -63,14 +63,24 @@
           <div class="panel-info-item">ID：{{ userData.id }}</div>
           <div class="panel-info-item">手机号：{{ userData.mobile }}</div>
           <div class="panel-info-item">
-            最近登录时间：{{ userData.updated_at | dateFormat }}
-          </div>
-          <div class="panel-info-item">
             VIP： {{ userData.role ? userData.role.name : "" }}
           </div>
           <div class="panel-info-item">
             VIP到期时间：{{ userData.role_expired_at | dateFormat }}
           </div>
+          <div class="panel-info-item">
+            账号状态：<template v-if="userData.is_lock === 1"
+              ><span class="c-red">已冻结</span>
+            </template>
+            <template v-else><span class="c-green">正常</span> </template>
+          </div>
+          <div class="panel-info-item">
+            注册区域： {{ userData.register_area }}
+          </div>
+          <div class="panel-info-item">
+            最近登录时间：{{ userData.updated_at | dateFormat }}
+          </div>
+          <div class="panel-info-item">IP地址：{{ userData.register_ip }}</div>
           <div class="panel-info-item">
             一级邀请人：
             <div style="flex: 1">
@@ -83,17 +93,7 @@
             </template>
           </div>
           <div class="panel-info-item">
-            推广抽成余额：{{ userData.invite_balance }}
-          </div>
-          <div class="panel-info-item">IP地址：{{ userData.register_ip }}</div>
-          <div class="panel-info-item">
-            注册区域： {{ userData.register_area }}
-          </div>
-          <div class="panel-info-item">
-            账号状态：<template v-if="userData.is_lock === 1"
-              ><span class="c-red">已冻结</span>
-            </template>
-            <template v-else><span class="c-green">正常</span> </template>
+            推广分销余额：{{ userData.invite_balance }}
           </div>
           <div class="panel-info-item">
             积分：
@@ -464,7 +464,7 @@ export default {
     flex-wrap: wrap;
     .panel-info-item {
       display: flex;
-      width: 325px;
+      width: 360px;
       height: auto;
       font-size: 14px;
       font-weight: 400;
