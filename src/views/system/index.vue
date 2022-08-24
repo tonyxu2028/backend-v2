@@ -147,6 +147,12 @@ export default {
           images: require("../../assets/images/config/h5.png"),
           sign: "TemplateOne",
         },
+        {
+          name: "微信小程序",
+          value: "微信小程序",
+          images: require("../../assets/images/config/weixin.png"),
+          sign: "TemplateOne",
+        },
       ],
       courses: [
         {
@@ -273,6 +279,10 @@ export default {
       } else if (value === "IOS") {
         this.$router.push({
           name: "SystemIOSConfig",
+        });
+      } else if (value === "微信小程序") {
+        this.$router.push({
+          name: "SystemWechatMiniConfig",
         });
       } else {
         this.$router.push({ name: "SystemConfig", query: { key: value } });

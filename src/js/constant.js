@@ -27,6 +27,7 @@ export default {
     SystemPaymentConfig: "SystemIndex",
     SystemVideoSaveConfig: "SystemIndex",
     SystemIOSConfig: "SystemIndex",
+    SystemWechatMiniConfig: "SystemIndex",
     SystemApplication: "SystemApplication",
     AdministratorChangePassword: "Dashboard",
     SystemAdministrator: "SystemAdministrator",

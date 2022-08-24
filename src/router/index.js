@@ -246,6 +246,14 @@ const routes = [
     },
   },
   {
+    path: "/system/wechat_miniConfig",
+    component: () => import("@/views/system/wechat_miniConfig"),
+    name: "SystemWechatMiniConfig",
+    meta: {
+      title: "title.system-config",
+    },
+  },
+  {
     path: "/system/application",
     component: () => import("@/views/system/application"),
     name: "SystemApplication",
