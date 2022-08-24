@@ -17,11 +17,12 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="AppSecret">
+        <el-form-item label="Secret">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
                 class="w-200px"
+                type="password"
                 v-model="
                   form.config['meedu.addons.TemplateOne.wechat_mini.secret']
                 "
@@ -31,6 +32,18 @@
           </div>
         </el-form-item>
       </el-form>
+      <div class="bottom-menus">
+        <div class="bottom-menus-box">
+          <div>
+            <el-button @click="save" :loading="loading" type="primary"
+              >保存</el-button
+            >
+          </div>
+          <div class="ml-24">
+            <el-button @click="$router.back()">取消</el-button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
