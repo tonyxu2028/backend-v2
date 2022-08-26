@@ -23,16 +23,6 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="邀请奖励">
-          <div class="j-flex flex-column" style="margin-left: 3px">
-            <div>
-              <el-input
-                class="w-200px"
-                v-model="form.config['meedu.member.credit1.invite']"
-              ></el-input>
-            </div>
-          </div>
-        </el-form-item>
         <el-form-item label="看完课程">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
@@ -98,7 +88,6 @@ export default {
         config: {
           "meedu.addons.DaySignIn.reward_rule": null,
           "meedu.member.credit1.register": null,
-          "meedu.member.credit1.invite": null,
           "meedu.member.credit1.watched_course": null,
           "meedu.member.credit1.watched_video": null,
           "meedu.member.credit1.paid_order": null,
@@ -128,9 +117,6 @@ export default {
         for (let index in newConfig) {
           if (newConfig[index].key === "meedu.member.credit1.register") {
             this.form.config["meedu.member.credit1.register"] =
-              newConfig[index].value;
-          } else if (newConfig[index].key === "meedu.member.credit1.invite") {
-            this.form.config["meedu.member.credit1.invite"] =
               newConfig[index].value;
           } else if (
             newConfig[index].key === "meedu.member.credit1.watched_course"
