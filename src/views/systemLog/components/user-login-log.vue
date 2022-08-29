@@ -19,9 +19,7 @@
       <el-table-column prop="ua" label="UA"> </el-table-column>
       <el-table-column prop="ip" label="IP" width="200"> </el-table-column>
       <el-table-column label="登录时间" width="200">
-        <template slot-scope="scope">{{
-          scope.row.created_at | dateFormat
-        }}</template>
+        <template slot-scope="scope">{{ scope.row.created_at }}</template>
       </el-table-column>
     </el-table>
     <div class="float-left mt-15 text-center">
