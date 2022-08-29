@@ -14,7 +14,9 @@
       </el-table-column>
       <el-table-column prop="ip" label="IP" width="200"> </el-table-column>
       <el-table-column label="时间" width="200">
-        <template slot-scope="scope">{{ scope.row.created_at }}</template>
+        <template slot-scope="scope">{{
+          scope.row.created_at | dateWholeFormat
+        }}</template>
       </el-table-column>
       <el-table-column label="备注">
         <template slot-scope="scope">

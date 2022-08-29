@@ -15,7 +15,9 @@
         </template>
       </el-table-column>
       <el-table-column label="上传时间" width="300">
-        <template slot-scope="scope">{{ scope.row.created_at }}</template>
+        <template slot-scope="scope">{{
+          scope.row.created_at | dateWholeFormat
+        }}</template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
