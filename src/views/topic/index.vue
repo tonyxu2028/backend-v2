@@ -74,7 +74,7 @@
         >
           <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="图文" min-width="21%">
+          <el-table-column label="图文" min-width="20%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -84,13 +84,13 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column prop="category.name" label="分类" min-width="8%">
+          <el-table-column prop="category.name" label="分类" min-width="7%">
           </el-table-column>
           <el-table-column
             label="价格"
             sortable
             property="charge"
-            min-width="7.5%"
+            min-width="8%"
           >
             <template slot-scope="scope">
               <span v-if="scope.row.charge > 0">{{ scope.row.charge }}元</span>
@@ -101,7 +101,7 @@
             label="销量"
             sortable
             property="user_count"
-            min-width="7.5%"
+            min-width="8%"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.user_count }}</span>
@@ -111,7 +111,7 @@
             label="阅读"
             sortable
             property="view_times"
-            min-width="7.5%"
+            min-width="8%"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.view_times }}次</span>
@@ -121,7 +121,7 @@
             prop="vote_count"
             sortable
             label="点赞"
-            min-width="7.5%"
+            min-width="8%"
           >
           </el-table-column>
           <el-table-column sortable label="上架时间" min-width="14%">
