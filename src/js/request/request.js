@@ -853,9 +853,6 @@ const Api = {
       Comments(params) {
         return get(`/backend/addons/meedu_books/book_comment/index`, params);
       },
-      // Destorycomment(id) {
-      //   return destroy(`/backend/addons/meedu_books/book_comment/${id}`);
-      // },
       CommentDestoryMulti(params) {
         return post(
           `/backend/addons/meedu_books/book_comment/destroy/multi`,
@@ -956,9 +953,6 @@ const Api = {
             params
           );
         },
-        // Destorycomment(id) {
-        //   return destroy(`/backend/addons/meedu_books/article_comment/${id}`);
-        // },
         CommentDestoryMulti(params) {
           return post(
             `/backend/addons/meedu_books/article_comment/destroy/multi`,
