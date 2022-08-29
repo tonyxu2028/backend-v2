@@ -236,33 +236,33 @@ export default {
         this.total = res.data.data.total;
       });
     },
-    destory(item) {
-      if (this.loading) {
-        return;
-      }
-      this.$confirm("确认操作？", "警告", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          //点击确定按钮的操作
-          this.loading = true;
-          this.$api.Meedubook.Book.Article.Destorycomment(item)
-            .then(() => {
-              this.loading = false;
-              this.$message.success(this.$t("common.success"));
-              this.getComments();
-            })
-            .catch((e) => {
-              this.loading = false;
-              this.$message.error(e.message);
-            });
-        })
-        .catch(() => {
-          //点击删除按钮的操作
-        });
-    },
+    // destory(item) {
+    //   if (this.loading) {
+    //     return;
+    //   }
+    //   this.$confirm("确认操作？", "警告", {
+    //     confirmButtonText: "确定",
+    //     cancelButtonText: "取消",
+    //     type: "warning",
+    //   })
+    //     .then(() => {
+    //       //点击确定按钮的操作
+    //       this.loading = true;
+    //       this.$api.Meedubook.Book.Article.Destorycomment(item)
+    //         .then(() => {
+    //           this.loading = false;
+    //           this.$message.success(this.$t("common.success"));
+    //           this.getComments();
+    //         })
+    //         .catch((e) => {
+    //           this.loading = false;
+    //           this.$message.error(e.message);
+    //         });
+    //     })
+    //     .catch(() => {
+    //       //点击删除按钮的操作
+    //     });
+    // },
     destorymulti() {
       if (this.loading) {
         return;
