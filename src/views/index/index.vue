@@ -213,7 +213,7 @@ export default {
         { name: "每日营收" },
       ],
       flagE: 1,
-      time: "",
+      time: null,
       pickerOptions: {
         disabledDate: (time) => {
           return time.getTime() > Date.now();
@@ -336,10 +336,18 @@ export default {
       this.start_at = time2;
     },
     getchartsdata() {
-      if (this.time != "") {
+      if (this.time) {
         let timedata = this.time.slice(",");
         this.start_at = timedata[0];
         this.end_at = timedata[1];
+      } else {
+        this.end_at =
+          new Date().getFullYear() +
+          "-" +
+          (new Date().getMonth() + 1) +
+          "-" +
+          new Date().getDate();
+        this.fun_date(-7);
       }
       this.getZXTdata();
     },
