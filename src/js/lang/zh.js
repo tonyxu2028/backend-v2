@@ -13,7 +13,7 @@ const zh = {
     order: "全部订单",
     "order-detail": "订单详情",
     "order-refund": "退款订单",
-    rechargeorder: "充值订单",
+    rechargeorder: "iOS充值",
     promocode: "优惠码",
     promocodecreate: "添加优惠码",
     promocode_import: "优惠码批量导入",
