@@ -12,7 +12,7 @@
               :rules="rules"
               label-width="110px"
             >
-              <el-form-item label="学员备注" prop="remark">
+              <el-form-item label="学员备注">
                 <div class="w-600px">
                   <quill-editor
                     v-if="init"
