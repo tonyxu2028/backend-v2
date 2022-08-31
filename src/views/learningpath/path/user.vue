@@ -143,7 +143,7 @@ export default {
       );
     },
     delUser() {
-      if (this.selectedRows === null) {
+      if (this.selectedRows === null || this.selectedRows.length === 0) {
         this.$message.warning("请选择需要操作的数据");
         return;
       }
