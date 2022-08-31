@@ -117,13 +117,20 @@ export default {
       return Math.ceil(this.config.items.length / this.config.line_count);
     },
   },
+  watch: {
+    "config.line_count"() {
+      if (this.config.items.length < this.config.line_count) {
+        this.addNav();
+      }
+    },
+  },
   mounted() {
     this.config = this.block.config_render;
   },
   methods: {
     addNav() {
       this.config.items.push({
-        name: null,
+        name: "xxx",
         href: null,
         icon: null,
       });
