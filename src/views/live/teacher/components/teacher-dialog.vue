@@ -176,6 +176,10 @@ export default {
       if (this.loading) {
         return;
       }
+      if (!this.$utils.emailRules(this.form.username)) {
+        this.$message.error("请输入正确的邮箱");
+        return;
+      }
       this.loading = true;
       if (this.text === "添加讲师") {
         this.$api.Course.Live.Teacher.Store(this.form)
