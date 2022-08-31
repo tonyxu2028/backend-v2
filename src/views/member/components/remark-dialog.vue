@@ -70,7 +70,7 @@ export default {
   methods: {
     getUser() {
       this.$api.Member.Edit(this.id).then((res) => {
-        this.form.remark = res.data.remark ? res.data.remark.remark : null;
+        this.form.remark = res.data.remark ? res.data.remark.remark : "";
         this.$nextTick(() => {
           this.init = true;
         });
