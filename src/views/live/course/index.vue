@@ -105,7 +105,7 @@
               <span>{{ scope.row.join_user_times }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="下一场直播时间" sortable min-width="18%">
+          <el-table-column label="下一场直播时间" min-width="18%">
             <template slot-scope="scope">
               <template v-if="scope.row.status === 2">
                 <span class="c-gray">· {{ scope.row.status_text }}</span>
