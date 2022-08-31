@@ -94,7 +94,7 @@
           >
             <template slot-scope="scope">
               <span v-if="scope.row.charge > 0">{{ scope.row.charge }}元</span>
-              <span v-else>免费</span>
+              <span v-else>-</span>
             </template>
           </el-table-column>
           <el-table-column
