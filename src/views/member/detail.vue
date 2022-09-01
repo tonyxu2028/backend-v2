@@ -66,7 +66,7 @@
             VIP： {{ userData.role ? userData.role.name : "" }}
           </div>
           <div class="panel-info-item">
-            VIP到期时间：{{ userData.role_expired_at | dateFormat }}
+            VIP到期：{{ userData.role_expired_at | dateFormat }}
           </div>
           <div class="panel-info-item">
             账号状态：<template v-if="userData.is_lock === 1"
@@ -78,11 +78,11 @@
             注册区域： {{ userData.register_area }}
           </div>
           <div class="panel-info-item">
-            最近登录时间：{{ userData.updated_at | dateFormat }}
+            最近登录：{{ userData.updated_at | dateFormat }}
           </div>
           <div class="panel-info-item">注册IP：{{ userData.register_ip }}</div>
           <div class="panel-info-item">
-            一级邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
+            邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
             <template v-if="userData.invitor">
               <div class="item">
                 (截{{ userData.invite_user_expired_at | dateFormat }})
