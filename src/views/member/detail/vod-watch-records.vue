@@ -26,7 +26,9 @@
       </el-table-column>
       <el-table-column label="课程学习进度" :width="200">
         <template slot-scope="scope">
-          <span v-if="scope.row.watch_record.length !== 0">
+          <span
+            v-if="scope.row.watch_record && scope.row.watch_record.length !== 0"
+          >
             {{ scope.row.watch_record.progress }}%
           </span>
           <span v-else>-</span>
@@ -36,6 +38,7 @@
         <template slot-scope="scope">
           <span
             v-if="
+              scope.row.watch_record &&
               scope.row.watch_record.length !== 0 &&
               scope.row.watch_record.created_at
             "
@@ -48,6 +51,7 @@
         <template slot-scope="scope">
           <span
             v-if="
+              scope.row.watch_record &&
               scope.row.watch_record.length !== 0 &&
               scope.row.watch_record.updated_at
             "
