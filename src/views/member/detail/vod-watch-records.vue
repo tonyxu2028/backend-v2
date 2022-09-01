@@ -26,36 +26,23 @@
       </el-table-column>
       <el-table-column label="课程学习进度" :width="200">
         <template slot-scope="scope">
-          <span
-            v-if="scope.row.watch_record && scope.row.watch_record.length !== 0"
-          >
-            {{ scope.row.watch_record.progress }}%
-          </span>
-          <span v-else>-</span>
+          <span> {{ scope.row.progress }}% </span>
         </template>
       </el-table-column>
       <el-table-column label="开始学习时间" :width="200">
         <template slot-scope="scope">
-          <span
-            v-if="
-              scope.row.watch_record &&
-              scope.row.watch_record.length !== 0 &&
-              scope.row.watch_record.created_at
-            "
-            >{{ scope.row.watch_record.created_at | dateFormat }}
-          </span>
-          <span v-else>-</span>
+          <span>{{ scope.row.created_at | dateFormat }} </span>
         </template>
       </el-table-column>
       <el-table-column label="最近一次学习" :width="200">
         <template slot-scope="scope">
           <span
             v-if="
-              scope.row.watch_record &&
-              scope.row.watch_record.length !== 0 &&
-              scope.row.watch_record.updated_at
+              scope.row.last_view_video &&
+              scope.row.last_view_video.length !== 0 &&
+              scope.row.last_view_video.updated_at
             "
-            >{{ scope.row.watch_record.updated_at | dateFormat }}
+            >{{ scope.row.last_view_video.updated_at | dateFormat }}
           </span>
           <span v-else>-</span>
         </template>
