@@ -126,6 +126,14 @@ const routes = [
     },
   },
   {
+    path: "/systemLog/index",
+    component: () => import("@/views/systemLog/index"),
+    name: "SystemLog",
+    meta: {
+      title: "title.system-log",
+    },
+  },
+  {
     path: "/system/index",
     component: () => import("@/views/system/index"),
     name: "SystemIndex",
@@ -233,6 +241,14 @@ const routes = [
     path: "/system/iosConfig",
     component: () => import("@/views/system/iosConfig"),
     name: "SystemIOSConfig",
+    meta: {
+      title: "title.system-config",
+    },
+  },
+  {
+    path: "/system/wechat_miniConfig",
+    component: () => import("@/views/system/wechat_miniConfig"),
+    name: "SystemWechatMiniConfig",
     meta: {
       title: "title.system-config",
     },
@@ -605,14 +621,6 @@ const routes = [
     },
   },
   {
-    path: "/member/create",
-    component: () => import("@/views/member/create"),
-    name: "MemberCreate",
-    meta: {
-      title: "title.member.create",
-    },
-  },
-  {
     path: "/member/import",
     component: () => import("@/views/member/user-import"),
     name: "MemberImport",
@@ -634,38 +642,6 @@ const routes = [
     name: "MemberDetail",
     meta: {
       title: "title.member.detail",
-    },
-  },
-  {
-    path: "/member/:userId/edit",
-    component: () => import("@/views/member/edit"),
-    name: "MemberEdit",
-    meta: {
-      title: "title.member.edit",
-    },
-  },
-  {
-    path: "/member/:userId/tags",
-    component: () => import("@/views/member/tag"),
-    name: "MemberTag",
-    meta: {
-      title: "title.member.tags",
-    },
-  },
-  {
-    path: "/member/:userId/remark",
-    component: () => import("@/views/member/remark"),
-    name: "MemberRemark",
-    meta: {
-      title: "title.member.remark",
-    },
-  },
-  {
-    path: "/member/:userId/credit1",
-    component: () => import("@/views/member/credit1"),
-    name: "MemberCredit1",
-    meta: {
-      title: "title.member.credit1",
     },
   },
   {

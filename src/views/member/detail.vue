@@ -7,103 +7,117 @@
           <div class="user-avatar">
             <img :src="userData.avatar" width="80" height="80" />
           </div>
-          <div class="user-nickname">{{ user.nick_name }}</div>
-          <div class="buttons">
-            <el-button
-              type="primary"
-              class="real-profile"
-              @click="
-                $router.push({ name: 'MemberProfile', params: { userId: id } })
-              "
-              >实名信息</el-button
-            >
-            <el-link
-              type="primary"
-              class="edit-profile"
-              @click="
-                $router.push({ name: 'MemberEdit', params: { userId: id } })
-              "
-            >
-              修改资料
-            </el-link>
-            <p-link
-              text="修改积分"
-              type="primary"
-              class="edit-profile"
-              @click="
-                $router.push({
-                  name: 'MemberCredit1',
-                  params: { userId: id },
-                })
-              "
-              p="member.credit1.change"
-            >
-            </p-link>
-            <p-link
-              text="修改标签"
-              type="primary"
-              class="edit-profile"
-              @click="
-                $router.push({ name: 'MemberTag', params: { userId: id } })
-              "
-              p="member.tags"
-            >
-            </p-link>
-            <p-link
-              text="修改备注"
-              type="primary"
-              class="edit-profile"
-              @click="
-                $router.push({ name: 'MemberRemark', params: { userId: id } })
-              "
-              p="member.remark.update"
-            >
-            </p-link>
+          <div class="user-info">
+            <div class="user-nickname">{{ userData.nick_name }}</div>
+            <div class="buttons">
+              <el-link
+                type="primary"
+                class="real-profile"
+                @click="updateMember(id)"
+              >
+                修改资料
+              </el-link>
+              <el-link
+                type="primary"
+                class="edit-profile"
+                @click="
+                  $router.push({
+                    name: 'MemberProfile',
+                    params: { userId: id },
+                  })
+                "
+                >实名信息</el-link
+              >
+              <p-link
+                class="edit-profile"
+                :text="userData.is_lock === 1 ? '解冻账号' : '冻结账号'"
+                type="primary"
+                p="member.update"
+                @click="lockMember()"
+              ></p-link>
+              <p-link
+                class="edit-profile"
+                text="变动积分"
+                type="primary"
+                p="member.credit1.change"
+                @click="changeCredit()"
+              ></p-link>
+              <p-link
+                class="edit-profile"
+                text="修改标签"
+                type="primary"
+                p="member.tags"
+                @click="changeTags()"
+              ></p-link>
+              <p-link
+                class="edit-profile"
+                text="修改备注"
+                type="primary"
+                p="member.remark.update"
+                @click="changeRemark()"
+              ></p-link>
+            </div>
           </div>
         </div>
         <div class="panel-info-box">
           <div class="panel-info-item">ID：{{ userData.id }}</div>
           <div class="panel-info-item">手机号：{{ userData.mobile }}</div>
-          <div class="panel-info-item">积分：{{ userData.credit1 }}</div>
           <div class="panel-info-item">
             VIP： {{ userData.role ? userData.role.name : "" }}
           </div>
           <div class="panel-info-item">
-            VIP过期时间：{{ userData.role_expired_at | dateFormat }}
+            VIP到期：{{ userData.role_expired_at | dateFormat }}
           </div>
           <div class="panel-info-item">
-            一级邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
-            <template v-if="userData.invitor">
-              <div class="item">
-                (有效期剩 {{ userData.invite_user_expired_at | dateFormat }}天)
-              </div>
+            账号状态：<template v-if="userData.is_lock === 1"
+              ><span class="c-red">已冻结</span>
             </template>
+            <template v-else><span class="c-green">正常</span> </template>
           </div>
-          <div class="panel-info-item">
-            学员邀请码：{{
-              userData.is_used_promo_code === 1 ? "已使用" : "未使用"
-            }}
-          </div>
-          <div class="panel-info-item">
-            推广余额：{{ userData.invite_balance }}
-          </div>
-          <div class="panel-info-item">
-            锁定登录：{{ userData.is_lock === 1 ? "是" : "否" }}
-          </div>
-          <div class="panel-info-item">IP地址： {{ userData.register_ip }}</div>
           <div class="panel-info-item">
             注册区域： {{ userData.register_area }}
           </div>
           <div class="panel-info-item">
-            标签：<template v-if="userData.tags">
-              <el-tag class="mr-5" v-for="item in userData.tags" :key="item.id">
-                {{ item.name }}
-              </el-tag>
+            最近登录：{{ userData.updated_at | dateFormat }}
+          </div>
+          <div class="panel-info-item">注册IP：{{ userData.register_ip }}</div>
+          <div class="panel-info-item">
+            邀请人：{{ userData.invitor ? userData.invitor.nick_name : "" }}
+            <template v-if="userData.invitor">
+              <div class="item">
+                (截{{ userData.invite_user_expired_at | dateFormat }})
+              </div>
             </template>
           </div>
           <div class="panel-info-item">
+            推广分销余额：{{ userData.invite_balance }}
+          </div>
+          <div class="panel-info-item">
+            积分：
+            <span>{{ userData.credit1 }}</span>
+          </div>
+          <div class="panel-info-item">
+            用户标签：
+            <div
+              style="flex: 1"
+              v-if="userData.tags && userData.tags.length > 0"
+            >
+              <el-tag
+                class="ml-5 mb-5"
+                v-for="item in userData.tags"
+                :key="item.id"
+              >
+                {{ item.name }}
+              </el-tag>
+            </div>
+          </div>
+          <div class="panel-info-item large">
             备注：<template v-if="userData.remark">
-              <span v-html="userData.remark.remark"></span>
+              <div
+                class="remark-text"
+                style="flex: 1"
+                v-html="userData.remark.remark"
+              ></div>
             </template>
           </div>
         </div>
@@ -112,36 +126,24 @@
 
     <!-- 学员课程区域 -->
     <div class="float-left bg-white br-15 p-30 mt-30">
-      <el-tabs v-model="courseTabActive">
-        <el-tab-pane
-          :label="item.name"
-          :name="item.key"
+      <el-radio-group v-model="courseTabActive">
+        <el-radio-button
+          :label="item.key"
           v-for="item in courseTypes"
           :key="item.key"
-        ></el-tab-pane>
-      </el-tabs>
+          >{{ item.name }}</el-radio-button
+        >
+      </el-radio-group>
 
       <div class="float-left mt-30">
-        <user-courses-comp
-          :id="id"
-          v-if="courseTabActive === 'vod'"
-        ></user-courses-comp>
-        <user-videos-comp
-          :id="id"
-          v-else-if="courseTabActive === 'video'"
-        ></user-videos-comp>
         <user-orders-comp
           :id="id"
-          v-else-if="courseTabActive === 'order'"
+          v-if="courseTabActive === 'order'"
         ></user-orders-comp>
         <user-credit1-comp
           :id="id"
           v-else-if="courseTabActive === 'credit1'"
         ></user-credit1-comp>
-        <user-roles-comp
-          :id="id"
-          v-else-if="courseTabActive === 'roles'"
-        ></user-roles-comp>
         <user-invite-comp
           :id="id"
           v-else-if="courseTabActive === 'invite'"
@@ -154,37 +156,74 @@
           :id="id"
           v-else-if="courseTabActive === 'video-watch-records'"
         ></user-video-watch-records-comp>
+        <user-live-watch-records-comp
+          :id="id"
+          v-else-if="courseTabActive === 'live'"
+        ></user-live-watch-records-comp>
         <user-balance-records-comp
           :id="id"
           v-else-if="courseTabActive === 'balanceRecords'"
         ></user-balance-records-comp>
       </div>
     </div>
+    <member-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></member-dialog>
+    <credit-dialog
+      :key="userData.id"
+      v-if="showCreditWin"
+      :id="userData.id"
+      @close="showCreditWin = false"
+      @success="successEvt"
+    ></credit-dialog>
+    <remark-dialog
+      :key="userData.id"
+      v-if="showRemarkWin"
+      :id="userData.id"
+      @close="showRemarkWin = false"
+      @success="successEvt"
+    ></remark-dialog>
+    <tags-dialog
+      :key="userData.id"
+      v-if="showTagsWin"
+      :id="userData.id"
+      @close="showTagsWin = false"
+      @success="successEvt"
+    ></tags-dialog>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import UserCoursesComp from "./detail/vod.vue";
-import UserVideosComp from "./detail/video.vue";
+import UserLiveWatchRecordsComp from "./detail/live-watch-records.vue";
 import UserOrdersComp from "./detail/orders.vue";
 import UserCredit1Comp from "./detail/credit1.vue";
-import UserRolesComp from "./detail/roles.vue";
 import UserInviteComp from "./detail/invite.vue";
 import UserVodWatchRecordsComp from "./detail/vod-watch-records.vue";
 import UserVideoWatchRecordsComp from "./detail/video-watch-records.vue";
+import MemberDialog from "./components/member-dialog";
+import CreditDialog from "./components/credit-dialog";
+import RemarkDialog from "./components/remark-dialog";
+import TagsDialog from "./components/tags-dialog";
 import UserBalanceRecordsComp from "./detail/balanceRecords.vue";
 
 export default {
   components: {
-    UserCoursesComp,
-    UserVideosComp,
     UserOrdersComp,
     UserCredit1Comp,
-    UserRolesComp,
     UserInviteComp,
     UserVodWatchRecordsComp,
     UserVideoWatchRecordsComp,
+    UserLiveWatchRecordsComp,
+    MemberDialog,
+    CreditDialog,
+    RemarkDialog,
+    TagsDialog,
     UserBalanceRecordsComp,
   },
   data() {
@@ -192,26 +231,33 @@ export default {
       id: null,
       userData: null,
       loading: false,
-      courseTabActive: "vod",
+      courseTabActive: "order",
+      showAddWin: false,
+      tit: null,
+      updateId: null,
+      showCreditWin: false,
+      showRemarkWin: false,
+      showTagsWin: false,
     };
   },
   computed: {
-    ...mapState(["user", "enabledAddons"]),
+    ...mapState(["enabledAddons", "user"]),
     courseTypes() {
       let types = [
         {
-          name: "录播",
-          key: "vod",
-        },
-        {
-          name: "视频",
-          key: "video",
+          name: "订单明细",
+          key: "order",
         },
       ];
-
+      if (this.checkPermission("v2.member.courses")) {
+        types.push({
+          name: "录播课学习",
+          key: "vod-watch-records",
+        });
+      }
       // if (this.enabledAddons["Zhibo"]) {
       //   types.push({
-      //     name: "直播",
+      //     name: "直播课学习",
       //     key: "live",
       //   });
       // }
@@ -227,32 +273,21 @@ export default {
       //     key: "topics",
       //   });
       // }
-
+      if (this.checkPermission("v2.member.videos")) {
+        types.push({
+          name: "单独订阅课时",
+          key: "video-watch-records",
+        });
+      }
       types.push(
         ...[
           {
-            name: "录播观看",
-            key: "vod-watch-records",
-          },
-          {
-            name: "视频观看",
-            key: "video-watch-records",
-          },
-          {
-            name: "订单",
-            key: "order",
+            name: "邀请明细",
+            key: "invite",
           },
           {
             name: "积分明细",
             key: "credit1",
-          },
-          {
-            name: "VIP记录",
-            key: "roles",
-          },
-          {
-            name: "邀请记录",
-            key: "invite",
           },
         ]
       );
@@ -275,6 +310,30 @@ export default {
     this.getUser();
   },
   methods: {
+    checkPermission(val) {
+      return typeof this.user.permissions[val] !== "undefined";
+    },
+    updateMember(id) {
+      this.tit = "编辑学员资料";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.showCreditWin = false;
+      this.showRemarkWin = false;
+      this.showTagsWin = false;
+      this.getUser();
+    },
+    changeCredit() {
+      this.showCreditWin = true;
+    },
+    changeRemark() {
+      this.showRemarkWin = true;
+    },
+    changeTags() {
+      this.showTagsWin = true;
+    },
     through(val) {
       return typeof this.user.permissions[val] !== "undefined";
     },
@@ -287,6 +346,34 @@ export default {
         this.userData = res.data.data;
         this.loading = false;
       });
+    },
+    lockMember() {
+      let text = "冻结后此账号将无法登录，确认冻结？";
+      let value = 1;
+      if (this.userData.is_lock === 1) {
+        text = "解冻后此账号将正常登录，确认解冻？";
+        value = 0;
+      }
+      this.$confirm(text, "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$api.Member.EditMulti({
+            user_ids: [this.userData.id],
+            field: "is_lock",
+            value: value,
+          })
+            .then((res) => {
+              this.$message.success(this.$t("common.success"));
+              this.getUser();
+            })
+            .catch((e) => {
+              this.$message.error(e.message);
+            });
+        })
+        .catch(() => {});
     },
   },
 };
@@ -330,29 +417,35 @@ export default {
         border-radius: 50%;
       }
     }
-
-    .user-nickname {
-      width: auto;
-      height: 80px;
-      float: left;
-      font-size: 20px;
-      font-weight: 600;
-      color: #333333;
-      line-height: 80px;
-    }
-    .buttons {
+    .user-info {
       width: auto;
       height: 80px;
       float: left;
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      .real-profile {
-        margin-right: 20px;
-        margin-left: 30px;
+      flex-direction: column;
+      .user-nickname {
+        width: auto;
+        height: 20px;
+        float: left;
+        font-size: 20px;
+        font-weight: 600;
+        color: #333333;
+        line-height: 20px;
+        margin-top: 13px;
       }
-      .edit-profile {
-        margin-right: 20px;
+      .buttons {
+        width: auto;
+        height: 14px;
+        float: left;
+        display: flex;
+        flex-direction: row;
+        margin-top: 20px;
+        .real-profile {
+          margin-right: 20px;
+        }
+        .edit-profile {
+          margin-right: 20px;
+        }
       }
     }
   }
@@ -362,27 +455,32 @@ export default {
     float: left;
     box-sizing: border-box;
     padding-bottom: 20px;
-    padding-top: 30px;
-    display: grid;
-    row-gap: 30px;
-    column-gap: 0px;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding-top: 0px;
+
+    display: flex;
+    flex-wrap: wrap;
     .panel-info-item {
       display: flex;
-      width: auto;
+      width: 360px;
       height: auto;
       font-size: 14px;
       font-weight: 400;
       color: #333333;
-      line-height: 14px;
-      align-items: center;
+      box-sizing: border-box;
+      padding: 0px 5px;
+      margin-top: 30px;
+      &.large {
+        width: 650px;
+      }
       .item {
         flex: 1;
         line-height: 20px;
         margin-left: 5px;
       }
-      span {
-        display: inline-block;
+      .item-box {
+        flex: 1;
+        line-height: 14px;
+        margin-left: 20px;
       }
     }
   }

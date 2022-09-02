@@ -30,7 +30,11 @@
           p="addons.Zhibo.course_comment"
         >
         </p-button>
-        <option-bar text="直播服务配置" value="直播"></option-bar>
+        <option-bar
+          text="直播服务配置"
+          value="SystemLiveConfig"
+          :query="{ referer: this.$route.path }"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>
@@ -101,7 +105,7 @@
               <span>{{ scope.row.join_user_times }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="下一场直播时间" sortable min-width="18%">
+          <el-table-column label="下一场直播时间" min-width="18%">
             <template slot-scope="scope">
               <template v-if="scope.row.status === 2">
                 <span class="c-gray">· {{ scope.row.status_text }}</span>

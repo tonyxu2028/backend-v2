@@ -10,7 +10,11 @@
         >
         </p-button>
         <el-button @click="destoryMulti()" type="danger"> 批量删除 </el-button>
-        <option-bar text="问答配置" value="问答"></option-bar>
+        <option-bar
+          text="问答配置"
+          value="SystemConfig"
+          :query="{ key: '问答' }"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>

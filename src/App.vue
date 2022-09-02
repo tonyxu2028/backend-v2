@@ -137,6 +137,21 @@ export default {
             continue;
           }
 
+          if (childrenItem.permission === "system-log") {
+            if (
+              typeof this.user.permissions["system.log.admin"] !==
+                "undefined" ||
+              typeof this.user.permissions["system.log.userLogin"] !==
+                "undefined" ||
+              typeof this.user.permissions["system.log.uploadImages"] !==
+                "undefined"
+            ) {
+              // 存在权限
+              children.push(childrenItem);
+            }
+            continue;
+          }
+
           if (
             typeof this.user.permissions[childrenItem.permission] !==
             "undefined"

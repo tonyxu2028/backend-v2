@@ -5,7 +5,7 @@
       <el-form ref="form" label-width="205px">
         <template v-if="enabledAddons['TemplateOne'] === 1">
           <div class="title">苹果支付</div>
-          <el-form-item :key="1918" label="苹果支付DEBUG">
+          <el-form-item label="苹果支付DEBUG">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-switch
@@ -27,7 +27,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item :key="1848" label="苹果App BundleID">
+          <el-form-item label="苹果App BundleID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -40,7 +40,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1849" label="苹果App虚拟货币名">
+          <el-form-item label="苹果App虚拟货币名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -58,7 +58,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1850" label="苹果App虚拟货币汇率">
+          <el-form-item label="苹果App虚拟货币汇率">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -78,7 +78,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1847" label="苹果产品id参数">
+          <el-form-item label="苹果产品id参数">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -94,7 +94,7 @@
             </div>
           </el-form-item>
           <div class="title">IOS开发</div>
-          <el-form-item :key="1921" label="苹果IOS-应用key">
+          <el-form-item label="苹果IOS-应用key">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -105,7 +105,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1922" label="苹果IOS-游客模式">
+          <el-form-item label="苹果IOS-游客模式">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-switch

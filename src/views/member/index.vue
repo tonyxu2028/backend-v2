@@ -5,13 +5,13 @@
         <p-button
           text="添加学员"
           p="member.store"
-          @click="$router.push({ name: 'MemberCreate' })"
+          @click="addMember"
           type="primary"
         >
         </p-button>
         <p-button
-          text="批量导入"
-          p="member.import"
+          text="学员批量导入"
+          p="member.store"
           @click="$router.push({ name: 'MemberImport' })"
           type="primary"
           class="ml-15"
@@ -19,15 +19,15 @@
         </p-button>
         <p-button
           text="批量发消息"
-          p="member.message.send.multi"
+          p="member.message.send"
           @click="sendMessageMulti()"
           type="primary"
           class="ml-15"
         >
         </p-button>
         <p-button
-          text="批量修改"
-          p="member.update.field.multi"
+          text="批量设置"
+          p="member.update"
           @click="editMulti()"
           type="primary"
           class="ml-15"
@@ -39,7 +39,7 @@
           <el-input
             class="w-150px"
             v-model="filter.keywords"
-            placeholder="学员关键字"
+            placeholder="昵称或手机号"
           ></el-input>
         </div>
         <div class="ml-10">
@@ -70,10 +70,12 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" sortable label="学员ID" width="100">
+          <el-table-column type="selection" min-width="4%"></el-table-column>
+
+          <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="学员" width="210">
+
+          <el-table-column label="学员昵称" min-width="15%">
             <template slot-scope="scope">
               <div class="user-item">
                 <div class="avatar">
@@ -83,46 +85,67 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column sortable="" label="注册时间" width="250">
+
+          <el-table-column label="手机号码" min-width="11%">
+            <template slot-scope="scope">
+              <span v-if="scope.row.mobile">{{ scope.row.mobile }}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="VIP类型" min-width="8%">
+            <template slot-scope="scope">
+              <span v-if="scope.row.role">{{ scope.row.role.name }}</span>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="credit1" sortable label="积分" min-width="8%">
+          </el-table-column>
+
+          <el-table-column label="标签" min-width="10%">
+            <template slot-scope="scope">
+              <template v-if="scope.row.tags.length > 0">
+                <tags-tooltip
+                  :key="scope.row.id"
+                  :tags="scope.row.tags"
+                ></tags-tooltip>
+              </template>
+              <template v-else>-</template>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="备注信息" min-width="9%">
+            <template slot-scope="scope">
+              <vhtml-tooltip
+                :key="scope.row.id"
+                v-if="userRemark[scope.row.id]"
+                :label="userRemark[scope.row.id].remark"
+              ></vhtml-tooltip>
+              <span v-else>-</span>
+            </template>
+          </el-table-column>
+
+          <el-table-column sortable="" label="注册时间" min-width="14%">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column prop="mobile" label="手机号" width="180">
-          </el-table-column>
-          <el-table-column label="VIP会员" width="150">
+          <el-table-column label="状态" min-width="6%">
             <template slot-scope="scope">
-              <span v-if="scope.row.role">{{ scope.row.role.name }}</span>
-              <span v-else></span>
+              <span v-if="scope.row.is_lock === 1" class="c-red">·冻结</span>
+              <span v-else class="c-green">·正常</span>
             </template>
           </el-table-column>
-          <el-table-column prop="credit1" sortable label="积分" width="120">
-          </el-table-column>
-          <el-table-column label="标签" width="200">
-            <template slot-scope="scope">
-              <el-tag
-                class="ml-5 mb-5"
-                v-for="(item, index) in scope.row.tags"
-                :key="index"
-              >
-                {{ item.name }}
-              </el-tag>
-            </template>
-          </el-table-column>
-
-          <el-table-column label="备注">
-            <template slot-scope="scope">
-              <div
-                v-if="userRemark[scope.row.id]"
-                v-html="userRemark[scope.row.id].remark"
-              ></div>
-            </template>
-          </el-table-column>
-
-          <el-table-column fixed="right" label="操作" width="120">
+          <el-table-column
+            fixed="right"
+            label="操作"
+            min-width="10%"
+            align="right"
+          >
             <template slot-scope="scope">
               <p-link
-                text="查看"
+                text="详情"
                 p="member.detail"
                 type="primary"
                 @click="detail(scope.row)"
@@ -133,10 +156,31 @@
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
                   <p-dropdown-item
-                    text="发消息"
+                    text="编辑资料"
+                    p="member.update"
+                    type="primary"
+                    @click="updateMember(scope.row.id)"
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
+                    text="站内消息"
                     p="member.message.send"
                     type="primary"
                     @click="sendMessage(scope.row)"
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
+                    :text="lockText(scope.row)"
+                    p="member.update"
+                    type="danger"
+                    @click="lockMember(scope.row)"
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
+                    text="删除账号"
+                    p="member.destroy"
+                    type="danger"
+                    @click="removeMember(scope.row.id)"
                   >
                   </p-dropdown-item>
                 </el-dropdown-menu>
@@ -166,7 +210,7 @@
           <el-input
             class="w-300px"
             v-model="filter.keywords"
-            placeholder="学员列表关键字"
+            placeholder="昵称或手机号"
           ></el-input>
         </div>
         <div class="j-flex mt-20">
@@ -174,7 +218,7 @@
             v-model="filter.role_id"
             class="w-300px"
             placeholder="VIP会员"
-            filterable
+            clearable
           >
             <el-option
               v-for="(item, index) in filterData.roles"
@@ -191,7 +235,7 @@
             v-model="filter.tag_id"
             class="w-300px"
             placeholder="学员标签"
-            filterable
+            clearable
           >
             <el-option
               v-for="(item, index) in filterData.tags"
@@ -253,7 +297,7 @@
           </el-select>
         </div>
         <div class="d-flex mt-20" v-if="current === 'is_lock'">
-          <label class="w-100px mr-20">是否禁止登录</label>
+          <label class="w-100px mr-20">是否冻结账号</label>
           <el-switch
             :key="current"
             v-model="form.is_lock"
@@ -264,8 +308,13 @@
         </div>
         <template v-if="current === 'role_id'">
           <div class="d-flex mt-20">
-            <label class="w-100px mr-20">选择VIP</label>
-            <el-select :key="current" class="el-item" v-model="form.role_id">
+            <label class="w-100px mr-20">设置会员</label>
+            <el-select
+              :key="current"
+              clearable
+              class="el-item"
+              v-model="form.role_id"
+            >
               <el-option
                 v-for="(item, index) in filterData.roles"
                 :key="index"
@@ -276,7 +325,7 @@
             </el-select>
           </div>
           <div class="d-flex mt-20">
-            <label class="w-100px mr-20">VIP过期时间</label>
+            <label class="w-100px mr-20">会员到期时间</label>
             <el-date-picker
               class="el-item"
               v-model="form.role_expired_at"
@@ -310,7 +359,7 @@
           </el-switch>
         </div>
         <div class="d-flex mt-20" v-if="current === 'tag'">
-          <label class="w-100px mr-20">选择标签</label>
+          <label class="w-100px mr-20">设置标签</label>
           <el-select
             :key="current"
             class="el-item"
@@ -332,11 +381,28 @@
         <el-button @click="editConfirmMulti" type="primary">确认</el-button>
       </div>
     </el-dialog>
+    <member-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></member-dialog>
   </div>
 </template>
 
 <script>
+import MemberDialog from "./components/member-dialog";
+import VhtmlTooltip from "@/components/vhtml-tooltip";
+import TagsTooltip from "@/components/tags-tooltip";
+
 export default {
+  components: {
+    MemberDialog,
+    VhtmlTooltip,
+    TagsTooltip,
+  },
   data() {
     return {
       pageName: "member-list",
@@ -389,15 +455,15 @@ export default {
       current: null,
       types: [
         {
-          name: "修改VIP",
+          name: "批量设置会员",
           key: "role_id",
         },
         {
-          name: "修改标签",
+          name: "批量设置标签",
           key: "tag",
         },
         {
-          name: "是否禁止登录",
+          name: "批量冻结账号",
           key: "is_lock",
         },
         // {
@@ -410,6 +476,9 @@ export default {
         // },
       ],
       dialogLoading: false,
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -434,6 +503,27 @@ export default {
     },
   },
   methods: {
+    lockText(item) {
+      let text = "冻结账号";
+      if (item.is_lock === 1) {
+        text = "解冻账号";
+      }
+      return text;
+    },
+    addMember() {
+      this.tit = "添加学员资料";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateMember(id) {
+      this.tit = "编辑学员资料";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.paginationReset();
+    },
     handleSelectionChange(val) {
       var newbox = [];
       for (var i = 0; i < val.length; i++) {
@@ -497,7 +587,7 @@ export default {
     },
     editMulti() {
       if (this.spids.ids == "") {
-        this.$message.error("请选择需要修改的学员");
+        this.$message.error("请先勾选要批量设置的学员");
         return;
       }
       this.editVisible = true;
@@ -590,6 +680,52 @@ export default {
           this.visible = false;
           this.$message.error(e.message);
         });
+    },
+    lockMember(item) {
+      let text = "冻结后此账号将无法登录，确认冻结？";
+      let value = 1;
+      if (item.is_lock === 1) {
+        text = "解冻后此账号将正常登录，确认解冻？";
+        value = 0;
+      }
+      this.$confirm(text, "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$api.Member.EditMulti({
+            user_ids: [item.id],
+            field: "is_lock",
+            value: value,
+          })
+            .then((res) => {
+              this.$message.success(this.$t("common.success"));
+              this.getUser();
+            })
+            .catch((e) => {
+              this.$message.error(e.message);
+            });
+        })
+        .catch(() => {});
+    },
+    removeMember(id) {
+      this.$confirm("即将删除此账号，确认操作？", "警告", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.$api.Member.Destroy(id)
+            .then((res) => {
+              this.$message.success(this.$t("common.success"));
+              this.getUser();
+            })
+            .catch((e) => {
+              this.$message.error(e.message);
+            });
+        })
+        .catch(() => {});
     },
   },
 };

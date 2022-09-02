@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" label-width="205px">
         <div class="title">支付宝支付</div>
-        <el-form-item :key="47" label="支付宝支付">
+        <el-form-item label="支付宝支付">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-switch
@@ -16,7 +16,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="48" label="支付宝AppId">
+        <el-form-item label="支付宝AppId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -27,7 +27,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="49" label="支付宝公钥">
+        <el-form-item label="支付宝公钥">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -42,7 +42,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="50" label="支付宝私钥">
+        <el-form-item label="支付宝私钥">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -58,7 +58,7 @@
           </div>
         </el-form-item>
         <div class="title">微信支付</div>
-        <el-form-item :key="53" label="微信支付">
+        <el-form-item label="微信支付">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-switch
@@ -70,7 +70,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="54" label="微信支付公众号AppId">
+        <el-form-item label="微信支付公众号AppId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -81,7 +81,10 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1814" label="微信支付手机应用AppId">
+        <el-form-item
+          v-if="enabledAddons['TemplateOne']"
+          label="微信支付手机应用AppId"
+        >
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -92,18 +95,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="55" label="微信支付小程序AppId">
-          <div class="j-flex flex-column" style="margin-left: 3px">
-            <div>
-              <el-input
-                class="w-200px"
-                v-model="form.config['pay.wechat.miniapp_id']"
-              >
-              </el-input>
-            </div>
-          </div>
-        </el-form-item>
-        <el-form-item :key="56" label="微信支付MchId">
+        <el-form-item label="微信支付MchId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -114,7 +106,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="57" label="微信支付Key">
+        <el-form-item label="微信支付Key">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input class="w-200px" v-model="form.config['pay.wechat.key']">
@@ -122,7 +114,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1001" label="微信证书Client">
+        <el-form-item label="微信证书Client">
           <div class="d-flex float-left" style="margin-left: 3px">
             <div>
               <el-input
@@ -140,7 +132,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1000" label="微信证书Key">
+        <el-form-item label="微信证书Key">
           <div class="d-flex float-left" style="margin-left: 3px">
             <div>
               <el-input
@@ -160,7 +152,7 @@
         </el-form-item>
 
         <div class="title">手动支付</div>
-        <el-form-item :key="59" label="手动打款">
+        <el-form-item label="手动打款">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-switch
@@ -172,7 +164,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="60" label="手动打款说明">
+        <el-form-item label="手动打款说明">
           <div class="d-flex w-800px" style="margin-left: 3px">
             <quill-editor
               :height="400"
@@ -221,7 +213,6 @@ export default {
           "meedu.payment.wechat.enabled": null,
           "pay.wechat.app_id": null,
           "pay.wechat.appid": null,
-          "pay.wechat.miniapp_id": null,
           "pay.wechat.mch_id": null,
           "pay.wechat.key": null,
           "meedu.payment.handPay.enabled": null,
@@ -325,8 +316,6 @@ export default {
             this.form.config["pay.wechat.app_id"] = configData[index].value;
           } else if (configData[index].key === "pay.wechat.appid") {
             this.form.config["pay.wechat.appid"] = configData[index].value;
-          } else if (configData[index].key === "pay.wechat.miniapp_id") {
-            this.form.config["pay.wechat.miniapp_id"] = configData[index].value;
           } else if (configData[index].key === "pay.wechat.mch_id") {
             this.form.config["pay.wechat.mch_id"] = configData[index].value;
           } else if (configData[index].key === "pay.wechat.key") {

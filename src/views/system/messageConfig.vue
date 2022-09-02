@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" label-width="205px">
         <div class="title">短信服务商配置</div>
-        <el-form-item :key="23" label="短信服务商">
+        <el-form-item label="短信服务商">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-select
@@ -23,7 +23,7 @@
           </div>
         </el-form-item>
         <template v-if="form.config['meedu.system.sms'] === 'aliyun'">
-          <el-form-item :key="24" label="阿里云 AccessKeyId">
+          <el-form-item label="阿里云 AccessKeyId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -33,7 +33,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="25" label="阿里云 AccessKeySecret">
+          <el-form-item label="阿里云 AccessKeySecret">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -43,7 +43,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="26" label="阿里云 短信签名">
+          <el-form-item label="阿里云 短信签名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -53,7 +53,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="27" label="阿里云 密码重置模板ID">
+          <el-form-item label="阿里云 密码重置模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -65,7 +65,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="28" label="阿里云 注册模板ID">
+          <el-form-item label="阿里云 注册模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -75,7 +75,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="29" label="阿里云 手机号绑定模板ID">
+          <el-form-item label="阿里云 手机号绑定模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -87,7 +87,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="30" label="阿里云 手机号登录模板ID">
+          <el-form-item label="阿里云 手机号登录模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -99,7 +99,7 @@
           </el-form-item>
         </template>
         <template v-else-if="form.config['meedu.system.sms'] === 'tencent'">
-          <el-form-item :key="1892" label="腾讯云短信 SdkAppId">
+          <el-form-item label="腾讯云短信 SdkAppId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -109,7 +109,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1893" label="腾讯云短信 Region">
+          <el-form-item label="腾讯云短信 Region">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-select
@@ -127,7 +127,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1894" label="腾讯云短信 SecretId">
+          <el-form-item label="腾讯云短信 SecretId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -137,7 +137,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1895" label="腾讯云短信 SecretKey">
+          <el-form-item label="腾讯云短信 SecretKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -147,7 +147,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1896" label="腾讯云短信 SignName">
+          <el-form-item label="腾讯云短信 SignName">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -157,7 +157,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1897" label="腾讯云 密码重置模板ID">
+          <el-form-item label="腾讯云 密码重置模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -169,7 +169,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1898" label="腾讯云 注册模板ID">
+          <el-form-item label="腾讯云 注册模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -181,7 +181,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1899" label="腾讯云 手机号绑定模板ID">
+          <el-form-item label="腾讯云 手机号绑定模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -193,7 +193,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1900" label="腾讯云 手机号登录模板ID">
+          <el-form-item label="腾讯云 手机号登录模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -205,7 +205,7 @@
           </el-form-item>
         </template>
         <template v-else-if="form.config['meedu.system.sms'] === 'yunpian'">
-          <el-form-item :key="31" label="云片ApiKey">
+          <el-form-item label="云片ApiKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -215,7 +215,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="32" label="云片密码重置模板">
+          <el-form-item label="云片密码重置模板">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -235,7 +235,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="33" label="云片注册模板">
+          <el-form-item label="云片注册模板">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -250,7 +250,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="34" label="云片手机号绑定模板">
+          <el-form-item label="云片手机号绑定模板">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -265,7 +265,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="35" label="云片手机号登陆模板">
+          <el-form-item label="云片手机号登陆模板">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input

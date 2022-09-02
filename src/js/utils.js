@@ -200,4 +200,13 @@ export default {
       return "密码至少包含大写字母，小写字母，数字，且不少于12位";
     }
   },
+  emailRules(value) {
+    let re = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+    let result = re.test(value);
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
+  },
 };

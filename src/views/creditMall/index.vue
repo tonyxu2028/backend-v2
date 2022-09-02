@@ -16,7 +16,7 @@
           type="primary"
         >
         </p-button>
-        <option-bar text="积分配置" value="积分"></option-bar>
+        <option-bar text="积分配置" value="SystemCreditSignConfig"></option-bar>
       </div>
 
       <div class="d-flex">

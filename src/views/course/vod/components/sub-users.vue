@@ -7,7 +7,7 @@
         </el-button>
         <p-button
           text="批量导入"
-          p="course.subscribe.import"
+          p="course.subscribe.create"
           type="primary"
           @click="importDialog = true"
         >

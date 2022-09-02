@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" label-width="205px">
         <div class="title">基础配置</div>
-        <el-form-item :key="870" label="AppId">
+        <el-form-item label="AppId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -19,7 +19,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="871" label="AppSecret">
+        <el-form-item label="AppSecret">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -29,7 +29,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="872" label="Token">
+        <el-form-item label="Token">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -39,7 +39,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="873" label="AesKey">
+        <el-form-item label="AesKey">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -50,7 +50,7 @@
           </div>
         </el-form-item>
         <div class="title">登录配置</div>
-        <el-form-item :key="1696" label="启用授权登录">
+        <el-form-item label="启用授权登录">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-switch
@@ -62,7 +62,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1833" label="启用PC扫码登录">
+        <el-form-item label="启用PC扫码登录">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-switch
@@ -74,7 +74,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1844" label="扫码登录成功回复信息">
+        <el-form-item label="扫码登录成功回复信息">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -91,7 +91,7 @@
           </div>
         </el-form-item>
         <div class="title">手机端分享</div>
-        <el-form-item :key="1834" label="启用微信分享">
+        <el-form-item label="启用微信分享">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-switch
@@ -103,7 +103,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1835" label="微信分享标题">
+        <el-form-item label="微信分享标题">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -113,7 +113,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1836" label="微信分享描述">
+        <el-form-item label="微信分享描述">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -123,7 +123,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="1837" label="微信分享图片">
+        <el-form-item label="微信分享图片">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <upload-image

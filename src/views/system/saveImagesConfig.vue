@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="图片存储"></back-bar>
     <div class="float-left">
       <el-form ref="form" label-width="205px">
-        <el-form-item :key="36" label="图片存储驱动">
+        <el-form-item label="图片存储驱动">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-select
@@ -22,7 +22,7 @@
           </div>
         </el-form-item>
         <template v-if="form.config['meedu.upload.image.disk'] === 'oss'">
-          <el-form-item :key="42" label="阿里云OSS AccessKeyId">
+          <el-form-item label="阿里云OSS AccessKeyId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -32,7 +32,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="43" label="阿里云OSS AccessKeySecret">
+          <el-form-item label="阿里云OSS AccessKeySecret">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -42,7 +42,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="44" label="阿里云OSS Bucket">
+          <el-form-item label="阿里云OSS Bucket">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -53,7 +53,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item :key="45" label="阿里云OSS Endpoint">
+          <el-form-item label="阿里云OSS Endpoint">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -68,7 +68,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="46" label="阿里云OSS CDN加速域名">
+          <el-form-item label="阿里云OSS CDN加速域名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -85,7 +85,7 @@
           </el-form-item>
         </template>
         <template v-else-if="form.config['meedu.upload.image.disk'] === 'cos'">
-          <el-form-item :key="1886" label="腾讯云COS Region">
+          <el-form-item label="腾讯云COS Region">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -95,7 +95,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1887" label="腾讯云COS AppId">
+          <el-form-item label="腾讯云COS AppId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -107,7 +107,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1888" label="腾讯云COS SecretId">
+          <el-form-item label="腾讯云COS SecretId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -119,7 +119,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1889" label="腾讯云COS SecretKey">
+          <el-form-item label="腾讯云COS SecretKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -131,7 +131,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1890" label="腾讯云COS Bucket">
+          <el-form-item label="腾讯云COS Bucket">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -141,7 +141,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1891" label="腾讯云COS CDN域名">
+          <el-form-item label="腾讯云COS CDN域名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -155,7 +155,7 @@
         <template
           v-else-if="form.config['meedu.upload.image.disk'] === 'qiniu'"
         >
-          <el-form-item :key="37" label="七牛访问域名">
+          <el-form-item label="七牛访问域名">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -167,7 +167,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="38" label="七牛访问域名(https)">
+          <el-form-item label="七牛访问域名(https)">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -177,7 +177,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="39" label="七牛AccessKey">
+          <el-form-item label="七牛AccessKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -187,7 +187,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="40" label="七牛SecretKey">
+          <el-form-item label="七牛SecretKey">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -197,7 +197,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="41" label="七牛Bucket">
+          <el-form-item label="七牛Bucket">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input

@@ -112,12 +112,6 @@ export default {
           sign: "视频加密",
         },
         {
-          name: "微信小程序",
-          value: "微信小程序",
-          images: require("../../assets/images/config/weixin.png"),
-          sign: "",
-        },
-        {
           name: "随机拍照",
           value: "随机拍照",
           images: require("../../assets/images/config/camera.png"),
@@ -151,6 +145,12 @@ export default {
           name: "IOS配置",
           value: "IOS",
           images: require("../../assets/images/config/h5.png"),
+          sign: "TemplateOne",
+        },
+        {
+          name: "微信小程序",
+          value: "微信小程序",
+          images: require("../../assets/images/config/weixin.png"),
           sign: "TemplateOne",
         },
       ],
@@ -199,12 +199,12 @@ export default {
         //   images: require("../../assets/images/config/invitevip.png"),
         //   sign: "",
         // },
-        {
-          name: "邀请奖励",
-          value: "邀请",
-          images: require("../../assets/images/config/invite.png"),
-          sign: "",
-        },
+        // {
+        //   name: "邀请奖励",
+        //   value: "邀请",
+        //   images: require("../../assets/images/config/invite.png"),
+        //   sign: "",
+        // },
         {
           name: "三级分销",
           value: "三级分销",
@@ -280,6 +280,10 @@ export default {
         this.$router.push({
           name: "SystemIOSConfig",
         });
+      } else if (value === "微信小程序") {
+        this.$router.push({
+          name: "SystemWechatMiniConfig",
+        });
       } else {
         this.$router.push({ name: "SystemConfig", query: { key: value } });
       }
@@ -302,6 +306,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .config-box {
+  min-width: 1169px;
   width: 100%;
   height: auto;
   float: left;

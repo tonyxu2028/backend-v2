@@ -89,12 +89,7 @@ export default {
           })
           .catch((e) => {
             this.loading = false;
-            this.$message({
-              showClose: true,
-              message: e.message,
-              type: "error",
-              duration: 0,
-            });
+            this.$message.error(e.message);
           });
       };
       reader.readAsArrayBuffer(f);

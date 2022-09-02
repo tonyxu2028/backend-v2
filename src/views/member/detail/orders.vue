@@ -6,13 +6,52 @@
       :data="list"
       class="float-left"
     >
-      <el-table-column prop="order_id" label="订单编号" width="300">
+      <el-table-column prop="order_id" label="订单编号" width="200">
       </el-table-column>
-      <el-table-column label="商品">
+      <el-table-column label="订单商品">
         <template slot-scope="scope">
           <div class="d-flex" v-for="item in scope.row.goods" :key="item.id">
             <div>
-              <img :src="item.goods_thumb" width="100" height="80" />
+              <template v-if="item.goods_type === 'ROLE'">
+                <thumb-bar
+                  :value="require('@/assets/img/default-vip.png')"
+                  :width="120"
+                  :height="90"
+                  :border="4"
+                ></thumb-bar>
+              </template>
+              <template
+                v-else-if="
+                  item.goods_type === '模拟试卷' ||
+                  item.goods_type === '试卷' ||
+                  item.goods_type === '练习'
+                "
+              >
+                <thumb-bar
+                  :value="require('@/assets/img/default-paper.png')"
+                  :width="120"
+                  :height="90"
+                  :border="4"
+                ></thumb-bar>
+              </template>
+              <template v-else-if="item.goods_type === 'BOOK'">
+                <div class="item-thumb">
+                  <thumb-bar
+                    :value="item.goods_thumb"
+                    :width="67.5"
+                    :height="90"
+                    :border="4"
+                  ></thumb-bar>
+                </div>
+              </template>
+              <template v-else>
+                <thumb-bar
+                  :value="item.goods_thumb"
+                  :width="120"
+                  :height="90"
+                  :border="4"
+                ></thumb-bar>
+              </template>
             </div>
             <div class="flex-1 ml-15">
               {{ item.goods_name }}
@@ -20,11 +59,9 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="charge" label="总价" width="200">
+      <el-table-column prop="charge" label="支付金额" width="200">
       </el-table-column>
-      <el-table-column prop="status_text" label="状态" width="100">
-      </el-table-column>
-      <el-table-column label="时间" width="200">
+      <el-table-column label="付款时间" width="200">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
         }}</template>
@@ -52,6 +89,7 @@ export default {
       pagination: {
         page: 1,
         size: 8,
+        status: 9,
       },
       total: 0,
       list: [],

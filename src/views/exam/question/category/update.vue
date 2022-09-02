@@ -83,13 +83,19 @@ export default {
     };
   },
   mounted() {
-    this.params();
     this.detail();
   },
   methods: {
-    params() {
+    params(id) {
       this.$api.Exam.Question.Category.Create().then((res) => {
-        this.categories = res.data.categories;
+        let categories = res.data.categories;
+        let new_arr = [];
+        for (let i = 0; i < categories.length; i++) {
+          if (categories[i].id !== id) {
+            new_arr.push(categories[i]);
+          }
+        }
+        this.categories = new_arr;
       });
     },
     detail() {
@@ -98,6 +104,7 @@ export default {
         this.user.name = data.name;
         this.user.parent_id = data.parent_id === 0 ? null : data.parent_id;
         this.user.sort = data.sort;
+        this.params(data.id);
       });
     },
     formValidate() {

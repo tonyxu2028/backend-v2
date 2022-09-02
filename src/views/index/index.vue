@@ -58,7 +58,7 @@
       </div>
     </div>
     <div style="display: none">
-      <img src="https://addons.meedu.vip/api/v1/stat?v=v4.6" />
+      <img src="https://addons.meedu.vip/api/v1/stat?v=v4.8" />
     </div>
     <div class="el_top_row2" v-if="user">
       <div class="tit">{{ $t("index.quick_acsess") }}</div>
@@ -177,6 +177,7 @@
       <el-col class="formbox">
         <div
           id="chartLine"
+          ref="myChart"
           style="
             width: 100%;
             height: 252px;
@@ -191,7 +192,7 @@
       <p class="info">
         <span>PHP{{ systemInfo.php_version }} </span>
         <span class="mx-10">主程序{{ systemInfo.meedu_version }}</span>
-        <span>后管v4.7.1</span>
+        <span>后管v4.8.0</span>
       </p>
     </div>
   </div>
@@ -212,7 +213,7 @@ export default {
         { name: "每日营收" },
       ],
       flagE: 1,
-      time: "",
+      time: null,
       pickerOptions: {
         disabledDate: (time) => {
           return time.getTime() > Date.now();
@@ -279,6 +280,9 @@ export default {
     this.getSystemInfo();
     this.getEnabledAddons();
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.myChartResize, false);
+  },
   methods: {
     ...mapMutations(["setEnabledAddons"]),
     checkPermission(val) {
@@ -332,10 +336,18 @@ export default {
       this.start_at = time2;
     },
     getchartsdata() {
-      if (this.time != "") {
+      if (this.time) {
         let timedata = this.time.slice(",");
         this.start_at = timedata[0];
         this.end_at = timedata[1];
+      } else {
+        this.end_at =
+          new Date().getFullYear() +
+          "-" +
+          (new Date().getMonth() + 1) +
+          "-" +
+          new Date().getDate();
+        this.fun_date(-7);
       }
       this.getZXTdata();
     },
@@ -416,6 +428,13 @@ export default {
           },
         ],
       });
+
+      window.addEventListener("resize", this.myChartResize, false);
+    },
+    myChartResize() {
+      const echarts = require("echarts");
+      let myChart = echarts.init(document.getElementById("chartLine"));
+      myChart.resize();
     },
     getEnabledAddons() {
       // 获取已开启的插件
@@ -452,6 +471,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .el_content {
+  min-width: 1169px;
   width: 100%;
   height: 100%;
   position: relative;

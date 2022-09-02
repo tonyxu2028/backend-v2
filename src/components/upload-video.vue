@@ -56,7 +56,10 @@
               <el-table-column prop="title" label="视频"> </el-table-column>
               <el-table-column label="时长" width="150">
                 <template slot-scope="scope">
-                  <duration-text :duration="scope.row.duration"></duration-text>
+                  <duration-text
+                    v-if="!loading"
+                    :duration="scope.row.duration"
+                  ></duration-text>
                 </template>
               </el-table-column>
               <el-table-column prop="storage_driver" label="存储" width="100">
@@ -136,14 +139,23 @@
             </template>
 
             <div style="display: none">
-              <input type="file" ref="video-file" @change="fileChange" />
+              <input
+                type="file"
+                accept="video/*"
+                ref="video-file"
+                @change="fileChange"
+              />
               <video ref="video-play" @loadedmetadata="videoPlayEvt"></video>
             </div>
           </div>
         </div>
         <div class="meedu-dialog-footer">
-          <el-button type="primary" @click="confirm"> 确定 </el-button>
-          <el-button @click="close" class="ml-30">取消</el-button>
+          <el-button type="primary" @click="confirm" :loading="upload.loading">
+            确定
+          </el-button>
+          <el-button @click="close" class="ml-30" :loading="upload.loading"
+            >取消</el-button
+          >
         </div>
       </div>
     </div>
@@ -378,6 +390,14 @@ export default {
       this.upload.loading = true;
 
       let file = e.target.files[0];
+      // 文件扩展名检测
+      let extension = file.name.split(".");
+      extension = extension[extension.length - 1];
+      if (extension !== "mp4") {
+        this.$message.error("请选择mp4文件");
+        this.upload.loading = false;
+        return;
+      }
 
       // 文件基础信息
       this.upload.file.title = file.name;

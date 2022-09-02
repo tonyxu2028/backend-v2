@@ -6,64 +6,13 @@
       <div class="float-left d-flex mb-30">
         <div>
           <el-button :loading="loading" type="primary" @click="choiceFile">
-            选择Excel表格文件
+            导入表格
           </el-button>
         </div>
         <div class="ml-30">
-          <el-link type="primary" @click="model()">
-            点击链接下载「学员批量导入模板」
+          <el-link type="primary" @click="download">
+            下载「学员批量导入模板」
           </el-link>
-        </div>
-      </div>
-      <div class="float-left">
-        <div class="rules">
-          <div class="title">用户批量导入规则介绍</div>
-          <div class="rule-item">
-            <div class="item-title">1.手机号</div>
-            <div class="item-desc">
-              <span class="c-red">必填</span> -
-              支持中国大陆手机号，标准的11位，不需要在手机号前面添加（+86）区号
-            </div>
-          </div>
-
-          <div class="rule-item">
-            <div class="item-title">2.密码</div>
-            <div class="item-desc">
-              <span class="c-red">必填</span> - 任意英文+数字的组合字符串
-            </div>
-          </div>
-
-          <div class="rule-item">
-            <div class="item-title">3.VIP</div>
-            <div class="item-desc">
-              选填 - 请填写[后台-运营-VIP会员]列表显示的ID
-            </div>
-          </div>
-
-          <div class="rule-item">
-            <div class="item-title">4.VIP过期时间</div>
-            <div class="item-desc">
-              选填 - 时间格式为：<code>YYYY-mm-dd HH:ii:ss</code>，如：<code
-                >2022-04-08 12:00:00</code
-              >
-            </div>
-          </div>
-
-          <div class="rule-item">
-            <div class="item-title">5.是否锁定</div>
-            <div class="item-desc">
-              选填 - 可填写值：[1, 0] -
-              1:锁定意味着无法登录,0:不锁定意味着无登录限制
-            </div>
-          </div>
-
-          <div class="rule-item">
-            <div class="item-title">6.标签</div>
-            <div class="item-desc">
-              选填 - 任意的字符串，多个标签请用英文逗号分割 -
-              例如我想给用户打上“大客户”+“精神小伙”这两个标签的话，可以这样输入：大客户,精神小伙
-            </div>
-          </div>
         </div>
       </div>
       <div class="float-left">
@@ -92,6 +41,10 @@ export default {
     });
   },
   methods: {
+    download() {
+      let url = this.$utils.getUrl() + "template/学员批量导入模板.xlsx";
+      window.open(url);
+    },
     choiceFile() {
       this.$refs.xlsfile.click();
     },
@@ -117,12 +70,15 @@ export default {
         let data = new Uint8Array(e.target.result);
         let workbook = XLSX.read(data, { type: "array", cellDates: true });
         let parseData = this.parseData(workbook);
-        parseData.splice(0, 1);
+        parseData.splice(0, 2);
         if (parseData.length === 0) {
           this.$message.error("数据为空");
           return;
         }
-
+        for (let i = 0; i < parseData.length; i++) {
+          let data = parseData[i];
+          data.splice(4, 0, 0);
+        }
         this.loading = true;
 
         // 请求导入api
@@ -135,12 +91,7 @@ export default {
           })
           .catch((e) => {
             this.loading = false;
-            this.$message({
-              showClose: true,
-              message: e.message,
-              type: "error",
-              duration: 0,
-            });
+            this.$message.error(e.message, 0);
           });
       };
       reader.readAsArrayBuffer(f);

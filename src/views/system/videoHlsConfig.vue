@@ -5,7 +5,7 @@
       <el-form ref="form" label-width="205px">
         <template v-if="enabledAddons['AliyunHls'] === 1">
           <div class="title">阿里云HLS加密</div>
-          <el-form-item :key="1595" label="Region">
+          <el-form-item label="Region">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-select
@@ -30,7 +30,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1596" label="模板ID">
+          <el-form-item label="模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -40,7 +40,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1597" label="AccessKeyId">
+          <el-form-item label="AccessKeyId">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -50,7 +50,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1598" label="AccessKeySecret">
+          <el-form-item label="AccessKeySecret">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -60,7 +60,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1600" label="KmsKeyID">
+          <el-form-item label="KmsKeyID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
@@ -73,7 +73,7 @@
         </template>
         <template v-if="enabledAddons['TencentCloudHls'] === 1">
           <div class="title">腾讯云HLS加密</div>
-          <el-form-item :key="1601" label="腾讯云视频存储region">
+          <el-form-item label="腾讯云视频存储region">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-select
@@ -98,7 +98,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item :key="1602" label="清晰度(多个请用英文逗号连接)">
+          <el-form-item label="清晰度(多个请用英文逗号连接)">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-select
@@ -368,11 +368,18 @@ export default {
       }
       this.form.config["meedu.addons.AliyunHls.kms_region"] =
         this.form.config["meedu.addons.AliyunHls.region"];
+
       this.$api.System.Config.Save(this.form).then(() => {
         this.$message.success(this.$t("common.success"));
         this.loading = false;
 
-        this.getConfig();
+        if (this.$route.query.referer) {
+          this.$router.replace({
+            path: this.$route.query.referer,
+          });
+        } else {
+          this.getConfig();
+        }
       });
     },
   },

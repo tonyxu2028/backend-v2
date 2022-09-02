@@ -10,7 +10,11 @@
           @click="submit"
           type="primary"
         ></p-button>
-        <option-bar text="腾讯云HLS加密" value="腾讯云HLS加密"></option-bar>
+        <option-bar
+          text="腾讯云HLS加密"
+          value="SystemVideoHlsConfig"
+          :query="{ referer: this.$route.path }"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>
@@ -130,7 +134,7 @@ export default {
       if (this.loading) {
         return;
       }
-      if (this.selectedRows === null) {
+      if (this.selectedRows === null || this.selectedRows.length === 0) {
         this.$message.warning("请选择需要操作的数据");
         return;
       }
