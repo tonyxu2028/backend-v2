@@ -75,20 +75,20 @@
               <el-tag v-else typpe="info">未使用</el-tag>
             </template>
           </el-table-column>
-          <el-table-column
-            label="使用用户ID"
-            width="120"
-            prop="user_id"
-          ></el-table-column>
+          <el-table-column label="使用用户ID" width="120">
+            <template slot-scope="scope">
+              <span v-if="scope.row.used_user_id !== 0">
+                {{ scope.row.used_user_id }}
+              </span>
+            </template>
+          </el-table-column>
           <el-table-column label="使用用户" width="200">
             <template slot-scope="scope">
-              <div class="d-flex" v-if="scope.row.is_used === 1">
-                <div class="d-flex">
-                  <div>
-                    <img :src="scope.row.user.avatar" width="40" height="40" />
-                  </div>
-                  <div class="ml-10">{{ scope.row.user.nick_name }}</div>
+              <div class="user-item" v-if="scope.row.is_used === 1">
+                <div class="avatar">
+                  <img :src="scope.row.user.avatar" width="40" height="40" />
                 </div>
+                <div class="nickname">{{ scope.row.user.nick_name }}</div>
               </div>
             </template>
           </el-table-column>
