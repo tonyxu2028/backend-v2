@@ -82,13 +82,15 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column label="使用用户" width="400">
+          <el-table-column label="使用用户" width="200">
             <template slot-scope="scope">
-              <div class="user-item" v-if="scope.row.is_used === 1">
-                <div class="avatar">
-                  <img :src="scope.row.user.avatar" width="40" height="40" />
+              <div class="d-flex" v-if="scope.row.is_used === 1">
+                <div class="d-flex">
+                  <div>
+                    <img :src="scope.row.user.avatar" width="40" height="40" />
+                  </div>
+                  <div class="ml-10">{{ scope.row.user.nick_name }}</div>
                 </div>
-                <div class="nickname">{{ scope.row.user.nick_name }}</div>
               </div>
             </template>
           </el-table-column>
