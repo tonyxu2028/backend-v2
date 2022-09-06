@@ -190,6 +190,10 @@ export default {
       Object.assign(this.form, question);
     },
     save() {
+      if (this.loading) {
+        return;
+      }
+
       if (
         (this.form.type === 1 || this.form.type === 2) &&
         !this.form.option2
@@ -224,13 +228,15 @@ export default {
         this.$message.warning("试题答案不能为空");
         return;
       }
-
+      this.loading = true;
       this.$api.Exam.Question.Update(this.id, this.form)
         .then(() => {
+          this.loading = false;
           this.$message.success(this.$t("common.success"));
           this.$router.back();
         })
         .catch((e) => {
+          this.loading = false;
           this.$message.error(e.message);
         });
     },
