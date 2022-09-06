@@ -191,8 +191,8 @@
       <p class="mb-10">Powered By MeEdu</p>
       <p class="info">
         <span>PHP{{ systemInfo.php_version }} </span>
-        <span class="mx-10">主程序{{ systemInfo.meedu_version }}</span>
-        <span>后管v4.8.0</span>
+        <span class="mx-10">API程序{{ systemInfo.meedu_version }}</span>
+        <span>后台前端程序v4.8.1</span>
       </p>
     </div>
   </div>
