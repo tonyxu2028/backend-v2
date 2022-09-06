@@ -305,6 +305,10 @@ export default {
         this.$message.error("电子书价格必须为整数");
         return;
       }
+      if (this.course.short_desc.length > 150) {
+        this.$message.error("简短介绍字数超出");
+        return;
+      }
       this.loading = true;
       this.course.render_desc = this.course.original_desc;
       this.$api.Meedubook.Book.Update(this.book_id, this.course)

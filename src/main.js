@@ -41,6 +41,15 @@ Vue.filter("dateFormat", function (dateStr, pattern = "YYYY-MM-DD HH:mm") {
   }
   return moment(dateStr).format(pattern);
 });
+Vue.filter(
+  "dateWholeFormat",
+  function (dateStr, pattern = "YYYY-MM-DD HH:mm:ss") {
+    if (!dateStr) {
+      return dateStr;
+    }
+    return moment(dateStr).format(pattern);
+  }
+);
 Vue.component("FormLabel", FormLabelComp);
 Vue.component("BackBar", BackBar);
 Vue.component("ThumbBar", ThumbBar);

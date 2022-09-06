@@ -49,10 +49,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item
-            label="可试看时长"
-            v-if="course.is_free !== 1 && video.charge > 0"
-          >
+          <el-form-item label="可试看时长" v-if="course.is_free !== 1">
             <div class="d-flex">
               <div>
                 <input-duration

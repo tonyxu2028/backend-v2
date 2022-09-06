@@ -9,6 +9,7 @@
           type="primary"
         >
         </p-button>
+        <el-button @click="importexcel" type="primary">导出表格</el-button>
       </div>
       <div class="d-flex">
         <div>
@@ -99,6 +100,7 @@
               </div>
               <div class="ml-10">{{ users[scope.row.user_id].nick_name }}</div>
             </div>
+            <span v-else class="c-red">用户已删除</span>
           </template>
         </el-table-column>
         <el-table-column label="商品名称" :width="300">
@@ -210,6 +212,11 @@
     <el-dialog title="退款" :visible.sync="visible" width="420px">
       <div class="j-flex flex-column">
         <div class="d-flex">
+          <helper-text
+            text="退款成功不会自动取消课程/会员绑定关系，需手动操作。"
+          ></helper-text>
+        </div>
+        <div class="d-flex mt-20">
           <label class="mr-20"><span class="c-red mr-5">*</span>退款方式</label>
           <el-select class="el-item" v-model="form.is_local">
             <el-option
@@ -322,6 +329,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -521,6 +529,82 @@ export default {
         this.dataList = resp.data.orders.data;
         this.countMap = resp.data.countMap;
 
+        this.loading = false;
+      });
+    },
+    importexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      Object.assign(params, this.filter);
+
+      this.$api.Order.OrderList.List(params).then((res) => {
+        if (res.data.orders.total === 0) {
+          this.$message.error("数据为空");
+          this.loading = false;
+          return;
+        }
+        let status;
+        if (parseInt(this.filter.status) === 9) {
+          status = "已支付";
+        } else if (parseInt(this.filter.status) === 5) {
+          status = "支付中";
+        } else if (parseInt(this.filter.status) === 1) {
+          status = "未支付";
+        } else if (parseInt(this.filter.status) === 7) {
+          status = "已取消";
+        } else {
+          status = "全部";
+        }
+        let filename = "全部订单（" + status + "）.xlsx";
+        let sheetName = "sheet1";
+        let users = res.data.users;
+        let data = [
+          [
+            "ID",
+            "学员ID",
+            "学员",
+            "商品名称",
+            "支付金额",
+            "支付渠道",
+            "支付状态",
+            "退款",
+            "订单创建时间",
+          ],
+        ];
+        res.data.orders.data.forEach((item) => {
+          data.push([
+            item.id,
+            item.user_id,
+            users[item.user_id] ? users[item.user_id].nick_name : "用户已删除",
+            item.goods[0] ? item.goods[0].goods_name : "商品已删除",
+            item.charge + "元",
+            item.payment_text,
+            item.status_text,
+            item.is_refund === 0 ? "-" : this.showRefund(item.refund),
+            item.updated_at
+              ? moment(item.updated_at).format("YYYY-MM-DD HH:mm")
+              : "",
+          ]);
+        });
+        let wscols = [
+          { wch: 10 },
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 30 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
         this.loading = false;
       });
     },

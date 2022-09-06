@@ -2,7 +2,9 @@
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="退款订单"></back-bar>
     <div class="float-left j-b-flex mb-30">
-      <div class="d-flex"></div>
+      <div class="d-flex">
+        <el-button @click="importexcel" type="primary">导出表格</el-button>
+      </div>
       <div class="d-flex">
         <div>
           <el-select
@@ -293,6 +295,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -438,6 +441,83 @@ export default {
         this.loading = false;
         this.results = res.data.data.data;
         this.total = res.data.data.total;
+      });
+    },
+    importexcel() {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      let params = {
+        page: 1,
+        size: this.total,
+      };
+      this.filter.gid = this.$route.query.id;
+      Object.assign(params, this.filter);
+
+      this.$api.Order.RefundList(params).then((res) => {
+        if (res.data.data.total === 0) {
+          this.$message.error("数据为空");
+          this.loading = false;
+          return;
+        }
+        let filename = "退款订单.xlsx";
+        let sheetName = "sheet1";
+        let data = [
+          [
+            "ID",
+            "学员ID",
+            "学员",
+            "退款单号",
+            "退款类型",
+            "支付渠道",
+            "退款金额",
+            "状态",
+            "到账时间",
+            "提交时间",
+          ],
+        ];
+        res.data.data.data.forEach((item) => {
+          let status;
+          if (item.status === 1) {
+            status = "待处理";
+          } else if (item.status === 5) {
+            status = "退款成功";
+          } else if (item.status === 9) {
+            status = "退款已关闭";
+          }
+          data.push([
+            item.id,
+            item.user ? item.user.id : "用户已删除",
+            item.user ? item.user.nick_name : "用户已删除",
+            item.refund_no,
+            item.is_local === 1 ? "线下退款" : "原渠道退回",
+            item.payment === "" ? "-" : item.payment,
+            "¥" + item.amount / 100,
+            status,
+            item.status === 5
+              ? moment(item.success_at).format("YYYY-MM-DD HH:mm")
+              : "",
+            item.created_at
+              ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
+              : "",
+          ]);
+        });
+        let wscols = [
+          { wch: 10 },
+          { wch: 10 },
+          { wch: 20 },
+          { wch: 20 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 15 },
+          { wch: 20 },
+          { wch: 20 },
+        ];
+        this.$utils.exportExcel(data, filename, sheetName, wscols);
+        this.loading = false;
       });
     },
     destory(item) {

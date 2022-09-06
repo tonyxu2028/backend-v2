@@ -71,6 +71,28 @@
   border-radius: 8px;
 }
 
+/deep/.el-radio-button__inner {
+  padding: 14px 20px;
+}
+
+.el-tooltip__popper {
+  max-width: 800px;
+}
+
+.tip-class {
+  border: none !important;
+  background-color: #fff !important;
+  box-shadow: 0px 2px 4px 0px rgba(51, 51, 51, 0.2);
+}
+
+.tip-class.el-tooltip__popper[x-placement^="top"] .popper__arrow {
+  border-top-color: rgba(51, 51, 51, 0.1) !important;
+}
+
+.tip-class.el-tooltip__popper[x-placement^="top"] .popper__arrow::after {
+  border-top-color: #fff !important;
+}
+
 body .el-table th.gutter {
   display: table-cell !important;
 }
@@ -254,6 +276,16 @@ p {
   margin: 0;
 }
 
+.remark-text {
+  p {
+    margin: 0px 0px 10px 0px;
+    line-height: 16px;
+    &:last-child {
+      margin: 0px 0px 0px 0px;
+    }
+  }
+}
+
 a {
   text-decoration: none;
 }
@@ -379,6 +411,10 @@ a {
 
 .mr-20 {
   margin-right: 20px;
+}
+
+.ml-20 {
+  margin-left: 20px;
 }
 
 .mt-15 {
@@ -583,6 +619,16 @@ a {
   color: rgba(0, 0, 0, 0.7);
 }
 
+.item-thumb {
+  width: 120px;
+  height: 90px;
+  background: #f0f0f8;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
 .meedu-dialog-mask {
   position: fixed;
   top: 0;
@@ -591,6 +637,59 @@ a {
   bottom: 0;
   z-index: 2001;
   background-color: rgba(0, 0, 0, 0.5);
+  .meedu-table-dialog-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1000px;
+    height: 643px;
+    margin-top: -321px;
+    margin-left: -500px;
+    background-color: white;
+    border-radius: 8px;
+    animation: scaleBig 0.3s;
+    .meedu-table-dialog-header {
+      width: 100%;
+      height: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 30px 15px;
+      line-height: 18px;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      span {
+        flex: 1;
+        font-size: 18px;
+        font-weight: 400;
+        color: #333333;
+        line-height: 18px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .icon-close {
+        width: 18px;
+        height: 18px;
+        margin-right: 15px;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    .meedu-table-dialog-body {
+      width: 100%;
+      height: 560px;
+      float: left;
+      box-sizing: border-box;
+      padding: 0px 15px 30px 15px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
   .meedu-cate-dialog-box {
     position: absolute;
     top: 50%;
@@ -620,6 +719,7 @@ a {
     .meedu-dialog-body {
       width: 100%;
       height: auto;
+      min-height: 100px;
       float: left;
       box-sizing: border-box;
     }

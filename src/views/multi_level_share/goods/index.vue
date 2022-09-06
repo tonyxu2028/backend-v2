@@ -16,7 +16,11 @@
           type="primary"
         >
         </p-button>
-        <option-bar text="分销配置" value="三级分销"></option-bar>
+        <option-bar
+          text="分销配置"
+          value="SystemConfig"
+          :query="{ key: '三级分销' }"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>

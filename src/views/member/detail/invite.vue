@@ -6,26 +6,31 @@
       :data="list"
       class="float-left"
     >
-      <el-table-column prop="id" label="邀请学员ID" width="120">
+      <el-table-column prop="id" label="邀请学员ID" width="200">
       </el-table-column>
       <el-table-column label="邀请学员">
         <template slot-scope="scope">
-          <div class="d-flex">
-            <div>
+          <div class="user-item d-flex">
+            <div class="avatar mr-10">
               <img :src="scope.row.avatar" width="40" height="40" />
             </div>
-            <div class="flex-1 ml-15">{{ scope.row.nick_name }}</div>
+            <div class="nickname">{{ scope.row.nick_name }}</div>
           </div>
         </template>
       </el-table-column>
       <el-table-column
         prop="mobile"
-        label="手机号"
-        width="200"
+        label="手机号码"
+        width="400"
       ></el-table-column>
-      <el-table-column prop="created_at" label="注册时间" width="200">
+      <el-table-column prop="created_at" label="注册时间" width="215">
         <template slot-scope="scope">{{
           scope.row.created_at | dateFormat
+        }}</template></el-table-column
+      >
+      <el-table-column prop="created_at" label="邀请关系有效期至" width="215">
+        <template slot-scope="scope">{{
+          scope.row.invite_user_expired_at | dateFormat
         }}</template></el-table-column
       >
     </el-table>

@@ -28,16 +28,8 @@
               <span>{{ scope.row.name }} </span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" label="操作" width="160">
+          <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
-              <p-link
-                text="删除"
-                p="addons.Paper.question_category.delete"
-                style="margin-right: 10px"
-                type="danger"
-                @click="detroy(scope.row.id)"
-              ></p-link>
-
               <p-link
                 text="编辑"
                 p="addons.Paper.question_category.update"
@@ -48,6 +40,13 @@
                     query: { id: scope.row.id },
                   })
                 "
+              ></p-link>
+              <p-link
+                text="删除"
+                p="addons.Paper.question_category.delete"
+                class="ml-5"
+                type="danger"
+                @click="detroy(scope.row.id)"
               ></p-link>
             </template>
           </el-table-column>

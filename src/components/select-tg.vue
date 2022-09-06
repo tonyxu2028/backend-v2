@@ -58,7 +58,7 @@
                   ></thumb-bar>
                 </template>
               </el-table-column>
-              <el-table-column label="秒杀价" width="120">
+              <el-table-column label="团购价" width="120">
                 <template slot-scope="scope">
                   ￥{{ scope.row.charge }}
                 </template>

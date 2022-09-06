@@ -15,7 +15,7 @@
               <el-form-item label="父级分类" prop="parent_id">
                 <el-select class="w-300px" clearable v-model="form.parent_id">
                   <el-option
-                    v-for="(item, index) in categories"
+                    v-for="(item, index) in localCategories"
                     :key="index"
                     :label="item.name"
                     :value="item.id"
@@ -66,6 +66,7 @@ export default {
   props: ["id", "text", "categories"],
   data() {
     return {
+      localCategories: [],
       form: {
         sort: null,
         name: null,
@@ -97,6 +98,8 @@ export default {
     this.form.parent_id = null;
     if (this.id) {
       this.getDetail();
+    } else {
+      this.localCategories = this.categories;
     }
   },
   methods: {
@@ -106,6 +109,14 @@ export default {
         this.form.name = data.name;
         this.form.sort = data.sort;
         this.form.parent_id = data.parent_id === 0 ? null : data.parent_id;
+        let categories = this.categories;
+        let new_arr = [];
+        for (let i = 0; i < categories.length; i++) {
+          if (categories[i].id !== data.id) {
+            new_arr.push(categories[i]);
+          }
+        }
+        this.localCategories = new_arr;
       });
     },
     formValidate() {

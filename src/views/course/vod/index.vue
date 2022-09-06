@@ -33,13 +33,17 @@
 
         <p-button
           text="课时批量导入"
-          p="video.import"
+          p="video.store"
           @click="$router.push({ name: 'VodImport' })"
           type="primary"
         >
         </p-button>
 
-        <option-bar text="录播课设置" value="播放器配置"></option-bar>
+        <option-bar
+          text="录播课设置"
+          value="SystemPlayerConfig"
+          :query="{ referer: this.$route.path }"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>

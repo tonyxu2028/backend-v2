@@ -11,14 +11,14 @@
       ></p-button>
     </div>
 
-    <div class="float-left" v-if="order && user">
+    <div class="float-left" v-if="order">
       <div class="panel-box p-0 mb-30">
         <div class="panel-header">订单基础信息</div>
         <div class="panel-body">
           <div class="float-left">
             <div class="float-left d-flex mb-30">
-              <div class="flex-1">UID：{{ user.id }}</div>
-              <div class="flex-1">学员：{{ user.nick_name }}</div>
+              <div class="flex-1" v-if="user">UID：{{ user.id }}</div>
+              <div class="flex-1" v-if="user">学员：{{ user.nick_name }}</div>
               <div class="flex-1">订单ID：{{ order.id }}</div>
               <div class="flex-1">订单编号：{{ order.order_id }}</div>
               <div class="flex-1">总额：￥{{ order.charge }}</div>
@@ -132,9 +132,7 @@
             </el-table-column>
             <el-table-column label="退款类型" :width="120">
               <template slot-scope="scope">
-                <span v-if="scope.row.is_local === 1"
-                  >线下退款</span
-                >
+                <span v-if="scope.row.is_local === 1">线下退款</span>
                 <span v-else>原渠道退回</span>
               </template>
             </el-table-column>

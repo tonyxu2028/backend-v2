@@ -43,14 +43,14 @@ export default [
         permission: "addons.Zhibo.course.list",
       },
       {
-        name: "title.topic.name",
-        key: "Topic",
-        permission: "addons.meedu_topics.topic.list",
-      },
-      {
         name: "title.meedubook.book.index",
         key: "Meedubook",
         permission: "addons.meedu_books.book.list",
+      },
+      {
+        name: "title.topic.name",
+        key: "Topic",
+        permission: "addons.meedu_topics.topic.list",
       },
       {
         name: "title.course.xiaobanke.course.index",
@@ -201,6 +201,11 @@ export default [
         name: "title.system-config",
         key: "SystemIndex",
         permission: "setting",
+      },
+      {
+        name: "title.system-log",
+        key: "SystemLog",
+        permission: "system-log",
       },
       {
         name: "title.system-application",

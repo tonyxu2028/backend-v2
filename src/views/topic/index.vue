@@ -27,7 +27,11 @@
           p="addons.meedu_topics.comments"
         >
         </p-button>
-        <option-bar text="图文推荐" value="图文"></option-bar>
+        <option-bar
+          text="图文推荐"
+          value="SystemTopicConfig"
+          :query="{ referer: this.$route.path }"
+        ></option-bar>
       </div>
       <div class="d-flex">
         <div>
@@ -70,7 +74,7 @@
         >
           <el-table-column prop="id" sortable label="ID" min-width="6%">
           </el-table-column>
-          <el-table-column label="图文" min-width="21%">
+          <el-table-column label="图文" min-width="20%">
             <template slot-scope="scope">
               <thumb-bar
                 :value="scope.row.thumb"
@@ -80,24 +84,24 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column prop="category.name" label="分类" min-width="9%">
+          <el-table-column prop="category.name" label="分类" min-width="7%">
           </el-table-column>
           <el-table-column
             label="价格"
             sortable
             property="charge"
-            min-width="7%"
+            min-width="8%"
           >
             <template slot-scope="scope">
               <span v-if="scope.row.charge > 0">{{ scope.row.charge }}元</span>
-              <span v-else>免费</span>
+              <span v-else>-</span>
             </template>
           </el-table-column>
           <el-table-column
             label="销量"
             sortable
             property="user_count"
-            min-width="7%"
+            min-width="8%"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.user_count }}</span>
@@ -107,7 +111,7 @@
             label="阅读"
             sortable
             property="view_times"
-            min-width="7%"
+            min-width="8%"
           >
             <template slot-scope="scope">
               <span>{{ scope.row.view_times }}次</span>
@@ -117,7 +121,7 @@
             prop="vote_count"
             sortable
             label="点赞"
-            min-width="7%"
+            min-width="8%"
           >
           </el-table-column>
           <el-table-column sortable label="上架时间" min-width="14%">
@@ -134,7 +138,7 @@
           <el-table-column
             fixed="right"
             label="操作"
-            min-width="14%"
+            min-width="13%"
             align="right"
           >
             <template slot-scope="scope">

@@ -19,7 +19,7 @@
       >
         <el-table-column prop="id" label="ID" width="120"> </el-table-column>
         <el-table-column prop="name" label="标签名"> </el-table-column>
-        <el-table-column fixed="right" label="操作" width="100">
+        <el-table-column fixed="right" label="操作" width="120">
           <template slot-scope="scope">
             <el-link
               type="primary"

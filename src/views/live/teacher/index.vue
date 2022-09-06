@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="讲师管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="添加讲师"
         @click="addTeacher"
         type="primary"
         p="addons.Zhibo.teacher.store"

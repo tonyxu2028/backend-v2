@@ -161,7 +161,13 @@ export default {
         this.$message.success(this.$t("common.success"));
         this.loading = false;
 
-        this.getConfig();
+        if (this.$route.query.referer) {
+          this.$router.replace({
+            path: this.$route.query.referer,
+          });
+        } else {
+          this.getConfig();
+        }
       });
     },
   },

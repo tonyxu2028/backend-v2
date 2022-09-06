@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="积分配置"></back-bar>
     <div class="float-left">
       <el-form ref="form" label-width="205px">
-        <el-form-item :key="1909" label="积分签到奖励规则">
+        <el-form-item label="积分签到奖励规则">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -13,7 +13,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="88" label="注册奖励">
+        <el-form-item label="注册奖励">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -23,17 +23,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="89" label="邀请奖励">
-          <div class="j-flex flex-column" style="margin-left: 3px">
-            <div>
-              <el-input
-                class="w-200px"
-                v-model="form.config['meedu.member.credit1.invite']"
-              ></el-input>
-            </div>
-          </div>
-        </el-form-item>
-        <el-form-item :key="90" label="看完课程">
+        <el-form-item label="看完课程">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -43,7 +33,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="91" label="看完视频">
+        <el-form-item label="看完视频">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -53,7 +43,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :key="92" label="支付订单">
+        <el-form-item label="支付订单">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -98,7 +88,6 @@ export default {
         config: {
           "meedu.addons.DaySignIn.reward_rule": null,
           "meedu.member.credit1.register": null,
-          "meedu.member.credit1.invite": null,
           "meedu.member.credit1.watched_course": null,
           "meedu.member.credit1.watched_video": null,
           "meedu.member.credit1.paid_order": null,
@@ -128,9 +117,6 @@ export default {
         for (let index in newConfig) {
           if (newConfig[index].key === "meedu.member.credit1.register") {
             this.form.config["meedu.member.credit1.register"] =
-              newConfig[index].value;
-          } else if (newConfig[index].key === "meedu.member.credit1.invite") {
-            this.form.config["meedu.member.credit1.invite"] =
               newConfig[index].value;
           } else if (
             newConfig[index].key === "meedu.member.credit1.watched_course"

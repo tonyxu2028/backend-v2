@@ -4,7 +4,7 @@
     <div class="float-left">
       <el-form ref="form" :model="user" :rules="rules" label-width="200px">
         <el-form-item label="父级" prop="parent_id">
-          <el-select v-model="user.parent_id">
+          <el-select clearable v-model="user.parent_id">
             <el-option
               v-for="(item, index) in categories"
               :key="index"
@@ -82,13 +82,19 @@ export default {
     };
   },
   mounted() {
-    this.params();
     this.detail();
   },
   methods: {
-    params() {
+    params(id) {
       this.$api.Exam.Practice.Category.Create().then((res) => {
-        this.categories = res.data.categories;
+        let categories = res.data.categories;
+        let new_arr = [];
+        for (let i = 0; i < categories.length; i++) {
+          if (categories[i].id !== id) {
+            new_arr.push(categories[i]);
+          }
+        }
+        this.categories = new_arr;
       });
     },
     detail() {
@@ -97,6 +103,7 @@ export default {
         this.user.name = data.name;
         this.user.parent_id = data.parent_id;
         this.user.sort = data.sort;
+        this.params(data.id);
       });
     },
     formValidate() {

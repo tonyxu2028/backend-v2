@@ -296,6 +296,17 @@ const Api = {
         return post(`/backend/api/v1/video/token/tencent`, params);
       },
     },
+    Log: {
+      Admin(params) {
+        return get(`/backend/api/v1/log/admin`, params);
+      },
+      UserLogin(params) {
+        return get(`/backend/api/v1/log/userLogin`, params);
+      },
+      UploadImages(params) {
+        return get(`/backend/api/v1/log/uploadImages`, params);
+      },
+    },
   },
   Course: {
     Vod: {
@@ -842,9 +853,6 @@ const Api = {
       Comments(params) {
         return get(`/backend/addons/meedu_books/book_comment/index`, params);
       },
-      Destorycomment(id) {
-        return destroy(`/backend/addons/meedu_books/book_comment/${id}`);
-      },
       CommentDestoryMulti(params) {
         return post(
           `/backend/addons/meedu_books/book_comment/destroy/multi`,
@@ -944,9 +952,6 @@ const Api = {
             `/backend/addons/meedu_books/article_comment/index`,
             params
           );
-        },
-        Destorycomment(id) {
-          return destroy(`/backend/addons/meedu_books/article_comment/${id}`);
         },
         CommentDestoryMulti(params) {
           return post(
@@ -1090,6 +1095,9 @@ const Api = {
     Update(id, params) {
       return put(`/backend/api/v1/member/${id}`, params);
     },
+    Destroy(id) {
+      return destroy(`/backend/api/v2/member/${id}`);
+    },
     Import(params) {
       return post(`/backend/api/v1/member/import`, params);
     },
@@ -1108,8 +1116,8 @@ const Api = {
     UserCourses(id, params) {
       return get(`/backend/api/v1/member/${id}/detail/userCourses`, params);
     },
-    UserVideos(id, params) {
-      return get(`/backend/api/v1/member/${id}/detail/userVideos`, params);
+    UserVideos(params) {
+      return get(`/backend/api/v2/member/videos`, params);
     },
     UserRoles(id, params) {
       return get(`/backend/api/v1/member/${id}/detail/userRoles`, params);
@@ -1123,14 +1131,14 @@ const Api = {
     UserInviteRecords(id, params) {
       return get(`/backend/api/v1/member/${id}/detail/userInvite`, params);
     },
-    UserVodWatchRecords(id, params) {
-      return get(`/backend/api/v1/member/${id}/detail/userHistory`, params);
+    UserVodWatchRecords(params) {
+      return get(`/backend/api/v2/member/courses`, params);
     },
-    UserVideoWatchRecords(id, params) {
-      return get(
-        `/backend/api/v1/member/${id}/detail/videoWatchRecords`,
-        params
-      );
+    UserVideoWatchRecords(params) {
+      return get(`/backend/api/v2/member/course/progress`, params);
+    },
+    UserLiveWatchRecords(params) {
+      return get(`/backend/api/v2/member/courses`, params);
     },
     UserBalanceRecords(params) {
       return get(

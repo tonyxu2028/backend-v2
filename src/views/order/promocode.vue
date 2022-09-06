@@ -18,7 +18,7 @@
         </p-button>
         <p-button
           text="批量导入"
-          p="promoCode.import"
+          p="promoCode.store"
           @click="$router.push({ name: 'CodeImport' })"
           type="primary"
         >
