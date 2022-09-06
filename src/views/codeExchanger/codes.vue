@@ -69,20 +69,18 @@
           </el-table-column>
           <el-table-column label="是否使用" width="150">
             <template slot-scope="scope">
-              <el-tag v-if="scope.row.is_used === 1" type="danger"
-                >已使用</el-tag
-              >
-              <el-tag v-else typpe="info">未使用</el-tag>
+              <span class="c-red" v-if="scope.row.is_used === 1">· 已使用</span>
+              <span class="c-gray" v-else>· 未使用</span>
             </template>
           </el-table-column>
-          <el-table-column label="使用用户ID" width="120">
+          <el-table-column label="学员ID" width="120">
             <template slot-scope="scope">
               <span v-if="scope.row.used_user_id !== 0">
                 {{ scope.row.used_user_id }}
               </span>
             </template>
           </el-table-column>
-          <el-table-column label="使用用户" width="200">
+          <el-table-column label="学员" width="200">
             <template slot-scope="scope">
               <div class="d-flex" v-if="scope.row.is_used === 1">
                 <div class="d-flex">
