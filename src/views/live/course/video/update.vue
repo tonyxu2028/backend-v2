@@ -55,6 +55,16 @@
           >
           </el-date-picker>
         </el-form-item>
+        <el-form-item label="预估直播时长" prop="estimate_duration">
+          <el-input
+            v-model="course.estimate_duration"
+            class="w-300px"
+            placeholder="预估直播时长"
+            type="number"
+          >
+            <template slot="append">分钟</template>
+          </el-input>
+        </el-form-item>
       </el-form>
       <div class="bottom-menus">
         <div class="bottom-menus-box">
@@ -77,7 +87,14 @@ export default {
     return {
       id: this.$route.query.id,
       course_id: this.$route.query.course_id,
-      course: null,
+      course: {
+        course_id: this.$route.query.course_id,
+        title: null,
+        chapter_id: null,
+        is_show: 1,
+        published_at: null,
+        estimate_duration: null,
+      },
       rules: {
         // chapter_id: [
         //   {
@@ -97,6 +114,13 @@ export default {
           {
             required: true,
             message: "直播时间不能为空",
+            trigger: "blur",
+          },
+        ],
+        estimate_duration: [
+          {
+            required: true,
+            message: "预估直播时长不能为空",
             trigger: "blur",
           },
         ],
@@ -121,10 +145,14 @@ export default {
     },
     getDetail() {
       this.$api.Course.Live.Course.Video.Detail(this.id).then((res) => {
-        this.course = res.data;
-        if (this.course.chapter_id === 0) {
+        this.course.title = res.data.title;
+        if (res.data.chapter_id === 0) {
           this.course.chapter_id = null;
+        } else {
+          this.course.chapter_id = res.data.chapter_id;
         }
+        this.course.published_at = res.data.published_at;
+        this.course.estimate_duration = res.data.estimate_duration / 60;
       });
     },
     formValidate() {
@@ -139,7 +167,14 @@ export default {
         return;
       }
       this.loading = true;
-      this.$api.Course.Live.Course.Video.Update(this.id, this.course)
+      this.$api.Course.Live.Course.Video.Update(this.id, {
+        course_id: this.course.course_id,
+        title: this.course.title,
+        chapter_id: this.course.chapter_id,
+        is_show: 1,
+        published_at: this.course.published_at,
+        estimate_duration: this.course.estimate_duration * 60,
+      })
         .then(() => {
           this.$message.success(this.$t("common.success"));
           this.$router.back();
