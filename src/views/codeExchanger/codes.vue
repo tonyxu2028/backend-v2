@@ -82,7 +82,7 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column label="使用用户" width="200">
+          <el-table-column label="使用用户" width="300">
             <template slot-scope="scope">
               <div class="user-item" v-if="scope.row.is_used === 1">
                 <div class="avatar">
