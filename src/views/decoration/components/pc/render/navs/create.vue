@@ -21,14 +21,17 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item prop="sort">
-              <template slot="label">
-                <form-label
-                  text="排序值"
-                  helper="填写整数，数字越小排序越靠前"
-                ></form-label>
-              </template>
-              <el-input v-model="form.sort" class="w-200px"></el-input>
+            <el-form-item prop="sort" label="排序值">
+              <div class="d-flex">
+                <div>
+                  <el-input v-model="form.sort" class="w-200px"></el-input>
+                </div>
+                <div class="ml-10">
+                  <helper-text
+                    text="填写整数，数字越小排序越靠前"
+                  ></helper-text>
+                </div>
+              </div>
             </el-form-item>
 
             <el-form-item label="导航名" prop="name">
