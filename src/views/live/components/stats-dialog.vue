@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="mask" v-if="show">
+    <div class="mask" v-show="show">
       <div class="live-stats-box">
         <div class="live-stats-header">
           <span>直播统计</span>
@@ -10,19 +10,19 @@
             src="@/assets/img/close.png"
           />
         </div>
-        <div class="live-stats-body" v-if="list">
-          <div class="stats-content">
-            <div class="item">
+        <div class="live-stats-body">
+          <div class="stats-content" v-if="list">
+            <div class="item border-right">
               <div class="item-name">直播时长</div>
               <div class="item-value">
                 <duration-text :duration="list.duration"></duration-text>
               </div>
             </div>
-            <div class="item">
+            <div class="item border-right">
               <div class="item-name">聊天消息数</div>
               <div class="item-value">{{ list.count_chat }}</div>
             </div>
-            <div class="item">
+            <div class="item border-right">
               <div class="item-name">观看总人数</div>
               <div class="item-value">{{ list.count_watch_user }}</div>
             </div>
@@ -34,6 +34,13 @@
                 ></duration-text>
               </div>
             </div>
+          </div>
+          <div class="chart-box">
+            <div
+              id="chartLine"
+              ref="myChart"
+              style="width: 100%; height: 260px"
+            ></div>
           </div>
         </div>
       </div>
@@ -57,6 +64,9 @@ export default {
   mounted() {
     this.getData();
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.myChartResize, false);
+  },
   methods: {
     getData() {
       if (this.loading) {
@@ -66,7 +76,59 @@ export default {
       this.$api.Course.Live.Course.Video.Stats(this.id).then((res) => {
         this.loading = false;
         this.list = res.data;
+        this.drawLineChart(res.data.online_user_count_per_minute);
       });
+    },
+    drawLineChart(obj) {
+      let xset = [];
+      let val = [];
+      for (let key in obj) {
+        xset.push(key);
+        val.push(obj[key]);
+      }
+      const echarts = require("echarts");
+      let myChart = echarts.init(document.getElementById("chartLine"));
+      myChart.setOption({
+        title: {
+          text: "学员实时在线统计",
+          left: "center",
+          textStyle: { color: "#333", fontSize: 16 },
+        },
+        tooltip: {
+          trigger: "axis",
+        },
+        xAxis: {
+          type: "category",
+          boundaryGap: false,
+          data: xset,
+        },
+        yAxis: {
+          type: "value",
+        },
+        series: [
+          {
+            name: "在线学员数",
+            type: "line",
+            // 设置折线图颜色
+            itemStyle: {
+              normal: {
+                lineStyle: {
+                  color: "#4876FF",
+                },
+              },
+            },
+            stack: "总量",
+            data: val,
+          },
+        ],
+      });
+
+      window.addEventListener("resize", this.myChartResize, false);
+    },
+    myChartResize() {
+      const echarts = require("echarts");
+      let myChart = echarts.init(document.getElementById("chartLine"));
+      myChart.resize();
     },
     close() {
       this.$emit("close");
@@ -89,8 +151,8 @@ export default {
     top: 50%;
     left: 50%;
     width: 1000px;
-    height: 643px;
-    margin-top: -321px;
+    height: 490px;
+    margin-top: -245px;
     margin-left: -500px;
     background-color: white;
     border-radius: 8px;
@@ -109,7 +171,7 @@ export default {
       span {
         flex: 1;
         font-size: 18px;
-        font-weight: 400;
+        font-weight: 600;
         color: #333333;
         line-height: 18px;
         overflow: hidden;
@@ -140,13 +202,16 @@ export default {
         float: left;
         display: flex;
         justify-content: space-between;
-        margin-bottom: 30px;
+        margin-bottom: 50px;
         .item {
           width: 25%;
           height: auto;
           display: flex;
           flex-direction: column;
           align-items: center;
+          &.border-right {
+            border-right: 1px solid #ccc;
+          }
           .item-name {
             font-size: 18px;
             font-weight: 400;
@@ -161,6 +226,11 @@ export default {
             line-height: 30px;
           }
         }
+      }
+      .chart-box {
+        width: 100%;
+        height: auto;
+        float: left;
       }
     }
   }
