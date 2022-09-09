@@ -39,7 +39,7 @@
             <div
               id="chartLine"
               ref="myChart"
-              style="width: 100%; height: 260px"
+              style="width: 970px; height: 260px"
             ></div>
           </div>
         </div>
