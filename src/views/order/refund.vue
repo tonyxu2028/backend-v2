@@ -95,8 +95,8 @@
           <el-table-column prop="id" label="ID" width="100"> </el-table-column>
           <el-table-column label="学员" :width="300">
             <template slot-scope="scope">
-              <template v-if="scope.row.user">
-                <div class="user-item d-flex" v-if="scope.row.user">
+              <template v-if="scope.row.user && scope.row.user.length !== 0">
+                <div class="user-item d-flex">
                   <div class="avatar">
                     <img :src="scope.row.user.avatar" width="40" height="40" />
                   </div>
