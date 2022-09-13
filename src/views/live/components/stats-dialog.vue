@@ -61,9 +61,14 @@ export default {
       list: null,
     };
   },
-  mounted() {
-    this.getData();
+  watch: {
+    show(val) {
+      if (val) {
+        this.getData();
+      }
+    },
   },
+  mounted() {},
   beforeDestroy() {
     window.removeEventListener("resize", this.myChartResize, false);
   },
