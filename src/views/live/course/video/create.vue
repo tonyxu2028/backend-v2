@@ -12,7 +12,7 @@
         <el-form-item label="章节">
           <div class="d-flex">
             <div>
-              <el-select class="w-300px" v-model="course.chapter_id">
+              <el-select class="w-300px" clearable v-model="course.chapter_id">
                 <el-option
                   v-for="(item, index) in filterData.chapters"
                   :key="index"
