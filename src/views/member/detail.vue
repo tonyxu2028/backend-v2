@@ -482,6 +482,10 @@ export default {
         line-height: 14px;
         margin-left: 20px;
       }
+      .remark-text {
+        display: inline-block;
+        margin-top: 1px;
+      }
     }
   }
 }
