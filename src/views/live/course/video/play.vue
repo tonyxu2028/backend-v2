@@ -14,6 +14,12 @@
         >
           结束直播
         </el-button>
+        <el-button
+          v-if="video.status === 2"
+          type="primary"
+          @click="openStatsDialog"
+          >直播统计</el-button
+        >
       </div>
     </div>
     <div class="live-banner float-left">
@@ -206,17 +212,24 @@
         ></remote-script>
       </template>
     </template>
+    <stats-dialog
+      :id="video_id"
+      :show="statsDialogStatus"
+      @close="closeStatsDialog"
+    ></stats-dialog>
   </div>
 </template>
 
 <script>
 import ChatBox from "@/components/chat-box.vue";
 import LiveWatchUser from "@/components/live-watch-user.vue";
+import StatsDialog from "../../components/stats-dialog.vue";
 
 export default {
   components: {
     ChatBox,
     LiveWatchUser,
+    StatsDialog,
   },
   data() {
     return {
@@ -275,6 +288,7 @@ export default {
       room_ban: 0,
       userNum: 0,
       tip: true,
+      statsDialogStatus: false,
     };
   },
   computed: {
@@ -309,6 +323,12 @@ export default {
     this.vodPlayer && this.vodPlayer.destroy();
   },
   methods: {
+    openStatsDialog() {
+      this.statsDialogStatus = true;
+    },
+    closeStatsDialog() {
+      this.statsDialogStatus = false;
+    },
     getNum(val) {
       this.userNum = val;
     },

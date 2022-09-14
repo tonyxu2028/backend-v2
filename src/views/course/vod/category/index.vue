@@ -28,12 +28,6 @@
               <span>{{ scope.row.name }} </span>
             </template>
           </el-table-column>
-          <el-table-column label="显示" width="150">
-            <template slot-scope="scope">
-              <span v-if="scope.row.is_show == 1">是</span>
-              <span v-else>否</span>
-            </template>
-          </el-table-column>
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
               <p-link

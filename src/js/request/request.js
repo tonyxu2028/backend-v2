@@ -574,6 +574,12 @@ const Api = {
           SendMessage(params) {
             return post(`/backend/addons/zhibo/chat/send`, params);
           },
+          Stats(id, params) {
+            return get(
+              `/backend/addons/zhibo/course_video/${id}/stats`,
+              params
+            );
+          },
         },
       },
       Teacher: {

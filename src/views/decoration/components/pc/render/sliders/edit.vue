@@ -5,14 +5,17 @@
         <div class="meedu-dialog-header">编辑幻灯片</div>
         <div class="meedu-dialog-body">
           <el-form ref="form" :model="form" :rules="rules" label-width="200px">
-            <el-form-item prop="sort">
-              <template slot="label">
-                <form-label
-                  text="排序值"
-                  helper="请填写数字，小数靠前，大数靠后"
-                ></form-label>
-              </template>
-              <el-input v-model="form.sort" class="w-200px"></el-input>
+            <el-form-item label="排序值" prop="sort">
+              <div class="d-flex">
+                <div>
+                  <el-input v-model="form.sort" class="w-200px"></el-input>
+                </div>
+                <div class="ml-10">
+                  <helper-text
+                    text="填写整数，数字越小排序越靠前"
+                  ></helper-text>
+                </div>
+              </div>
             </el-form-item>
 
             <el-form-item label="幻灯片" prop="thumb">

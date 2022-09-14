@@ -14,6 +14,18 @@
         p="addons.Zhibo.course_video.store"
       >
       </p-button>
+      <p-button
+        text="章节管理"
+        @click="
+          $router.push({
+            name: 'LiveCourseChapter',
+            query: { id: pagination.course_id },
+          })
+        "
+        type="primary"
+        p="addons.Zhibo.course_chapter.list"
+      >
+      </p-button>
     </div>
     <div class="float-left" v-loading="loading">
       <div class="float-left">
