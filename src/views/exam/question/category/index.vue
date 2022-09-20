@@ -98,12 +98,6 @@ export default {
       this.showAddWin = false;
       this.getCategories();
     },
-
-    sortChange(column) {
-      this.pagination.sort = column.prop;
-      this.pagination.order = column.order === "ascending" ? "asc" : "desc";
-      this.getCategories();
-    },
     getCategories() {
       if (this.loading) {
         return;
