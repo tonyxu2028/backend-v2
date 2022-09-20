@@ -110,6 +110,7 @@ export default {
       if (this.form.answer && this.form.answer.substring(0, 5) === "v2:::") {
         this.answers = JSON.parse(this.form.answer.slice(5));
         this.length = this.answers.length;
+        this.checkAnswers();
       }
     }
 
@@ -127,6 +128,8 @@ export default {
       this.form.answer = data;
       if (score > 0) {
         this.form.score = score;
+      } else {
+        this.form.score = null;
       }
     },
     update() {
