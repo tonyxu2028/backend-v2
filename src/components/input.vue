@@ -47,7 +47,9 @@
                 <div class="input-answer-body-item-name">
                   填空{{ index + 1 }}：
                 </div>
-                <div class="input-answer-body-item-content">{{ item }}</div>
+                <div class="input-answer-body-item-content">
+                  {{ item.a }}（{{ item.s }}分）
+                </div>
               </div>
             </div>
           </div>
@@ -98,7 +100,14 @@ export default {
         return [];
       }
 
-      return this.question.answer.split(",");
+      if (
+        this.question.answer &&
+        this.question.answer.substring(0, 5) === "v2:::"
+      ) {
+        return JSON.parse(this.question.answer.slice(5));
+      }
+
+      return [];
     },
   },
   mounted() {
