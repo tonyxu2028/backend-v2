@@ -29,6 +29,8 @@
             v-model="answers[index].a"
             @change="checkAnswers"
           ></el-input>
+          <span style="font-size: 14px" class="c-red ml-10">*</span>
+          <span class="helper-label ml-5">分数</span>
           <el-input
             type="number"
             class="w-200px ml-10"
@@ -145,6 +147,7 @@ export default {
         a: null,
         s: null,
       });
+      this.checkAnswers();
     },
     dec() {
       if (this.length <= 1) {
@@ -153,6 +156,7 @@ export default {
       }
       this.answers.splice(this.length - 1, 1);
       this.length -= 1;
+      this.checkAnswers();
     },
   },
 };
