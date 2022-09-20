@@ -5,7 +5,7 @@
       <p-button
         text="添加"
         p="addons.Paper.question_category.store"
-        @click="$router.push({ name: 'ExamQuestionCategoriesCreate' })"
+        @click="addCategory"
         type="primary"
       >
       </p-button>
@@ -34,12 +34,7 @@
                 text="编辑"
                 p="addons.Paper.question_category.update"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'ExamQuestionCategoriesUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
+                @click="updateCategory(scope.row.id)"
               ></p-link>
               <p-link
                 text="删除"
@@ -66,10 +61,23 @@
         </el-pagination>
       </div>
     </div>
+    <categories-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :categories="categories"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></categories-dialog>
   </div>
 </template>
 <script>
+import CategoriesDialog from "./components/categories-dialog";
 export default {
+  components: {
+    CategoriesDialog,
+  },
   data() {
     return {
       pageName: "questionCategory-list",
@@ -80,6 +88,9 @@ export default {
       total: 0,
       loading: false,
       categories: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -91,6 +102,20 @@ export default {
     next();
   },
   methods: {
+    addCategory() {
+      this.tit = "添加分类";
+      this.updateId = null;
+      this.showAddWin = true;
+    },
+    updateCategory(id) {
+      this.tit = "编辑分类";
+      this.updateId = id;
+      this.showAddWin = true;
+    },
+    successEvt() {
+      this.showAddWin = false;
+      this.paginationReset();
+    },
     paginationReset() {
       this.pagination.page = 1;
       this.getCategories();

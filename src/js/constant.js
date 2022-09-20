@@ -183,8 +183,6 @@ export default {
     K12CourseOrder: "K12Course",
     K12CourseOrderTeacher: "K12Course",
     ExamQuestionCategories: "ExamQuestion",
-    ExamQuestionCategoriesCreate: "ExamQuestion",
-    ExamQuestionCategoriesUpdate: "ExamQuestion",
     CreditMall: "CreditMall",
     CreditMallCreate: "CreditMall",
     CreditMallUpdate: "CreditMall",
