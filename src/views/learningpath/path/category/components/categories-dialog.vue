@@ -65,11 +65,16 @@ export default {
   props: ["id", "text", "categories"],
   data() {
     return {
-      localCategories: [],
+      localCategories: [
+        {
+          id: 0,
+          name: "无-作为一级分类",
+        },
+      ],
       form: {
         sort: null,
         name: null,
-        parent_id: null,
+        parent_id: 0,
       },
       rules: {
         sort: [
@@ -86,6 +91,13 @@ export default {
             trigger: "blur",
           },
         ],
+        parent_id: [
+          {
+            required: true,
+            message: "请选择父级分类",
+            trigger: "blur",
+          },
+        ],
       },
       loading: false,
     };
@@ -93,11 +105,11 @@ export default {
   mounted() {
     this.form.name = null;
     this.form.sort = null;
-    this.form.parent_id = null;
+    this.form.parent_id = 0;
     if (this.id) {
       this.getDetail();
     } else {
-      this.localCategories = this.categories;
+      this.localCategories = this.localCategories.concat(this.categories);
     }
   },
   methods: {
@@ -106,9 +118,14 @@ export default {
         var data = res.data;
         this.form.name = data.name;
         this.form.sort = data.sort;
-        this.form.parent_id = data.parent_id === 0 ? null : data.parent_id;
+        this.form.parent_id = data.parent_id;
         let categories = this.categories;
-        let new_arr = [];
+        let new_arr = [
+          {
+            id: 0,
+            name: "无-作为一级分类",
+          },
+        ];
         for (let i = 0; i < categories.length; i++) {
           if (categories[i].id !== data.id) {
             new_arr.push(categories[i]);

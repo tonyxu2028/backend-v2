@@ -71,7 +71,7 @@ export default {
   components: {
     QuillEditor,
   },
-  props: ["question", "index"],
+  props: ["question", "index", "isCap"],
   data() {
     return {
       init: false,
