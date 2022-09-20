@@ -47,19 +47,6 @@
           </el-table-column>
         </el-table>
       </div>
-
-      <div class="float-left mt-30 text-center">
-        <el-pagination
-          @size-change="paginationSizeChange"
-          @current-change="paginationPageChange"
-          :current-page="pagination.page"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="pagination.size"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-        >
-        </el-pagination>
-      </div>
     </div>
     <categories-dialog
       :key="updateId"
@@ -81,11 +68,6 @@ export default {
   data() {
     return {
       pageName: "questionCategory-list",
-      pagination: {
-        page: 1,
-        size: 10,
-      },
-      total: 0,
       loading: false,
       categories: [],
       showAddWin: false,
@@ -114,21 +96,9 @@ export default {
     },
     successEvt() {
       this.showAddWin = false;
-      this.paginationReset();
-    },
-    paginationReset() {
-      this.pagination.page = 1;
       this.getCategories();
     },
-    paginationSizeChange(size) {
-      this.pagination.page = 1;
-      this.pagination.size = size;
-      this.getCategories();
-    },
-    paginationPageChange(page) {
-      this.pagination.page = page;
-      this.getCategories();
-    },
+
     sortChange(column) {
       this.pagination.sort = column.prop;
       this.pagination.order = column.order === "ascending" ? "asc" : "desc";
@@ -139,9 +109,7 @@ export default {
         return;
       }
       this.loading = true;
-      let params = {};
-      Object.assign(params, this.pagination);
-      this.$api.Exam.Question.Category.List(params).then((res) => {
+      this.$api.Exam.Question.Category.List().then((res) => {
         this.loading = false;
         this.categories = res.data.data.data;
         this.total = res.data.data.total;
@@ -163,7 +131,7 @@ export default {
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));
-              this.paginationReset();
+              this.getCategories();
             })
             .catch((e) => {
               this.loading = false;
