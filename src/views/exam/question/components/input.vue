@@ -124,7 +124,10 @@ export default {
       let score = 0;
       for (let i = 0; i < this.length; i++) {
         data.push(this.answers[i]);
-        if (parseInt(this.answers[i].s) === 0) {
+        if (!this.answers[i].s) {
+          score = 0;
+          break;
+        } else if (parseInt(this.answers[i].s) === 0) {
           score = 0;
           break;
         } else if (parseInt(this.answers[i].s) > 0) {
