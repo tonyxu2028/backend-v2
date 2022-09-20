@@ -1210,22 +1210,6 @@ const routes = [
     },
   },
   {
-    path: "/exam/paper/category/create",
-    component: () => import("@/views/exam/paper/category/create"),
-    name: "PaperCategoriesCreate",
-    meta: {
-      title: "title.exam.paper.category.create",
-    },
-  },
-  {
-    path: "/exam/paper/category/update",
-    component: () => import("@/views/exam/paper/category/update"),
-    name: "PaperCategoriesUpdate",
-    meta: {
-      title: "title.exam.paper.category.update",
-    },
-  },
-  {
     path: "/exam/paper/marking",
     component: () => import("@/views/exam/paper/marking"),
     name: "ExamPaperScore",
