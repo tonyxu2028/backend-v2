@@ -3,41 +3,6 @@
     <div class="float-left mb-15">
       <div class="float-left helper-label mb-10">
         <span class="c-red">*</span>
-        <span class="ml-5">分数</span>
-      </div>
-      <div class="float-left d-flex">
-        <div>
-          <el-input
-            type="number"
-            class="w-200px"
-            placeholder="分数"
-            v-model="form.score"
-          ></el-input>
-        </div>
-        <div class="ml-10">
-          <helper-text text="请输入整数。不支持小数。"></helper-text>
-        </div>
-        <div class="ml-10">
-          <span class="helper-text">常见分数</span>
-          <el-link class="ml-10" @click="form.score = 1" type="primary"
-            >1分</el-link
-          >
-          <el-link class="ml-10" @click="form.score = 2" type="primary"
-            >2分</el-link
-          >
-          <el-link class="ml-10" @click="form.score = 5" type="primary"
-            >5分</el-link
-          >
-          <el-link class="ml-10" @click="form.score = 10" type="primary"
-            >10分</el-link
-          >
-        </div>
-      </div>
-    </div>
-
-    <div class="float-left mb-15">
-      <div class="float-left helper-label mb-10">
-        <span class="c-red">*</span>
         <span class="ml-5">试题内容</span>
       </div>
       <div class="float-left">
@@ -61,7 +26,15 @@
           <el-input
             class="w-400px"
             placeholder="答案"
-            v-model="answers[index]"
+            v-model="answers[index].a"
+            @change="checkAnswers"
+          ></el-input>
+          <el-input
+            type="number"
+            class="w-200px ml-10"
+            placeholder="分数"
+            @change="checkAnswers"
+            v-model="answers[index].s"
           ></el-input>
         </div>
       </div>
@@ -107,7 +80,12 @@ export default {
         answer: null,
         remark: null,
       },
-      answers: [],
+      answers: [
+        {
+          a: null,
+          s: null,
+        },
+      ],
     };
   },
   watch: {
@@ -123,21 +101,14 @@ export default {
     "form.remark"() {
       this.update();
     },
-    answers() {
-      let data = [];
-      for (let i = 0; i < this.length; i++) {
-        data.push(this.answers[i]);
-      }
-      this.form.answer = data.join(",");
-    },
   },
   mounted() {
     if (this.question) {
       Object.assign(this.form, this.question);
 
       // 解析答案
-      if (this.form.answer) {
-        this.answers = this.form.answer.split(",");
+      if (this.form.answer && this.form.answer.substring(0, 5) === "v2:::") {
+        this.answers = JSON.parse(this.form.answer.slice(5));
         this.length = this.answers.length;
       }
     }
@@ -145,11 +116,28 @@ export default {
     this.init = true;
   },
   methods: {
+    checkAnswers() {
+      let data = [];
+      let score = 0;
+      for (let i = 0; i < this.length; i++) {
+        data.push(this.answers[i]);
+        score +=
+          parseInt(this.answers[i].s) > 0 ? parseInt(this.answers[i].s) : 0;
+      }
+      this.form.answer = data;
+      if (score > 0) {
+        this.form.score = score;
+      }
+    },
     update() {
       this.$emit("change", this.form, this.index);
     },
     inc() {
       this.length += 1;
+      this.answers.push({
+        a: null,
+        s: null,
+      });
     },
     dec() {
       if (this.length <= 1) {
