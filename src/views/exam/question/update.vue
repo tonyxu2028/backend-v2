@@ -205,6 +205,10 @@ export default {
         this.$message.warning("请至少添加一个子题");
         return;
       }
+      if (this.form.type === 3 && !this.form.score) {
+        this.$message.warning("请填写每空分数");
+        return;
+      }
       if (!this.form.score) {
         this.$message.warning("试题分数不能为空");
         return;

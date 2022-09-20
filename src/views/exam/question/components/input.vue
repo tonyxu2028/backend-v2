@@ -122,8 +122,12 @@ export default {
       let score = 0;
       for (let i = 0; i < this.length; i++) {
         data.push(this.answers[i]);
-        score +=
-          parseInt(this.answers[i].s) > 0 ? parseInt(this.answers[i].s) : 0;
+        if (parseInt(this.answers[i].s) === 0) {
+          score = 0;
+          break;
+        } else if (parseInt(this.answers[i].s) > 0) {
+          score += parseInt(this.answers[i].s);
+        }
       }
       this.form.answer = data;
       if (score > 0) {
