@@ -24,7 +24,7 @@
         </div>
         <div class="flex-1 ml-10">
           <el-input
-            class="w-400px"
+            class="w-300px"
             placeholder="答案"
             v-model="answers[index].a"
             @change="checkAnswers"
