@@ -112,7 +112,10 @@ export default {
   },
   mounted() {
     let replyContent = this.reply || "";
-    let replyRows = replyContent.split(",");
+    let replyRows = [];
+    if (replyContent && replyContent.substring(0, 5) === "v2:::") {
+      replyRows = JSON.parse(replyContent.slice(5));
+    }
 
     for (let i = 0; i < this.inputLength; i++) {
       if (typeof replyRows[i] !== "undefined") {
