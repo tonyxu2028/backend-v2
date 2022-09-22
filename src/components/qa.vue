@@ -113,7 +113,11 @@ export default {
   },
   mounted() {
     if (this.thumbs) {
-      this.localThumbs = this.thumbs;
+      if (this.isJson(this.thumbs)) {
+        this.localThumbs = JSON.parse(this.thumbs);
+      } else {
+        this.localThumbs = this.thumbs;
+      }
     }
     this.val = this.reply;
   },
@@ -123,6 +127,20 @@ export default {
     },
   },
   methods: {
+    isJson(str) {
+      if (typeof str == "string") {
+        try {
+          let obj = JSON.parse(str);
+          if (typeof obj == "object" && obj) {
+            return true;
+          } else {
+            return false;
+          }
+        } catch (e) {
+          return false;
+        }
+      }
+    },
     change() {
       if (this.isOver) {
         return;
