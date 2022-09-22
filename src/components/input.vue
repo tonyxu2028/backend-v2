@@ -115,6 +115,8 @@ export default {
     let replyRows = [];
     if (replyContent && replyContent.substring(0, 5) === "v2:::") {
       replyRows = JSON.parse(replyContent.slice(5));
+    } else {
+      replyRows = replyContent.split(",");
     }
 
     for (let i = 0; i < this.inputLength; i++) {
