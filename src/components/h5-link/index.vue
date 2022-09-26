@@ -142,6 +142,10 @@ export default {
 
       if (this.enabledAddons["Paper"]) {
         links.push({
+          name: "考试练习首页",
+          url: "/packageA/exam/index",
+        });
+        links.push({
           name: "在线考试",
           url: "/packageA/exam/paper/index",
         });
@@ -150,7 +154,7 @@ export default {
           url: "/packageA/exam/mock/index",
         });
         links.push({
-          name: "练习",
+          name: "练习模式",
           url: "/packageA/exam/practice/index",
         });
       }
