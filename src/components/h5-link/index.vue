@@ -143,7 +143,7 @@ export default {
       if (this.enabledAddons["Paper"]) {
         links.push({
           name: "考试练习首页",
-          url: "/packageA/exam/index",
+          url: "exam-index",
         });
         links.push({
           name: "在线考试",
