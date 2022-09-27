@@ -84,7 +84,7 @@
           ></div>
         </div>
 
-        <label class="upload-image-button" v-if="!isOver">
+        <label class="upload-image-button" v-if="!isOver && !wrongBook">
           <img src="../assets/img/icon-handin.png" />
           <input
             id="file_input"
@@ -97,9 +97,24 @@
     </div>
     <template v-if="isOver">
       <div class="analysis-box">
-        <div class="answer-box">
+        <div
+          class="answer-box"
+          v-if="wrongBook && question.remark && question.remark !== ''"
+        >
+          <div class="button" @click="remarkStatus = !remarkStatus">
+            <span v-if="remarkStatus">折叠解析</span>
+            <span v-else>展开解析</span>
+            <img
+              class="icon"
+              v-if="remarkStatus"
+              src="../assets/img/exam/fold.png"
+            />
+            <img class="icon" v-else src="../assets/img/exam/unfold.png" />
+          </div>
+        </div>
+        <div class="answer-box" v-else-if="!wrongBook">
           <div class="content">
-            <div class="score" v-if="!wrongBook"><i></i>得分：{{ score }}</div>
+            <div class="score"><i></i>得分：{{ score }}</div>
           </div>
           <div
             class="button"

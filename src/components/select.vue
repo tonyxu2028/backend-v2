@@ -24,7 +24,7 @@
         class="images-render"
         v-if="
           question.content_transform.images.length > 0 ||
-            question.content_transform.iframes.length > 0
+          question.content_transform.iframes.length > 0
         "
       >
         <template v-if="question.content_transform.images.length > 0">
@@ -149,7 +149,7 @@
               class="images-render"
               v-if="
                 question.remark_transform.images.length > 0 ||
-                  question.remark_transform.iframes.length > 0
+                question.remark_transform.iframes.length > 0
               "
             >
               <template v-if="question.remark_transform.images.length > 0">
