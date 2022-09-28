@@ -151,7 +151,7 @@
               v-else-if="item.type === 2"
               :num="index + 1"
               :question="item"
-              :reply="answers[index].answer"
+              :reply="answers[index].answer_contents_rows"
               :score="answers[index].score"
               @update="questionUpdate"
               :is-correct="answers[index].is_correct"
