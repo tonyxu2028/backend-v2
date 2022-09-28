@@ -247,6 +247,7 @@ export default {
       } else {
         this.active.splice(pos, 1);
       }
+      this.active = this.active.sort();
       this.$emit("update", this.question.id, this.active.join(","));
     },
     backDetail() {
