@@ -25,7 +25,7 @@
 
                 <div class="answer">
                   <p>回答：{{ item.answer }}</p>
-                  <template v-if="item.thumbs.length > 0">
+                  <template v-if="item.thumbs && item.thumbs.length > 0">
                     <el-image
                       v-for="(img, index) in item.thumbs"
                       :key="index"
@@ -139,9 +139,7 @@ export default {
                 content: childrenQuestion.content,
                 remark: question.question.remark,
                 answer: childrenAnswer ? childrenAnswer["answer"] : "",
-                thumbs: childrenAnswer
-                  ? JSON.parse(childrenAnswer["thumbs"])
-                  : [],
+                thumbs: childrenAnswer ? childrenAnswer["thumbs_rows"] : [],
               });
             }
           }
