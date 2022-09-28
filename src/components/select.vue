@@ -108,7 +108,7 @@
                 optionTypeTextMap[item]
               }}</span>
             </div>
-            <div class="my-answer" v-if="!wrongBook && isCorrect !== 1">
+            <div class="my-answer" v-if="isCorrect !== 1">
               <i></i>我的答案：
               <template v-if="active.length > 0">
                 <span v-for="item in active" :key="item">{{
@@ -366,8 +366,8 @@ export default {
       }
 
       .answer-index {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -376,14 +376,14 @@ export default {
         font-weight: 500;
         color: #333333;
         .icon {
-          width: 20px;
-          height: 20px;
+          width: 24px;
+          height: 24px;
         }
       }
 
       .index {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         border: 1px solid #cccccc;
         border-radius: 50%;
         display: flex;
@@ -398,7 +398,7 @@ export default {
         flex: 1;
         color: #333333;
         padding-left: 10px;
-        line-height: 20px;
+        line-height: 24px;
         font-size: 16px;
         font-weight: 400;
         background-color: #fff;
