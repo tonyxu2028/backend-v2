@@ -236,8 +236,11 @@ export default {
         }
       }
     },
-    change() {
+    change(e) {
       if (this.isOver) {
+        return;
+      }
+      if (e.target.value === "") {
         return;
       }
       this.emitCall();
