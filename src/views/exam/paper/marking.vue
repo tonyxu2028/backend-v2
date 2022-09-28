@@ -139,7 +139,9 @@ export default {
                 content: childrenQuestion.content,
                 remark: question.question.remark,
                 answer: childrenAnswer ? childrenAnswer["answer"] : "",
-                thumbs: childrenAnswer ? childrenAnswer["thumbs"] : [],
+                thumbs: childrenAnswer
+                  ? JSON.parse(childrenAnswer["thumbs"])
+                  : [],
               });
             }
           }

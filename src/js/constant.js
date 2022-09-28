@@ -140,6 +140,7 @@ export default {
     ExamPaperUpdate: "ExamPaper",
     PaperCategories: "ExamPaper",
     PaperUser: "ExamPaper",
+    ExamPaperScore: "ExamPaper",
     ExamPaperQuestion: "ExamPaper",
     ExamPaperQuestionCreate: "ExamPaper",
     ExamPractice: "ExamPractice",
