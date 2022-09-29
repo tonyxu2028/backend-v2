@@ -122,10 +122,7 @@ export default {
         if (question.question.type === 6) {
           // 题帽题
           let questionContent = JSON.parse(question.question.content);
-          let answerContent = question.answer_content
-            ? JSON.parse(question.answer_content)
-            : {};
-
+          let answerContent = question.answer_contents_rows;
           for (let j = 0; j < questionContent.questions.length; j++) {
             let childrenQuestion = questionContent.questions[j];
             let childrenAnswer =
@@ -139,7 +136,10 @@ export default {
                 content: childrenQuestion.content,
                 remark: question.question.remark,
                 answer: childrenAnswer ? childrenAnswer["answer"] : "",
-                thumbs: childrenAnswer ? childrenAnswer["thumbs_rows"] : [],
+                thumbs:
+                  childrenAnswer && childrenAnswer["thumbs"] !== ""
+                    ? JSON.parse(childrenAnswer["thumbs"])
+                    : [],
               });
             }
           }
