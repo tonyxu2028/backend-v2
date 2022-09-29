@@ -72,9 +72,9 @@
           >
             <el-option label="单选" :value="1"></el-option>
             <el-option label="多选" :value="2"></el-option>
+            <el-option label="判断" :value="5"></el-option>
             <el-option label="填空" :value="3"></el-option>
             <el-option label="问答" :value="4"></el-option>
-            <el-option label="判断" :value="5"></el-option>
           </el-select>
         </div>
         <div class="ml-10">
