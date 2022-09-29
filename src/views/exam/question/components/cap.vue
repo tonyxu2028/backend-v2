@@ -251,7 +251,7 @@ export default {
       });
 
       // 触发emit
-      this.$emit("change", this.form);
+      this.$emit("change", this.form, this.list);
     },
   },
 };

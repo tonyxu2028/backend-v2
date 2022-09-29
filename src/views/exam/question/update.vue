@@ -160,6 +160,7 @@ export default {
         levels: [],
         types: [],
       },
+      capList: null,
     };
   },
   mounted() {
@@ -186,8 +187,13 @@ export default {
         }
       });
     },
-    change(question) {
+    change(question, list) {
       Object.assign(this.form, question);
+      if (list) {
+        this.capList = list;
+      } else {
+        this.capList = null;
+      }
     },
     save() {
       if (this.loading) {
@@ -200,6 +206,20 @@ export default {
       ) {
         this.$message.error("至少得有两个选项");
         return;
+      }
+      if (this.form.type === 6 && this.capList) {
+        let status = false;
+        this.capList.forEach((item, index) => {
+          let num = index + 1;
+          if (typeof item.score === "undefined" || item.score === null) {
+            this.$message.error("请填写第" + num + "题子题分数");
+            status = true;
+            return;
+          }
+        });
+        if (status) {
+          return;
+        }
       }
       if (this.form.type === 6 && !this.form.score) {
         this.$message.warning("请至少添加一个子题");
