@@ -133,15 +133,25 @@ export default {
         this.loading = false;
         let results = res.data.questions;
         let params = {};
-        Object.assign(
-          params,
-          { 单选题: results["单选题"] },
-          { 多选题: results["多选题"] },
-          { 判断题: results["判断题"] },
-          { 填空题: results["填空题"] },
-          { 问答题: results["问答题"] },
-          { 题帽题: results["题帽题"] }
-        );
+        if (results["单选题"]) {
+          Object.assign(params, { 单选题: results["单选题"] });
+        }
+        if (results["多选题"]) {
+          Object.assign(params, { 多选题: results["多选题"] });
+        }
+        if (results["判断题"]) {
+          Object.assign(params, { 判断题: results["判断题"] });
+        }
+        if (results["填空题"]) {
+          Object.assign(params, { 填空题: results["填空题"] });
+        }
+        if (results["问答题"]) {
+          Object.assign(params, { 问答题: results["问答题"] });
+        }
+        if (results["题帽题"]) {
+          Object.assign(params, { 题帽题: results["题帽题"] });
+        }
+
         this.results = params;
       });
     },
