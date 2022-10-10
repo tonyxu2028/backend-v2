@@ -194,7 +194,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="confirmDialog = false">取消</el-button>
-        <el-button @click="confirm()" :loading="laoding" type="primary"
+        <el-button @click="confirm()" :loading="loading" type="primary"
           >确认删除</el-button
         >
       </span>
