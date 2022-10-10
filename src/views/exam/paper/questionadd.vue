@@ -92,6 +92,21 @@
         </el-pagination>
       </div>
     </div>
+    <el-dialog
+      :visible.sync="confirmDialog"
+      width="500px"
+      @close="confirmDialog = false"
+    >
+      <div class="pt-20 pb-10 text-center">
+        <span>确认添加选中试题？</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="confirmDialog = false">取消</el-button>
+        <el-button @click="confirm()" :loading="loading" type="primary"
+          >确认添加</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -128,6 +143,7 @@ export default {
         levels: [],
         types: [],
       },
+      confirmDialog: false,
     };
   },
   activated() {
@@ -200,34 +216,25 @@ export default {
         this.$message.error("请选择需要操作的数据");
         return;
       }
-      this.$confirm("确认操作？", "警告", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          //点击确定按钮的操作
-          if (this.loading) {
-            return;
-          }
+      this.confirmDialog = true;
+    },
+    confirm() {
+      if (this.loading) {
+        return;
+      }
 
-          this.loading = true;
-          this.$api.Exam.Paper.QuestionStoreMulti(
-            this.pagination.id,
-            this.spids
-          )
-            .then((res) => {
-              this.loading = false;
-              this.$message.success(res.message);
-              this.getResults();
-            })
-            .catch((e) => {
-              this.loading = false;
-              this.$message.error(e.message);
-            });
+      this.loading = true;
+      this.$api.Exam.Paper.QuestionStoreMulti(this.pagination.id, this.spids)
+        .then((res) => {
+          this.loading = false;
+          this.confirmDialog = false;
+          this.$message.success(res.message);
+          this.getResults();
         })
-        .catch(() => {
-          //点击删除按钮的操作
+        .catch((e) => {
+          this.loading = false;
+          this.confirmDialog = false;
+          this.$message.error(e.message);
         });
     },
   },

@@ -95,14 +95,13 @@
                 <div>
                   <el-input
                     type="number"
+                    placeholder="单位：元"
                     v-model="addform.charge"
                     class="w-200px"
                   ></el-input>
                 </div>
                 <div class="ml-10">
-                  <helper-text
-                    text="请输入整数。不支持小数。价格大于0则意味着用户可以购买试卷参与。价格为0意味着禁止购买。"
-                  ></helper-text>
+                  <helper-text text="请输入整数"></helper-text>
                 </div>
               </div>
             </el-form-item>
@@ -362,6 +361,14 @@ export default {
       if (this.addform.is_invite === 0 && this.is_free === 1) {
         this.addform.charge = 0;
       }
+      if (!this.addform.charge) {
+        this.$message.error("价格不能为空");
+        return;
+      }
+      if (this.addform.charge < 0) {
+        this.$message.error("价格不能为负数");
+        return;
+      }
       if (
         parseInt(this.addform.rule.num.choice) > 0 ||
         parseInt(this.addform.rule.num.select) > 0 ||
@@ -392,6 +399,30 @@ export default {
         }
         if (parseInt(this.addform.rule.num.cap) > this.countMap[6]) {
           this.$message.error("题帽题数量超出可抽取题帽题总量");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.choice) < 0) {
+          this.$message.error("单选题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.select) < 0) {
+          this.$message.error("多选题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.input) < 0) {
+          this.$message.error("填空题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.qa) < 0) {
+          this.$message.error("问答题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.judge) < 0) {
+          this.$message.error("判断题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.cap) < 0) {
+          this.$message.error("题帽题数量不能为负数");
           return;
         }
         this.loading = true;
