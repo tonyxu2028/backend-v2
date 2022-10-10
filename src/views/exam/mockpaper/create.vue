@@ -156,6 +156,7 @@
                 <el-input
                   type="number"
                   v-model="addform.rule.num.choice"
+                  placeholder="请输入整数"
                   class="w-200px"
                 ></el-input>
               </div>
@@ -173,6 +174,7 @@
                 <el-input
                   type="number"
                   v-model="addform.rule.num.select"
+                  placeholder="请输入整数"
                   class="w-200px"
                 ></el-input>
               </div>
@@ -191,6 +193,7 @@
                   type="number"
                   v-model="addform.rule.num.judge"
                   class="w-200px"
+                  placeholder="请输入整数"
                 ></el-input>
               </div>
               <div class="ml-10">
@@ -208,6 +211,7 @@
                   type="number"
                   v-model="addform.rule.num.input"
                   class="w-200px"
+                  placeholder="请输入整数"
                 ></el-input>
               </div>
               <div class="ml-10">
@@ -224,6 +228,7 @@
                 <el-input
                   type="number"
                   v-model="addform.rule.num.qa"
+                  placeholder="请输入整数"
                   class="w-200px"
                 ></el-input>
               </div>
@@ -241,6 +246,7 @@
                 <el-input
                   type="number"
                   v-model="addform.rule.num.cap"
+                  placeholder="请输入整数"
                   class="w-200px"
                 ></el-input>
               </div>
@@ -286,12 +292,12 @@ export default {
         rule: {
           category_ids: [],
           num: {
-            choice: 0,
-            select: 0,
-            input: 0,
-            qa: 0,
-            judge: 0,
-            cap: 0,
+            choice: null,
+            select: null,
+            input: null,
+            qa: null,
+            judge: null,
+            cap: null,
           },
         },
       },
@@ -370,6 +376,30 @@ export default {
       }
       if (this.addform.charge < 0) {
         this.$message.error("价格不能为负数");
+        return;
+      }
+      if (!this.addform.rule.num.choice) {
+        this.$message.error("请输入单选题数量");
+        return;
+      }
+      if (!this.addform.rule.num.select) {
+        this.$message.error("请输入多选题数量");
+        return;
+      }
+      if (!this.addform.rule.num.judge) {
+        this.$message.error("请输入判断题数量");
+        return;
+      }
+      if (!this.addform.rule.num.input) {
+        this.$message.error("请输入填空题数量");
+        return;
+      }
+      if (!this.addform.rule.num.qa) {
+        this.$message.error("请输入问答题数量");
+        return;
+      }
+      if (!this.addform.rule.num.cap) {
+        this.$message.error("请输入题帽题数量");
         return;
       }
       if (

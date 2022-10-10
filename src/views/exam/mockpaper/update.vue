@@ -155,6 +155,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.choice"
                   class="w-200px"
                 ></el-input>
@@ -172,6 +173,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.select"
                   class="w-200px"
                 ></el-input>
@@ -189,6 +191,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.judge"
                   class="w-200px"
                 ></el-input>
@@ -206,6 +209,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.input"
                   class="w-200px"
                 ></el-input>
@@ -223,6 +227,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.qa"
                   class="w-200px"
                 ></el-input>
@@ -240,6 +245,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.cap"
                   class="w-200px"
                 ></el-input>
@@ -367,6 +373,30 @@ export default {
       }
       if (this.addform.charge < 0) {
         this.$message.error("价格不能为负数");
+        return;
+      }
+      if (!this.addform.rule.num.choice) {
+        this.$message.error("请输入单选题数量");
+        return;
+      }
+      if (!this.addform.rule.num.select) {
+        this.$message.error("请输入多选题数量");
+        return;
+      }
+      if (!this.addform.rule.num.judge) {
+        this.$message.error("请输入判断题数量");
+        return;
+      }
+      if (!this.addform.rule.num.input) {
+        this.$message.error("请输入填空题数量");
+        return;
+      }
+      if (!this.addform.rule.num.qa) {
+        this.$message.error("请输入问答题数量");
+        return;
+      }
+      if (!this.addform.rule.num.cap) {
+        this.$message.error("请输入题帽题数量");
         return;
       }
       if (
