@@ -194,7 +194,9 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="confirmDialog = false">取消</el-button>
-        <el-button @click="confirm()" type="primary">确认删除</el-button>
+        <el-button @click="confirm()" v-loading="laoding" type="primary"
+          >确认删除</el-button
+        >
       </span>
     </el-dialog>
     <el-dialog :visible.sync="visible" width="500px" @close="visible = false">
