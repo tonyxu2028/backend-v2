@@ -370,7 +370,7 @@ export default {
       if (this.addform.is_invite === 0 && this.is_free === 1) {
         this.addform.charge = 0;
       }
-      if (!this.addform.charge) {
+      if (this.is_free === 0 && !this.addform.charge) {
         this.$message.error("价格不能为空");
         return;
       }
