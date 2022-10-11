@@ -131,13 +131,11 @@
                     type="number"
                     v-model="addform.charge"
                     class="w-200px"
-                    placeholder="请输入整数"
+                    placeholder="单位：元"
                   ></el-input>
                 </div>
                 <div class="ml-10">
-                  <helper-text
-                    text="设置价格的用户想要参与考试则必须需要购买试卷。价格为0的话意味着禁止购买。"
-                  ></helper-text>
+                  <helper-text text="请输入整数"></helper-text>
                 </div>
               </div>
             </el-form-item>
@@ -329,6 +327,10 @@ export default {
     },
     confirm() {
       if (this.loading) {
+        return;
+      }
+      if (!this.addform.charge) {
+        this.$message.error("价格不能为空");
         return;
       }
       if (
