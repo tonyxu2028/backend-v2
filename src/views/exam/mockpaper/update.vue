@@ -376,28 +376,22 @@ export default {
         return;
       }
       if (!this.addform.rule.num.choice) {
-        this.$message.error("请输入单选题数量");
-        return;
+        this.addform.rule.num.choice = 0;
       }
       if (!this.addform.rule.num.select) {
-        this.$message.error("请输入多选题数量");
-        return;
+        this.addform.rule.num.select = 0;
       }
       if (!this.addform.rule.num.judge) {
-        this.$message.error("请输入判断题数量");
-        return;
+        this.addform.rule.num.judge = 0;
       }
       if (!this.addform.rule.num.input) {
-        this.$message.error("请输入填空题数量");
-        return;
+        this.addform.rule.num.input = 0;
       }
       if (!this.addform.rule.num.qa) {
-        this.$message.error("请输入问答题数量");
-        return;
+        this.addform.rule.num.qa = 0;
       }
       if (!this.addform.rule.num.cap) {
-        this.$message.error("请输入题帽题数量");
-        return;
+        this.addform.rule.num.cap = 0;
       }
       if (
         parseInt(this.addform.rule.num.choice) > 0 ||
