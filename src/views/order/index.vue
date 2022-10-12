@@ -654,7 +654,7 @@ export default {
 </script>
 <style lang="less" scoped>
 label {
-  width: 70px;
+  width: auto;
   text-align: right;
 }
 .el-item {
