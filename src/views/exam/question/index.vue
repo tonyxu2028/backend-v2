@@ -236,7 +236,7 @@ export default {
       pageName: "question-list",
       pagination: {
         page: 1,
-        size: 10,
+        size: 20,
       },
       filter: {
         category_id: null,
