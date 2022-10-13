@@ -36,7 +36,7 @@
                 :num="index + 1"
                 v-else-if="question.question.type === 2"
                 :question="question.question"
-                :reply="question.answer_content"
+                :reply="question.answer_contents_rows"
                 :score="question.score"
                 :is-correct="question.is_correct"
                 @update="questionUpdate"
@@ -48,7 +48,7 @@
                 :num="index + 1"
                 v-else-if="question.question.type === 3"
                 :question="question.question"
-                :reply="question.answer_content"
+                :reply="question.answer_contents_rows"
                 :score="question.score"
                 :is-correct="question.is_correct"
                 @update="questionUpdate"
@@ -76,7 +76,7 @@
                 :question="question.question"
                 :score="question.score"
                 :is-correct="question.is_correct"
-                :reply="parseInt(question.answer_content)"
+                :reply="question.answer_contents_rows"
                 @update="questionUpdate"
                 :is-over="true"
               ></question-judge>
@@ -88,8 +88,8 @@
                 :question="question.question"
                 :score="question.score"
                 :show-image="true"
-                :is-correct="false"
-                :reply="question.answer_content"
+                :is-correct="question.is_correct"
+                :reply="question.answer_contents_rows"
                 @update="questionUpdate"
                 :is-over="true"
               ></question-cap>
@@ -172,55 +172,8 @@ export default {
           for (let key in normaldata) {
             box.push(...normaldata[key]);
           }
-          let params = [];
-          let choice = [];
-          let select = [];
-          let input = [];
-          let qa = [];
-          let judge = [];
-          let cap = [];
-          box.forEach((item) => {
-            if (item.question) {
-              if (item.question.type === 1) {
-                choice.push(item);
-              }
-              if (item.question.type === 2) {
-                select.push(item);
-              }
-              if (item.question.type === 3) {
-                input.push(item);
-              }
-              if (item.question.type === 4) {
-                qa.push(item);
-              }
-              if (item.question.type === 5) {
-                judge.push(item);
-              }
-              if (item.question.type === 6) {
-                cap.push(item);
-              }
-            }
-          });
 
-          if (choice.length > 0) {
-            params.push(...choice);
-          }
-          if (select.length > 0) {
-            params.push(...select);
-          }
-          if (input.length > 0) {
-            params.push(...input);
-          }
-          if (qa.length > 0) {
-            params.push(...qa);
-          }
-          if (judge.length > 0) {
-            params.push(...judge);
-          }
-          if (cap.length > 0) {
-            params.push(...cap);
-          }
-          this.questions = params;
+          this.questions = box;
         })
         .catch((e) => {
           this.$message.error(e.message);

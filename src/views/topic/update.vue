@@ -79,12 +79,12 @@
                 ></el-input>
               </div>
               <div class="ml-10">
-                <helper-text text="最小单位“元”，不支持小数"></helper-text>
+                <helper-text text="请输入整数"></helper-text>
               </div>
             </div>
           </el-form-item>
 
-          <el-form-item label="VIP免费" v-if="topic.charge > 0">
+          <el-form-item label="VIP免费" v-show="parseInt(topic.charge) > 0">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -140,7 +140,7 @@
           <el-form-item
             prop="free_content"
             label="免费内容"
-            v-if="topic.charge > 0"
+            v-show="parseInt(topic.charge) > 0"
           >
             <div class="d-flex w-800px">
               <mavon-editor
@@ -159,7 +159,7 @@
 
           <el-form-item
             prop="original_content"
-            v-if="topic.charge > 0"
+            v-show="parseInt(topic.charge) > 0"
             label="付费内容"
           >
             <div class="d-flex w-800px">
@@ -176,7 +176,11 @@
               ></quill-editor>
             </div>
           </el-form-item>
-          <el-form-item prop="original_content" v-else label="文章内容">
+          <el-form-item
+            prop="original_content"
+            v-show="!topic.charge || parseInt(topic.charge) === 0"
+            label="文章内容"
+          >
             <div class="d-flex w-800px">
               <mavon-editor
                 v-if="topic.editor === 'MARKDOWN'"
@@ -316,15 +320,21 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.is_free === 0) {
+        if (!this.topic.charge || parseInt(this.topic.charge) <= 0) {
+          this.$message.error("图文价格必须输入且大于0");
+          return;
+        }
+      }
       if (this.topic.charge % 1 !== 0) {
         this.$message.error("图文价格必须为整数");
         return;
       }
-      this.loading = true;
       if (this.topic.editor !== "MARKDOWN") {
         this.topic.render_content = this.topic.original_content;
         this.topic.free_content_render = this.topic.free_content;
       }
+      this.loading = true;
       this.$api.Course.Topic.Topic.Update(this.id, this.topic)
         .then(() => {
           this.$message.success(this.$t("common.success"));

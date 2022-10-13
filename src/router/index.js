@@ -1210,22 +1210,6 @@ const routes = [
     },
   },
   {
-    path: "/exam/paper/category/create",
-    component: () => import("@/views/exam/paper/category/create"),
-    name: "PaperCategoriesCreate",
-    meta: {
-      title: "title.exam.paper.category.create",
-    },
-  },
-  {
-    path: "/exam/paper/category/update",
-    component: () => import("@/views/exam/paper/category/update"),
-    name: "PaperCategoriesUpdate",
-    meta: {
-      title: "title.exam.paper.category.update",
-    },
-  },
-  {
     path: "/exam/paper/marking",
     component: () => import("@/views/exam/paper/marking"),
     name: "ExamPaperScore",
@@ -1425,22 +1409,6 @@ const routes = [
     meta: {
       title: "title.exam.question.category.index",
       keepAlive: true,
-    },
-  },
-  {
-    path: "/exam/question/category/create",
-    component: () => import("@/views/exam/question/category/create"),
-    name: "ExamQuestionCategoriesCreate",
-    meta: {
-      title: "title.exam.question.category.create",
-    },
-  },
-  {
-    path: "/exam/question/category/update",
-    component: () => import("@/views/exam/question/category/update"),
-    name: "ExamQuestionCategoriesUpdate",
-    meta: {
-      title: "title.exam.question.category.update",
     },
   },
   {

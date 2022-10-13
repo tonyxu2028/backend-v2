@@ -118,7 +118,7 @@ export default {
       pageName: "practiceChapterQuestion-list",
       pagination: {
         page: 1,
-        size: 10,
+        size: 20,
         id: this.$route.query.id,
       },
       filter: {

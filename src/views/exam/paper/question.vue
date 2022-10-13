@@ -131,7 +131,28 @@ export default {
       Object.assign(params, this.pagination);
       this.$api.Exam.Paper.Question(this.pagination.id, params).then((res) => {
         this.loading = false;
-        this.results = res.data.questions;
+        let results = res.data.questions;
+        let params = {};
+        if (results["单选题"]) {
+          Object.assign(params, { 单选题: results["单选题"] });
+        }
+        if (results["多选题"]) {
+          Object.assign(params, { 多选题: results["多选题"] });
+        }
+        if (results["判断题"]) {
+          Object.assign(params, { 判断题: results["判断题"] });
+        }
+        if (results["填空题"]) {
+          Object.assign(params, { 填空题: results["填空题"] });
+        }
+        if (results["问答题"]) {
+          Object.assign(params, { 问答题: results["问答题"] });
+        }
+        if (results["题帽题"]) {
+          Object.assign(params, { 题帽题: results["题帽题"] });
+        }
+
+        this.results = params;
       });
     },
     handleSelectionChange(val, type) {

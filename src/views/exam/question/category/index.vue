@@ -5,7 +5,7 @@
       <p-button
         text="添加"
         p="addons.Paper.question_category.store"
-        @click="$router.push({ name: 'ExamQuestionCategoriesCreate' })"
+        @click="addCategory"
         type="primary"
       >
       </p-button>
@@ -34,12 +34,7 @@
                 text="编辑"
                 p="addons.Paper.question_category.update"
                 type="primary"
-                @click="
-                  $router.push({
-                    name: 'ExamQuestionCategoriesUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
+                @click="updateCategory(scope.row.id)"
               ></p-link>
               <p-link
                 text="删除"
@@ -52,34 +47,32 @@
           </el-table-column>
         </el-table>
       </div>
-
-      <div class="float-left mt-30 text-center">
-        <el-pagination
-          @size-change="paginationSizeChange"
-          @current-change="paginationPageChange"
-          :current-page="pagination.page"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="pagination.size"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-        >
-        </el-pagination>
-      </div>
     </div>
+    <categories-dialog
+      :key="updateId"
+      v-if="showAddWin"
+      :categories="categories"
+      :text="tit"
+      :id="updateId"
+      @close="showAddWin = false"
+      @success="successEvt"
+    ></categories-dialog>
   </div>
 </template>
 <script>
+import CategoriesDialog from "./components/categories-dialog";
 export default {
+  components: {
+    CategoriesDialog,
+  },
   data() {
     return {
       pageName: "questionCategory-list",
-      pagination: {
-        page: 1,
-        size: 10,
-      },
-      total: 0,
       loading: false,
       categories: [],
+      showAddWin: false,
+      tit: null,
+      updateId: null,
     };
   },
   activated() {
@@ -91,22 +84,18 @@ export default {
     next();
   },
   methods: {
-    paginationReset() {
-      this.pagination.page = 1;
-      this.getCategories();
+    addCategory() {
+      this.tit = "添加分类";
+      this.updateId = null;
+      this.showAddWin = true;
     },
-    paginationSizeChange(size) {
-      this.pagination.page = 1;
-      this.pagination.size = size;
-      this.getCategories();
+    updateCategory(id) {
+      this.tit = "编辑分类";
+      this.updateId = id;
+      this.showAddWin = true;
     },
-    paginationPageChange(page) {
-      this.pagination.page = page;
-      this.getCategories();
-    },
-    sortChange(column) {
-      this.pagination.sort = column.prop;
-      this.pagination.order = column.order === "ascending" ? "asc" : "desc";
+    successEvt() {
+      this.showAddWin = false;
       this.getCategories();
     },
     getCategories() {
@@ -114,9 +103,7 @@ export default {
         return;
       }
       this.loading = true;
-      let params = {};
-      Object.assign(params, this.pagination);
-      this.$api.Exam.Question.Category.List(params).then((res) => {
+      this.$api.Exam.Question.Category.List().then((res) => {
         this.loading = false;
         this.categories = res.data.data.data;
         this.total = res.data.data.total;
@@ -138,7 +125,7 @@ export default {
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));
-              this.paginationReset();
+              this.getCategories();
             })
             .catch((e) => {
               this.loading = false;

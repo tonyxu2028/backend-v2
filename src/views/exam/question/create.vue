@@ -168,6 +168,7 @@ export default {
         levels: [],
         types: [],
       },
+      capList: null,
     };
   },
   mounted() {
@@ -188,14 +189,18 @@ export default {
         }
       });
     },
-    change(question) {
+    change(question, list) {
       Object.assign(this.form, question);
+      if (list) {
+        this.capList = list;
+      } else {
+        this.capList = null;
+      }
     },
     save() {
       if (this.loading) {
         return;
       }
-
       if (
         (this.form.type === 1 || this.form.type === 2) &&
         !this.form.option2
@@ -203,8 +208,26 @@ export default {
         this.$message.error("至少得有两个选项");
         return;
       }
+      if (this.form.type === 6 && this.capList) {
+        let status = false;
+        this.capList.forEach((item, index) => {
+          let num = index + 1;
+          if (typeof item.score === "undefined" || item.score === null) {
+            this.$message.error("请填写第" + num + "题子题分数");
+            status = true;
+            return;
+          }
+        });
+        if (status) {
+          return;
+        }
+      }
       if (this.form.type === 6 && !this.form.score) {
         this.$message.warning("请至少添加一个子题");
+        return;
+      }
+      if (this.form.type === 3 && !this.form.score) {
+        this.$message.warning("请填写每空分数");
         return;
       }
       if (!this.form.score) {

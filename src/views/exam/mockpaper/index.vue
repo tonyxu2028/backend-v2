@@ -142,7 +142,7 @@ export default {
       pageName: "mockpaper-list",
       pagination: {
         page: 1,
-        size: 10,
+        size: 20,
         sort: "id",
         order: "desc",
       },

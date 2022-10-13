@@ -23,6 +23,7 @@
                   </el-option>
                 </el-select>
               </el-form-item>
+
               <el-form-item label="分类名称" prop="name">
                 <el-input
                   v-model="form.name"
@@ -114,8 +115,8 @@ export default {
   },
   methods: {
     getDetail() {
-      this.$api.Course.LearnPath.Path.Category.Detail(this.id).then((res) => {
-        var data = res.data;
+      this.$api.Exam.Paper.Category.Detail(this.id).then((res) => {
+        var data = res.data.data;
         this.form.name = data.name;
         this.form.sort = data.sort;
         this.form.parent_id = data.parent_id;
@@ -150,7 +151,7 @@ export default {
       }
       this.loading = true;
       if (this.text === "添加分类") {
-        this.$api.Course.LearnPath.Path.Category.Store(this.form)
+        this.$api.Exam.Paper.Category.Store(this.form)
           .then(() => {
             this.loading = false;
             this.$message.success(this.$t("common.success"));
@@ -161,7 +162,7 @@ export default {
             this.$message.error(e.message);
           });
       } else {
-        this.$api.Course.LearnPath.Path.Category.Update(this.id, this.form)
+        this.$api.Exam.Paper.Category.Update(this.id, this.form)
           .then(() => {
             this.loading = false;
             this.$message.success(this.$t("common.success"));
