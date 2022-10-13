@@ -276,7 +276,7 @@ export default {
       if (val === 0) {
         this.topic.charge = this.original_charge;
       } else {
-        this.topic.charge = null;
+        this.topic.charge = 0;
       }
     },
   },
@@ -328,11 +328,6 @@ export default {
       if (this.topic.editor !== "MARKDOWN") {
         this.topic.render_content = this.topic.original_content;
         this.topic.free_content_render = this.topic.free_content;
-      }
-      if (this.is_free === 1) {
-        this.topic.charge = 0;
-      } else {
-        this.topic.charge = this.original_charge;
       }
       this.loading = true;
       this.$api.Course.Topic.Topic.Update(this.id, this.topic)
