@@ -79,7 +79,7 @@
                 ></el-input>
               </div>
               <div class="ml-10">
-                <helper-text text="最小单位“元”，不支持小数"></helper-text>
+                <helper-text text="请输入整数"></helper-text>
               </div>
             </div>
           </el-form-item>
