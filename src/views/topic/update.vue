@@ -84,7 +84,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="VIP免费" v-if="topic.charge > 0">
+          <el-form-item label="VIP免费" v-show="parseInt(topic.charge) > 0">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -140,7 +140,7 @@
           <el-form-item
             prop="free_content"
             label="免费内容"
-            v-if="topic.charge > 0"
+            v-show="parseInt(topic.charge) > 0"
           >
             <div class="d-flex w-800px">
               <mavon-editor
@@ -159,7 +159,7 @@
 
           <el-form-item
             prop="original_content"
-            v-if="topic.charge > 0"
+            v-show="parseInt(topic.charge) > 0"
             label="付费内容"
           >
             <div class="d-flex w-800px">
@@ -176,7 +176,11 @@
               ></quill-editor>
             </div>
           </el-form-item>
-          <el-form-item prop="original_content" v-else label="文章内容">
+          <el-form-item
+            prop="original_content"
+            v-show="!topic.charge || parseInt(topic.charge) === 0"
+            label="文章内容"
+          >
             <div class="d-flex w-800px">
               <mavon-editor
                 v-if="topic.editor === 'MARKDOWN'"

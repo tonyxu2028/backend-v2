@@ -85,7 +85,7 @@
             </div>
           </el-form-item>
 
-          <el-form-item label="VIP免费" v-if="topic.charge > 0">
+          <el-form-item label="VIP免费" v-show="parseInt(topic.charge) > 0">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -141,7 +141,7 @@
           <el-form-item
             prop="free_content"
             label="免费内容"
-            v-if="topic.charge > 0"
+            v-show="parseInt(topic.charge) > 0"
           >
             <change-editor
               :content="topic.free_content"
@@ -153,7 +153,7 @@
 
           <el-form-item
             prop="original_content"
-            v-if="topic.charge > 0"
+            v-show="parseInt(topic.charge) > 0"
             label="付费内容"
           >
             <change-editor
@@ -163,7 +163,11 @@
               @change="getcontent"
             ></change-editor>
           </el-form-item>
-          <el-form-item prop="original_content" v-else label="文章内容">
+          <el-form-item
+            prop="original_content"
+            v-show="!topic.charge || parseInt(topic.charge) === 0"
+            label="文章内容"
+          >
             <change-editor
               :content="topic.original_content"
               class="w-100"
