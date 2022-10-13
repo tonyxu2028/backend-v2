@@ -213,7 +213,7 @@ export default {
         is_need_login: 0,
         is_show: 1,
         is_vip_free: 0,
-        charge: 0,
+        charge: null,
         title: null,
         sorted_at: null,
         original_content: null,
@@ -264,7 +264,7 @@ export default {
   watch: {
     is_free(val) {
       if (val === 1) {
-        this.topic.charge = 0;
+        this.topic.charge = null;
       }
     },
   },
@@ -300,13 +300,16 @@ export default {
         this.$message.error("图文价格必须为整数");
         return;
       }
-      this.loading = true;
       let localCurrent = this.$utils.getEditorKey();
       if (localCurrent === "markdown") {
         this.topic.editor = "MARKDOWN";
       } else {
         this.topic.editor = "FULLEDITOR";
       }
+      if (this.is_free === 1) {
+        this.topic.charge = 0;
+      }
+      this.loading = true;
       this.$api.Course.Topic.Topic.Store(this.topic)
         .then(() => {
           this.$message.success(this.$t("common.success"));
