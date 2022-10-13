@@ -296,6 +296,14 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.is_free === 1) {
+        this.topic.charge = 0;
+      } else {
+        if (!this.topic.charge || parseInt(this.topic.charge) <= 0) {
+          this.$message.error("图文价格必须输入且大于0");
+          return;
+        }
+      }
       if (this.topic.charge % 1 !== 0) {
         this.$message.error("图文价格必须为整数");
         return;
@@ -306,9 +314,7 @@ export default {
       } else {
         this.topic.editor = "FULLEDITOR";
       }
-      if (this.is_free === 1) {
-        this.topic.charge = 0;
-      }
+
       this.loading = true;
       this.$api.Course.Topic.Topic.Store(this.topic)
         .then(() => {

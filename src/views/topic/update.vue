@@ -320,11 +320,16 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.is_free === 0) {
+        if (!this.topic.charge || parseInt(this.topic.charge) <= 0) {
+          this.$message.error("图文价格必须输入且大于0");
+          return;
+        }
+      }
       if (this.topic.charge % 1 !== 0) {
         this.$message.error("图文价格必须为整数");
         return;
       }
-
       if (this.topic.editor !== "MARKDOWN") {
         this.topic.render_content = this.topic.original_content;
         this.topic.free_content_render = this.topic.free_content;
