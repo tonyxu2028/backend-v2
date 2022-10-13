@@ -115,7 +115,7 @@ export default {
           active: "exam.mock_paper,exam.mock_paper.show",
         });
         links.push({
-          name: "练习",
+          name: "练习模式",
           url: "/exam/practice",
           active: "practices,practice.show",
         });

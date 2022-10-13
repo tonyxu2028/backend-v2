@@ -5,28 +5,6 @@
       <el-form ref="form" label-width="205px">
         <template v-if="enabledAddons['TemplateOne'] === 1">
           <div class="title">苹果支付</div>
-          <el-form-item label="苹果支付DEBUG">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-switch
-                  v-model="
-                    form.config['meedu.addons.TemplateOne.apple.pay_debug']
-                  "
-                  active-value="1"
-                  inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span
-                    >应用开发时使用，正式上线请勿开启。否则将导致充值无法到账。</span
-                  >
-                </div>
-              </div>
-            </div>
-          </el-form-item>
-
           <el-form-item label="苹果App BundleID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
@@ -153,7 +131,6 @@ export default {
         config: {
           "meedu.addons.TemplateOne.apple.product_ids": null,
           "meedu.addons.TemplateOne.apple.app_bundle_id": null,
-          "meedu.addons.TemplateOne.apple.pay_debug": null,
           "meedu.addons.TemplateOne.apple.credit2_name": null,
           "meedu.addons.TemplateOne.apple.credit2_exchange_rate": null,
           "meedu.addons.TemplateOne.app.ios_key": null,
@@ -248,11 +225,6 @@ export default {
             "meedu.addons.TemplateOne.apple.app_bundle_id"
           ) {
             this.form.config["meedu.addons.TemplateOne.apple.app_bundle_id"] =
-              configData[index].value;
-          } else if (
-            configData[index].key === "meedu.addons.TemplateOne.apple.pay_debug"
-          ) {
-            this.form.config["meedu.addons.TemplateOne.apple.pay_debug"] =
               configData[index].value;
           } else if (
             configData[index].key ===

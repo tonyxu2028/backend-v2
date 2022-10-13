@@ -100,10 +100,6 @@ export default {
       if (this.mode && this.mode === "question") {
         if (this.isFormula) {
           return [
-            "bold",
-            "italic",
-            "underline",
-            "strike",
             "video",
             "image",
             "formula",

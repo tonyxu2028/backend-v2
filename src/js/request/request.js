@@ -1161,6 +1161,12 @@ const Api = {
     Credit1Change(params) {
       return post(`/backend/api/v1/member/credit1/change`, params);
     },
+    UserIOSRecords(params) {
+      return get(`/backend/addons/TemplateOne/member/credit2Records`, params);
+    },
+    IOSRecharge(params) {
+      return post(`/backend/addons/TemplateOne/member/recharge`, params);
+    },
     Tag: {
       List(params) {
         return get(`/backend/api/v1/member/tag/index`, params);

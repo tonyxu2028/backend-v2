@@ -94,15 +94,14 @@
               <div class="d-flex">
                 <div>
                   <el-input
+                    placeholder="单位：元"
                     type="number"
                     v-model="addform.charge"
                     class="w-200px"
                   ></el-input>
                 </div>
                 <div class="ml-10">
-                  <helper-text
-                    text="请输入整数。不支持小数。价格大于0则意味着用户可以购买试卷参与。价格为0意味着禁止购买。"
-                  ></helper-text>
+                  <helper-text text="请输入整数"></helper-text>
                 </div>
               </div>
             </el-form-item>
@@ -157,6 +156,7 @@
                 <el-input
                   type="number"
                   v-model="addform.rule.num.choice"
+                  placeholder="请输入整数"
                   class="w-200px"
                 ></el-input>
               </div>
@@ -174,6 +174,7 @@
                 <el-input
                   type="number"
                   v-model="addform.rule.num.select"
+                  placeholder="请输入整数"
                   class="w-200px"
                 ></el-input>
               </div>
@@ -192,6 +193,7 @@
                   type="number"
                   v-model="addform.rule.num.judge"
                   class="w-200px"
+                  placeholder="请输入整数"
                 ></el-input>
               </div>
               <div class="ml-10">
@@ -209,6 +211,7 @@
                   type="number"
                   v-model="addform.rule.num.input"
                   class="w-200px"
+                  placeholder="请输入整数"
                 ></el-input>
               </div>
               <div class="ml-10">
@@ -225,6 +228,7 @@
                 <el-input
                   type="number"
                   v-model="addform.rule.num.qa"
+                  placeholder="请输入整数"
                   class="w-200px"
                 ></el-input>
               </div>
@@ -242,6 +246,7 @@
                 <el-input
                   type="number"
                   v-model="addform.rule.num.cap"
+                  placeholder="请输入整数"
                   class="w-200px"
                 ></el-input>
               </div>
@@ -282,17 +287,17 @@ export default {
         is_vip_free: null,
         expired_minutes: null,
         is_invite: null,
-        charge: 0,
+        charge: null,
         category_id: null,
         rule: {
           category_ids: [],
           num: {
-            choice: 0,
-            select: 0,
-            input: 0,
-            qa: 0,
-            judge: 0,
-            cap: 0,
+            choice: null,
+            select: null,
+            input: null,
+            qa: null,
+            judge: null,
+            cap: null,
           },
         },
       },
@@ -362,9 +367,15 @@ export default {
       if (this.loading) {
         return;
       }
-      if (this.addform.is_invite === 0 && this.is_free === 1) {
-        this.addform.charge = 0;
+      if (this.is_free === 0 && !this.addform.charge) {
+        this.$message.error("价格不能为空");
+        return;
       }
+      if (this.addform.charge < 0) {
+        this.$message.error("价格不能为负数");
+        return;
+      }
+
       if (
         parseInt(this.addform.rule.num.choice) > 0 ||
         parseInt(this.addform.rule.num.select) > 0 ||
@@ -396,6 +407,51 @@ export default {
         if (parseInt(this.addform.rule.num.cap) > this.countMap[6]) {
           this.$message.error("题帽题数量超出可抽取题帽题总量");
           return;
+        }
+        if (parseInt(this.addform.rule.num.choice) < 0) {
+          this.$message.error("单选题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.select) < 0) {
+          this.$message.error("多选题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.input) < 0) {
+          this.$message.error("填空题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.qa) < 0) {
+          this.$message.error("问答题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.judge) < 0) {
+          this.$message.error("判断题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.cap) < 0) {
+          this.$message.error("题帽题数量不能为负数");
+          return;
+        }
+        if (this.addform.is_invite === 0 && this.is_free === 1) {
+          this.addform.charge = 0;
+        }
+        if (!this.addform.rule.num.choice) {
+          this.addform.rule.num.choice = 0;
+        }
+        if (!this.addform.rule.num.select) {
+          this.addform.rule.num.select = 0;
+        }
+        if (!this.addform.rule.num.judge) {
+          this.addform.rule.num.judge = 0;
+        }
+        if (!this.addform.rule.num.input) {
+          this.addform.rule.num.input = 0;
+        }
+        if (!this.addform.rule.num.qa) {
+          this.addform.rule.num.qa = 0;
+        }
+        if (!this.addform.rule.num.cap) {
+          this.addform.rule.num.cap = 0;
         }
         this.loading = true;
         let data = {};

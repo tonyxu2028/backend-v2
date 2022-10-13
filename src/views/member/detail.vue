@@ -56,6 +56,15 @@
                 p="member.remark.update"
                 @click="changeRemark()"
               ></p-link>
+              <template v-if="enabledAddons['TemplateOne']">
+                <p-link
+                  class="edit-profile"
+                  text="变动iOS余额"
+                  type="primary"
+                  p="addons.TemplateOne.memberCredit2.recharge"
+                  @click="rechargeIOSCredit()"
+                ></p-link>
+              </template>
             </div>
           </div>
         </div>
@@ -95,6 +104,10 @@
           <div class="panel-info-item">
             积分：
             <span>{{ userData.credit1 }}</span>
+          </div>
+          <div class="panel-info-item">
+            iOS余额：
+            <span>{{ userData.credit2 }}</span>
           </div>
           <div class="panel-info-item">
             用户标签：
@@ -164,6 +177,10 @@
           :id="id"
           v-else-if="courseTabActive === 'balanceRecords'"
         ></user-balance-records-comp>
+        <user-iOS-records-comp
+          :id="id"
+          v-else-if="courseTabActive === 'iOSRecords'"
+        ></user-iOS-records-comp>
       </div>
     </div>
     <member-dialog
@@ -195,6 +212,13 @@
       @close="showTagsWin = false"
       @success="successEvt"
     ></tags-dialog>
+    <iOS-dialog
+      :key="userData.id"
+      v-if="showIOSWin"
+      :id="userData.id"
+      @close="showIOSWin = false"
+      @success="successEvt"
+    ></iOS-dialog>
   </div>
 </template>
 
@@ -210,7 +234,9 @@ import MemberDialog from "./components/member-dialog";
 import CreditDialog from "./components/credit-dialog";
 import RemarkDialog from "./components/remark-dialog";
 import TagsDialog from "./components/tags-dialog";
+import IOSDialog from "./components/iOS-dialog";
 import UserBalanceRecordsComp from "./detail/balanceRecords.vue";
+import UserIOSRecordsComp from "./detail/iOSRecords.vue";
 
 export default {
   components: {
@@ -224,7 +250,9 @@ export default {
     CreditDialog,
     RemarkDialog,
     TagsDialog,
+    IOSDialog,
     UserBalanceRecordsComp,
+    UserIOSRecordsComp,
   },
   data() {
     return {
@@ -238,6 +266,7 @@ export default {
       showCreditWin: false,
       showRemarkWin: false,
       showTagsWin: false,
+      showIOSWin: false,
     };
   },
   computed: {
@@ -300,6 +329,15 @@ export default {
           key: "balanceRecords",
         });
       }
+      if (
+        this.enabledAddons["TemplateOne"] &&
+        this.through("addons.TemplateOne.memberCredit2Records.list")
+      ) {
+        types.push({
+          name: "iOS余额明细",
+          key: "iOSRecords",
+        });
+      }
 
       return types;
     },
@@ -319,6 +357,7 @@ export default {
       this.showAddWin = true;
     },
     successEvt() {
+      this.showIOSWin = false;
       this.showAddWin = false;
       this.showCreditWin = false;
       this.showRemarkWin = false;
@@ -333,6 +372,9 @@ export default {
     },
     changeTags() {
       this.showTagsWin = true;
+    },
+    rechargeIOSCredit() {
+      this.showIOSWin = true;
     },
     through(val) {
       return typeof this.user.permissions[val] !== "undefined";

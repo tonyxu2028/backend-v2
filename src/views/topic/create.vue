@@ -80,12 +80,12 @@
                 ></el-input>
               </div>
               <div class="ml-10">
-                <helper-text text="最小单位“元”，不支持小数"></helper-text>
+                <helper-text text="请输入整数"></helper-text>
               </div>
             </div>
           </el-form-item>
 
-          <el-form-item label="VIP免费" v-if="topic.charge > 0">
+          <el-form-item label="VIP免费" v-show="parseInt(topic.charge) > 0">
             <div class="d-flex">
               <div>
                 <el-switch
@@ -141,7 +141,7 @@
           <el-form-item
             prop="free_content"
             label="免费内容"
-            v-if="topic.charge > 0"
+            v-show="parseInt(topic.charge) > 0"
           >
             <change-editor
               :content="topic.free_content"
@@ -153,7 +153,7 @@
 
           <el-form-item
             prop="original_content"
-            v-if="topic.charge > 0"
+            v-show="parseInt(topic.charge) > 0"
             label="付费内容"
           >
             <change-editor
@@ -163,7 +163,11 @@
               @change="getcontent"
             ></change-editor>
           </el-form-item>
-          <el-form-item prop="original_content" v-else label="文章内容">
+          <el-form-item
+            prop="original_content"
+            v-show="!topic.charge || parseInt(topic.charge) === 0"
+            label="文章内容"
+          >
             <change-editor
               :content="topic.original_content"
               class="w-100"
@@ -209,7 +213,7 @@ export default {
         is_need_login: 0,
         is_show: 1,
         is_vip_free: 0,
-        charge: 0,
+        charge: null,
         title: null,
         sorted_at: null,
         original_content: null,
@@ -260,7 +264,7 @@ export default {
   watch: {
     is_free(val) {
       if (val === 1) {
-        this.topic.charge = 0;
+        this.topic.charge = null;
       }
     },
   },
@@ -292,17 +296,26 @@ export default {
       if (this.loading) {
         return;
       }
+      if (this.is_free === 1) {
+        this.topic.charge = 0;
+      } else {
+        if (!this.topic.charge || parseInt(this.topic.charge) <= 0) {
+          this.$message.error("图文价格必须输入且大于0");
+          return;
+        }
+      }
       if (this.topic.charge % 1 !== 0) {
         this.$message.error("图文价格必须为整数");
         return;
       }
-      this.loading = true;
       let localCurrent = this.$utils.getEditorKey();
       if (localCurrent === "markdown") {
         this.topic.editor = "MARKDOWN";
       } else {
         this.topic.editor = "FULLEDITOR";
       }
+
+      this.loading = true;
       this.$api.Course.Topic.Topic.Store(this.topic)
         .then(() => {
           this.$message.success(this.$t("common.success"));

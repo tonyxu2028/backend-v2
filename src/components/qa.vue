@@ -8,7 +8,7 @@
       />
       <img
         @click="deleteImage()"
-        v-if="!isOver"
+        v-if="!isOver && !prew"
         class="delete-img"
         src="../assets/img/icon-delete.png"
       />
@@ -19,15 +19,46 @@
         ></div>
       </div>
     </div>
-    <div class="info" :class="{ spcolor: spcolor }">
+    <div class="info">
       <span class="tit"
         >{{ num }}.{{ question.type_text }}（{{ question.score }}分）</span
       >
     </div>
-    <div class="question-content" :class="{ spcolor: spcolor }">
-      <div class="question-render" v-html="question.content"></div>
+    <div class="question-content">
+      <div class="content-render">{{ question.content_transform.text }}</div>
+      <div
+        class="images-render"
+        v-if="
+          question.content_transform.images.length > 0 ||
+          question.content_transform.iframes.length > 0
+        "
+      >
+        <template v-if="question.content_transform.images.length > 0">
+          <div
+            class="thumb-bar"
+            v-for="(thumb, index) in question.content_transform.images"
+            :key="index + 'thumb'"
+            @click="newPreviewImage(thumb)"
+          >
+            <thumb-bar
+              :value="thumb"
+              :width="200"
+              :height="200"
+              :border="8"
+            ></thumb-bar>
+          </div>
+        </template>
+        <template v-if="question.content_transform.iframes.length > 0">
+          <div
+            class="iframe-bar"
+            v-for="(iframe, index) in question.content_transform.iframes"
+            :key="index + 'iframe'"
+            v-html="iframe"
+          ></div>
+        </template>
+      </div>
     </div>
-    <div class="choice-box" :class="{ spcolor: spcolor }">
+    <div class="choice-box">
       <div class="input-title">我的作答</div>
       <textarea
         :disabled="isOver"
@@ -37,7 +68,10 @@
         class="input"
         maxlength="-1"
       ></textarea>
-      <div class="images-box" v-if="showImage">
+      <div
+        class="images-box"
+        v-if="showImage && (localThumbs.length > 0 || !isOver)"
+      >
         <div
           class="image-item"
           v-for="(item, imageIndex) in localThumbs"
@@ -50,7 +84,7 @@
           ></div>
         </div>
 
-        <label class="upload-image-button" v-if="isOver === false">
+        <label class="upload-image-button" v-if="!isOver && !wrongBook">
           <img src="../assets/img/icon-handin.png" />
           <input
             id="file_input"
@@ -62,23 +96,83 @@
       </div>
     </div>
     <template v-if="isOver">
-      <div
-        class="analysis-box"
-        v-if="question.remark"
-        :class="{ spcolor: spcolor }"
-      >
-        <div class="pop-box">
-          <div class="status" v-if="!wrongBook">
-            <span class="score" style="margin-left: 0px !important"
-              >本题得分：{{ score }}分</span
-            >
+      <div class="analysis-box">
+        <div
+          class="answer-box"
+          v-if="wrongBook && question.remark && question.remark !== ''"
+        >
+          <div class="button" @click="remarkStatus = !remarkStatus">
+            <span v-if="remarkStatus">折叠解析</span>
+            <span v-else>展开解析</span>
+            <img
+              class="icon"
+              v-if="remarkStatus"
+              src="../assets/img/exam/fold.png"
+            />
+            <img class="icon" v-else src="../assets/img/exam/unfold.png" />
           </div>
-          <!-- <div class="answer" v-if="question.answer">
-            答案：{{ question.answer }}
-          </div> -->
-          <div class="remark" style="padding-top: 20px">
-            <div>解析：</div>
-            <div v-html="question.remark"></div>
+        </div>
+        <div class="answer-box" v-else-if="!wrongBook">
+          <div class="content">
+            <div class="score"><i></i>得分：{{ score }}</div>
+          </div>
+          <div
+            class="button"
+            v-if="question.remark && question.remark !== ''"
+            @click="remarkStatus = !remarkStatus"
+          >
+            <span v-if="remarkStatus">折叠解析</span>
+            <span v-else>展开解析</span>
+            <img
+              class="icon"
+              v-if="remarkStatus"
+              src="../assets/img/exam/fold.png"
+            />
+            <img class="icon" v-else src="../assets/img/exam/unfold.png" />
+          </div>
+        </div>
+        <div
+          class="remark-box"
+          v-if="remarkStatus && question.remark && question.remark !== ''"
+        >
+          <div class="left-remark">
+            <div class="tit"><i></i>解析：</div>
+          </div>
+          <div class="remark">
+            <div class="content-render">
+              {{ question.remark_transform.text }}
+            </div>
+            <div
+              class="images-render"
+              v-if="
+                question.remark_transform.images.length > 0 ||
+                question.remark_transform.iframes.length > 0
+              "
+            >
+              <template v-if="question.remark_transform.images.length > 0">
+                <div
+                  class="thumb-bar"
+                  v-for="(thumb, index) in question.remark_transform.images"
+                  :key="index + 'thumb'"
+                  @click="newPreviewImage(thumb)"
+                >
+                  <thumb-bar
+                    :value="thumb"
+                    :width="200"
+                    :height="200"
+                    :border="8"
+                  ></thumb-bar>
+                </div>
+              </template>
+              <template v-if="question.remark_transform.iframes.length > 0">
+                <div
+                  class="iframe-bar"
+                  v-for="(iframe, index) in question.remark_transform.iframes"
+                  :key="index + 'iframe'"
+                  v-html="iframe"
+                ></div>
+              </template>
+            </div>
           </div>
         </div>
       </div>
@@ -96,7 +190,6 @@ export default {
     "score",
     "showImage",
     "wrongBook",
-    "spcolor",
     "num",
   ],
   data() {
@@ -109,11 +202,17 @@ export default {
         thumb: null,
         index: null,
       },
+      prew: false,
+      remarkStatus: true,
     };
   },
   mounted() {
     if (this.thumbs) {
-      this.localThumbs = this.thumbs;
+      if (this.isJson(this.thumbs)) {
+        this.localThumbs = JSON.parse(this.thumbs);
+      } else {
+        this.localThumbs = this.thumbs;
+      }
     }
     this.val = this.reply;
   },
@@ -123,8 +222,25 @@ export default {
     },
   },
   methods: {
-    change() {
+    isJson(str) {
+      if (typeof str == "string") {
+        try {
+          let obj = JSON.parse(str);
+          if (typeof obj == "object" && obj) {
+            return true;
+          } else {
+            return false;
+          }
+        } catch (e) {
+          return false;
+        }
+      }
+    },
+    change(e) {
       if (this.isOver) {
+        return;
+      }
+      if (e.target.value === "") {
         return;
       }
       this.emitCall();
@@ -167,8 +283,20 @@ export default {
     },
     PreviewImage(val, index) {
       this.previewImage = true;
+      this.prew = false;
       this.image.thumb = val;
       this.image.index = index;
+    },
+    PreviewImage2($event) {
+      if ($event.target.src) {
+        this.prew = true;
+        this.image.thumb = $event.target.src;
+        this.previewImage = true;
+      }
+    },
+    newPreviewImage(src) {
+      this.image.thumb = src;
+      this.previewImage = true;
     },
     emitCall() {
       this.$emit("update", this.question.id, this.val, this.localThumbs);
@@ -177,9 +305,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.spcolor {
-  background: #f4fafe !important;
-}
 .choice-item {
   background-color: #f1f2f6;
   width: 100%;
@@ -200,6 +325,7 @@ export default {
       left: 15px;
       width: 19px;
       height: 19px;
+      cursor: pointer;
     }
     .delete-img {
       position: absolute;
@@ -207,6 +333,7 @@ export default {
       right: 15px;
       width: 24px;
       height: 24px;
+      cursor: pointer;
     }
     .pic-item {
       width: 100%;
@@ -237,12 +364,13 @@ export default {
       height: 18px;
       font-size: 18px;
       font-weight: 500;
-      color: #666666;
+      color: #333333;
       line-height: 18px;
     }
   }
   .question-content {
     width: 100%;
+    float: left;
     height: auto;
     font-size: 15px;
     font-weight: 400;
@@ -302,6 +430,7 @@ export default {
         display: flex;
         width: 80px;
         height: 60px;
+        cursor: pointer;
         .image-view {
           width: 80px;
           height: 60px;
@@ -318,9 +447,11 @@ export default {
         align-items: center;
         justify-content: center;
         position: relative;
+        cursor: pointer;
         img {
           width: 80px;
           height: 60px;
+          cursor: pointer;
         }
         #file_input {
           position: absolute;
@@ -329,6 +460,7 @@ export default {
           width: 80px;
           height: 60px;
           opacity: 0;
+          cursor: pointer;
         }
       }
     }

@@ -95,14 +95,13 @@
                 <div>
                   <el-input
                     type="number"
+                    placeholder="单位：元"
                     v-model="addform.charge"
                     class="w-200px"
                   ></el-input>
                 </div>
                 <div class="ml-10">
-                  <helper-text
-                    text="请输入整数。不支持小数。价格大于0则意味着用户可以购买试卷参与。价格为0意味着禁止购买。"
-                  ></helper-text>
+                  <helper-text text="请输入整数"></helper-text>
                 </div>
               </div>
             </el-form-item>
@@ -156,6 +155,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.choice"
                   class="w-200px"
                 ></el-input>
@@ -173,6 +173,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.select"
                   class="w-200px"
                 ></el-input>
@@ -190,6 +191,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.judge"
                   class="w-200px"
                 ></el-input>
@@ -207,6 +209,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.input"
                   class="w-200px"
                 ></el-input>
@@ -224,6 +227,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.qa"
                   class="w-200px"
                 ></el-input>
@@ -241,6 +245,7 @@
               <div>
                 <el-input
                   type="number"
+                  placeholder="请输入整数"
                   v-model="addform.rule.num.cap"
                   class="w-200px"
                 ></el-input>
@@ -359,8 +364,13 @@ export default {
       if (this.loading) {
         return;
       }
-      if (this.addform.is_invite === 0 && this.is_free === 1) {
-        this.addform.charge = 0;
+      if (this.is_free === 0 && !this.addform.charge) {
+        this.$message.error("价格不能为空");
+        return;
+      }
+      if (this.addform.charge < 0) {
+        this.$message.error("价格不能为负数");
+        return;
       }
       if (
         parseInt(this.addform.rule.num.choice) > 0 ||
@@ -393,6 +403,51 @@ export default {
         if (parseInt(this.addform.rule.num.cap) > this.countMap[6]) {
           this.$message.error("题帽题数量超出可抽取题帽题总量");
           return;
+        }
+        if (parseInt(this.addform.rule.num.choice) < 0) {
+          this.$message.error("单选题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.select) < 0) {
+          this.$message.error("多选题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.input) < 0) {
+          this.$message.error("填空题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.qa) < 0) {
+          this.$message.error("问答题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.judge) < 0) {
+          this.$message.error("判断题数量不能为负数");
+          return;
+        }
+        if (parseInt(this.addform.rule.num.cap) < 0) {
+          this.$message.error("题帽题数量不能为负数");
+          return;
+        }
+        if (this.addform.is_invite === 0 && this.is_free === 1) {
+          this.addform.charge = 0;
+        }
+        if (!this.addform.rule.num.choice) {
+          this.addform.rule.num.choice = 0;
+        }
+        if (!this.addform.rule.num.select) {
+          this.addform.rule.num.select = 0;
+        }
+        if (!this.addform.rule.num.judge) {
+          this.addform.rule.num.judge = 0;
+        }
+        if (!this.addform.rule.num.input) {
+          this.addform.rule.num.input = 0;
+        }
+        if (!this.addform.rule.num.qa) {
+          this.addform.rule.num.qa = 0;
+        }
+        if (!this.addform.rule.num.cap) {
+          this.addform.rule.num.cap = 0;
         }
         this.loading = true;
         let data = {};

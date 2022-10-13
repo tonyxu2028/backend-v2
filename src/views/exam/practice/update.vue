@@ -55,15 +55,13 @@
               <div>
                 <el-input
                   type="number"
-                  placeholder="价格"
+                  placeholder="单位：元"
                   v-model="addform.charge"
                   class="w-200px"
                 ></el-input>
               </div>
               <div class="ml-10">
-                <helper-text
-                  text="请输入整数。不支持小数。价格大于0意味着用户需要购买之后才能参与练习。价格为0即禁止购买。"
-                ></helper-text>
+                <helper-text text="请输入整数"></helper-text>
               </div>
             </div>
           </el-form-item>
