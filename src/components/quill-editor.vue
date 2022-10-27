@@ -102,7 +102,6 @@ export default {
           return [
             "video",
             "image",
-            "formula",
           ];
         }
         return ["bold", "italic", "underline", "strike", "video", "image"];
