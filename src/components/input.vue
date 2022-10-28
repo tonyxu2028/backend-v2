@@ -19,7 +19,9 @@
       >
     </div>
     <div class="question-content">
-      <div class="content-render">{{ question.content_transform.text }}</div>
+      <div class="content-render" v-latex>
+        {{ question.content_transform.text }}
+      </div>
       <div
         class="images-render"
         v-if="
@@ -85,7 +87,14 @@
       </div>
     </div>
     <template v-if="isOver">
-      <div class="analysis-box">
+      <div
+        class="analysis-box"
+        v-if="
+          (wrongBook && question.remark && question.remark !== '') ||
+          !wrongBook ||
+          (remarkStatus && question.remark && question.remark !== '')
+        "
+      >
         <div
           class="answer-box"
           v-if="wrongBook && question.remark && question.remark !== ''"
@@ -128,7 +137,7 @@
             <div class="tit"><i></i>解析：</div>
           </div>
           <div class="remark">
-            <div class="content-render">
+            <div class="content-render" v-latex>
               {{ question.remark_transform.text }}
             </div>
             <div
@@ -235,11 +244,12 @@ export default {
       if (this.isOver) {
         return;
       }
+      let val;
       if (e.target.value === "") {
-        return;
+        val = "";
+      } else {
+        val = this.inputVal;
       }
-      let val = this.inputVal;
-
       this.$emit("update", this.question.id, val);
     },
     backDetail() {
@@ -262,6 +272,8 @@ export default {
 .choice-item {
   background-color: #f1f2f6;
   width: 100%;
+  float: left;
+  height: auto;
   .preview-image {
     width: 100%;
     height: 100%;
@@ -381,7 +393,7 @@ export default {
         height: 40px;
         display: flex;
         align-items: center;
-        margin-left: 40px;
+        margin-left: 15px;
         .icon {
           width: 20px;
           height: 20px;

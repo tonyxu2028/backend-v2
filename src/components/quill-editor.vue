@@ -32,6 +32,38 @@
       @close="showUploadImage = false"
       @selected="uploadImage"
     ></select-image>
+    <el-dialog
+      title="插入公式"
+      :visible="dialogFormulaVisible"
+      :show-close="false"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+    >
+      <el-form :model="form">
+        <el-form-item>
+          <el-select v-model="formulaType">
+            <el-option
+              v-for="(item, index) in types"
+              :key="index"
+              :label="item.name"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            v-model="formulaValue"
+            placeholder="如：x^2+y^2+Dx+Ey+F=0"
+            auto-complete="off"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormulaVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmFormula()">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -57,9 +89,12 @@ export default {
       quill: null,
       dialogFormVisible: false,
       showUploadImage: false,
+      dialogFormulaVisible: false,
       form: {
         videoIframe: "",
       },
+      formulaValue: "",
+      formulaType: 0,
       editorIndex: 0,
       editorOption: {
         theme: "snow",
@@ -70,6 +105,16 @@ export default {
         placeholder: "请输入内容...",
         readOnly: false,
       },
+      types: [
+        {
+          name: "单行公式",
+          id: 0,
+        },
+        {
+          name: "多行公式",
+          id: 1,
+        },
+      ],
     };
   },
   computed: {
@@ -99,10 +144,7 @@ export default {
     toolbar() {
       if (this.mode && this.mode === "question") {
         if (this.isFormula) {
-          return [
-            "video",
-            "image",
-          ];
+          return ["video", "image", "formula"];
         }
         return ["bold", "italic", "underline", "strike", "video", "image"];
       }
@@ -146,6 +188,11 @@ export default {
       this.quill.getModule("toolbar").addHandler("image", () => {
         this.showUploadImage = true;
       });
+      // 自定义插入公式
+      this.quill.getModule("toolbar").addHandler("formula", () => {
+        this.dialogFormulaVisible = true;
+      });
+
       //  自定义插入视频
       this.quill.getModule("toolbar").addHandler("video", () => {
         this.dialogFormVisible = true;
@@ -195,6 +242,30 @@ export default {
       }
       this.form.videoIframe = "";
       this.dialogFormVisible = false;
+    },
+    confirmFormula() {
+      this.quill.focus();
+      if (!this.formulaValue) {
+        this.formulaValue = "";
+        return;
+      }
+      let value = this.formulaValue;
+      if (this.formulaType === 1) {
+        value = "$$" + value + "$$";
+      } else {
+        value = "$" + value + "$";
+      }
+      var range = this.quill.getSelection();
+      if (range) {
+        this.quill
+          .getModule("toolbar")
+          .quill.clipboard.dangerouslyPasteHTML(range.index, value);
+        //  将光标移动到图片后面
+        this.quill.getModule("toolbar").quill.setSelection(range.index + 1);
+      }
+      this.formulaValue = "";
+      this.formulaType = 1;
+      this.dialogFormulaVisible = false;
     },
     uploadImage(imgUrl) {
       let index = this.editorIndex;

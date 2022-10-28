@@ -92,6 +92,40 @@ Vue.prototype.$message.error = function (msg, duration) {
   });
 };
 
+Vue.directive("latex", function (el) {
+  var reg1 = new RegExp("&nbsp;", "g");
+  var reg2 = new RegExp("&amp;", "g");
+  var reg3 = new RegExp("nbsp;", "g");
+  var reg4 = new RegExp("amp;", "g");
+  el.innerHTML = el.innerHTML.replace(reg1, "");
+  el.innerHTML = el.innerHTML.replace(reg2, "");
+  el.innerHTML = el.innerHTML.replace(reg3, "");
+  el.innerHTML = el.innerHTML.replace(reg4, "");
+  window.renderMathInElement(el, {
+    delimiters: [
+      { left: "$$", right: "$$", display: true },
+      { left: "$", right: "$", display: false },
+      { left: "\\(", right: "\\)", display: false },
+      { left: "\\[", right: "\\]", display: true },
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant",
+    },
+    options: {
+      skipHtmlTags: ["noscript", "style", "textarea", "pre", "code"],
+      // 跳过mathjax处理的元素的类名，任何元素指定一个类 tex2jax_ignore 将被跳过，多个累=类名'class1|class2'
+      ignoreHtmlClass: "tex2jax_ignore",
+    },
+    svg: {
+      fontCache: "global",
+    },
+    throwOnError: false,
+  });
+});
+
 utils.copyright();
 
 new Vue({
