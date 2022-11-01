@@ -19,12 +19,14 @@
       >
     </div>
     <div class="question-content">
-      <div class="content-render">{{ question.content_transform.text }}</div>
+      <div class="content-render" v-latex>
+        {{ question.content_transform.text }}
+      </div>
       <div
         class="images-render"
         v-if="
           question.content_transform.images.length > 0 ||
-          question.content_transform.iframes.length > 0
+            question.content_transform.iframes.length > 0
         "
       >
         <template v-if="question.content_transform.images.length > 0">
@@ -82,6 +84,7 @@
                 class="content-render"
                 @click="PreviewImage($event)"
                 v-html="question['option' + item]"
+                v-latex
               ></div>
             </div>
           </template>
@@ -92,6 +95,7 @@
                 class="content-render"
                 @click="PreviewImage($event)"
                 v-html="question['option' + item]"
+                v-latex
               ></div>
             </div>
           </template>
@@ -142,14 +146,14 @@
             <div class="tit"><i></i>解析：</div>
           </div>
           <div class="remark">
-            <div class="content-render">
+            <div class="content-render" v-latex>
               {{ question.remark_transform.text }}
             </div>
             <div
               class="images-render"
               v-if="
                 question.remark_transform.images.length > 0 ||
-                question.remark_transform.iframes.length > 0
+                  question.remark_transform.iframes.length > 0
               "
             >
               <template v-if="question.remark_transform.images.length > 0">
@@ -271,6 +275,8 @@ export default {
 .choice-item {
   background-color: #f1f2f6;
   width: 100%;
+  float: left;
+  height: auto;
   .preview-image {
     width: 100%;
     height: 100%;

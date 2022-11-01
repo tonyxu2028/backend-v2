@@ -8,7 +8,7 @@
       />
       <img
         @click="deleteImage()"
-        v-if="!isOver && !prew"
+        v-if="!isOver && !prew && showDelIcon"
         class="delete-img"
         src="../assets/img/icon-delete.png"
       />
@@ -25,7 +25,9 @@
       >
     </div>
     <div class="question-content">
-      <div class="content-render">{{ question.content_transform.text }}</div>
+      <div class="content-render" v-latex>
+        {{ question.content_transform.text }}
+      </div>
       <div
         class="images-render"
         v-if="
@@ -38,7 +40,7 @@
             class="thumb-bar"
             v-for="(thumb, index) in question.content_transform.images"
             :key="index + 'thumb'"
-            @click="newPreviewImage(thumb)"
+            @click="headerPreviewImage(thumb)"
           >
             <thumb-bar
               :value="thumb"
@@ -77,11 +79,14 @@
           v-for="(item, imageIndex) in localThumbs"
           :key="imageIndex"
         >
-          <div
-            class="image-view"
-            @click="PreviewImage(item, imageIndex)"
-            :style="{ 'background-image': 'url(' + item + ')' }"
-          ></div>
+          <div class="image-view" @click="PreviewImage(item, imageIndex)">
+            <thumb-bar
+              :value="item"
+              :width="80"
+              :height="80"
+              :border="4"
+            ></thumb-bar>
+          </div>
         </div>
 
         <label class="upload-image-button" v-if="!isOver && !wrongBook">
@@ -96,7 +101,14 @@
       </div>
     </div>
     <template v-if="isOver">
-      <div class="analysis-box">
+      <div
+        class="analysis-box"
+        v-if="
+          (wrongBook && question.remark && question.remark !== '') ||
+          !wrongBook ||
+          (remarkStatus && question.remark && question.remark !== '')
+        "
+      >
         <div
           class="answer-box"
           v-if="wrongBook && question.remark && question.remark !== ''"
@@ -139,7 +151,7 @@
             <div class="tit"><i></i>解析：</div>
           </div>
           <div class="remark">
-            <div class="content-render">
+            <div class="content-render" v-latex>
               {{ question.remark_transform.text }}
             </div>
             <div
@@ -204,6 +216,7 @@ export default {
       },
       prew: false,
       remarkStatus: true,
+      showDelIcon: true,
     };
   },
   mounted() {
@@ -238,9 +251,6 @@ export default {
     },
     change(e) {
       if (this.isOver) {
-        return;
-      }
-      if (e.target.value === "") {
         return;
       }
       this.emitCall();
@@ -282,19 +292,19 @@ export default {
       this.emitCall();
     },
     PreviewImage(val, index) {
+      this.showDelIcon = true;
       this.previewImage = true;
       this.prew = false;
       this.image.thumb = val;
       this.image.index = index;
     },
-    PreviewImage2($event) {
-      if ($event.target.src) {
-        this.prew = true;
-        this.image.thumb = $event.target.src;
-        this.previewImage = true;
-      }
+    headerPreviewImage(src) {
+      this.showDelIcon = false;
+      this.image.thumb = src;
+      this.previewImage = true;
     },
     newPreviewImage(src) {
+      this.showDelIcon = false;
       this.image.thumb = src;
       this.previewImage = true;
     },
@@ -308,6 +318,8 @@ export default {
 .choice-item {
   background-color: #f1f2f6;
   width: 100%;
+  float: left;
+  height: auto;
   .preview-image {
     width: 100%;
     height: 100%;
@@ -429,20 +441,22 @@ export default {
       .image-item {
         display: flex;
         width: 80px;
-        height: 60px;
+        height: 80px;
+        border-radius: 4px;
         cursor: pointer;
         .image-view {
           width: 80px;
-          height: 60px;
+          height: 80px;
           background-repeat: no-repeat;
           background-size: contain;
           background-position: center center;
+          border-radius: 4px;
         }
       }
       .upload-image-button {
         width: 80px;
-        height: 60px;
-        background-color: #f1f2f6;
+        height: 80px;
+        background-color: #fff;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -450,7 +464,7 @@ export default {
         cursor: pointer;
         img {
           width: 80px;
-          height: 60px;
+          height: 80px;
           cursor: pointer;
         }
         #file_input {
@@ -458,7 +472,7 @@ export default {
           top: 0;
           left: 0;
           width: 80px;
-          height: 60px;
+          height: 80px;
           opacity: 0;
           cursor: pointer;
         }

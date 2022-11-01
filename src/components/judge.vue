@@ -19,7 +19,9 @@
       >
     </div>
     <div class="question-content">
-      <div class="content-render">{{ question.content_transform.text }}</div>
+      <div class="content-render" v-latex>
+        {{ question.content_transform.text }}
+      </div>
       <div
         class="images-render"
         v-if="
@@ -143,7 +145,7 @@
             <div class="tit"><i></i>解析：</div>
           </div>
           <div class="remark">
-            <div class="content-render">
+            <div class="content-render" v-latex>
               {{ question.remark_transform.text }}
             </div>
             <div
@@ -241,6 +243,8 @@ export default {
 .choice-item {
   background-color: #f1f2f6;
   width: 100%;
+  float: left;
+  height: auto;
   .preview-image {
     width: 100%;
     height: 100%;
