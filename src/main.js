@@ -98,7 +98,7 @@ Vue.directive("latex", function (el) {
   var reg3 = new RegExp("nbsp;", "g");
   var reg4 = new RegExp("amp;", "g");
   el.innerHTML = el.innerHTML.replace(reg1, "");
-  el.innerHTML = el.innerHTML.replace(reg2, "");
+  el.innerHTML = el.innerHTML.replace(reg2, "&");
   el.innerHTML = el.innerHTML.replace(reg3, "");
   el.innerHTML = el.innerHTML.replace(reg4, "");
   window.renderMathInElement(el, {
