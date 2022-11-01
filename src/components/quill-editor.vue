@@ -53,7 +53,17 @@
         </el-form-item>
         <el-form-item>
           <el-input
+            v-if="formulaType === 0"
             v-model="formulaValue"
+            placeholder="如：x^2+y^2+Dx+Ey+F=0"
+            auto-complete="off"
+          ></el-input>
+          <el-input
+            v-else
+            type="textarea"
+            v-model="formulaValue"
+            rows="4"
+            resize="none"
             placeholder="如：x^2+y^2+Dx+Ey+F=0"
             auto-complete="off"
           ></el-input>
@@ -247,6 +257,7 @@ export default {
       this.quill.focus();
       if (!this.formulaValue) {
         this.formulaValue = "";
+        this.$message.error("请输入公式");
         return;
       }
       let value = this.formulaValue;
