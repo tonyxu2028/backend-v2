@@ -1107,6 +1107,14 @@ const routes = [
     },
   },
   {
+    path: "/codeExchanger/update",
+    component: () => import("@/views/codeExchanger/update"),
+    name: "CodeExchangerUpdate",
+    meta: {
+      title: "title.codeExchanger.update",
+    },
+  },
+  {
     path: "/codeExchanger/codes",
     component: () => import("@/views/codeExchanger/codes"),
     name: "CodeExchangerCodes",

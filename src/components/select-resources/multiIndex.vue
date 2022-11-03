@@ -35,11 +35,21 @@
               :selected="selectedPaper"
               @change="change"
             ></paper-comp>
+            <mock-paper-comp
+              v-else-if="activeResource === 'mock_paper'"
+              :selected="selectedMockPaper"
+              @change="change"
+            ></mock-paper-comp>
             <practice-comp
               v-else-if="activeResource === 'practice'"
               :selected="selectedPractice"
               @change="change"
             ></practice-comp>
+            <vip-comp
+              v-else-if="activeResource === 'vip'"
+              :selected="selectedVip"
+              @change="change"
+            ></vip-comp>
           </div>
         </div>
         <div class="meedu-dialog-footer">
@@ -57,7 +67,9 @@ import VodComp from "./components/multiVod.vue";
 import LiveComp from "./components/multiLive.vue";
 import BookComp from "./components/multiBook.vue";
 import PaperComp from "./components/multiPaper.vue";
+import MockPaperComp from "./components/multiMockPaper.vue";
 import PracticeComp from "./components/multiPractice.vue";
+import VipComp from "./components/multiVip.vue";
 
 export default {
   components: {
@@ -65,7 +77,9 @@ export default {
     LiveComp,
     BookComp,
     PaperComp,
+    MockPaperComp,
     PracticeComp,
+    VipComp,
   },
   props: [
     "show",
@@ -76,7 +90,9 @@ export default {
     "selectedLive",
     "selectedBook",
     "selectedPaper",
+    "selectedMockPaper",
     "selectedPractice",
+    "selectedVip",
   ],
   data() {
     return {
@@ -115,12 +131,24 @@ export default {
             key: "paper",
           });
         }
+        if (this.enabledResourceMap["mock_paper"]) {
+          resources.push({
+            name: "模拟卷",
+            key: "mock_paper",
+          });
+        }
         if (this.enabledResourceMap["practice"]) {
           resources.push({
             name: "练习",
             key: "practice",
           });
         }
+      }
+      if (this.enabledResourceMap["vip"]) {
+        resources.push({
+          name: "VIP会员",
+          key: "vip",
+        });
       }
       return resources;
     },
