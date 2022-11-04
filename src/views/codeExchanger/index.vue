@@ -62,6 +62,11 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column label="商品总价" width="200">
+          <template slot-scope="scope">
+            <span>{{ totalPrice(JSON.parse(scope.row.relate_data)) }}元</span>
+          </template>
+        </el-table-column>
         <el-table-column label="兑换码" width="300">
           <template slot-scope="scope">
             <span>{{ scope.row.used_count }}/{{ scope.row.code_count }}</span>
@@ -161,6 +166,13 @@ export default {
     paginationPageChange(page) {
       this.pagination.page = page;
       this.getData();
+    },
+    totalPrice(data) {
+      let price = 0;
+      for (var i = 0; i < data.length; i++) {
+        price = parseFloat(data[i].charge) + price;
+      }
+      return price;
     },
     getData() {
       if (this.loading) {
