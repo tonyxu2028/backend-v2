@@ -67,7 +67,7 @@
             <span>{{ totalPrice(JSON.parse(scope.row.relate_data)) }}元</span>
           </template>
         </el-table-column>
-        <el-table-column label="兑换码" width="300">
+        <el-table-column label="兑换码" width="200">
           <template slot-scope="scope">
             <span>{{ scope.row.used_count }}/{{ scope.row.code_count }}</span>
           </template>
