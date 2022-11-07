@@ -300,6 +300,9 @@ export default {
           for (let i = 0; i < this.coursesData.length; i++) {
             if (this.coursesData[i].type === "vip") {
               this.coursesData.splice(i, 1);
+              this.$message.warning(
+                "VIP会员只能选择一个，已自动删除之前选择的VIP会员"
+              );
             }
           }
           this.coursesData = this.coursesData.concat(data);
@@ -314,7 +317,6 @@ export default {
     delCourses(index) {
       this.coursesData.splice(index, 1);
     },
-
     formValidate() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
