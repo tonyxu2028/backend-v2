@@ -3,10 +3,10 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="添加"
+          text="新建兑换活动"
           @click="$router.push({ name: 'CodeExchangerCreate' })"
           type="primary"
-          p="addons.CodeExchanger.goods.store"
+          p="addons.CodeExchanger.activity.store"
         >
         </p-button>
       </div>
@@ -14,8 +14,8 @@
         <div>
           <el-input
             class="w-150px"
-            v-model="filter.keywords"
-            placeholder="关键字"
+            v-model="filter.name"
+            placeholder="活动名"
           ></el-input>
         </div>
         <div class="ml-10">
@@ -31,18 +31,44 @@
         class="float-left"
       >
         <el-table-column prop="id" label="ID" width="100"> </el-table-column>
-        <el-table-column prop="goods_id" label="商品ID" width="100">
+        <el-table-column prop="name" label="活动名" width="240">
         </el-table-column>
-        <el-table-column prop="goods_type_text" label="课程类型">
-        </el-table-column>
-        <el-table-column prop="goods_title" label="商品" width="400">
-        </el-table-column>
-        <el-table-column label="价格" width="150">
+        <el-table-column label="兑换商品">
           <template slot-scope="scope">
-            <span>{{ scope.row.goods_charge }}元</span>
+            <div
+              v-for="item in JSON.parse(scope.row.relate_data)"
+              :key="item.id"
+            >
+              <span v-if="item.sign === 'vod'">录播-{{ item.name }}</span>
+              <span v-else-if="item.sign === 'live'">直播-{{ item.name }}</span>
+              <span v-else-if="item.sign === 'book'"
+                >电子书-{{ item.name }}</span
+              >
+              <span v-else-if="item.sign === 'paper'"
+                >考试-{{ item.name }}</span
+              >
+              <span v-else-if="item.sign === 'mock_paper'"
+                >模拟-{{ item.name }}</span
+              >
+              <span v-else-if="item.sign === 'practice'"
+                >练习-{{ item.name }}</span
+              >
+              <span v-else-if="item.sign === 'vip'">VIP-{{ item.name }}</span>
+            </div>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="操作" width="120">
+        <el-table-column label="使用率" width="200">
+          <template slot-scope="scope">
+            <span
+              >{{
+                ((scope.row.used_count * 100) / scope.row.code_count).toFixed(
+                  2
+                )
+              }}%</span
+            >
+          </template>
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" width="150">
           <template slot-scope="scope">
             <p-link
               type="primary"
@@ -53,14 +79,26 @@
                   query: { id: scope.row.id },
                 })
               "
-              p="addons.CodeExchanger.codes.list"
+              p="addons.CodeExchanger.activity-code.list"
+            ></p-link>
+            <p-link
+              class="ml-5"
+              type="primary"
+              text="编辑"
+              @click="
+                $router.push({
+                  name: 'CodeExchangerUpdate',
+                  query: { id: scope.row.id },
+                })
+              "
+              p="addons.CodeExchanger.activity.update"
             ></p-link>
             <p-link
               class="ml-5"
               text="删除"
               type="danger"
               @click="destory(scope.row.id)"
-              p="addons.CodeExchanger.goods.delete"
+              p="addons.CodeExchanger.activity.destroy"
             ></p-link>
           </template>
         </el-table-column>
@@ -91,14 +129,11 @@ export default {
         size: 10,
       },
       filter: {
-        keywords: null,
+        name: null,
       },
       total: 0,
       loading: false,
       list: [],
-      filterData: {
-        courses: [],
-      },
     };
   },
   activated() {
@@ -116,7 +151,7 @@ export default {
     },
     paginationReset() {
       this.pagination.page = 1;
-      this.filter.keywords = null;
+      this.filter.name = null;
       this.getData();
     },
     paginationSizeChange(size) {
@@ -128,6 +163,13 @@ export default {
       this.pagination.page = page;
       this.getData();
     },
+    totalPrice(data) {
+      let price = 0;
+      for (var i = 0; i < data.length; i++) {
+        price = parseFloat(data[i].charge) + price;
+      }
+      return price;
+    },
     getData() {
       if (this.loading) {
         return;
@@ -137,9 +179,8 @@ export default {
       Object.assign(params, this.filter, this.pagination);
       this.$api.CodeExchanger.List(params).then((res) => {
         this.loading = false;
-        this.list = res.data.data.data;
-        this.total = res.data.data.total;
-        this.filterData.courses = res.data.types;
+        this.list = res.data.data;
+        this.total = res.data.total;
       });
     },
     destory(item) {

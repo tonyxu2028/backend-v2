@@ -173,7 +173,7 @@ export default [
       {
         name: "title.codeExchanger.index",
         key: "CodeExchanger",
-        permission: "addons.CodeExchanger.goods.list",
+        permission: "addons.CodeExchanger.activity.list",
       },
       {
         name: "title.promocode",

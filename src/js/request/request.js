@@ -1009,32 +1009,41 @@ const Api = {
   },
   CodeExchanger: {
     List(params) {
-      return get(`/backend/addons/CodeExchanger/goods`, params);
+      return get(`/backend/addons/CodeExchanger/v2/activity/index`, params);
     },
     Create(params) {
-      return get(`/backend/addons/CodeExchanger/goods/create`, params);
+      return get(`/backend/addons/CodeExchanger/v2/activity/create`, params);
     },
     Store(params) {
-      return post(`/backend/addons/CodeExchanger/goods/create`, params);
+      return post(`/backend/addons/CodeExchanger/v2/activity/create`, params);
     },
     Destory(id) {
-      return destroy(`/backend/addons/CodeExchanger/goods/${id}`);
+      return destroy(`/backend/addons/CodeExchanger/v2/activity/${id}`);
     },
     Detail(id) {
-      return get(`/backend/addons/CodeExchanger/goods/${id}`);
+      return get(`/backend/addons/CodeExchanger/v2/activity/${id}`);
     },
     Update(id, params) {
-      return put(`/backend/addons/CodeExchanger/goods/${id}`, params);
+      return put(`/backend/addons/CodeExchanger/v2/activity/${id}`, params);
     },
     Codes: {
-      List(params) {
-        return get(`/backend/addons/CodeExchanger/codes`, params);
+      List(id, params) {
+        return get(
+          `/backend/addons/CodeExchanger/v2/activity/${id}/code/index`,
+          params
+        );
       },
-      DestoryMulti(params) {
-        return post(`/backend/addons/CodeExchanger/code/delete/multi`, params);
+      DestoryMulti(id, params) {
+        return post(
+          `/backend/addons/CodeExchanger/v2/activity/${id}/code/destroy`,
+          params
+        );
       },
-      Generate(params) {
-        return post(`/backend/addons/CodeExchanger/code/generate`, params);
+      Generate(id, params) {
+        return post(
+          `/backend/addons/CodeExchanger/v2/activity/${id}/code/generate`,
+          params
+        );
       },
       Export() {
         return get(`/backend/addons/CodeExchanger/code/export`);

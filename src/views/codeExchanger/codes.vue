@@ -7,30 +7,26 @@
           text="批量删除"
           @click="destorymulti()"
           type="danger"
-          p="addons.CodeExchanger.codes.delete.multi"
+          p="addons.CodeExchanger.activity-code.destroy"
         >
         </p-button>
         <p-button
           text="生成10个"
           @click="getnum(10)"
           type="primary"
-          p="addons.CodeExchanger.codes.generate"
+          p="addons.CodeExchanger.activity-code.generate"
         >
         </p-button>
         <p-button
           text="生成50个"
           @click="getnum(50)"
           type="primary"
-          p="addons.CodeExchanger.codes.generate"
+          p="addons.CodeExchanger.activity-code.generate"
         >
         </p-button>
-        <p-button
-          text="导出未使用兑换码"
-          @click="importcode()"
-          type="primary"
-          p="addons.CodeExchanger.codes.export"
-        >
-        </p-button>
+        <el-button @click="importcode()" type="primary"
+          >导出未使用兑换码
+        </el-button>
       </div>
       <div class="d-flex">
         <div>
@@ -122,11 +118,11 @@ export default {
     return {
       pageName: "codes-list",
       pagination: {
-        gid: this.$route.query.id,
         page: 1,
-        size: 10,
+        size: 50,
       },
       filter: {
+        is_used: -1,
         code: "",
         user_id: "",
       },
@@ -134,8 +130,7 @@ export default {
         ids: [],
       },
       popbox: {
-        gid: this.$route.query.id,
-        count: null,
+        num: null,
       },
       total: 0,
       loading: false,
@@ -154,6 +149,7 @@ export default {
     "$route.query.id"() {
       this.pagination.page = 1;
       this.filter.code = "";
+      this.filter.is_used = -1;
       this.filter.user_id = "";
       this.spids.ids = [];
     },
@@ -162,6 +158,7 @@ export default {
     paginationReset() {
       this.pagination.page = 1;
       this.filter.code = "";
+      this.filter.is_used = -1;
       this.filter.user_id = "";
       this.getData();
     },
@@ -191,15 +188,15 @@ export default {
       }
       this.loading = true;
       let params = {};
-      this.pagination.gid = this.$route.query.id;
-      this.popbox.gid = this.$route.query.id;
       Object.assign(params, this.filter);
       Object.assign(params, this.pagination);
-      this.$api.CodeExchanger.Codes.List(params).then((res) => {
-        this.loading = false;
-        this.results = res.data.data.data;
-        this.total = res.data.data.total;
-      });
+      this.$api.CodeExchanger.Codes.List(this.$route.query.id, params).then(
+        (res) => {
+          this.loading = false;
+          this.results = res.data.data;
+          this.total = res.data.total;
+        }
+      );
     },
     destorymulti() {
       if (this.spids.ids == "") {
@@ -218,7 +215,10 @@ export default {
           }
 
           this.loading = true;
-          this.$api.CodeExchanger.Codes.DestoryMulti(this.spids)
+          this.$api.CodeExchanger.Codes.DestoryMulti(
+            this.$route.query.id,
+            this.spids
+          )
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));
@@ -245,8 +245,11 @@ export default {
             return;
           }
           this.loading = true;
-          this.popbox.count = item;
-          this.$api.CodeExchanger.Codes.Generate(this.popbox)
+          this.popbox.num = item;
+          this.$api.CodeExchanger.Codes.Generate(
+            this.$route.query.id,
+            this.popbox
+          )
             .then(() => {
               this.loading = false;
               this.$message.success(this.$t("common.success"));
@@ -322,15 +325,26 @@ export default {
         }
         aLink.dispatchEvent(event);
       }
-
-      this.$api.CodeExchanger.Codes.Export().then((res) => {
-        let header = [["兑换码"]];
-        res.data.forEach((item) => {
-          header.push([item.code]);
-        });
-        let sheet = XLSX.utils.aoa_to_sheet(header);
-        openDownloadDialog(sheet2blob(sheet), "兑换码.xlsx");
+      let params = {};
+      Object.assign(params, {
+        is_used: 0,
+        code: this.filter.code,
+        user_id: this.filter.user_id,
       });
+      Object.assign(params, {
+        page: 1,
+        size: this.total,
+      });
+      this.$api.CodeExchanger.Codes.List(this.$route.query.id, params).then(
+        (res) => {
+          let header = [["兑换码"]];
+          res.data.data.forEach((item) => {
+            header.push([item.code]);
+          });
+          let sheet = XLSX.utils.aoa_to_sheet(header);
+          openDownloadDialog(sheet2blob(sheet), "兑换码.xlsx");
+        }
+      );
     },
   },
 };
