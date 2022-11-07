@@ -33,11 +33,6 @@
         <el-table-column prop="id" label="ID" width="100"> </el-table-column>
         <el-table-column prop="name" label="活动名" width="240">
         </el-table-column>
-        <el-table-column label="商品数量" width="100">
-          <template slot-scope="scope">
-            <span>{{ JSON.parse(scope.row.relate_data).length }}个商品</span>
-          </template>
-        </el-table-column>
         <el-table-column label="兑换商品">
           <template slot-scope="scope">
             <div
@@ -62,9 +57,15 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="兑换码" width="200">
+        <el-table-column label="使用率" width="200">
           <template slot-scope="scope">
-            <span>{{ scope.row.used_count }}/{{ scope.row.code_count }}</span>
+            <span
+              >{{
+                ((scope.row.used_count * 100) / scope.row.code_count).toFixed(
+                  2
+                )
+              }}%</span
+            >
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="150">
