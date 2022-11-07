@@ -180,10 +180,10 @@ const zh = {
       },
     },
     codeExchanger: {
-      name: "兑换码",
-      index: "兑换码",
-      create: "添加兑换码",
-      update: "编辑兑换码",
+      name: "兑换活动",
+      index: "兑换活动",
+      create: "新建兑换活动",
+      update: "编辑兑换活动",
       codes: "兑换码",
     },
     snapshot: {
