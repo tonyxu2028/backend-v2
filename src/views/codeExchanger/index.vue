@@ -31,7 +31,7 @@
         class="float-left"
       >
         <el-table-column prop="id" label="ID" width="100"> </el-table-column>
-        <el-table-column prop="name" label="活动名" width="120">
+        <el-table-column prop="name" label="活动名" width="240">
         </el-table-column>
         <el-table-column label="商品数量" width="100">
           <template slot-scope="scope">
@@ -60,11 +60,6 @@
               >
               <span v-else-if="item.sign === 'vip'">VIP-{{ item.name }}</span>
             </div>
-          </template>
-        </el-table-column>
-        <el-table-column label="商品总价" width="200">
-          <template slot-scope="scope">
-            <span>{{ totalPrice(JSON.parse(scope.row.relate_data)) }}元</span>
           </template>
         </el-table-column>
         <el-table-column label="兑换码" width="200">
