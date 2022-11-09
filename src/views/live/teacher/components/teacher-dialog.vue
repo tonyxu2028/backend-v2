@@ -12,6 +12,17 @@
               :rules="rules"
               label-width="100px"
             >
+              <el-form-item label="角色" prop="role_id" v-if="!id">
+                <el-select v-model="form.role_id" class="w-300px">
+                  <el-option
+                    v-for="(item, index) in roles"
+                    :key="index"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="讲师名称" prop="name">
                 <el-input
                   v-model="form.name"
@@ -93,6 +104,7 @@ export default {
   data() {
     return {
       form: {
+        role_id: null,
         name: null,
         short_desc: null,
         is_hidden: 0,
@@ -100,7 +112,15 @@ export default {
         password: null,
         avatar: null,
       },
+      roles: [],
       rules: {
+        role_id: [
+          {
+            required: true,
+            message: "请选择角色",
+            trigger: "blur",
+          },
+        ],
         name: [
           {
             required: true,
@@ -148,6 +168,7 @@ export default {
     };
   },
   mounted() {
+    this.create();
     this.form.name = null;
     this.form.sort = null;
     this.form.parent_id = null;
@@ -156,6 +177,11 @@ export default {
     }
   },
   methods: {
+    create() {
+      this.$api.Course.Live.Teacher.Create().then((res) => {
+        this.roles = res.data.roles;
+      });
+    },
     getDetail() {
       this.$api.Course.Live.Teacher.Detail(this.id).then((res) => {
         var data = res.data;

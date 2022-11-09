@@ -53,7 +53,7 @@
               <div>
                 <el-select class="w-300px" v-model="course.teacher_id">
                   <el-option
-                    v-for="(item, index) in teachers"
+                    v-for="(item, index) in teachers.teacher"
                     :key="index"
                     :label="item.name"
                     :value="item.id"
@@ -68,6 +68,22 @@
                 >
                   讲师管理
                 </el-link>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="助教">
+            <div class="d-flex">
+              <div>
+                <el-select class="w-300px" v-model="course.assistant_id">
+                  <el-option
+                    v-for="(item, index) in teachers.assistant"
+                    :key="index"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
               </div>
             </div>
           </el-form-item>

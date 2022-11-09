@@ -31,6 +31,17 @@
               </div>
             </template>
           </el-table-column>
+          <el-table-column label="角色" width="120">
+            <template slot-scope="scope">
+              <span
+                :class="{
+                  'c-green': scope.row.role_id > 0,
+                  'c-yellow': scope.row.role_id === 0,
+                }"
+                >{{ scope.row.role_name }}</span
+              >
+            </template>
+          </el-table-column>
           <el-table-column label="课程" width="150">
             <template slot-scope="scope">
               <span>{{ scope.row.courses_count }}个</span>
