@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="编辑分类"></back-bar>
+    <back-bar class="mb-30" title="编辑兑换活动"></back-bar>
     <div class="float-left" v-if="form">
       <el-form ref="form" :model="form" :rules="rules" label-width="200px">
         <el-form-item label="活动名称" prop="name">
