@@ -211,25 +211,6 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="腾讯云SRT推流">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-switch
-                  v-model="form.config['meedu.addons.zhibo.tencent.srt_push']"
-                  active-value="1"
-                  inactive-value="0"
-                >
-                </el-switch>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span
-                    >SRT推流有更低的丢包率，效果更好。要求OBS的版本>=22</span
-                  >
-                </div>
-              </div>
-            </div>
-          </el-form-item>
           <el-form-item label="腾讯云WebRtc播放">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
@@ -334,7 +315,6 @@ export default {
           "meedu.addons.zhibo.tencent.play_key": null,
           "meedu.addons.zhibo.tencent.push_key": null,
           "meedu.addons.zhibo.tencent.record.callback.key": null,
-          "meedu.addons.zhibo.tencent.srt_push": null,
           "meedu.addons.zhibo.tencent.webrtc_play": null,
           "meedu.addons.zhibo.aodianyun.pub_key": null,
           "meedu.addons.zhibo.aodianyun.sub_key": null,
@@ -440,11 +420,6 @@ export default {
             "meedu.addons.zhibo.tencent.record.callback.key"
           ) {
             this.form.config["meedu.addons.zhibo.tencent.record.callback.key"] =
-              configData[index].value;
-          } else if (
-            configData[index].key === "meedu.addons.zhibo.tencent.srt_push"
-          ) {
-            this.form.config["meedu.addons.zhibo.tencent.srt_push"] =
               configData[index].value;
           } else if (
             configData[index].key === "meedu.addons.zhibo.tencent.webrtc_play"
