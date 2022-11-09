@@ -83,7 +83,13 @@
           </el-table-column>
           <el-table-column prop="category.name" label="分类" min-width="8%">
           </el-table-column>
-          <el-table-column prop="teacher.name" label="讲师" min-width="8%">
+          <el-table-column label="讲师/助教" min-width="8%">
+            <template slot-scope="scope">
+              <span>{{ scope.row.teacher.name }}</span>
+              <span v-if="scope.row.assistant"
+                >/{{ scope.row.assistant.name }}</span
+              >
+            </template>
           </el-table-column>
           <el-table-column
             label="价格"
