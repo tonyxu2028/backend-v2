@@ -3,8 +3,8 @@
     <back-bar class="mb-30" title="直播"></back-bar>
     <div class="float-left">
       <el-form ref="form" label-width="205px">
-        <div class="title">直播服务商配置</div>
-        <el-form-item label="选择直播服务商">
+        <div class="title">服务商配置</div>
+        <el-form-item label="直播服务商">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-select
@@ -22,7 +22,26 @@
             </div>
           </div>
         </el-form-item>
-
+        <el-form-item label="直播课件存储服务商">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-select
+                class="w-300px"
+                v-model="
+                  form.config['meedu.addons.zhibo.default_attach_service']
+                "
+              >
+                <el-option
+                  v-for="(item, index) in options"
+                  :key="index"
+                  :label="item.title"
+                  :value="item.key"
+                >
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+        </el-form-item>
         <div class="title">阿里云直播服务商配置</div>
         <el-form-item label="阿里云播流域名">
           <div class="j-flex flex-column" style="margin-left: 3px">
@@ -279,9 +298,14 @@ export default {
           title: "腾讯云直播",
         },
       ],
+      options: [
+        { title: "阿里云OSS", key: "oss" },
+        { title: "腾讯云COS", key: "cos" },
+      ],
       form: {
         config: {
           "meedu.addons.zhibo.default_service": null,
+          "meedu.addons.zhibo.default_attach_service": null,
           "meedu.addons.zhibo.aliyun.play_domain": null,
           "meedu.addons.zhibo.aliyun.push_domain": null,
           "meedu.addons.zhibo.aliyun.access_key": null,
@@ -321,6 +345,12 @@ export default {
         for (let index in configData) {
           if (configData[index].key === "meedu.addons.zhibo.default_service") {
             this.form.config["meedu.addons.zhibo.default_service"] =
+              configData[index].value;
+          } else if (
+            configData[index].key ===
+            "meedu.addons.zhibo.default_attach_service"
+          ) {
+            this.form.config["meedu.addons.zhibo.default_attach_service"] =
               configData[index].value;
           } else if (
             configData[index].key === "meedu.addons.zhibo.aliyun.play_domain"
