@@ -22,215 +22,198 @@
             </div>
           </div>
         </el-form-item>
-        <template
-          v-if="form.config['meedu.addons.zhibo.default_service'] === 'aliyun'"
-        >
-          <el-form-item label="阿里云播流域名">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.aliyun.play_domain']"
-                ></el-input>
-              </div>
+
+        <div class="title">阿里云直播服务商配置</div>
+        <el-form-item label="阿里云播流域名">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.aliyun.play_domain']"
+              ></el-input>
             </div>
-          </el-form-item>
-          <el-form-item label="阿里云推流域名">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.aliyun.push_domain']"
-                ></el-input>
-              </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="阿里云推流域名">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.aliyun.push_domain']"
+              ></el-input>
             </div>
-          </el-form-item>
-          <el-form-item label="阿里云AccessKeyId">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.aliyun.access_key']"
-                ></el-input>
-              </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="阿里云AccessKeyId">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.aliyun.access_key']"
+              ></el-input>
             </div>
-          </el-form-item>
-          <el-form-item label="阿里云AccessKeySecret">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config['meedu.addons.zhibo.aliyun.access_secret']
-                  "
-                ></el-input>
-              </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="阿里云AccessKeySecret">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.aliyun.access_secret']"
+              ></el-input>
             </div>
-          </el-form-item>
-          <el-form-item label="阿里云PlayKey">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.aliyun.play_key']"
-                ></el-input>
-              </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="阿里云PlayKey">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.aliyun.play_key']"
+              ></el-input>
             </div>
-          </el-form-item>
-          <el-form-item label="阿里云PushKey">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.aliyun.push_key']"
-                ></el-input>
-              </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="阿里云PushKey">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.aliyun.push_key']"
+              ></el-input>
             </div>
-          </el-form-item>
-          <el-form-item label="阿里云录制回调key">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config['meedu.addons.zhibo.aliyun.record.callback.key']
-                  "
-                ></el-input>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span
-                    >回调地址：{{
-                      appUrl
-                    }}addons/zhibo/api/v1/aliyun/callback</span
-                  >
-                </div>
-              </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="阿里云录制回调key">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="
+                  form.config['meedu.addons.zhibo.aliyun.record.callback.key']
+                "
+              ></el-input>
             </div>
-          </el-form-item>
-        </template>
-        <template
-          v-else-if="
-            form.config['meedu.addons.zhibo.default_service'] === 'tencent'
-          "
-        >
-          <el-form-item label="腾讯云AppId">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.tencent.app_id']"
-                ></el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="腾讯云SecretId">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.tencent.secret_id']"
-                ></el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="腾讯云SecretKey">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.tencent.secret_key']"
-                ></el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="腾讯云播流域名">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config['meedu.addons.zhibo.tencent.play_domain']
-                  "
-                ></el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="腾讯云推流域名">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config['meedu.addons.zhibo.tencent.push_domain']
-                  "
-                ></el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="腾讯云PlayKey">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.tencent.play_key']"
-                ></el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="腾讯云PushKey">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.zhibo.tencent.push_key']"
-                ></el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="腾讯云录制回调秘钥">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="
-                    form.config[
-                      'meedu.addons.zhibo.tencent.record.callback.key'
-                    ]
-                  "
-                ></el-input>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span
-                    >回调地址：{{
-                      appUrl
-                    }}addons/zhibo/api/v1/tencent/callback</span
-                  >
-                </div>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="腾讯云WebRtc播放">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-switch
-                  v-model="
-                    form.config['meedu.addons.zhibo.tencent.webrtc_play']
-                  "
-                  active-value="1"
-                  inactive-value="0"
+            <div class="mt-5">
+              <div class="form-helper-text">
+                <span
+                  >回调地址：{{
+                    appUrl
+                  }}addons/zhibo/api/v1/aliyun/callback</span
                 >
-                </el-switch>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span>该播放方式毫秒级延迟。</span>
-                </div>
               </div>
             </div>
-          </el-form-item>
-        </template>
+          </div>
+        </el-form-item>
+        <div class="title">腾讯云直播服务商配置</div>
+        <el-form-item label="腾讯云AppId">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.tencent.app_id']"
+              ></el-input>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="腾讯云SecretId">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.tencent.secret_id']"
+              ></el-input>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="腾讯云SecretKey">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.tencent.secret_key']"
+              ></el-input>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="腾讯云播流域名">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.tencent.play_domain']"
+              ></el-input>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="腾讯云推流域名">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.tencent.push_domain']"
+              ></el-input>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="腾讯云PlayKey">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.tencent.play_key']"
+              ></el-input>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="腾讯云PushKey">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.tencent.push_key']"
+              ></el-input>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="腾讯云录制回调秘钥">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="
+                  form.config['meedu.addons.zhibo.tencent.record.callback.key']
+                "
+              ></el-input>
+            </div>
+            <div class="mt-5">
+              <div class="form-helper-text">
+                <span
+                  >回调地址：{{
+                    appUrl
+                  }}addons/zhibo/api/v1/tencent/callback</span
+                >
+              </div>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="腾讯云WebRtc播放">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-switch
+                v-model="form.config['meedu.addons.zhibo.tencent.webrtc_play']"
+                active-value="1"
+                inactive-value="0"
+              >
+              </el-switch>
+            </div>
+            <div class="mt-5">
+              <div class="form-helper-text">
+                <span>该播放方式毫秒级延迟。</span>
+              </div>
+            </div>
+          </div>
+        </el-form-item>
         <div class="title">直播间聊天室服务商配置</div>
         <el-form-item label="奥点云DMS pub_key">
           <div class="j-flex flex-column" style="margin-left: 3px">
