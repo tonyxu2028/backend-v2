@@ -146,7 +146,7 @@
             <change-editor
               :content="topic.free_content"
               class="w-100"
-              :height="500"
+              :height="800"
               @change="getfreecontent"
             ></change-editor>
           </el-form-item>
@@ -159,7 +159,7 @@
             <change-editor
               :content="topic.original_content"
               class="w-100"
-              :height="500"
+              :height="800"
               @change="getcontent"
             ></change-editor>
           </el-form-item>
@@ -171,7 +171,7 @@
             <change-editor
               :content="topic.original_content"
               class="w-100"
-              :height="500"
+              :height="800"
               @change="getcontent"
             ></change-editor>
           </el-form-item>

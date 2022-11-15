@@ -350,10 +350,18 @@ export default {
   }
   .ql-editor {
     min-height: 80px;
+    font-size: 16px;
+    color: #333333;
+    line-height: 30px;
+    p {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
   }
   .ql-editor[data-placeholder]::before {
+    padding-top: 15px;
     font-style: normal;
-    font-size: 14px;
+    font-size: 16px;
     color: #c0c4cc;
   }
 

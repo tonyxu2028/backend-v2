@@ -145,13 +145,13 @@
             <div class="d-flex w-800px">
               <mavon-editor
                 v-if="topic.editor === 'MARKDOWN'"
-                :height="500"
+                :height="800"
                 :content="topic.free_content"
                 @change="getfreecontent"
               ></mavon-editor>
               <quill-editor
                 v-else
-                :height="458"
+                :height="758"
                 v-model="topic.free_content"
               ></quill-editor>
             </div>
@@ -166,13 +166,13 @@
               <mavon-editor
                 v-if="topic.editor === 'MARKDOWN'"
                 :content="topic.original_content"
-                :height="500"
+                :height="800"
                 @change="getcontent"
               ></mavon-editor>
               <quill-editor
                 v-else
                 v-model="topic.original_content"
-                :height="458"
+                :height="758"
               ></quill-editor>
             </div>
           </el-form-item>
@@ -185,13 +185,13 @@
               <mavon-editor
                 v-if="topic.editor === 'MARKDOWN'"
                 :content="topic.original_content"
-                :height="500"
+                :height="800"
                 @change="getcontent"
               ></mavon-editor>
               <quill-editor
                 v-else
                 v-model="topic.original_content"
-                :height="458"
+                :height="758"
               ></quill-editor>
             </div>
           </el-form-item>
