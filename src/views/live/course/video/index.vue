@@ -70,7 +70,7 @@
           >
             <template slot-scope="scope">
               <p-link
-                text="直播"
+                text="直播间"
                 type="primary"
                 @click="
                   $router.push({
