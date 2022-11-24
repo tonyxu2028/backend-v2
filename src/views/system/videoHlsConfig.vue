@@ -5,38 +5,20 @@
       <el-form ref="form" label-width="205px">
         <template v-if="enabledAddons['AliyunHls'] === 1">
           <div class="title">阿里云HLS加密</div>
-          <el-form-item label="Region">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-select
-                  class="w-300px"
-                  v-model="form.config['meedu.addons.AliyunHls.region']"
-                >
-                  <el-option
-                    v-for="(item, index) in aliRegions"
-                    :key="index"
-                    :label="item.title"
-                    :value="item.key"
-                  >
-                  </el-option>
-                </el-select>
-              </div>
-              <div class="mt-5">
-                <div class="form-helper-text">
-                  <span
-                    >配置教程地址：https://www.yuque.com/meedu/lp8v5l/pe6vkb</span
-                  >
-                </div>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="模板ID">
+          <el-form-item label="视频转码模板ID">
             <div class="j-flex flex-column" style="margin-left: 3px">
               <div>
                 <el-input
                   class="w-200px"
                   v-model="form.config['meedu.addons.AliyunHls.template_id']"
                 ></el-input>
+              </div>
+               <div class="mt-5">
+                <div class="form-helper-text">
+                  <span
+                    >配置教程地址：https://www.yuque.com/meedu/fvvkbf/xdqeeb</span
+                  >
+                </div>
               </div>
             </div>
           </el-form-item>
@@ -56,16 +38,6 @@
                 <el-input
                   class="w-200px"
                   v-model="form.config['meedu.addons.AliyunHls.access_secret']"
-                ></el-input>
-              </div>
-            </div>
-          </el-form-item>
-          <el-form-item label="KmsKeyID">
-            <div class="j-flex flex-column" style="margin-left: 3px">
-              <div>
-                <el-input
-                  class="w-200px"
-                  v-model="form.config['meedu.addons.AliyunHls.kms_key_id']"
                 ></el-input>
               </div>
             </div>
