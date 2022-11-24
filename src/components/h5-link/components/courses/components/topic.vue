@@ -74,6 +74,7 @@ export default {
       total: 0,
       courses: [],
       radio: "",
+      configUrl: null,
     };
   },
   watch: {
@@ -87,6 +88,7 @@ export default {
     this.link = this.value;
 
     this.getCourse();
+    this.getUrl();
   },
   methods: {
     paginationReset() {
@@ -107,9 +109,24 @@ export default {
       this.pagination.page = 1;
       this.getCourse();
     },
+    getUrl() {
+      this.$api.System.Config.All().then((res) => {
+        let configData = res.data["系统"];
+        for (let index in configData) {
+          if (configData[index].key === "meedu.system.h5_url") {
+            this.configUrl = configData[index].value;
+          }
+        }
+      });
+    },
     tableItemChoice(row) {
       if (row) {
-        this.link = "/pages/topic/show?id=" + row.id;
+        let url = encodeURIComponent(
+          this.configUrl +
+            "/addons/MeeduTopics/app-view/dist/index.html#/?id=" +
+            row.id
+        );
+        this.link = "/pages/webview/webview?url=" + url + "&title=" + row.title;
         this.radio = row.id;
       }
     },

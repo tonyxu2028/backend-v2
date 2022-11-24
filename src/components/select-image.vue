@@ -128,7 +128,11 @@ export default {
   },
   computed: {
     uploadAction() {
-      return config.url + "/backend/api/v1/media/image";
+      let url = config.url;
+      if (url.substr(-1, 1) === "/") {
+        url = url.substr(0, url.length - 1);
+      }
+      return url + "/backend/api/v1/media/image";
     },
     uploadData() {
       return {
