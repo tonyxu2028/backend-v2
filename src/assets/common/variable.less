@@ -1132,14 +1132,162 @@ a {
   float: left;
 }
 
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+  padding: 0px !important;
+  font-weight: bold !important;
+  color: black;
+  border: none !important;
+}
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+  padding-left: 15px !important;
+  color: black;
+}
+.markdown-body ol li {
+  counter-reset: myCounter;
+  counter-increment: list-0;
+}
+
 .markdown-body {
   font-size: 16px;
   color: #333333;
   line-height: 30px;
+  hr {
+    height: 1px;
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: none;
+    border-top: 1px solid black;
+  }
+  em {
+    font-style: italic;
+    color: black;
+  }
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    vertical-align: middle;
+    border-style: none;
+  }
+  a {
+    text-decoration: none;
+    color: #1e6bb8;
+    word-wrap: break-word;
+    font-weight: bold;
+    border-bottom: 1px solid #1e6bb8;
+  }
+  h1 {
+    font-size: 2em;
+  }
+  h2 {
+    font-size: 1.5em;
+  }
+  h3 {
+    font-size: 1.17em;
+  }
+  h4 {
+    font-size: 1em;
+  }
+  h5 {
+    font-size: 0.83em;
+  }
+  h6 {
+    font-size: 0.67em;
+  }
+  ul {
+    list-style-type: disc;
+    li {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      line-height: 26px;
+      text-align: left;
+      color: rgb(1, 1, 1);
+      font-weight: 500;
+    }
+  }
   p {
+    font-size: 16px;
     padding-top: 15px;
     padding-bottom: 15px;
-    margin-bottom: 0px !important;
-    margin-top: 0px !important;
+    margin: 0 !important;
+    line-height: 30px;
+    color: #333333;
+  }
+  strong {
+    font-weight: bold;
+    color: #333333;
+  }
+  figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+  }
+  figcaption {
+    margin-top: 5px !important;
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+  }
+  pre {
+    padding: 0 4px !important;
+  }
+  blockquote {
+    display: block;
+    font-size: 1em;
+    overflow: auto;
+    overflow-scrolling: touch;
+    border-left: 2px solid rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.05);
+    color: #6a737d;
+    padding: 10px 15px !important;
+    margin: 10px 0 !important;
+
+    p {
+      margin: 0 !important;
+      padding: 0;
+    }
+  }
+
+  table {
+    border: 1px solid #ccc;
+    widows: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 16px;
+
+    tr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      background-color: white;
+
+      th {
+        text-align: center;
+        font-weight: bold;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+      }
+
+      td {
+        text-align: center;
+        border: 1px solid #ccc;
+      }
+    }
   }
 }

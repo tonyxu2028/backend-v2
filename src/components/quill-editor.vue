@@ -40,7 +40,7 @@
       :close-on-press-escape="false"
     >
       <el-form :model="form">
-        <el-form-item>
+        <el-form-item class="mb-15">
           <el-select v-model="formulaType">
             <el-option
               v-for="(item, index) in types"
@@ -177,7 +177,7 @@ export default {
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
         [{ color: [] }, { background: [] }],
         [{ align: [] }],
-        ["clean"],
+        ["formula"],
         ["link", "video", "image"],
       ];
     },
@@ -348,14 +348,194 @@ export default {
   .ql-toolbar.ql-snow {
     padding: 0;
   }
+  .ql-editor .ql-size-small {
+    font-size: 0.75em;
+  }
+  .ql-editor .ql-size-large {
+    font-size: 1.5em;
+  }
+  .ql-editor .ql-size-huge {
+    font-size: 2.5em;
+  }
+  .ql-editor h1,
+  .ql-editor h2,
+  .ql-editor h3,
+  .ql-editor h4,
+  .ql-editor h5,
+  .ql-editor h6 {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 0px;
+    font-weight: bold;
+    color: black;
+  }
+  .ql-editor ul,
+  .ql-editor ol {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    color: black;
+  }
+  .ql-editor ol li {
+    counter-reset: myCounter;
+    counter-increment: list-0;
+  }
+  .ql-editor ol li:not(.ql-direction-rtl)::before {
+    counter-increment: myCounter;
+    content: counter(myCounter) ". ";
+    margin-left: -1.5em;
+    margin-right: 0.3em;
+    text-align: right;
+  }
+  .ql-editor p code,
+  .ql-editor li code {
+    font-size: 14px;
+    word-wrap: break-word;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin: 0 2px;
+    color: #1e6bb8;
+    background-color: rgba(27, 31, 35, 0.05);
+    font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
+    word-break: break-all;
+  }
+  .ql-editor sub,
+  sup {
+    line-height: 0;
+  }
   .ql-editor {
     min-height: 80px;
     font-size: 16px;
     color: #333333;
     line-height: 30px;
+    hr {
+      height: 1px;
+      margin: 0;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      border: none;
+      border-top: 1px solid black;
+    }
+    em {
+      font-style: italic;
+      color: black;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      vertical-align: middle;
+      border-style: none;
+    }
+    a {
+      text-decoration: none;
+      color: #1e6bb8;
+      word-wrap: break-word;
+      font-weight: bold;
+      border-bottom: 1px solid #1e6bb8;
+    }
+    h1 {
+      font-size: 2em;
+    }
+    h2 {
+      font-size: 1.5em;
+    }
+    h3 {
+      font-size: 1.17em;
+    }
+    h4 {
+      font-size: 1em;
+    }
+    h5 {
+      font-size: 0.83em;
+    }
+    h6 {
+      font-size: 0.67em;
+    }
+    ul {
+      list-style-type: disc;
+      li {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        line-height: 26px;
+        text-align: left;
+        color: rgb(1, 1, 1);
+        font-weight: 500;
+      }
+    }
     p {
+      font-size: 16px;
       padding-top: 15px;
       padding-bottom: 15px;
+      margin: 0;
+      line-height: 30px;
+      color: #333333;
+    }
+    strong {
+      font-weight: bold;
+      color: #333333;
+    }
+    figure {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    figcaption {
+      margin-top: 5px;
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+    }
+    pre {
+      padding: 0 4px;
+    }
+    blockquote {
+      display: block;
+      font-size: 1em;
+      overflow: auto;
+      overflow-scrolling: touch;
+      border-left: 2px solid rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.05);
+      color: #6a737d;
+      padding: 10px 15px;
+      margin: 10px 0;
+
+      p {
+        margin: 0 !important;
+        padding: 0;
+      }
+    }
+
+    table {
+      border: 1px solid #ccc;
+      widows: 100%;
+      margin: 0;
+      padding: 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+      font-size: 16px;
+
+      tr {
+        border: 0;
+        border-top: 1px solid #ccc;
+        background-color: white;
+
+        th {
+          text-align: center;
+          font-weight: bold;
+          background-color: #f0f0f0;
+          border: 1px solid #ccc;
+        }
+
+        td {
+          text-align: center;
+          border: 1px solid #ccc;
+        }
+      }
     }
   }
   .ql-editor[data-placeholder]::before {
@@ -363,6 +543,7 @@ export default {
     font-style: normal;
     font-size: 16px;
     color: #c0c4cc;
+    padding-top: 15px;
   }
 
   &.h-min-40 {

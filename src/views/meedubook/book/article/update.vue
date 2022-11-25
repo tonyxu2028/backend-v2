@@ -112,7 +112,7 @@
             <quill-editor
               v-else
               v-model="article.original_content"
-              :height="758"
+              :height="800"
             ></quill-editor>
           </div>
         </el-form-item>

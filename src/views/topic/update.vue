@@ -151,7 +151,7 @@
               ></mavon-editor>
               <quill-editor
                 v-else
-                :height="758"
+                :height="800"
                 v-model="topic.free_content"
               ></quill-editor>
             </div>
@@ -172,7 +172,7 @@
               <quill-editor
                 v-else
                 v-model="topic.original_content"
-                :height="758"
+                :height="800"
               ></quill-editor>
             </div>
           </el-form-item>
@@ -191,7 +191,7 @@
               <quill-editor
                 v-else
                 v-model="topic.original_content"
-                :height="758"
+                :height="800"
               ></quill-editor>
             </div>
           </el-form-item>
