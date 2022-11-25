@@ -11,7 +11,7 @@
 
             <el-form-item label="内容" prop="announcement">
               <quill-editor
-                :height="400"
+                :height="800"
                 v-model="form.announcement"
               ></quill-editor>
             </el-form-item>
