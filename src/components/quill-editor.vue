@@ -11,6 +11,7 @@
       :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      :append-to-body="true"
     >
       <el-form :model="form">
         <el-form-item>
@@ -38,6 +39,7 @@
       :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      :append-to-body="true"
     >
       <el-form :model="form">
         <el-form-item class="mb-15">
