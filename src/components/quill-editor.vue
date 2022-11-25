@@ -348,6 +348,12 @@ export default {
   .ql-toolbar.ql-snow {
     padding: 0;
   }
+  .ql-editor .ql-video {
+    display: block;
+    width: 100%;
+    height: inherit;
+  }
+
   .ql-editor .ql-size-small {
     font-size: 0.75em;
   }
