@@ -350,8 +350,9 @@ export default {
   }
   .ql-editor .ql-video {
     display: block;
-    width: 100%;
-    height: inherit;
+    width: auto;
+    height: 425px;
+    margin: 0 auto;
   }
 
   .ql-editor .ql-size-small {
