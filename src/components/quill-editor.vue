@@ -542,6 +542,7 @@ export default {
     font-style: normal;
     font-size: 16px;
     color: #c0c4cc;
+    padding-top: 15px;
   }
 
   &.h-min-40 {
