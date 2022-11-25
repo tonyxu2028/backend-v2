@@ -350,7 +350,7 @@ export default {
   }
   .ql-editor .ql-video {
     display: block;
-    width: auto;
+    width: 100%;
     height: 425px;
     margin: 0 auto;
   }
