@@ -40,7 +40,7 @@
       :close-on-press-escape="false"
     >
       <el-form :model="form">
-        <el-form-item>
+        <el-form-item class="mb-15">
           <el-select v-model="formulaType">
             <el-option
               v-for="(item, index) in types"
@@ -177,7 +177,7 @@ export default {
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
         [{ color: [] }, { background: [] }],
         [{ align: [] }],
-        ["clean"],
+        ["formula"],
         ["link", "video", "image"],
       ];
     },
