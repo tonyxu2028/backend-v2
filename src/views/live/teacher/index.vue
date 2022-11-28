@@ -1,9 +1,9 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="讲师管理"></back-bar>
+    <back-bar class="mb-30" title="讲师/助教管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加讲师"
+        text="添加讲师/助教"
         @click="addTeacher"
         type="primary"
         p="addons.Zhibo.teacher.store"
@@ -17,9 +17,9 @@
           :data="results"
           class="float-left"
         >
-          <el-table-column prop="id" label="讲师ID" width="120">
+          <el-table-column prop="id" label="讲师/助教ID" width="120">
           </el-table-column>
-          <el-table-column label="讲师" width="300">
+          <el-table-column label="讲师/助教" width="300">
             <template slot-scope="scope">
               <div class="user-item d-flex">
                 <div class="avatar">
@@ -144,12 +144,12 @@ export default {
   },
   methods: {
     addTeacher() {
-      this.tit = "添加讲师";
+      this.tit = "添加讲师/助教";
       this.updateId = null;
       this.showAddWin = true;
     },
     updateTeacher(id) {
-      this.tit = "编辑讲师";
+      this.tit = "编辑讲师/助教";
       this.updateId = id;
       this.showAddWin = true;
     },

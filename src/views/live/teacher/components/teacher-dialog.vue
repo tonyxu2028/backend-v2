@@ -23,21 +23,21 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="讲师名称" prop="name">
+              <el-form-item :label="rolaName + '名称'" prop="name">
                 <el-input
                   v-model="form.name"
-                  placeholder="填写讲师名称"
+                  :placeholder="'填写' + rolaName + '名称'"
                   class="w-300px"
                 ></el-input>
               </el-form-item>
 
-              <el-form-item prop="avatar" label="讲师头像">
+              <el-form-item prop="avatar" :label="rolaName + '头像'">
                 <upload-image
                   v-model="form.avatar"
                   helper="长宽比1:1 推荐尺寸200x200"
                   width="100"
                   height="100"
-                  name="讲师头像"
+                  :name="rolaName + '头像'"
                 ></upload-image>
               </el-form-item>
 
@@ -46,12 +46,12 @@
                   <div>
                     <el-input
                       v-model="form.username"
-                      placeholder="填写讲师登录邮箱"
+                      :placeholder="'填写' + rolaName + '登录邮箱'"
                       class="w-300px"
                     ></el-input>
                   </div>
                   <div class="ml-10">
-                    <helper-text text="用于讲师客户端登录"></helper-text>
+                    <helper-text text="用于讲师/助教客户端登录"></helper-text>
                   </div>
                 </div>
               </el-form-item>
@@ -62,22 +62,22 @@
                     <el-input
                       v-model="form.password"
                       class="w-300px"
-                      placeholder="填写讲师登录密码"
+                      :placeholder="'填写' + rolaName + '登录密码'"
                     ></el-input>
                   </div>
                   <div class="ml-10">
-                    <helper-text text="用于讲师客户端登录"></helper-text>
+                    <helper-text text="用于讲师/助教客户端登录"></helper-text>
                   </div>
                 </div>
               </el-form-item>
 
-              <el-form-item label="讲师风采" prop="short_desc">
+              <el-form-item :label="rolaName + '风采'" prop="short_desc">
                 <el-input
                   type="textarea"
                   v-model="form.short_desc"
                   class="w-600px"
                   rows="4"
-                  placeholder="填写讲师相关介绍，用于直播课前台展示"
+                  placeholder="填写讲师/助教相关介绍，用于直播课前台展示"
                   resize="none"
                 ></el-input>
               </el-form-item>
@@ -103,6 +103,7 @@ export default {
   props: ["id", "text"],
   data() {
     return {
+      rolaName: "讲师",
       form: {
         role_id: null,
         name: null,
@@ -124,14 +125,14 @@ export default {
         name: [
           {
             required: true,
-            message: "讲师名称不能为空",
+            message: "讲师/助教名称不能为空",
             trigger: "blur",
           },
         ],
         short_desc: [
           {
             required: true,
-            message: "讲师风采不能为空",
+            message: "讲师/助教风采不能为空",
             trigger: "blur",
           },
         ],
@@ -159,13 +160,22 @@ export default {
         avatar: [
           {
             required: true,
-            message: "请上传讲师头像",
+            message: "请上传讲师/助教头像",
             trigger: "blur",
           },
         ],
       },
       loading: false,
     };
+  },
+  watch: {
+    "form.role_id"(val) {
+      if (val === 0) {
+        this.rolaName = "讲师";
+      } else {
+        this.rolaName = "助教";
+      }
+    },
   },
   mounted() {
     this.create();
@@ -207,7 +217,7 @@ export default {
         return;
       }
       this.loading = true;
-      if (this.text === "添加讲师") {
+      if (this.text === "添加讲师/助教") {
         this.$api.Course.Live.Teacher.Store(this.form)
           .then(() => {
             this.loading = false;

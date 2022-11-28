@@ -85,6 +85,9 @@
                   </el-option>
                 </el-select>
               </div>
+              <div class="ml-10">
+                <helper-text text="可选择助教辅助讲师直播"></helper-text>
+              </div>
             </div>
           </el-form-item>
 
