@@ -68,7 +68,7 @@
               </el-input>
             </div>
             <div class="ml-10">
-              <helper-text text="用来统计学员学进度"></helper-text>
+              <helper-text text="用来统计学员学习进度"></helper-text>
             </div>
           </div>
         </el-form-item>
