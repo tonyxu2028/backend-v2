@@ -70,39 +70,25 @@
           >
             <template slot-scope="scope">
               <p-link
-                text="直播间"
+                text="编辑"
                 type="primary"
                 @click="
                   $router.push({
-                    name: 'LiveCourseVideoPlay',
+                    name: 'LiveCourseVideoUpdate',
                     query: {
-                      video_id: scope.row.id,
+                      id: scope.row.id,
                       course_id: scope.row.course_id,
                     },
                   })
                 "
-                p="addons.Zhibo.zhibo.open"
-              ></p-link>
+                p="addons.Zhibo.course_video.update"
+              >
+              </p-link>
               <el-dropdown>
                 <el-link type="primary" class="el-dropdown-link ml-5">
                   更多<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
-                  <p-dropdown-item
-                    text="编辑"
-                    type="primary"
-                    @click="
-                      $router.push({
-                        name: 'LiveCourseVideoUpdate',
-                        query: {
-                          id: scope.row.id,
-                          course_id: scope.row.course_id,
-                        },
-                      })
-                    "
-                    p="addons.Zhibo.course_video.update"
-                  >
-                  </p-dropdown-item>
                   <p-dropdown-item
                     text="删除"
                     type="danger"
