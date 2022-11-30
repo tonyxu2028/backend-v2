@@ -233,33 +233,23 @@
             </div>
           </div>
         </el-form-item>
-        <div class="title">直播间聊天室服务商配置</div>
-        <el-form-item label="奥点云DMS pub_key">
+        <div class="title">直播间聊天服务配置</div>
+        <el-form-item label="聊天服务URL地址">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
                 class="w-200px"
-                v-model="form.config['meedu.addons.zhibo.aodianyun.pub_key']"
+                v-model="form.config['meedu.addons.zhibo.go-meedu.url']"
               ></el-input>
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="奥点云DMS sub_key">
+        <el-form-item label="聊天服务Key">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
                 class="w-200px"
-                v-model="form.config['meedu.addons.zhibo.aodianyun.sub_key']"
-              ></el-input>
-            </div>
-          </div>
-        </el-form-item>
-        <el-form-item label="奥点云DMS s_key">
-          <div class="j-flex flex-column" style="margin-left: 3px">
-            <div>
-              <el-input
-                class="w-200px"
-                v-model="form.config['meedu.addons.zhibo.aodianyun.s_key']"
+                v-model="form.config['meedu.addons.zhibo.go-meedu.key']"
               ></el-input>
             </div>
           </div>
@@ -323,9 +313,8 @@ export default {
           "meedu.addons.zhibo.tencent.push_key": null,
           "meedu.addons.zhibo.tencent.record.callback.key": null,
           "meedu.addons.zhibo.tencent.webrtc_play": null,
-          "meedu.addons.zhibo.aodianyun.pub_key": null,
-          "meedu.addons.zhibo.aodianyun.sub_key": null,
-          "meedu.addons.zhibo.aodianyun.s_key": null,
+          "meedu.addons.zhibo.go-meedu.url": null,
+          "meedu.addons.zhibo.go-meedu.key": null,
         },
       },
     };
@@ -440,19 +429,14 @@ export default {
             this.form.config["meedu.addons.zhibo.tencent.webrtc_play"] =
               configData[index].value;
           } else if (
-            configData[index].key === "meedu.addons.zhibo.aodianyun.pub_key"
+            configData[index].key === "meedu.addons.zhibo.go-meedu.url"
           ) {
-            this.form.config["meedu.addons.zhibo.aodianyun.pub_key"] =
+            this.form.config["meedu.addons.zhibo.go-meedu.url"] =
               configData[index].value;
           } else if (
-            configData[index].key === "meedu.addons.zhibo.aodianyun.sub_key"
+            configData[index].key === "meedu.addons.zhibo.go-meedu.key"
           ) {
-            this.form.config["meedu.addons.zhibo.aodianyun.sub_key"] =
-              configData[index].value;
-          } else if (
-            configData[index].key === "meedu.addons.zhibo.aodianyun.s_key"
-          ) {
-            this.form.config["meedu.addons.zhibo.aodianyun.s_key"] =
+            this.form.config["meedu.addons.zhibo.go-meedu.key"] =
               configData[index].value;
           }
         }
