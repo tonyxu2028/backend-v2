@@ -434,7 +434,10 @@ export default {
       }).then((res) => {
         this.$router.replace({
           name: "LiveCourseVideo",
-          query: { id: res.data.data.data[0].id },
+          query: {
+            id: res.data.data.data[0].id,
+            title: res.data.data.data[0].title,
+          },
         });
       });
     },

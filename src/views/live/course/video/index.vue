@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="直播排课"></back-bar>
+    <back-bar class="mb-30" :title="title"></back-bar>
     <div class="float-left mb-30">
       <p-button
         text="添加"
@@ -107,7 +107,7 @@
           @size-change="paginationSizeChange"
           @current-change="paginationPageChange"
           :current-page="pagination.page"
-          :page-sizes="[10, 20, 50, 100]"
+          :page-sizes="[10, 20, 50, 100, 1000]"
           :page-size="pagination.size"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total"
@@ -127,11 +127,12 @@ export default {
         course_id: this.$route.query.id,
         keywords: "",
         page: 1,
-        size: 10,
+        size: 1000,
       },
       total: 0,
       loading: false,
       results: [],
+      title: null,
     };
   },
   watch: {
@@ -142,6 +143,7 @@ export default {
   },
   activated() {
     this.getResults();
+    this.title = this.$route.query.title;
     this.$utils.scrollTopSet(this.pageName);
   },
   beforeRouteLeave(to, from, next) {
@@ -175,6 +177,7 @@ export default {
         this.loading = false;
         this.results = res.data.data;
         this.total = res.data.total;
+        document.title = this.title;
       });
     },
     destory(item) {

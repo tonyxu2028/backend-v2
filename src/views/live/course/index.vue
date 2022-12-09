@@ -143,7 +143,7 @@
                 @click="
                   $router.push({
                     name: 'LiveCourseVideo',
-                    query: { id: scope.row.id },
+                    query: { id: scope.row.id, title: scope.row.title },
                   })
                 "
                 p="addons.Zhibo.course_video.list"
