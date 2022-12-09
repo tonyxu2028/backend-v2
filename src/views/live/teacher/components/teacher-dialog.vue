@@ -71,7 +71,11 @@
                 </div>
               </el-form-item>
 
-              <el-form-item :label="rolaName + '风采'" prop="short_desc">
+              <el-form-item
+                v-if="form.role_id === 0"
+                label="讲师风采"
+                prop="short_desc"
+              >
                 <el-input
                   type="textarea"
                   v-model="form.short_desc"
