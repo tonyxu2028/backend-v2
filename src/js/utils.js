@@ -209,4 +209,12 @@ export default {
       return false;
     }
   },
+  checkUrl(value) {
+    let url = value;
+    let str = url.substr(url.length - 1, 1);
+    if (str !== "/") {
+      url = url + "/";
+    }
+    return url;
+  },
 };

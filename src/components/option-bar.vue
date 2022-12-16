@@ -28,7 +28,9 @@ export default {
       this.$router.push(params);
     },
     goTeacherLive() {
-      window.open(config.url + "/addons/Zhibo/teacher/dist/#/index");
+      window.open(
+        this.$utils.checkUrl(config.url) + "addons/Zhibo/teacher/dist/#/index"
+      );
     },
   },
 };
