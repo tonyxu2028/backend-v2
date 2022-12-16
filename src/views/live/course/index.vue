@@ -35,7 +35,6 @@
           value="SystemLiveConfig"
           :query="{ referer: this.$route.path }"
         ></option-bar>
-        <option-bar text="讲师直播端" :isTeacherLive="true"></option-bar>
       </div>
       <div class="d-flex">
         <div>
