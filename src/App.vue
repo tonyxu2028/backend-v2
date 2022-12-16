@@ -204,7 +204,8 @@ export default {
     ...mapMutations(["loginHandle", "setEnabledAddons", "logout"]),
     goTeacherDevice() {
       window.open(
-        Utils.checkUrl(Config.url) + "addons/Zhibo/teacher/dist/#/index"
+        Utils.checkUrl(Config.url) +
+          "addons/Zhibo/teacher/dist/#/dashboard/index"
       );
     },
     goStudentDevice() {
