@@ -126,7 +126,7 @@
           <el-form-item prop="original_desc" label="详情介绍">
             <div class="w-800px">
               <quill-editor
-                :height="400"
+                :height="800"
                 v-model="course.original_desc"
               ></quill-editor>
             </div>

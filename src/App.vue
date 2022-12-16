@@ -5,6 +5,10 @@
 
       <div id="home" v-if="!this.$route.meta.pure">
         <div class="meedu-main-box">
+          <student-device
+            v-if="studentDevice"
+            @close="studentDevice = false"
+          ></student-device>
           <!-- 顶部栏 -->
           <header class="header-box">
             <div class="logo-box">
@@ -13,6 +17,18 @@
               </a>
             </div>
             <div class="page-name">{{ $t($route.meta.title) }}</div>
+            <div class="device-bar">
+              <div class="device-item" @click="goStudentDevice()">
+                <img src="@/assets/img/focus-device.png" />
+                访问学员端
+              </div>
+              <i class="column"></i>
+              <div class="device-item" @click="goTeacherDevice()">
+                <img src="@/assets/img/teacher-live-icon.png" />
+                讲师直播端
+              </div>
+              <i class="column"></i>
+            </div>
             <div class="user-info" v-if="user">
               <el-dropdown @command="dropMenuEvt">
                 <span class="el-dropdown-link">
@@ -91,18 +107,24 @@
   </div>
 </template>
 <script>
+import Config from "@/js/config";
 import Utils from "@/js/utils";
 import Menus from "@/js/menus.js";
 import CONSTANT from "@/js/constant.js";
 import { mapState, mapMutations } from "vuex";
+import StudentDevice from "@/components/student-device";
 
 export default {
+  components: {
+    StudentDevice,
+  },
   data() {
     return {
       defaultActive: "Dashboard",
       menus: Menus,
       loading: false,
       initComplete: false,
+      studentDevice: false,
     };
   },
   computed: {
@@ -180,6 +202,15 @@ export default {
   },
   methods: {
     ...mapMutations(["loginHandle", "setEnabledAddons", "logout"]),
+    goTeacherDevice() {
+      window.open(
+        Utils.checkUrl(Config.url) +
+          "addons/Zhibo/teacher/dist/#/dashboard/index"
+      );
+    },
+    goStudentDevice() {
+      this.studentDevice = true;
+    },
     async getEnabledAddons() {
       // 获取已开启的插件
       let res = await this.$api.System.Addons.LocalList();
@@ -294,6 +325,40 @@ export default {
       color: #333333;
       line-height: 56px;
       text-align: left;
+    }
+
+    .device-bar {
+      width: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .device-item {
+        width: 95px;
+        height: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 400;
+        color: #666666;
+        line-height: 20px;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.8;
+        }
+        img {
+          width: 20px;
+          height: 20px;
+          margin-right: 5px;
+        }
+      }
+      .column {
+        width: 1px;
+        height: 20px;
+        background: #d8d8d8;
+        margin-right: 15px;
+        margin-left: 15px;
+      }
     }
 
     .user-info {

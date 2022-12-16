@@ -166,10 +166,10 @@ const zh = {
         },
       },
       teacher: {
-        name: "讲师",
-        index: "直播讲师",
-        create: "添加直播讲师",
-        update: "编辑直播讲师",
+        name: "讲师/助教管理",
+        index: "讲师/助教管理",
+        create: "添加直播讲师/助教",
+        update: "编辑直播讲师/助教",
       },
     },
     wechat: {

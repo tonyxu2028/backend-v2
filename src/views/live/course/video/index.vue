@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="直播排课"></back-bar>
+    <back-bar class="mb-30" :title="title"></back-bar>
     <div class="float-left mb-30">
       <p-button
         text="添加"
@@ -70,39 +70,25 @@
           >
             <template slot-scope="scope">
               <p-link
-                text="直播"
+                text="编辑"
                 type="primary"
                 @click="
                   $router.push({
-                    name: 'LiveCourseVideoPlay',
+                    name: 'LiveCourseVideoUpdate',
                     query: {
-                      video_id: scope.row.id,
+                      id: scope.row.id,
                       course_id: scope.row.course_id,
                     },
                   })
                 "
-                p="addons.Zhibo.zhibo.open"
-              ></p-link>
+                p="addons.Zhibo.course_video.update"
+              >
+              </p-link>
               <el-dropdown>
                 <el-link type="primary" class="el-dropdown-link ml-5">
                   更多<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
-                  <p-dropdown-item
-                    text="编辑"
-                    type="primary"
-                    @click="
-                      $router.push({
-                        name: 'LiveCourseVideoUpdate',
-                        query: {
-                          id: scope.row.id,
-                          course_id: scope.row.course_id,
-                        },
-                      })
-                    "
-                    p="addons.Zhibo.course_video.update"
-                  >
-                  </p-dropdown-item>
                   <p-dropdown-item
                     text="删除"
                     type="danger"
@@ -121,7 +107,7 @@
           @size-change="paginationSizeChange"
           @current-change="paginationPageChange"
           :current-page="pagination.page"
-          :page-sizes="[10, 20, 50, 100]"
+          :page-sizes="[10, 20, 50, 100, 1000]"
           :page-size="pagination.size"
           layout="total, sizes, prev, pager, next, jumper"
           :total="total"
@@ -141,11 +127,12 @@ export default {
         course_id: this.$route.query.id,
         keywords: "",
         page: 1,
-        size: 10,
+        size: 1000,
       },
       total: 0,
       loading: false,
       results: [],
+      title: null,
     };
   },
   watch: {
@@ -156,6 +143,7 @@ export default {
   },
   activated() {
     this.getResults();
+    this.title = this.$route.query.title;
     this.$utils.scrollTopSet(this.pageName);
   },
   beforeRouteLeave(to, from, next) {
@@ -189,6 +177,7 @@ export default {
         this.loading = false;
         this.results = res.data.data;
         this.total = res.data.total;
+        document.title = this.title;
       });
     },
     destory(item) {

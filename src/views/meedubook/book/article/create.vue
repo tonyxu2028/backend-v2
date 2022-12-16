@@ -105,7 +105,7 @@
           <change-editor
             :content="article.original_content"
             class="w-100"
-            :height="500"
+            :height="800"
             @change="getcontent"
           ></change-editor>
         </el-form-item>

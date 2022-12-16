@@ -41,7 +41,11 @@
         ></button>
       </template>
     </mavon-editor>
-    <el-dialog title="添加链接" :visible.sync="dialogLinkVisible">
+    <el-dialog
+      title="添加链接"
+      :visible.sync="dialogLinkVisible"
+      :append-to-body="true"
+    >
       <el-form :model="form">
         <el-form-item
           style="margin-bottom: 22px"
@@ -61,7 +65,11 @@
       </div>
     </el-dialog>
     <!-- 插入视频链接的dialog提示框，表单对话框 -->
-    <el-dialog title="插入视频资源" :visible.sync="dialogFormVisible">
+    <el-dialog
+      title="插入视频资源"
+      :visible.sync="dialogFormVisible"
+      :append-to-body="true"
+    >
       <el-form :model="form">
         <el-form-item label="iframe链接" :label-width="formLabelWidth">
           <el-input v-model="form.link" autocomplete="off"></el-input>
@@ -80,6 +88,7 @@
       :visible.sync="dialogVisible"
       width="30%"
       id="link-error"
+      :append-to-body="true"
     >
       <span>视频链接格式错误，请重新确认后再输入！</span>
       <span slot="footer" class="dialog-footer">

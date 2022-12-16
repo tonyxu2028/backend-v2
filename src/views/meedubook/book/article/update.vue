@@ -106,13 +106,13 @@
             <mavon-editor
               v-if="article.editor === 'MARKDOWN'"
               :content="article.original_content"
-              :height="500"
+              :height="800"
               @change="getcontent"
             ></mavon-editor>
             <quill-editor
               v-else
               v-model="article.original_content"
-              :height="458"
+              :height="800"
             ></quill-editor>
           </div>
         </el-form-item>

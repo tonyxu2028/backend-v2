@@ -56,14 +56,21 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="预估直播时长" prop="estimate_duration">
-          <el-input
-            v-model="course.estimate_duration"
-            class="w-300px"
-            placeholder="预估直播时长"
-            type="number"
-          >
-            <template slot="append">分钟</template>
-          </el-input>
+          <div class="d-flex">
+            <div>
+              <el-input
+                v-model="course.estimate_duration"
+                class="w-300px"
+                placeholder="预估直播时长"
+                type="number"
+              >
+                <template slot="append">分钟</template>
+              </el-input>
+            </div>
+            <div class="ml-10">
+              <helper-text text="学员观看直播超过此时长即代表学完此课时"></helper-text>
+            </div>
+          </div>
         </el-form-item>
       </el-form>
       <div class="bottom-menus">

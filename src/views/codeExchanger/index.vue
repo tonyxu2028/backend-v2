@@ -59,13 +59,14 @@
         </el-table-column>
         <el-table-column label="使用率" width="200">
           <template slot-scope="scope">
-            <span
+            <span v-if="scope.row.code_count > 0"
               >{{
                 ((scope.row.used_count * 100) / scope.row.code_count).toFixed(
                   2
                 )
               }}%</span
             >
+            <span v-else>0%</span>
           </template>
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="150">

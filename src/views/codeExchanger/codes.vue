@@ -4,13 +4,6 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="批量删除"
-          @click="destorymulti()"
-          type="danger"
-          p="addons.CodeExchanger.activity-code.destroy"
-        >
-        </p-button>
-        <p-button
           text="生成10个"
           @click="getnum(10)"
           type="primary"
@@ -27,6 +20,13 @@
         <el-button @click="importcode()" type="primary"
           >导出未使用兑换码
         </el-button>
+        <p-button
+          text="批量删除"
+          @click="destorymulti()"
+          type="danger"
+          p="addons.CodeExchanger.activity-code.destroy"
+        >
+        </p-button>
       </div>
       <div class="d-flex">
         <div>
@@ -41,7 +41,7 @@
           <el-input
             class="w-150px"
             v-model="filter.user_id"
-            placeholder="用户ID"
+            placeholder="学员ID"
           ></el-input>
         </div>
 
