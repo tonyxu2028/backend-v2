@@ -3,8 +3,8 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="新建直播"
-          @click="$router.push({ name: 'LiveCourseCreate' })"
+          text="新建直播课"
+          @click="createLive()"
           type="primary"
           p="addons.Zhibo.course.store"
         >
@@ -35,6 +35,7 @@
           value="SystemLiveConfig"
           :query="{ referer: this.$route.path }"
         ></option-bar>
+        <option-bar text="讲师直播端" :isTeacherLive="true"></option-bar>
       </div>
       <div class="d-flex">
         <div>
@@ -317,6 +318,9 @@ export default {
     next();
   },
   methods: {
+    createLive() {
+      this.$router.push({ name: "LiveCourseCreate" });
+    },
     firstPageLoad() {
       this.pagination.page = 1;
       this.getData();

@@ -1,6 +1,10 @@
 <template>
   <div class="options-link">
-    <div class="link" @click="goRouter()">
+    <div class="link" v-if="isTeacherLive" @click="goTeacherLive()">
+      <img class="live" src="../assets/img/teacher-live-icon.png" />
+      {{ text }}
+    </div>
+    <div class="link" v-else @click="goRouter()">
       <img src="../assets/images/config/icon-option.png" />
       {{ text }}
     </div>
@@ -8,8 +12,9 @@
 </template>
 
 <script>
+import config from "@/js/config";
 export default {
-  props: ["text", "value", "query"],
+  props: ["text", "value", "query", "isTeacherLive"],
   methods: {
     goRouter() {
       let params = {
@@ -21,6 +26,9 @@ export default {
         });
       }
       this.$router.push(params);
+    },
+    goTeacherLive() {
+      window.open(config.url + "/addons/Zhibo/teacher/dist/#/index");
     },
   },
 };
