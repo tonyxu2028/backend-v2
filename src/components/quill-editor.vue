@@ -11,6 +11,7 @@
       :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      :append-to-body="true"
     >
       <el-form :model="form">
         <el-form-item>
@@ -38,6 +39,7 @@
       :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
+      :append-to-body="true"
     >
       <el-form :model="form">
         <el-form-item class="mb-15">
@@ -348,6 +350,13 @@ export default {
   .ql-toolbar.ql-snow {
     padding: 0;
   }
+  .ql-editor .ql-video {
+    display: block;
+    width: 100%;
+    height: 425px;
+    margin: 0 auto;
+  }
+
   .ql-editor .ql-size-small {
     font-size: 0.75em;
   }
@@ -539,6 +548,7 @@ export default {
     }
   }
   .ql-editor[data-placeholder]::before {
+    padding-top: 15px;
     font-style: normal;
     font-size: 16px;
     color: #c0c4cc;

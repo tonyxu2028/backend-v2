@@ -3,8 +3,8 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="新建直播"
-          @click="$router.push({ name: 'LiveCourseCreate' })"
+          text="新建直播课"
+          @click="createLive()"
           type="primary"
           p="addons.Zhibo.course.store"
         >
@@ -83,7 +83,13 @@
           </el-table-column>
           <el-table-column prop="category.name" label="分类" min-width="8%">
           </el-table-column>
-          <el-table-column prop="teacher.name" label="讲师" min-width="8%">
+          <el-table-column label="讲师/助教" min-width="8%">
+            <template slot-scope="scope">
+              <span>{{ scope.row.teacher.name }}</span>
+              <span v-if="scope.row.assistant"
+                >/{{ scope.row.assistant.name }}</span
+              >
+            </template>
           </el-table-column>
           <el-table-column
             label="价格"
@@ -137,7 +143,7 @@
                 @click="
                   $router.push({
                     name: 'LiveCourseVideo',
-                    query: { id: scope.row.id },
+                    query: { id: scope.row.id, title: scope.row.title },
                   })
                 "
                 p="addons.Zhibo.course_video.list"
@@ -311,6 +317,9 @@ export default {
     next();
   },
   methods: {
+    createLive() {
+      this.$router.push({ name: "LiveCourseCreate" });
+    },
     firstPageLoad() {
       this.pagination.page = 1;
       this.getData();

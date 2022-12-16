@@ -54,7 +54,7 @@
               <div>
                 <el-select class="w-300px" v-model="course.teacher_id">
                   <el-option
-                    v-for="(item, index) in teachers"
+                    v-for="(item, index) in teachers.teacher"
                     :key="index"
                     :label="item.name"
                     :value="item.id"
@@ -70,6 +70,25 @@
                   p="addons.Zhibo.teacher.list"
                 >
                 </p-link>
+              </div>
+            </div>
+          </el-form-item>
+
+          <el-form-item label="助教">
+            <div class="d-flex">
+              <div>
+                <el-select class="w-300px" v-model="course.assistant_id">
+                  <el-option
+                    v-for="(item, index) in teachers.assistant"
+                    :key="index"
+                    :label="item.name"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
+              </div>
+              <div class="ml-10">
+                <helper-text text="可选择助教辅助讲师直播"></helper-text>
               </div>
             </div>
           </el-form-item>
@@ -255,6 +274,7 @@ export default {
     return {
       is_free: 0,
       course: {
+        assistant_id: null,
         category_id: null,
         is_show: 1,
         charge: null,
@@ -414,7 +434,10 @@ export default {
       }).then((res) => {
         this.$router.replace({
           name: "LiveCourseVideo",
-          query: { id: res.data.data.data[0].id },
+          query: {
+            id: res.data.data.data[0].id,
+            title: res.data.data.data[0].title,
+          },
         });
       });
     },
