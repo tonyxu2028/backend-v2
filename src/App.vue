@@ -23,11 +23,13 @@
                 访问学员端
               </div>
               <i class="column"></i>
-              <div class="device-item" @click="goTeacherDevice()">
-                <img src="@/assets/img/teacher-live-icon.png" />
-                讲师直播端
-              </div>
-              <i class="column"></i>
+              <template v-if="showLiveTeacher">
+                <div class="device-item" @click="goTeacherDevice()">
+                  <img src="@/assets/img/teacher-live-icon.png" />
+                  讲师直播端
+                </div>
+                <i class="column"></i>
+              </template>
             </div>
             <div class="user-info" v-if="user">
               <el-dropdown @command="dropMenuEvt">
@@ -125,6 +127,7 @@ export default {
       loading: false,
       initComplete: false,
       studentDevice: false,
+      showLiveTeacher: false,
     };
   },
   computed: {
@@ -222,6 +225,9 @@ export default {
           count += 1;
           enabledAddons[res.data[i].sign] = 1;
         }
+      }
+      if (enabledAddons["Zhibo"]) {
+        this.showLiveTeacher = true;
       }
 
       this.setEnabledAddons(enabledAddons, count);
