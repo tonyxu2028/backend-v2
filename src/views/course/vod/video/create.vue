@@ -335,7 +335,7 @@ export default {
         !this.video.aliyun_video_id &&
         !this.video.tencent_video_id
       ) {
-        this.$message.error("请选择上传视频");
+        this.$message.error("请上传课程视频");
         return;
       }
       if (this.chapters.length > 0 && !this.video.chapter_id) {
