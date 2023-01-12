@@ -51,7 +51,7 @@
                     type="primary"
                     style="font-size: 12px"
                     @click="selectLink(index)"
-                    >选择链接</el-link
+                    >选择</el-link
                   >
                 </div>
               </div>
