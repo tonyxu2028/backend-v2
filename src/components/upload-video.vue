@@ -520,6 +520,10 @@ export default {
   float: left;
   display: flex;
   justify-content: center;
+  
+}
+.el-button--primary:hover {
+  color: #fff;
 }
 </style>
 <style lang="less">
