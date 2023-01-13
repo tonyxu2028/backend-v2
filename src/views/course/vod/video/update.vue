@@ -307,6 +307,14 @@ export default {
       if (this.loading) {
         return;
       }
+      if (
+        !this.video.url &&
+        !this.video.aliyun_video_id &&
+        !this.video.tencent_video_id
+      ) {
+        this.$message.error("请上传课程视频");
+        return;
+      }
       if (this.chapters.length > 0 && !this.video.chapter_id) {
         this.$message.error("请选择所属章节");
         return;
