@@ -1610,7 +1610,6 @@ const routes = [
     name: "StatsMember",
     meta: {
       title: "title.stats.member.index",
-      keepAlive: true,
     },
   },
 ];
