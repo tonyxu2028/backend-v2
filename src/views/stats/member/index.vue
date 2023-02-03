@@ -297,19 +297,19 @@ export default {
         legend: [
           {
             selectedMode: true, // 图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。默认开启图例选择，可以设成 false 关闭。
-            top: "10%",
+            bottom: "10%",
             left: "center",
             textStyle: {
               // 图例的公用文本样式。
               fontSize: 14,
-              color: "#fff",
+              color: " #333333",
             },
             data: ["首次付费用户", "非首次付费用户"],
           },
         ],
         tooltip: {
           show: true, // 是否显示提示框
-          formatter: "{c}",
+          formatter: "用户：{c}",
         },
         title: {
           text: "", //主标题
