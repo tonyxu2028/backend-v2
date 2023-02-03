@@ -188,6 +188,18 @@ export default [
     ],
   },
   {
+    name: "title.stats.name",
+    key: "Stats",
+    icon: "icon-icon-operate",
+    children: [
+      {
+        name: "title.stats.member.name",
+        key: "StatsMember",
+        permission: "stats.user",
+      },
+    ],
+  },
+  {
     name: "title.system",
     key: "System",
     icon: "icon-icon-setting-n",

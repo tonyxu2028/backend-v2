@@ -1636,6 +1636,19 @@ const Api = {
       },
     },
   },
+  Stats: {
+    Member: {
+      List(params) {
+        return get(`/backend/api/v2/stats/user`, params);
+      },
+      UserTops(params) {
+        return get(`/backend/api/v2/stats/user-paid-top`, params);
+      },
+      UserGraph(params) {
+        return get(`/backend/api/v2/stats/user-graph`, params);
+      },
+    },
+  },
   SinglePage: {
     List(params) {
       return get(`/backend/addons/single_page/page/index`, params);

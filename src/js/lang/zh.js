@@ -52,6 +52,13 @@ const zh = {
         edit: "编辑学员标签",
       },
     },
+    stats: {
+      name: "数据",
+      member: {
+        name: "学员分析",
+        index: "学员分析",
+      },
+    },
     miaosha: {
       name: "秒杀",
       orders: {
