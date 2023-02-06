@@ -193,5 +193,7 @@ export default {
     CertificateUsers: "Certificate",
     SystemLog: "SystemLog",
     StatsMember: "StatsMember",
+    StatsTransaction: "StatsTransaction",
+    StatsContent: "StatsContent",
   },
 };

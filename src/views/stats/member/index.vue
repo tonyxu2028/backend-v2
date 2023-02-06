@@ -309,7 +309,6 @@ export default {
         ],
         tooltip: {
           show: true, // 是否显示提示框
-         
         },
         title: {
           text: "", //主标题
