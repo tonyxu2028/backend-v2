@@ -4,7 +4,6 @@
       <div class="el_row_item">
         <div class="item_title">
           <span>支付金额(元)</span>
-          <img class="icon" src="../../../assets/images/stats/icon.png" />
         </div>
         <p>{{ formatNumber(list.today_paid_sum || 0, 0) }}</p>
         <div class="item_info">
@@ -26,7 +25,6 @@
       <div class="el_row_item">
         <div class="item_title">
           <span>支付订单数</span>
-          <img class="icon" src="../../../assets/images/stats/icon.png" />
         </div>
         <p>{{ formatNumber(list.today_paid_count || 0, 0) }}</p>
         <div class="item_info">
@@ -49,7 +47,6 @@
         <div class="el_item">
           <div class="item_title">
             <span>客单价(元)</span>
-            <img class="icon" src="../../../assets/images/stats/icon.png" />
           </div>
           <span class="el_item_num flex-1">
             {{ todayPaidSingle }}
@@ -65,7 +62,6 @@
         <div class="el_item">
           <div class="item_title">
             <span>支付人数</span>
-            <img class="icon" src="../../../assets/images/stats/icon.png" />
           </div>
           <span class="el_item_num flex-1">
             {{ formatNumber(list.today_paid_user_count, 0) }}
@@ -93,7 +89,6 @@
           <div class="data-item">
             <div class="tit">
               <span>确认下单数</span>
-              <img class="icon" src="../../../assets/images/stats/icon.png" />
             </div>
             <div class="num">{{ formatNumber(list.today_count, 0) }}</div>
             <div class="info mb-30">
@@ -109,7 +104,6 @@
           <div class="data-item">
             <div class="tit">
               <span>支付订单数</span>
-              <img class="icon" src="../../../assets/images/stats/icon.png" />
             </div>
             <div class="num">{{ formatNumber(list.today_paid_count, 0) }}</div>
             <div class="info mb-30">
@@ -125,7 +119,6 @@
           <div class="data-item">
             <div class="tit">
               <span>支付转化率</span>
-              <img class="icon" src="../../../assets/images/stats/icon.png" />
             </div>
             <div class="num">{{ todayPaidConversion }}%</div>
             <div class="info mb-30">昨日：{{ yesterdayPaidConversion }}%</div>
@@ -142,7 +135,6 @@
           <div class="header">
             <div class="item_title">
               <span>TOP5支付金额</span>
-              <img class="icon" src="../../../assets/images/stats/icon.png" />
             </div>
             <div class="controls">
               <day-week-month @change="changeTimePaid"></day-week-month>

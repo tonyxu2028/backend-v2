@@ -4,7 +4,6 @@
       <div class="el_row_item">
         <div class="item_title">
           <span>今日学习学员数</span>
-          <img class="icon" src="../../../assets/images/stats/icon.png" />
         </div>
         <p>{{ formatNumber(list.today_watch_count || 0, 0) }}</p>
         <div class="item_info">
@@ -20,7 +19,6 @@
       <div class="el_row_item">
         <div class="item_title">
           <span>今日新增学员</span>
-          <img class="icon" src="../../../assets/images/stats/icon.png" />
         </div>
         <p>{{ formatNumber(list.today_count || 0, 0) }}</p>
         <div class="item_info">
@@ -36,7 +34,6 @@
       <div class="el_row_item">
         <div class="item_title">
           <span>累计学员数</span>
-          <img class="icon" src="../../../assets/images/stats/icon.png" />
         </div>
         <p>{{ formatNumber(list.user_count || 0, 0) }}</p>
         <div class="item_info">
@@ -104,7 +101,6 @@
           <div class="header">
             <div class="item_title">
               <span>学员付费</span>
-              <img class="icon" src="../../../assets/images/stats/icon.png" />
             </div>
             <div class="controls">
               <day-week-month @change="changeTimeUserGraph"></day-week-month>
@@ -119,7 +115,6 @@
           <div class="header">
             <div class="item_title">
               <span>学员注册渠道</span>
-              <img class="icon" src="../../../assets/images/stats/icon.png" />
             </div>
             <div class="controls"></div>
           </div>
