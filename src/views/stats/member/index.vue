@@ -130,7 +130,7 @@
 </template>
 <script>
 import moment from "moment";
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 import DayWeekMonth from "@/components/day-week-month";
 const accounting = require("accounting");
 
@@ -186,7 +186,6 @@ export default {
     window.removeEventListener("resize", this.myChartResize, false);
   },
   methods: {
-    ...mapMutations(["setEnabledAddons"]),
     formatNumber(num, fixed) {
       return accounting.formatNumber(num, fixed);
     },
