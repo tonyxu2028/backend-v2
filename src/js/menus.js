@@ -194,12 +194,12 @@ export default [
     children: [
       {
         name: "title.stats.transaction.name",
-        key: "StatsMember",
+        key: "StatsTransaction",
         permission: "stats.transaction",
       },
       {
         name: "title.stats.course.name",
-        key: "StatsMember",
+        key: "StatsContent",
         permission: "stats.course",
       },
       {
