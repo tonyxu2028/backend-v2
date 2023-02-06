@@ -1626,6 +1626,7 @@ const routes = [
     name: "StatsContent",
     meta: {
       title: "title.stats.course.index",
+      keepAlive: true,
     },
   },
 ];

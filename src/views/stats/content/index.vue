@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      pageName: "stats-member-list",
+      pageName: "stats-content-list",
       list: [],
       loading: false,
       total: 0,
@@ -117,8 +117,13 @@ export default {
       return typeList;
     },
   },
-  mounted() {
+  activated() {
     this.getData();
+    this.$utils.scrollTopSet(this.pageName);
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$utils.scrollTopRecord(this.pageName);
+    next();
   },
   methods: {
     paginationReset() {
