@@ -115,7 +115,7 @@
             style="width: 100%; height: 273px; float: left; margin-top: 16px"
           ></div>
         </div>
-        <div class="el_row_right_item">
+        <!--<div class="el_row_right_item">
           <div class="header">
             <div class="item_title">
               <span>学员注册渠道</span>
@@ -123,7 +123,7 @@
             </div>
             <div class="controls"></div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -309,7 +309,7 @@ export default {
         ],
         tooltip: {
           show: true, // 是否显示提示框
-          formatter: "用户：{c}",
+         
         },
         title: {
           text: "", //主标题
@@ -324,7 +324,6 @@ export default {
         },
         series: [
           {
-            name: "Access From",
             type: "pie",
             radius: ["40%", "60%"], // 环比 圈的大小
             center: ["50%", "40%"], // 图形在整个canvas中的位置

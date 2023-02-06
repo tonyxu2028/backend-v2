@@ -58,6 +58,14 @@ const zh = {
         name: "学员分析",
         index: "学员分析",
       },
+      transaction: {
+        name: "交易分析",
+        index: "交易分析",
+      },
+      course: {
+        name: "内容分析",
+        index: "内容分析",
+      },
     },
     miaosha: {
       name: "秒杀",

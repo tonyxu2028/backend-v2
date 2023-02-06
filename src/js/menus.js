@@ -193,6 +193,16 @@ export default [
     icon: "icon-icon-operate",
     children: [
       {
+        name: "title.stats.transaction.name",
+        key: "StatsMember",
+        permission: "stats.transaction",
+      },
+      {
+        name: "title.stats.course.name",
+        key: "StatsMember",
+        permission: "stats.course",
+      },
+      {
         name: "title.stats.member.name",
         key: "StatsMember",
         permission: "stats.user",
