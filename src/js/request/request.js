@@ -1652,8 +1652,8 @@ const Api = {
       List(params) {
         return get(`/backend/api/v2/stats/transaction`, params);
       },
-      TransactionTops(params) {
-        return get(`/backend/api/v2/transaction-top`, params);
+      TransactionGraph(params) {
+        return get(`/backend/api/v2/stats/transaction-graph`, params);
       },
     },
     Content: {

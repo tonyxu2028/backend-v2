@@ -15,7 +15,10 @@
             </el-button-group>
           </div>
           <div class="controls">
-            <day-week-month @change="changeTimeContentTop"></day-week-month>
+            <day-week-month
+              :active="true"
+              @change="changeTimeContentTop"
+            ></day-week-month>
           </div>
         </div>
         <div class="float-left mt-15" v-loading="loading">
@@ -74,7 +77,7 @@ export default {
         size: 10,
       },
       filter: {
-        start_at: moment().format("YYYY-MM-DD"),
+        start_at: moment().subtract(6, "days").format("YYYY-MM-DD"),
         end_at: moment().add(1, "days").format("YYYY-MM-DD"),
         goods_type: "COURSE",
       },
@@ -87,6 +90,10 @@ export default {
         {
           name: "录播课",
           key: "COURSE",
+        },
+        {
+          name: "VIP会员",
+          key: "ROLE",
         },
       ];
       if (this.enabledAddons["Zhibo"]) {
@@ -128,7 +135,7 @@ export default {
   methods: {
     paginationReset() {
       this.pagination.page = 1;
-      this.filter.start_at = moment().format("YYYY-MM-DD");
+      this.filter.start_at = moment().subtract(6, "days").format("YYYY-MM-DD");
       this.filter.end_at = moment().add(1, "days").format("YYYY-MM-DD");
       this.filter.goods_type = "COURSE";
       this.getData();

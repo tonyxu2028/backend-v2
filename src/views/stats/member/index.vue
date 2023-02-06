@@ -193,12 +193,10 @@ export default {
       if (typeof num1 !== "number" || typeof num2 !== "number") {
         return 0;
       }
-      if (num2 === 0) {
-        // 未有增长
+      if (num2 === num1) {
         return 0;
       }
-      if (num1 === 0) {
-        //  => 100%
+      if (num2 === 0) {
         return 100;
       }
 
