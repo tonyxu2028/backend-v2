@@ -1648,6 +1648,16 @@ const Api = {
         return get(`/backend/api/v2/stats/user-graph`, params);
       },
     },
+    Transaction: {
+      List(params) {
+        return get(`/backend/api/v2/stats/transaction`, params);
+      },
+    },
+    Content: {
+      List(params) {
+        return get(`/backend/api/v2/stats/course`, params);
+      },
+    },
   },
   SinglePage: {
     List(params) {
