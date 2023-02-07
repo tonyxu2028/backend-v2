@@ -157,7 +157,7 @@ export default {
           name: "实人认证",
           value: "微信实人认证",
           images: require("../../assets/images/config/role.png"),
-          sign: "TemplateOne",
+          sign: "",
         },
       ],
       courses: [
