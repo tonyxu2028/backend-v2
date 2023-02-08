@@ -386,6 +386,9 @@ export default {
       position: relative;
       display: flex;
       flex-direction: column;
+      &:last-child {
+        margin-right: 0px;
+      }
       .item_title {
         width: 100%;
         padding-left: 10px;
