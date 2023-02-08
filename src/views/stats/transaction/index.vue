@@ -589,6 +589,7 @@ export default {
           display: flex;
           align-items: center;
           span {
+            width: 80px;
             font-size: 16px;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
@@ -596,6 +597,7 @@ export default {
             line-height: 16px;
           }
           .el_item_num {
+            width: auto;
             margin-left: 15px;
             font-size: 36px;
             font-family: PingFangSC-Semibold, PingFang SC;
