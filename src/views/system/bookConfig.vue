@@ -167,6 +167,7 @@ export default {
           });
         } else {
           this.getConfig();
+          this.$router.back();
         }
       });
     },

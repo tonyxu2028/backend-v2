@@ -13,7 +13,7 @@
                   v-model="form.config['meedu.addons.AliyunHls.template_id']"
                 ></el-input>
               </div>
-               <div class="mt-5">
+              <div class="mt-5">
                 <div class="form-helper-text">
                   <span
                     >配置教程地址：https://www.yuque.com/meedu/fvvkbf/xdqeeb</span
@@ -351,6 +351,7 @@ export default {
           });
         } else {
           this.getConfig();
+          this.$router.back();
         }
       });
     },
