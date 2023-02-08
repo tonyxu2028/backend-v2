@@ -190,7 +190,7 @@ export default [
   {
     name: "title.stats.name",
     key: "Stats",
-    icon: "icon-icon-operate",
+    icon: "icon-icon-stat",
     children: [
       {
         name: "title.stats.transaction.name",
