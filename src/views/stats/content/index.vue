@@ -13,11 +13,6 @@
                 >{{ item.name }}</el-button
               >
             </el-button-group>
-            <div class="ml-10">
-              <helper-text
-                text="团购秒杀活动销量不计入此列表统计"
-              ></helper-text>
-            </div>
           </div>
           <div class="controls">
             <day-week-month
@@ -32,7 +27,7 @@
             :data="list"
             class="float-left"
           >
-            <el-table-column label="TOP10销量">
+            <el-table-column label="TOP10销量" :render-header="renderHeader">
               <template slot-scope="scope">
                 <span>{{ scope.row.goods_name }}</span>
               </template>
@@ -143,6 +138,33 @@ export default {
     next();
   },
   methods: {
+    renderHeader(h, { column }) {
+      return h("span", {}, [
+        h("span", {}, column.label),
+        h(
+          "el-popover",
+          {
+            props: {
+              effect: "dark",
+              placement: "right-start" /*可以配置提示出现的位置*/,
+              trigger: "hover" /*可以配置触发方式*/,
+              content: "团购秒杀活动销量不计入此列表统计",
+            },
+          },
+          [
+            h(
+              "i",
+              {
+                slot: "reference",
+                class: "el-icon-question" /*elementui的图标*/,
+                style: "margin-left:5px;",
+              },
+              ""
+            ),
+          ]
+        ),
+      ]);
+    },
     paginationReset() {
       this.pagination.page = 1;
       this.filter.start_at = moment().subtract(6, "days").format("YYYY-MM-DD");
