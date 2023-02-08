@@ -3,7 +3,7 @@
     <div class="el_top_row1">
       <div class="el_row_item">
         <div class="item_title">
-          <span>今日学习学员数</span>
+          <span>今日录播课学习数</span>
         </div>
         <p>{{ formatNumber(list.today_watch_count || 0, 0) }}</p>
         <div class="item_info">
