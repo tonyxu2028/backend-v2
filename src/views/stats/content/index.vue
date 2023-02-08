@@ -91,35 +91,40 @@ export default {
           name: "录播课",
           key: "COURSE",
         },
-        {
-          name: "VIP会员",
-          key: "ROLE",
-        },
       ];
+
       if (this.enabledAddons["Zhibo"]) {
         typeList.push({
           name: "直播课",
           key: "直播课程",
         });
       }
-      if (this.enabledAddons["LearningPaths"]) {
-        typeList.push({
-          name: "学习路径",
-          key: "学习路径",
-        });
-      }
+
       if (this.enabledAddons["MeeduBooks"]) {
         typeList.push({
           name: "电子书",
           key: "BOOK",
         });
       }
+
       if (this.enabledAddons["MeeduTopics"]) {
         typeList.push({
           name: "图文",
           key: "文章",
         });
       }
+
+      if (this.enabledAddons["LearningPaths"]) {
+        typeList.push({
+          name: "学习路径",
+          key: "学习路径",
+        });
+      }
+
+      typeList.push({
+        name: "VIP会员",
+        key: "ROLE",
+      });
 
       return typeList;
     },
