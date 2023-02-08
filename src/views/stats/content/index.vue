@@ -3,7 +3,7 @@
     <div class="el_top_row1">
       <div class="el_row_item">
         <div class="header">
-          <div class="tabs">
+          <div class="tabs d-flex">
             <el-button-group>
               <el-button
                 :type="filter.goods_type === item.key ? 'primary' : ''"
@@ -13,6 +13,11 @@
                 >{{ item.name }}</el-button
               >
             </el-button-group>
+            <div class="ml-10">
+              <helper-text
+                text="团购秒杀活动销量不计入此列表统计"
+              ></helper-text>
+            </div>
           </div>
           <div class="controls">
             <day-week-month
