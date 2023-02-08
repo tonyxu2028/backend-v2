@@ -54,7 +54,7 @@
           <span class="el_item_increase">昨日：{{ yesterdayPaidSingle }}</span>
           <span class="el_item_increase">
             较昨日：
-            <strong :class="{ 'c-danger': todayPaidCountRate < 0 }">
+            <strong :class="{ 'c-danger': todayPaidSingleRate < 0 }">
               {{ todayPaidSingleRate }}%
             </strong>
           </span>
