@@ -154,7 +154,7 @@ export default {
           sign: "TemplateOne",
         },
         {
-          name: "实人认证",
+          name: "实名认证",
           value: "微信实人认证",
           images: require("../../assets/images/config/role.png"),
           sign: "",
