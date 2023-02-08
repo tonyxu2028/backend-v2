@@ -47,10 +47,10 @@
         <div class="el_item">
           <div class="item_title">
             <span>客单价(元)</span>
+            <span class="el_item_num flex-1">
+              {{ todayPaidSingle }}
+            </span>
           </div>
-          <span class="el_item_num flex-1">
-            {{ todayPaidSingle }}
-          </span>
           <span class="el_item_increase">昨日：{{ yesterdayPaidSingle }}</span>
           <span class="el_item_increase">
             较昨日：
@@ -62,10 +62,10 @@
         <div class="el_item">
           <div class="item_title">
             <span>支付人数</span>
+            <span class="el_item_num flex-1">
+              {{ formatNumber(list.today_paid_user_count, 0) }}
+            </span>
           </div>
-          <span class="el_item_num flex-1">
-            {{ formatNumber(list.today_paid_user_count, 0) }}
-          </span>
           <span class="el_item_increase"
             >昨日：{{ numberForHuman(list.yesterday_paid_user_count) }}</span
           >
@@ -575,47 +575,38 @@ export default {
         background: #ffffff;
         box-shadow: 0px 2px 4px 0px rgba(102, 102, 102, 0.05);
         border-radius: 8px;
-        padding-left: 30px;
-        padding-right: 30px;
         overflow: hidden;
         box-sizing: border-box;
+        padding: 20px;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
         .item_title {
-          width: 110px;
-          height: 16px;
+          width: auto;
+          height: 36px;
           display: flex;
           align-items: center;
           span {
-            height: 16px;
             font-size: 16px;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;
             color: #666666;
             line-height: 16px;
           }
-          .icon {
-            width: 16px;
-            height: 16px;
-            margin-left: 10px;
+          .el_item_num {
+            margin-left: 15px;
+            font-size: 36px;
+            font-family: PingFangSC-Semibold, PingFang SC;
+            font-weight: 600;
+            color: #333333;
+            line-height: 36px;
           }
         }
-        .el_item_num {
-          margin-left: 15px;
-          flex: 1;
-          height: 36px;
-          font-size: 36px;
-          font-family: PingFangSC-Semibold, PingFang SC;
-          font-weight: 600;
-          color: #333333;
-          line-height: 36px;
-          text-align: left;
-        }
+
         .el_item_increase {
-          width: 135px;
+          width: auto;
           strong {
             color: #3ca7fa;
           }
