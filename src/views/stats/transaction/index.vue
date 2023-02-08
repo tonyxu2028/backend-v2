@@ -232,29 +232,31 @@ export default {
     todayPaidSingle() {
       if (
         typeof this.list.today_paid_sum !== "number" ||
-        typeof this.list.today_paid_count !== "number"
+        typeof this.list.today_paid_user_count !== "number"
       ) {
         return 0;
       }
-      if (this.list.today_paid_count === 0) {
-        return 0;
-      }
-
-      return parseInt(this.list.today_paid_sum / this.list.today_paid_count);
-    },
-    yesterdayPaidSingle() {
-      if (
-        typeof this.list.yesterday_paid_sum !== "number" ||
-        typeof this.list.yesterday_paid_count !== "number"
-      ) {
-        return 0;
-      }
-      if (this.list.yesterday_paid_count === 0) {
+      if (this.list.today_paid_user_count === 0) {
         return 0;
       }
 
       return parseInt(
-        this.list.yesterday_paid_sum / this.list.yesterday_paid_count
+        this.list.today_paid_sum / this.list.today_paid_user_count
+      );
+    },
+    yesterdayPaidSingle() {
+      if (
+        typeof this.list.yesterday_paid_sum !== "number" ||
+        typeof this.list.yesterday_paid_user_count !== "number"
+      ) {
+        return 0;
+      }
+      if (this.list.yesterday_paid_user_count === 0) {
+        return 0;
+      }
+
+      return parseInt(
+        this.list.yesterday_paid_sum / this.list.yesterday_paid_user_count
       );
     },
     todayPaidSingleRate() {
@@ -325,7 +327,7 @@ export default {
     formatNumber(num, fixed) {
       return accounting.formatNumber(num, fixed);
     },
-    newSumrate(num1, num2) {
+    sumrate(num1, num2) {
       if (typeof num1 !== "number" || typeof num2 !== "number") {
         return 0;
       }
@@ -338,7 +340,7 @@ export default {
 
       return parseInt((num2 / (num1 - num2)).toFixed(2) * 10000) / 100;
     },
-    sumrate(num1, num2) {
+    newSumrate(num1, num2) {
       if (typeof num1 !== "number" || typeof num2 !== "number") {
         return 0;
       }

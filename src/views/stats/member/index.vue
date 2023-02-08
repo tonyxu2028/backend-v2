@@ -184,7 +184,7 @@ export default {
     formatNumber(num, fixed) {
       return accounting.formatNumber(num, fixed);
     },
-    newSumrate(num1, num2) {
+    sumrate(num1, num2) {
       if (typeof num1 !== "number" || typeof num2 !== "number") {
         return 0;
       }
@@ -197,7 +197,7 @@ export default {
 
       return parseInt((num2 / (num1 - num2)).toFixed(2) * 10000) / 100;
     },
-    sumrate(num1, num2) {
+    newSumrate(num1, num2) {
       if (typeof num1 !== "number" || typeof num2 !== "number") {
         return 0;
       }
