@@ -613,7 +613,7 @@ export default {
           text-align: left;
         }
         .el_item_increase {
-          width: 120px;
+          width: 135px;
           strong {
             color: #3ca7fa;
           }
