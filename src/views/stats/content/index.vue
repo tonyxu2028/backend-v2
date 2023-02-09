@@ -156,8 +156,8 @@ export default {
               "i",
               {
                 slot: "reference",
-                class: "el-icon-question" /*elementui的图标*/,
-                style: "margin-left:5px;",
+                class: "el-icon-info" /*elementui的图标*/,
+                style: "margin-left:5px;color: rgba(0, 0, 0, 0.5);",
               },
               ""
             ),

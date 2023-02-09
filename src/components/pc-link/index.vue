@@ -121,6 +121,14 @@ export default {
         });
       }
 
+      if (this.enabledAddons["MultiLevelShare"]) {
+        links.push({
+          name: "分销课程",
+          url: "/share",
+          active: "share,share.show",
+        });
+      }
+
       return links;
     },
   },

@@ -364,8 +364,6 @@ export default {
         return (num / 1000000).toFixed(2) + "百万";
       } else if (num >= 10000) {
         return (num / 10000).toFixed(2) + "万";
-      } else if (num >= 1000) {
-        return (num / 1000).toFixed(2) + "千";
       }
       return num;
     },
@@ -609,6 +607,7 @@ export default {
 
         .el_item_increase {
           width: auto;
+          color: #666666;
           strong {
             color: #3ca7fa;
           }
