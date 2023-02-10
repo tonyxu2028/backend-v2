@@ -160,7 +160,7 @@
           :end-placeholder="$t('index.end_time')"
           :picker-options="pickerOptions"
         />
-        <el-button class="ml-10" @click="getchartsdata()" type="primary" plain>
+        <el-button class="ml-10" @click="getchartsdata()" type="primary">
           筛选
         </el-button>
       </div>
