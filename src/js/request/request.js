@@ -29,8 +29,8 @@ const Api = {
     },
   },
   Stat: {
-    Statistic(id, params) {
-      return get(`/backend/api/v1/statistic/${id}`, params);
+    Statistic(params) {
+      return get(`/backend/api/v1/dashboard/graph`, params);
     },
   },
   Role: {
