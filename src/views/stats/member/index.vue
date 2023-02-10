@@ -3,7 +3,7 @@
     <div class="el_top_row1">
       <div class="el_row_item">
         <div class="item_title">
-          <span>今日录播课学习数</span>
+          <span>今日录播课学习学员</span>
         </div>
         <p>{{ formatNumber(list.today_watch_count || 0, 0) }}</p>
         <div class="item_info">
@@ -18,7 +18,7 @@
       </div>
       <div class="el_row_item">
         <div class="item_title">
-          <span>今日新增学员</span>
+          <span>今日新注册学员</span>
         </div>
         <p>{{ formatNumber(list.today_count || 0, 0) }}</p>
         <div class="item_info">
@@ -57,7 +57,7 @@
       <div class="el_row_left">
         <div class="header">
           <div class="item_title">
-            <span>TOP10付费学员</span>
+            <span>Top10付费学员</span>
           </div>
           <div class="controls">
             <day-week-month @change="changeTimeUserTop"></day-week-month>
@@ -100,7 +100,7 @@
         <div class="el_row_right_item">
           <div class="header">
             <div class="item_title">
-              <span>学员付费</span>
+              <span>新老学员成交趋势</span>
             </div>
             <div class="controls">
               <day-week-month @change="changeTimeUserGraph"></day-week-month>
@@ -275,11 +275,11 @@ export default {
       let num = params.first_count + params.non_first_count;
       let data = [
         {
-          name: "首次付费用户",
+          name: "新成交学员",
           value: params.first_count,
         },
         {
-          name: "非首次付费用户",
+          name: "老成交学员",
           value: params.non_first_count,
         },
       ];
@@ -296,7 +296,7 @@ export default {
               fontSize: 14,
               color: " #333333",
             },
-            data: ["首次付费用户", "非首次付费用户"],
+            data: ["新成交学员", "老成交学员"],
           },
         ],
         tooltip: {

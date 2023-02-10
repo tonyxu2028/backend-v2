@@ -27,7 +27,7 @@
             :data="list"
             class="float-left"
           >
-            <el-table-column label="TOP10销量" :render-header="renderHeader">
+            <el-table-column label="Top10销售额" :render-header="renderHeader">
               <template slot-scope="scope">
                 <span>{{ scope.row.goods_name }}</span>
               </template>

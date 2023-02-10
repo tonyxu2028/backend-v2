@@ -3,7 +3,7 @@
     <div class="el_top_row1">
       <div class="el_row_item">
         <div class="item_title">
-          <span>支付金额(元)</span>
+          <span>今日收入(元)</span>
         </div>
         <p>{{ formatNumber(list.today_paid_sum || 0, 0) }}</p>
         <div class="item_info">
@@ -24,7 +24,7 @@
       </div>
       <div class="el_row_item">
         <div class="item_title">
-          <span>支付订单数</span>
+          <span>今日支付订单数</span>
         </div>
         <p>{{ formatNumber(list.today_paid_count || 0, 0) }}</p>
         <div class="item_info">
@@ -61,7 +61,7 @@
         </div>
         <div class="el_item">
           <div class="item_title">
-            <span>支付人数</span>
+            <span>今日支付人数</span>
             <span class="el_item_num flex-1">
               {{ formatNumber(list.today_paid_user_count, 0) }}
             </span>
@@ -134,7 +134,7 @@
         <div class="el_row_right_item">
           <div class="header">
             <div class="item_title">
-              <span>TOP5支付金额</span>
+              <span>Top5销售额</span>
             </div>
             <div class="controls">
               <day-week-month @change="changeTimePaid"></day-week-month>
@@ -598,7 +598,7 @@ export default {
           display: flex;
           align-items: center;
           span {
-            width: 80px;
+            width: 100px;
             font-size: 16px;
             font-family: PingFangSC-Regular, PingFang SC;
             font-weight: 400;

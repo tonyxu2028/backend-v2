@@ -55,16 +55,16 @@ const zh = {
     stats: {
       name: "数据",
       member: {
-        name: "学员分析",
-        index: "学员分析",
+        name: "学员数据",
+        index: "学员数据",
       },
       transaction: {
-        name: "交易分析",
-        index: "交易分析",
+        name: "交易数据",
+        index: "交易数据",
       },
       course: {
-        name: "内容分析",
-        index: "内容分析",
+        name: "商品数据",
+        index: "商品数据",
       },
     },
     miaosha: {

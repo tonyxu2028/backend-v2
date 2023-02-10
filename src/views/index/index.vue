@@ -2,10 +2,10 @@
   <div class="el_content">
     <div class="el_top_row1">
       <div class="el_row_item">
-        <span class="item_title">今日收入</span>
+        <span class="item_title">今日收入(元)</span>
         <p>{{ formatNumber(list.today_paid_sum || 0, 0) }}</p>
         <div class="item_info">
-          <span>昨日收入：{{ numberForHuman(list.yesterday_paid_sum) }}</span>
+          <span>昨日：{{ numberForHuman(list.yesterday_paid_sum) }}</span>
           <span>
             较昨日：
             <strong :class="{ 'c-danger': todayPaidRate < 0 }">
@@ -15,11 +15,11 @@
         </div>
       </div>
       <div class="el_row_item">
-        <span class="item_title">今日付费用户</span>
+        <span class="item_title">今日支付人数</span>
         <p>{{ list.today_paid_user_num || 0 }}</p>
         <div class="item_info">
           <span>
-            昨日付费用户：
+            昨日：
             {{ formatNumber(list.yesterday_paid_user_num, 0) }}
           </span>
           <span>
@@ -32,19 +32,19 @@
       </div>
       <div class="el_row_item2">
         <div class="el_item">
-          <span>总用户</span>
+          <span>总学员数</span>
           <span class="el_item_num flex-1">
             {{ formatNumber(list.user_count, 0) }}
           </span>
           <span class="el_item_increase">
-            今日新增：
+            较昨日：
             <strong :class="{ 'c-danger': userCountIncRate < 0 }">
               {{ userCountIncRate }}%
             </strong>
           </span>
         </div>
         <div class="el_item">
-          <span>本月收益</span>
+          <span>本月收入(元)</span>
           <span class="el_item_num flex-1">
             {{ formatNumber(list.this_month_paid_sum || 0, 0) }}
           </span>
@@ -564,7 +564,7 @@ export default {
         justify-content: space-between;
         margin-bottom: 20px;
         span {
-          width: 70px;
+          width: 100px;
           display: block;
           font-size: 16px;
           font-family: PingFangSC-Regular, PingFang SC;
