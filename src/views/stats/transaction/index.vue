@@ -141,9 +141,20 @@
             </div>
           </div>
           <div class="top-list">
-            <div class="list-item" v-for="item in topData" :key="item.goods_id">
-              <div class="list-item-name">{{ item.goods_name }}</div>
-              <div class="list-item-sum">{{ item.orders_paid_sum }}</div>
+            <template v-if="topData.length > 0">
+              <div
+                class="list-item"
+                v-for="(item, index) in topData"
+                :key="item.goods_id"
+              >
+                <div class="list-item-name">
+                  {{ index + 1 }}. {{ item.goods_name }}
+                </div>
+                <div class="list-item-sum">{{ item.orders_paid_sum }}</div>
+              </div>
+            </template>
+            <div v-else class="none">
+              <span>暂无数据</span>
             </div>
           </div>
         </div>
@@ -735,7 +746,7 @@ export default {
       margin-bottom: 20px;
       .el_row_right_item {
         width: 100%;
-        height: 349px !important;
+        height: 319px !important;
         overflow: hidden;
         background: #ffffff;
         box-shadow: 0px 2px 4px 0px rgba(102, 102, 102, 0.05);
@@ -786,13 +797,27 @@ export default {
           display: flex;
           flex-direction: column;
           margin-top: 30px;
+          .none {
+            width: 100%;
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span {
+              color: #909399;
+              font-size: 14px;
+            }
+          }
           .list-item {
             width: 100%;
             height: auto;
             display: flex;
             flex-direction: row;
-            align-items: center;
+
             margin-bottom: 30px;
+            &:last-child {
+              margin-bottom: 0px;
+            }
             .list-item-name {
               width: 300px;
               height: 14px;
