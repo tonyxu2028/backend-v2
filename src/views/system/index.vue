@@ -155,7 +155,7 @@ export default {
         },
         {
           name: "实名认证",
-          value: "微信实人认证",
+          value: "微信实名认证",
           images: require("../../assets/images/config/role.png"),
           sign: "",
         },

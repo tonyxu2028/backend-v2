@@ -88,7 +88,7 @@
         <div class="data-box">
           <div class="data-item">
             <div class="tit">
-              <span>确认下单数</span>
+              <span>提交订单数</span>
             </div>
             <div class="num">{{ formatNumber(list.today_count, 0) }}</div>
             <div class="info mb-30">

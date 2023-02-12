@@ -33,7 +33,7 @@
       </div>
       <div class="el_row_item">
         <div class="item_title">
-          <span>累计学员数</span>
+          <span>总学员数</span>
         </div>
         <p>{{ formatNumber(list.user_count || 0, 0) }}</p>
         <div class="item_info">
