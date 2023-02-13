@@ -96,6 +96,13 @@
               <span v-else>否</span>
             </template>
           </el-table-column>
+          <el-table-column fixed="right" label="操作" width="100">
+            <template slot-scope="scope">
+              <el-link type="primary" @click="showDetailDialog(scope.row)"
+                >详情</el-link
+              >
+            </template>
+          </el-table-column>
         </el-table>
       </div>
 
@@ -112,14 +119,25 @@
         </el-pagination>
       </div>
     </div>
+    <watch-records-detail
+      v-if="visible"
+      :cid="cid"
+      :uid="uid"
+      @close="visible = false"
+    >
+    </watch-records-detail>
   </div>
 </template>
 
 <script>
 import moment from "moment";
 import Utils from "@/js/utils.js";
+import WatchRecordsDetail from "./watch-records-detail.vue";
 
 export default {
+  components: {
+    WatchRecordsDetail,
+  },
   props: ["id"],
   data() {
     return {
@@ -157,6 +175,10 @@ export default {
           return time.getTime() > Date.now();
         },
       },
+      visible: false,
+      list: [],
+      cid: null,
+      uid: null,
     };
   },
   watch: {
@@ -222,6 +244,11 @@ export default {
         this.total = res.data.data.total;
         this.users = res.data.users;
       });
+    },
+    showDetailDialog(item) {
+      this.cid = item.course_id;
+      this.uid = item.user_id;
+      this.visible = true;
     },
     importexcel() {
       if (this.loading) {
@@ -323,6 +350,73 @@ export default {
   .filter-label {
     font-size: 14px;
     color: rgba(0, 0, 0, 0.7);
+  }
+}
+.records-box {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  .item {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background: #f4fafe;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 0px 10px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
+
+    .title {
+      width: 300px;
+      height: 30px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #333333;
+      line-height: 30px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      word-break: break-all;
+    }
+    .item-time {
+      width: 160px;
+      height: 30px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #666666;
+      line-height: 30px;
+      text-align: right;
+    }
+    .item-text {
+      width: 90px;
+      height: 30px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #04c877;
+      line-height: 30px;
+      margin-left: 10px;
+      text-align: right;
+    }
+    .item-progress {
+      width: 90px;
+      height: 30px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #666666;
+      line-height: 30px;
+      margin-left: 10px;
+      text-align: right;
+    }
   }
 }
 </style>

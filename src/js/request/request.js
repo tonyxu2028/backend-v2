@@ -406,6 +406,12 @@ const Api = {
             params
           );
         },
+        Detail(id, userId, params) {
+          return get(
+            `/backend/api/v1/course/${id}/user/${userId}/watch/records`,
+            params
+          );
+        },
       },
       Videos: {
         List(params) {
