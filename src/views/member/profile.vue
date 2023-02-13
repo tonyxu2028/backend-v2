@@ -80,7 +80,7 @@ export default {
     display: grid;
     row-gap: 30px;
     column-gap: 0px;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     .panel-info-item {
       height: 14px;
       font-size: 14px;
