@@ -20,7 +20,7 @@
               <div class="info-value">
                 <template v-if="user.profile && user.profile.verify_image_url">
                   <el-image
-                    style="width: 200px; height: 150px; border-radius: 8px"
+                    style="width: 150px; height: 200px; border-radius: 8px"
                     :src="user.profile.verify_image_url"
                     lazy
                     :preview-src-list="[user.profile.verify_image_url]"
@@ -111,8 +111,8 @@ export default {
     height: auto;
     float: left;
     .image {
-      width: 200px;
-      height: 150px;
+      width:150px;
+      height: 200px;
       background: #f0f0f8;
       border-radius: 8px;
     }
