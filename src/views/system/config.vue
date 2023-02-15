@@ -44,7 +44,7 @@
                   class="w-200px"
                   v-else-if="c.name === '网站Logo' && c.field_type === 'image'"
                 ></upload-image>
-                 <upload-image
+                <upload-image
                   v-model="c.value"
                   :name="c.name"
                   class="w-100px"
@@ -170,6 +170,7 @@ export default {
         this.loading = false;
 
         this.getConfig();
+        this.$router.back();
       });
     },
   },

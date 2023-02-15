@@ -498,6 +498,7 @@ export default {
         this.loading = false;
 
         this.getConfig();
+        this.$router.back();
       });
     },
   },

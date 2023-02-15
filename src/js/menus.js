@@ -188,6 +188,28 @@ export default [
     ],
   },
   {
+    name: "title.stats.name",
+    key: "Stats",
+    icon: "icon-icon-stat",
+    children: [
+      {
+        name: "title.stats.transaction.name",
+        key: "StatsTransaction",
+        permission: "stats.transaction",
+      },
+      {
+        name: "title.stats.course.name",
+        key: "StatsContent",
+        permission: "stats.course",
+      },
+      {
+        name: "title.stats.member.name",
+        key: "StatsMember",
+        permission: "stats.user",
+      },
+    ],
+  },
+  {
     name: "title.system",
     key: "System",
     icon: "icon-icon-setting-n",

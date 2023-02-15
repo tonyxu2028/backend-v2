@@ -153,6 +153,12 @@ export default {
           images: require("../../assets/images/config/weixin.png"),
           sign: "TemplateOne",
         },
+        {
+          name: "实名认证",
+          value: "微信实名认证",
+          images: require("../../assets/images/config/role.png"),
+          sign: "",
+        },
       ],
       courses: [
         {

@@ -29,8 +29,8 @@ const Api = {
     },
   },
   Stat: {
-    Statistic(id, params) {
-      return get(`/backend/api/v1/statistic/${id}`, params);
+    Statistic(params) {
+      return get(`/backend/api/v1/dashboard/graph`, params);
     },
   },
   Role: {
@@ -403,6 +403,12 @@ const Api = {
         Del(id, params) {
           return post(
             `/backend/api/v1/course/${id}/watch/records/delete`,
+            params
+          );
+        },
+        Detail(id, userId, params) {
+          return get(
+            `/backend/api/v1/course/${id}/user/${userId}/watch/records`,
             params
           );
         },
@@ -1633,6 +1639,32 @@ const Api = {
             );
           },
         },
+      },
+    },
+  },
+  Stats: {
+    Member: {
+      List(params) {
+        return get(`/backend/api/v2/stats/user`, params);
+      },
+      UserTops(params) {
+        return get(`/backend/api/v2/stats/user-paid-top`, params);
+      },
+      UserGraph(params) {
+        return get(`/backend/api/v2/stats/user-graph`, params);
+      },
+    },
+    Transaction: {
+      List(params) {
+        return get(`/backend/api/v2/stats/transaction`, params);
+      },
+      TransactionGraph(params) {
+        return get(`/backend/api/v2/stats/transaction-graph`, params);
+      },
+    },
+    Content: {
+      List(params) {
+        return get(`/backend/api/v2/stats/transaction-top`, params);
       },
     },
   },

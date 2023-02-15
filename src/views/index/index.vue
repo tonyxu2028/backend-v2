@@ -2,10 +2,10 @@
   <div class="el_content">
     <div class="el_top_row1">
       <div class="el_row_item">
-        <span class="item_title">今日收入</span>
+        <span class="item_title">今日收入(元)</span>
         <p>{{ formatNumber(list.today_paid_sum || 0, 0) }}</p>
         <div class="item_info">
-          <span>昨日收入：{{ numberForHuman(list.yesterday_paid_sum) }}</span>
+          <span>昨日：{{ numberForHuman(list.yesterday_paid_sum) }}</span>
           <span>
             较昨日：
             <strong :class="{ 'c-danger': todayPaidRate < 0 }">
@@ -15,11 +15,11 @@
         </div>
       </div>
       <div class="el_row_item">
-        <span class="item_title">今日付费用户</span>
+        <span class="item_title">今日支付人数</span>
         <p>{{ list.today_paid_user_num || 0 }}</p>
         <div class="item_info">
           <span>
-            昨日付费用户：
+            昨日：
             {{ formatNumber(list.yesterday_paid_user_num, 0) }}
           </span>
           <span>
@@ -32,19 +32,19 @@
       </div>
       <div class="el_row_item2">
         <div class="el_item">
-          <span>总用户</span>
+          <span>总学员数</span>
           <span class="el_item_num flex-1">
             {{ formatNumber(list.user_count, 0) }}
           </span>
           <span class="el_item_increase">
-            今日新增：
+            较昨日：
             <strong :class="{ 'c-danger': userCountIncRate < 0 }">
               {{ userCountIncRate }}%
             </strong>
           </span>
         </div>
         <div class="el_item">
-          <span>本月收益</span>
+          <span>本月收入(元)</span>
           <span class="el_item_num flex-1">
             {{ formatNumber(list.this_month_paid_sum || 0, 0) }}
           </span>
@@ -150,16 +150,6 @@
     </div>
     <div class="el_top_row3">
       <div class="tit">{{ $t("index.statistical_analysis") }}</div>
-      <div class="selchartbox">
-        <el-button
-          style="margin-right: 30px"
-          :type="flagE === index + 1 ? 'primary' : ''"
-          v-for="(item, index) in navList"
-          :key="item.id"
-          @click="handleClickBtnE(index)"
-          >{{ item.name }}</el-button
-        >
-      </div>
       <div class="selcharttimebox">
         <el-date-picker
           v-model="time"
@@ -170,7 +160,7 @@
           :end-placeholder="$t('index.end_time')"
           :picker-options="pickerOptions"
         />
-        <el-button class="ml-10" @click="getchartsdata()" type="primary" plain>
+        <el-button class="ml-10" @click="getchartsdata()" type="primary">
           筛选
         </el-button>
       </div>
@@ -371,30 +361,20 @@ export default {
         start_at: this.start_at,
         end_at: this.end_at,
       };
-      this.$api.Stat.Statistic(uid, databox).then((resp) => {
-        this.drawLineChart(resp.data.dataset, resp.data.labels);
+      this.$api.Stat.Statistic(databox).then((resp) => {
+        this.drawLineChart(resp.data);
         this.loading = false;
       });
     },
-    drawLineChart(val, xset) {
+    drawLineChart(params) {
       const echarts = require("echarts");
       let myChart = echarts.init(document.getElementById("chartLine"));
-      var yset = this.$t("index.new_registered_users");
-      if (this.flagE == 2) {
-        yset = this.$t("index.daily_order_creation");
-      } else if (this.flagE == 3) {
-        yset = this.$t("index.daily_order_payment");
-      } else if (this.flagE == 4) {
-        yset = this.$t("index.total_dailypayment_orders");
-      } else {
-        yset = this.$t("index.new_registered_users");
-      }
       myChart.setOption({
         tooltip: {
           trigger: "axis",
         },
         legend: {
-          data: [yset],
+          data: ["每日注册用户", "每日创建订单", "每日已支付订单", "每日营收"],
           x: "right",
         },
         grid: {
@@ -406,30 +386,47 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: xset,
+          data: this.changeObjectKey(params.order_created),
         },
         yAxis: {
           type: "value",
         },
         series: [
           {
-            name: yset,
+            name: "每日注册用户",
             type: "line",
-            // 设置折线图颜色
-            itemStyle: {
-              normal: {
-                lineStyle: {
-                  color: "#4876FF",
-                },
-              },
-            },
-            stack: "总量",
-            data: val,
+            data: this.changeObject(params.user_register),
+          },
+          {
+            name: "每日创建订单",
+            type: "line",
+            data: this.changeObject(params.order_created),
+          },
+          {
+            name: "每日已支付订单",
+            type: "line",
+            data: this.changeObject(params.order_paid),
+          },
+          {
+            name: "每日营收",
+            type: "line",
+            data: this.changeObject(params.order_sum),
           },
         ],
       });
 
       window.addEventListener("resize", this.myChartResize, false);
+    },
+    changeObject(obj) {
+      let data = Object.values(obj);
+      return data;
+    },
+    changeObjectKey(obj) {
+      var arr = [];
+      for (let i in obj) {
+        arr.push(i); //返回键名
+      }
+      return arr;
     },
     myChartResize() {
       const echarts = require("echarts");
@@ -564,7 +561,7 @@ export default {
         justify-content: space-between;
         margin-bottom: 20px;
         span {
-          width: 70px;
+          width: 100px;
           display: block;
           font-size: 16px;
           font-family: PingFangSC-Regular, PingFang SC;
@@ -676,7 +673,6 @@ export default {
       overflow: hidden;
     }
     .selcharttimebox {
-      margin-top: 50px;
       width: 100%;
       box-sizing: border-box;
       display: flex;

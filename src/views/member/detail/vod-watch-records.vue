@@ -47,10 +47,10 @@
           <span v-else>-</span>
         </template>
       </el-table-column>
-      <el-table-column label="课时学习明细" :width="200">
+      <el-table-column label="课时学习进度" :width="200">
         <template slot-scope="scope">
           <p-link
-            text="课时学习"
+            text="学习进度"
             type="primary"
             p="v2.member.course.progress"
             @click="showVideoDialog(scope.row)"

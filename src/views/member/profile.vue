@@ -7,29 +7,6 @@
           真实姓名： {{ user.profile ? user.profile.real_name : "" }}
         </div>
         <div class="panel-info-item">
-          性别：
-          <template v-if="user.profile">
-            <span v-if="user.profile.gender == 0">未知</span>
-            <span v-else-if="user.profile.gender == 1">男</span>
-            <span v-else-if="user.profile.gender == 2">女</span>
-          </template>
-        </div>
-        <div class="panel-info-item">
-          年龄：{{ user.profile ? user.profile.age : "" }}
-        </div>
-        <div class="panel-info-item">
-          生日： {{ user.profile ? user.profile.birthday : "" }}
-        </div>
-        <div class="panel-info-item">
-          职业： {{ user.profile ? user.profile.profession : "" }}
-        </div>
-        <div class="panel-info-item">
-          住址： {{ user.profile ? user.profile.address : "" }}
-        </div>
-        <div class="panel-info-item">
-          毕业院校： {{ user.profile ? user.profile.graduated_school : "" }}
-        </div>
-        <div class="panel-info-item">
           身份证号码： {{ user.profile ? user.profile.id_number : "" }}
         </div>
       </div>
@@ -39,59 +16,14 @@
         <div class="user-extra-info-box">
           <div class="float-left mb-15 d-flex">
             <div class="info-item">
-              <div class="info-label">毕业证照片：</div>
+              <div class="info-label">认证照片：</div>
               <div class="info-value">
-                <template v-if="user.profile && user.profile.diploma">
+                <template v-if="user.profile && user.profile.verify_image_url">
                   <el-image
-                    style="width: 200px; height: 150px; border-radius: 8px"
-                    :src="user.profile.diploma"
+                    style="width: 150px; height: 200px; border-radius: 8px"
+                    :src="user.profile.verify_image_url"
                     lazy
-                    :preview-src-list="[user.profile.diploma]"
-                  >
-                  </el-image>
-                </template>
-                <div v-else class="image"></div>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">身份证正面照：</div>
-              <div class="info-value">
-                <template v-if="user.profile && user.profile.id_frontend_thumb">
-                  <el-image
-                    style="width: 200px; height: 150px; border-radius: 8px"
-                    :src="user.profile.id_frontend_thumb"
-                    lazy
-                    :preview-src-list="[user.profile.id_frontend_thumb]"
-                  >
-                  </el-image>
-                </template>
-                <div v-else class="image"></div>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">身份证背面照：</div>
-              <div class="info-value">
-                <template v-if="user.profile && user.profile.id_backend_thumb">
-                  <el-image
-                    style="width: 200px; height: 150px; border-radius: 8px"
-                    :src="user.profile.id_backend_thumb"
-                    lazy
-                    :preview-src-list="[user.profile.id_backend_thumb]"
-                  >
-                  </el-image>
-                </template>
-                <div v-else class="image"></div>
-              </div>
-            </div>
-            <div class="info-item">
-              <div class="info-label">手持身份证照：</div>
-              <div class="info-value">
-                <template v-if="user.profile && user.profile.id_hand_thumb">
-                  <el-image
-                    style="width: 200px; height: 150px; border-radius: 8px"
-                    :src="user.profile.id_hand_thumb"
-                    lazy
-                    :preview-src-list="[user.profile.id_hand_thumb]"
+                    :preview-src-list="[user.profile.verify_image_url]"
                   >
                   </el-image>
                 </template>
@@ -148,7 +80,7 @@ export default {
     display: grid;
     row-gap: 30px;
     column-gap: 0px;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     .panel-info-item {
       height: 14px;
       font-size: 14px;
@@ -179,8 +111,8 @@ export default {
     height: auto;
     float: left;
     .image {
-      width: 200px;
-      height: 150px;
+      width:150px;
+      height: 200px;
       background: #f0f0f8;
       border-radius: 8px;
     }
