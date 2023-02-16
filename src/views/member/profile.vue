@@ -111,7 +111,7 @@ export default {
     height: auto;
     float: left;
     .image {
-      width:150px;
+      width: 150px;
       height: 200px;
       background: #f0f0f8;
       border-radius: 8px;

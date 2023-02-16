@@ -163,10 +163,10 @@ export default {
       return this.newSumrate(this.list.today_count, this.list.yesterday_count);
     },
     weekUserRate() {
-      return this.newSumrate(this.list.user_count, this.list.week_count);
+      return this.sumrate(this.list.user_count, this.list.week_count);
     },
     monthUserRate() {
-      return this.newSumrate(this.list.user_count, this.list.month_count);
+      return this.sumrate(this.list.user_count, this.list.month_count);
     },
   },
   mounted() {
@@ -189,9 +189,6 @@ export default {
         return 0;
       }
       if (num2 === num1) {
-        return 0;
-      }
-      if (num2 === 0) {
         return 100;
       }
 
