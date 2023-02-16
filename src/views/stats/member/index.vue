@@ -192,7 +192,7 @@ export default {
         return 100;
       }
       if (num2 == 0 && num2 !== num1) {
-        return -100;
+        return 0;
       }
 
       return parseInt((num2 / (num1 - num2)).toFixed(2) * 10000) / 100;
