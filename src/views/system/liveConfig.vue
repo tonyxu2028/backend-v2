@@ -444,12 +444,7 @@ export default {
         let configSysData = res.data["系统"];
         for (let index in configSysData) {
           if (configSysData[index].key === "app.url") {
-            let appUrl = configSysData[index].value;
-            if (appUrl.substr(appUrl.length - 1, 1) === "/") {
-              this.appUrl = appUrl;
-            } else {
-              this.appUrl = appUrl + "/";
-            }
+            this.appUrl = this.$utils.checkUrl(configSysData[index].value);
             break;
           }
         }
