@@ -14,7 +14,7 @@
             </div>
             <div class="mt-5">
               <div class="form-helper-text" v-if="appUrl">
-                <span>微信公众号URL：{{ appUrl }}/api/wechat/serve</span>
+                <span>微信公众号URL：{{ appUrl }}api/wechat/serve</span>
               </div>
             </div>
           </div>
@@ -244,7 +244,7 @@ export default {
         let sysData = res.data["系统"];
         for (let index in sysData) {
           if (sysData[index].key === "app.url") {
-            this.appUrl = sysData[index].value;
+            this.appUrl = this.$utils.checkUrl(sysData[index].value);
           }
         }
 
