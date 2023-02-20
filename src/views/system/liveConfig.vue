@@ -115,11 +115,7 @@
             </div>
             <div class="mt-5">
               <div class="form-helper-text">
-                <span
-                  >回调地址：{{
-                    appUrl
-                  }}addons/zhibo/api/v1/aliyun/callback</span
-                >
+                <span>{{ aliWebUrl }}</span>
               </div>
             </div>
           </div>
@@ -207,11 +203,7 @@
             </div>
             <div class="mt-5">
               <div class="form-helper-text">
-                <span
-                  >回调地址：{{
-                    appUrl
-                  }}addons/zhibo/api/v1/tencent/callback</span
-                >
+                <span>{{ tenWebUrl }}</span>
               </div>
             </div>
           </div>
@@ -318,6 +310,22 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    aliWebUrl() {
+      if (!this.appUrl) {
+        return null;
+      }
+      return "回调地址：" + this.appUrl + "addons/zhibo/api/v1/aliyun/callback";
+    },
+    tenWebUrl() {
+      if (!this.appUrl) {
+        return null;
+      }
+      return (
+        "回调地址：" + this.appUrl + "addons/zhibo/api/v1/tencent/callback"
+      );
+    },
   },
   mounted() {
     this.getConfig();
