@@ -3,6 +3,25 @@
     <back-bar class="mb-30" title="视频"></back-bar>
     <div class="float-left">
       <el-form ref="form" label-width="205px">
+        <div class="title">服务商配置</div>
+        <el-form-item label="视频存储默认服务">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-select
+                class="w-300px"
+                v-model="form.config['meedu.upload.video.default_service']"
+              >
+                <el-option
+                  v-for="(item, index) in selects"
+                  :key="index"
+                  :label="item.title"
+                  :value="item.key"
+                >
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+        </el-form-item>
         <div class="title">阿里云视频</div>
         <el-form-item label="阿里云视频Region">
           <div class="j-flex flex-column" style="margin-left: 3px">
@@ -125,7 +144,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -143,6 +162,7 @@ export default {
           "tencent.vod.secret_key": null,
           "meedu.system.player.tencent_play_key": null,
           "meedu.system.player.video_format_whitelist": null,
+          "meedu.upload.video.default_service": null,
         },
       },
       aliRegions: [
@@ -177,6 +197,7 @@ export default {
           key: "m3u8",
         },
       ],
+      selects: [],
     };
   },
   computed: {
@@ -188,6 +209,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(["setSystemConfig"]),
     lowerCase(str) {
       let arr = str.split("");
       let newStr = "";
@@ -241,6 +263,12 @@ export default {
           ) {
             this.form.config["meedu.system.player.tencent_play_key"] =
               configData[index].value;
+          } else if (
+            configData[index].key === "meedu.upload.video.default_service"
+          ) {
+            this.form.config["meedu.upload.video.default_service"] =
+              configData[index].value;
+            this.selects = configData[index].option_value;
           }
         }
         let configPlayData = res.data["播放器配置"];
@@ -279,8 +307,14 @@ export default {
       this.$api.System.Config.Save(this.form).then(() => {
         this.$message.success(this.$t("common.success"));
         this.loading = false;
-
         this.getConfig();
+        this.getSystemConfig();
+      });
+    },
+    getSystemConfig() {
+      // 获取已开启的插件
+      this.$api.System.Config.Config().then((res) => {
+        this.setSystemConfig(res.data);
         this.$router.back();
       });
     },

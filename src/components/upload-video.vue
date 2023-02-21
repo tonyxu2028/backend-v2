@@ -1,21 +1,29 @@
 <template>
   <transition name="fade">
-    <div class="meedu-dialog-mask" v-if="show">
-      <div class="meedu-dialog-box">
+    <div class="meedu-dialog-mask" v-show="show">
+      <div class="meedu-dialog-box" id="container">
         <div class="meedu-dialog-header">上传视频</div>
         <div class="meedu-dialog-body">
+          <div class="float-left" v-if="isNoService">
+            <div class="d-flex">
+              未配置视频存储服务，请前往『系统』-『系统配置』-『视频存储』配置。
+            </div>
+          </div>
           <div class="float-left">
             <el-tabs v-model="tab.active">
               <el-tab-pane
                 :label="item.name"
                 :name="item.key"
-                v-for="(item, index) in tab.list"
+                v-for="(item, index) in tabList"
                 :key="index"
               ></el-tab-pane>
             </el-tabs>
           </div>
-
-          <div class="float-left" v-show="tab.active === 'list'">
+          <div
+            class="float-left"
+            v-show="tab.active === 'list'"
+            style="z-index: 99"
+          >
             <div class="float-left mb-15">
               <div class="float-left d-flex">
                 <div class="d-flex">
@@ -34,63 +42,123 @@
                 </div>
               </div>
             </div>
-
-            <el-table
-              :header-cell-style="{ background: '#f1f2f9' }"
-              :data="list"
-              ref="table"
-              highlight-current-row
-              @current-change="handleCurrentChange"
-              class="float-left mb-15"
-              v-loading="loading"
+            <template
+              v-if="
+                isLocalService &&
+                checkPermission('addons.LocalUpload.video.index')
+              "
             >
-              <el-table-column label width="55">
-                <template slot-scope="scope">
-                  <el-radio :label="scope.row.id" v-model="radio"
-                    ><span></span
-                  ></el-radio>
-                </template>
-              </el-table-column>
-              <el-table-column prop="id" label="ID" width="120">
-              </el-table-column>
-              <el-table-column prop="title" label="视频"> </el-table-column>
-              <el-table-column label="时长" width="150">
-                <template slot-scope="scope">
-                  <duration-text
-                    v-if="!loading"
-                    :duration="scope.row.duration"
-                  ></duration-text>
-                </template>
-              </el-table-column>
-              <el-table-column prop="storage_driver" label="存储" width="100">
-              </el-table-column>
-              <el-table-column label="大小" width="150">
-                <template slot-scope="scope">
-                  <span>{{ scope.row.size_mb }}MB</span>
-                </template>
-              </el-table-column>
-              <el-table-column label="时间" width="200">
-                <template slot-scope="scope">
-                  <span>{{ scope.row.created_at | dateFormat }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column fixed="right" label="操作" width="60">
-                <template slot-scope="scope">
-                  <el-popconfirm
-                    title="确认删除吗？"
-                    @confirm="destory(scope.row.id)"
-                  >
-                    <p-link
-                      slot="reference"
-                      text="删除"
-                      p="media.video.delete.multi"
-                      type="danger"
-                    ></p-link>
-                  </el-popconfirm>
-                </template>
-              </el-table-column>
-            </el-table>
-
+              <el-table
+                :header-cell-style="{ background: '#f1f2f9' }"
+                :data="list"
+                ref="table"
+                highlight-current-row
+                @current-change="handleCurrentChange"
+                class="float-left mb-15"
+                v-loading="loading"
+              >
+                <el-table-column label width="55">
+                  <template slot-scope="scope">
+                    <el-radio :label="scope.row.id" v-model="radio"
+                      ><span></span
+                    ></el-radio>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="id" label="ID" width="120">
+                </el-table-column>
+                <el-table-column prop="name" label="视频"> </el-table-column>
+                <el-table-column label="时长" width="150">
+                  <template slot-scope="scope">
+                    <duration-text
+                      v-if="!loading"
+                      :duration="scope.row.duration"
+                    ></duration-text>
+                  </template>
+                </el-table-column>
+                <el-table-column label="大小" width="250">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.size }}Byte</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="时间" width="200">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.created_at | dateFormat }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column fixed="right" label="操作" width="60">
+                  <template slot-scope="scope">
+                    <el-popconfirm
+                      title="确认删除吗？"
+                      @confirm="destoryLocal(scope.row.id)"
+                    >
+                      <p-link
+                        slot="reference"
+                        text="删除"
+                        p="addons.LocalUpload.video.destroy"
+                        type="danger"
+                      ></p-link>
+                    </el-popconfirm>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </template>
+            <template v-else-if="isAliService || isTenService">
+              <el-table
+                :header-cell-style="{ background: '#f1f2f9' }"
+                :data="list"
+                ref="table"
+                highlight-current-row
+                @current-change="handleCurrentChange"
+                class="float-left mb-15"
+                v-loading="loading"
+              >
+                <el-table-column label width="55">
+                  <template slot-scope="scope">
+                    <el-radio :label="scope.row.id" v-model="radio"
+                      ><span></span
+                    ></el-radio>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="id" label="ID" width="120">
+                </el-table-column>
+                <el-table-column prop="title" label="视频"> </el-table-column>
+                <el-table-column label="时长" width="150">
+                  <template slot-scope="scope">
+                    <duration-text
+                      v-if="!loading"
+                      :duration="scope.row.duration"
+                    ></duration-text>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="storage_driver" label="存储" width="100">
+                </el-table-column>
+                <el-table-column label="大小" width="150">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.size_mb }}MB</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="时间" width="200">
+                  <template slot-scope="scope">
+                    <span>{{ scope.row.created_at | dateFormat }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column fixed="right" label="操作" width="60">
+                  <template slot-scope="scope">
+                    <el-popconfirm
+                      title="确认删除吗？"
+                      @confirm="destory(scope.row.id)"
+                    >
+                      <p-link
+                        slot="reference"
+                        text="删除"
+                        p="media.video.delete.multi"
+                        type="danger"
+                      ></p-link>
+                    </el-popconfirm>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </template>
             <div class="float-left mt-15 text-center">
               <el-pagination
                 @size-change="paginationSizeChange"
@@ -108,6 +176,7 @@
           <div class="float-left" v-show="tab.active === 'upload'">
             <div class="float-left mb-30">
               <el-button
+                v-show="isAliService"
                 type="primary"
                 :disabled="upload.loading"
                 plain
@@ -115,11 +184,20 @@
                 >上传到阿里云点播</el-button
               >
               <el-button
+                v-show="isTenService"
                 type="primary"
                 :disabled="upload.loading"
                 plain
                 @click="uploadTencentVod"
                 >上传到腾讯云点播</el-button
+              >
+              <el-button
+                v-show="isLocalService"
+                type="primary"
+                :disabled="upload.loading"
+                plain
+                id="selectfiles"
+                >上传到本地</el-button
               >
             </div>
 
@@ -163,8 +241,11 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import TcVod from "vod-js-sdk-v6";
+import plupload from "plupload";
 import DurationText from "@/components/duration-text";
+import config from "@/js/config";
 
 export default {
   components: {
@@ -176,6 +257,7 @@ export default {
       pagination: {
         page: 1,
         size: 10,
+        keywords: null,
       },
       list: [],
       total: 0,
@@ -183,20 +265,12 @@ export default {
       loading: false,
       tab: {
         active: "upload",
-        list: [
-          {
-            name: "直接上传",
-            key: "upload",
-          },
-          {
-            name: "已上传视频",
-            key: "list",
-          },
-        ],
       },
       upload: {
         // 阿里云obj
         aliyun: null,
+        //plupload
+        up: null,
         // 上传服务商
         service: null,
         // 是否上传中
@@ -214,9 +288,38 @@ export default {
       },
       // 已选择的视频
       selectedVideo: null,
+      localUploadFiles: [],
     };
   },
   computed: {
+    ...mapState(["user", "systemConfig"]),
+    tabList() {
+      let list = [];
+      if (this.systemConfig.video.default_service === "") {
+        return list;
+      }
+      if (this.systemConfig.video.default_service === "local") {
+        if (!this.checkPermission("addons.LocalUpload.video.index")) {
+          return [
+            {
+              name: "直接上传",
+              key: "upload",
+            },
+          ];
+        }
+      }
+
+      return [
+        {
+          name: "直接上传",
+          key: "upload",
+        },
+        {
+          name: "已上传视频",
+          key: "list",
+        },
+      ];
+    },
     tableCurrentRow() {
       if (this.selectedVideo === null) {
         return null;
@@ -230,6 +333,18 @@ export default {
       }
       return row;
     },
+    isNoService() {
+      return this.systemConfig.video.default_service === "";
+    },
+    isLocalService() {
+      return this.systemConfig.video.default_service === "local";
+    },
+    isTenService() {
+      return this.systemConfig.video.default_service === "tencent";
+    },
+    isAliService() {
+      return this.systemConfig.video.default_service === "aliyun";
+    },
   },
   watch: {
     "tab.active"(newVal) {
@@ -242,8 +357,13 @@ export default {
     this.getData();
 
     this.aliyunInit();
+
+    this.pluploadInit();
   },
   methods: {
+    checkPermission(val) {
+      return typeof this.user.permissions[val] !== "undefined";
+    },
     paginationReset() {
       this.pagination.page = 1;
       this.pagination.keywords = null;
@@ -275,6 +395,24 @@ export default {
         return;
       }
       this.loading = true;
+      if (this.isLocalService) {
+        this.getLocalList();
+      } else if (this.isLocalService || this.isAliService) {
+        this.getOldList();
+      }
+    },
+    getLocalList() {
+      this.$api.System.VideoUpload.List(this.pagination).then((res) => {
+        this.loading = false;
+        this.list = res.data.data;
+        this.total = res.data.total;
+
+        if (this.tableCurrentRow !== null) {
+          this.$refs["table"].setCurrentRow(this.tableCurrentRow);
+        }
+      });
+    },
+    getOldList() {
       this.$api.Media.Video.List(this.pagination).then((res) => {
         this.loading = false;
         this.list = res.data.data;
@@ -300,7 +438,88 @@ export default {
       let duration = this.$refs["video-play"].duration;
       this.upload.file.duration = duration;
     },
+    pluploadInit() {
+      if (!this.isLocalService) {
+        return;
+      }
+      let that = this;
+      let url = config.url;
+      if (url.substr(-1, 1) === "/") {
+        url = url.substr(0, url.length - 1);
+      }
+      this.upload.up = new plupload.Uploader({
+        runtimes: "html5",
+        browse_button: "selectfiles",
+        container: document.getElementById("container"),
+        chunk_size: "1MB",
+        multi_selection: false,
+        multipart: true,
+        headers: {
+          Authorization: "Bearer " + that.$utils.getToken(),
+          accept: "application/json",
+        },
+        url: url + "/backend/addons/LocalUpload/upload",
+        filters: {
+          mime_types: "video/mp4",
+          max_file_size: "1024mb",
+          prevent_duplicates: true, //不允许选取重复文件
+        },
+        init: {
+          PostInit: function () {},
+          FilesAdded: (up, file) => {
+            this.upload.service = "local";
+            // 解析视频时长
+            var url = URL.createObjectURL(file[0].getNative());
+            var audioElement = new Audio(url);
+            var duration = 0;
+            audioElement.addEventListener("loadedmetadata", (_event) => {
+              duration = audioElement.duration;
+              this.setUploadParam(up, duration, true);
+            });
+          },
+          BeforeUpload: (up, file) => {
+            this.upload.loading = true;
+            this.upload.process = 0;
+            this.upload.file.title = file.name;
+            this.upload.file.size = file.size;
+          },
+          UploadProgress: (up, file) => {
+            this.upload.process = parseInt(file.percent);
+          },
+          FileUploaded: (up, file, info) => {
+            this.upload.loading = false;
+            if (info.status === 200) {
+              this.$message.success("上传成功");
+            }
+          },
+          Error: (up, err) => {
+            this.upload.loading = false;
+            if (err.code == -600) {
+              this.uploadFailHandle(
+                "选择的文件太大了，重新设置一下上传的最大大小"
+              );
+            } else if (err.code == -601) {
+              this.uploadFailHandle("选择的文件后缀不对");
+            } else if (err.code == -602) {
+              this.uploadFailHandle("这个文件已经上传过一遍了");
+            } else {
+              this.uploadFailHandle("Error xml:" + err.response);
+            }
+          },
+        },
+      });
+      this.upload.up.init();
+    },
+    setUploadParam(up, duration, ret) {
+      up.setOption("multipart_params", {
+        duration: duration,
+      });
+      up.start();
+    },
     aliyunInit() {
+      if (!this.isAliService) {
+        return;
+      }
       // 阿里云初始化
       this.upload.aliyun = new window.AliyunUpload.Vod({
         partSize: 1048576,
@@ -379,7 +598,7 @@ export default {
         return;
       }
       this.upload.service = "tencent";
-      this.$refs["video-file"].click();
+      this.localUploadHandle();
     },
     fileChange(e) {
       if (e.target.files.length === 0) {
@@ -509,6 +728,24 @@ export default {
           this.$message.error(e.message);
         });
     },
+    destoryLocal(item) {
+      //点击确定按钮的操作
+      if (this.loading) {
+        return;
+      }
+      this.loading = true;
+
+      this.$api.System.VideoUpload.Destroy(item)
+        .then(() => {
+          this.loading = false;
+          this.$message.success(this.$t("common.success"));
+          this.getData();
+        })
+        .catch((e) => {
+          this.loading = false;
+          this.$message.error(e.message);
+        });
+    },
   },
 };
 </script>
@@ -520,7 +757,6 @@ export default {
   float: left;
   display: flex;
   justify-content: center;
-  
 }
 .el-button--primary:hover {
   color: #fff;
