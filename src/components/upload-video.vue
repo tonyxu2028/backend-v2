@@ -426,7 +426,7 @@ export default {
       this.loading = true;
       if (this.isLocalService) {
         this.getLocalList();
-      } else if (this.isLocalService || this.isAliService) {
+      } else if (this.isTenService || this.isAliService) {
         this.getOldList();
       }
     },
@@ -442,6 +442,7 @@ export default {
       });
     },
     getOldList() {
+      console.log(111);
       this.$api.Media.Video.List(this.pagination).then((res) => {
         this.loading = false;
         this.list = res.data.data;
