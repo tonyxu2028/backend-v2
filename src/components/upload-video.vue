@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div class="meedu-dialog-mask" v-show="show">
-      <div class="meedu-dialog-box" id="container">
+      <div class="meedu-dialog-box">
         <div class="meedu-dialog-header">上传视频</div>
         <div class="meedu-dialog-body">
           <div class="float-left" v-if="isNoService">
@@ -19,11 +19,7 @@
               ></el-tab-pane>
             </el-tabs>
           </div>
-          <div
-            class="float-left"
-            v-show="tab.active === 'list'"
-            style="z-index: 99"
-          >
+          <div class="float-left" v-show="tab.active === 'list'">
             <template
               v-if="
                 isLocalService &&
@@ -190,8 +186,11 @@
               </el-pagination>
             </div>
           </div>
-
-          <div class="float-left" v-show="tab.active === 'upload'">
+          <div
+            id="container"
+            class="float-left"
+            v-show="tab.active === 'upload'"
+          >
             <div class="float-left mb-30">
               <el-button
                 v-show="isAliService"
