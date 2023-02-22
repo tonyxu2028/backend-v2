@@ -201,9 +201,6 @@ export default {
           ? CONSTANT.menuActiveMap[newVal]
           : "Dashboard";
       this.defaultActive = activeName;
-      if (newVal !== "Login") {
-        this.checkLogin();
-      }
     },
   },
   methods: {
@@ -239,15 +236,6 @@ export default {
       }
 
       this.setEnabledAddons(enabledAddons, count);
-    },
-    checkLogin() {
-      let token = Utils.getToken();
-      if (!token) {
-        Utils.clearToken();
-        this.$router.replace({
-          name: "Login",
-        });
-      }
     },
     async autoLogin() {
       if (this.$route.name !== "Login") {
