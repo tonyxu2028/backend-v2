@@ -70,18 +70,21 @@ Vue.prototype.$message = function (msg) {
   return Message({
     message: msg,
     duration: 3000,
+    customClass: "messageClass",
   });
 };
 Vue.prototype.$message.success = function (msg) {
   return Message.success({
     message: msg,
     duration: 3000,
+    customClass: "messageClass",
   });
 };
 Vue.prototype.$message.warning = function (msg) {
   return Message.warning({
     message: msg,
     duration: 3000,
+    customClass: "messageClass",
   });
 };
 Vue.prototype.$message.error = function (msg, duration) {
@@ -89,6 +92,7 @@ Vue.prototype.$message.error = function (msg, duration) {
     message: msg,
     duration: duration === 0 ? 0 : 5000,
     showClose: true,
+    customClass: "messageClass",
   });
 };
 

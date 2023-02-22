@@ -343,6 +343,10 @@ export default {
         this.video.tencent_video_id = video.storage_file_id;
         this.video.aliyun_video_id = null;
         this.video.url = null;
+      } else if (video.visit_url) {
+        this.video.tencent_video_id = null;
+        this.video.aliyun_video_id = null;
+        this.video.url = video.visit_url;
       }
 
       this.showUploadVideoWin = false;

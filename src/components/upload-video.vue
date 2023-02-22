@@ -24,30 +24,30 @@
             v-show="tab.active === 'list'"
             style="z-index: 99"
           >
-            <div class="float-left mb-15">
-              <div class="float-left d-flex">
-                <div class="d-flex">
-                  <el-input
-                    class="w-150px"
-                    v-model="pagination.keywords"
-                    placeholder="关键字"
-                  ></el-input>
-                </div>
-
-                <div class="ml-10">
-                  <el-button @click="paginationReset"> 清空 </el-button>
-                  <el-button @click="firstPageLoad" type="primary">
-                    筛选
-                  </el-button>
-                </div>
-              </div>
-            </div>
             <template
               v-if="
                 isLocalService &&
                 checkPermission('addons.LocalUpload.video.index')
               "
             >
+              <div class="float-left mb-15">
+                <div class="float-left d-flex">
+                  <div class="d-flex">
+                    <el-input
+                      class="w-150px"
+                      v-model="pagination.name"
+                      placeholder="关键字"
+                    ></el-input>
+                  </div>
+
+                  <div class="ml-10">
+                    <el-button @click="paginationReset"> 清空 </el-button>
+                    <el-button @click="firstPageLoad" type="primary">
+                      筛选
+                    </el-button>
+                  </div>
+                </div>
+              </div>
               <el-table
                 :header-cell-style="{ background: '#f1f2f9' }"
                 :data="list"
@@ -77,7 +77,7 @@
                 </el-table-column>
                 <el-table-column label="大小" width="250">
                   <template slot-scope="scope">
-                    <span>{{ scope.row.size }}Byte</span>
+                    <span>{{ fileSizeConversion(scope.row.size) }}MB</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="时间" width="200">
@@ -103,6 +103,24 @@
               </el-table>
             </template>
             <template v-else-if="isAliService || isTenService">
+              <div class="float-left mb-15">
+                <div class="float-left d-flex">
+                  <div class="d-flex">
+                    <el-input
+                      class="w-150px"
+                      v-model="pagination.keywords"
+                      placeholder="关键字"
+                    ></el-input>
+                  </div>
+
+                  <div class="ml-10">
+                    <el-button @click="paginationReset"> 清空 </el-button>
+                    <el-button @click="firstPageLoad" type="primary">
+                      筛选
+                    </el-button>
+                  </div>
+                </div>
+              </div>
               <el-table
                 :header-cell-style="{ background: '#f1f2f9' }"
                 :data="list"
@@ -258,6 +276,7 @@ export default {
         page: 1,
         size: 10,
         keywords: null,
+        name: null,
       },
       list: [],
       total: 0,
@@ -361,12 +380,23 @@ export default {
     this.pluploadInit();
   },
   methods: {
+    fileSizeConversion(byte) {
+      var size = `${(byte / (1024 * 1024)).toFixed(2)}`;
+      const sizeStr = `${size}`;
+      const index = sizeStr.indexOf(".");
+      const dou = sizeStr.substr(index + 1, 2);
+      if (dou == "00") {
+        return sizeStr.substring(0, index) + sizeStr.substr(index + 3, 2);
+      }
+      return size;
+    },
     checkPermission(val) {
       return typeof this.user.permissions[val] !== "undefined";
     },
     paginationReset() {
       this.pagination.page = 1;
       this.pagination.keywords = null;
+      this.pagination.name = null;
       this.getData();
     },
     paginationSizeChange(size) {
