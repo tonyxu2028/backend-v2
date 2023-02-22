@@ -241,14 +241,12 @@ export default {
       this.setEnabledAddons(enabledAddons, count);
     },
     checkLogin() {
-      if (this.$route.name !== "Login") {
-        let token = Utils.getToken();
-        if (!token) {
-          Utils.clearToken();
-          this.$router.replace({
-            name: "Login",
-          });
-        }
+      let token = Utils.getToken();
+      if (!token) {
+        Utils.clearToken();
+        this.$router.replace({
+          name: "Login",
+        });
       }
     },
     async autoLogin() {
