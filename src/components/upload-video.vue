@@ -627,7 +627,7 @@ export default {
         return;
       }
       this.upload.service = "tencent";
-      this.localUploadHandle();
+      this.$refs["video-file"].click();
     },
     fileChange(e) {
       if (e.target.files.length === 0) {
