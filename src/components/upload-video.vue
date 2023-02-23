@@ -1,8 +1,10 @@
 <template>
   <transition name="fade">
-    <div class="meedu-dialog-mask" v-show="show">
-      <div class="meedu-dialog-box">
-        <div class="meedu-dialog-header">上传视频</div>
+    <div class="upload-dialog-mask" v-show="show">
+      <div class="meedu-dialog-box" v-show="!visible">
+        <div class="meedu-dialog-header">
+          <span>视频列表</span>
+        </div>
         <div class="meedu-dialog-body">
           <div class="float-left" v-if="isNoService">
             <div class="d-flex">
@@ -10,29 +12,24 @@
             </div>
           </div>
           <div class="float-left">
-            <el-tabs v-model="tab.active">
-              <el-tab-pane
-                :label="item.name"
-                :name="item.key"
-                v-for="(item, index) in tabList"
-                :key="index"
-              ></el-tab-pane>
-            </el-tabs>
-          </div>
-          <div class="float-left" v-show="tab.active === 'list'">
             <template
               v-if="
                 isLocalService &&
                 checkPermission('addons.LocalUpload.video.index')
               "
             >
-              <div class="float-left mb-15">
-                <div class="float-left d-flex">
+              <div class="float-left j-b-flex mb-15">
+                <div class="d-flex">
+                  <el-button type="primary" @click="openUploadItem"
+                    >上传视频</el-button
+                  >
+                </div>
+                <div class="d-flex">
                   <div class="d-flex">
                     <el-input
                       class="w-150px"
                       v-model="pagination.name"
-                      placeholder="关键字"
+                      placeholder="视频名称关键词"
                     ></el-input>
                   </div>
 
@@ -53,6 +50,13 @@
                 class="float-left mb-15"
                 v-loading="loading"
               >
+                <template slot="empty">
+                  <img
+                    class="empty-icon"
+                    src="@/assets/images/upload-video/empty.png"
+                    alt=""
+                  />
+                </template>
                 <el-table-column label width="55">
                   <template slot-scope="scope">
                     <el-radio :label="scope.row.id" v-model="radio"
@@ -60,10 +64,9 @@
                     ></el-radio>
                   </template>
                 </el-table-column>
-                <el-table-column prop="id" label="ID" width="120">
+                <el-table-column prop="name" label="视频名称">
                 </el-table-column>
-                <el-table-column prop="name" label="视频"> </el-table-column>
-                <el-table-column label="时长" width="150">
+                <el-table-column label="时长" width="90">
                   <template slot-scope="scope">
                     <duration-text
                       v-if="!loading"
@@ -71,12 +74,12 @@
                     ></duration-text>
                   </template>
                 </el-table-column>
-                <el-table-column label="大小" width="250">
+                <el-table-column label="大小" width="100">
                   <template slot-scope="scope">
                     <span>{{ fileSizeConversion(scope.row.size) }}MB</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="时间" width="200">
+                <el-table-column label="上传时间" width="150">
                   <template slot-scope="scope">
                     <span>{{ scope.row.created_at | dateFormat }}</span>
                   </template>
@@ -99,16 +102,20 @@
               </el-table>
             </template>
             <template v-else-if="isAliService || isTenService">
-              <div class="float-left mb-15">
+              <div class="float-left j-b-flex mb-15">
+                <div class="float-left d-flex">
+                  <el-button type="primary" @click="openUploadItem"
+                    >上传视频</el-button
+                  >
+                </div>
                 <div class="float-left d-flex">
                   <div class="d-flex">
                     <el-input
                       class="w-150px"
                       v-model="pagination.keywords"
-                      placeholder="关键字"
+                      placeholder="视频名称关键词"
                     ></el-input>
                   </div>
-
                   <div class="ml-10">
                     <el-button @click="paginationReset"> 清空 </el-button>
                     <el-button @click="firstPageLoad" type="primary">
@@ -126,6 +133,13 @@
                 class="float-left mb-15"
                 v-loading="loading"
               >
+                <template slot="empty">
+                  <img
+                    class="empty-icon"
+                    src="@/assets/images/upload-video/empty.png"
+                    alt=""
+                  />
+                </template>
                 <el-table-column label width="55">
                   <template slot-scope="scope">
                     <el-radio :label="scope.row.id" v-model="radio"
@@ -133,10 +147,9 @@
                     ></el-radio>
                   </template>
                 </el-table-column>
-                <el-table-column prop="id" label="ID" width="120">
+                <el-table-column prop="title" label="视频名称">
                 </el-table-column>
-                <el-table-column prop="title" label="视频"> </el-table-column>
-                <el-table-column label="时长" width="150">
+                <el-table-column label="时长" width="90">
                   <template slot-scope="scope">
                     <duration-text
                       v-if="!loading"
@@ -144,14 +157,14 @@
                     ></duration-text>
                   </template>
                 </el-table-column>
-                <el-table-column prop="storage_driver" label="存储" width="100">
-                </el-table-column>
-                <el-table-column label="大小" width="150">
+                <el-table-column label="大小" width="100">
                   <template slot-scope="scope">
                     <span>{{ scope.row.size_mb }}MB</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="时间" width="200">
+                <el-table-column prop="storage_driver" label="存储" width="90">
+                </el-table-column>
+                <el-table-column label="上传时间" width="150">
                   <template slot-scope="scope">
                     <span>{{ scope.row.created_at | dateFormat }}</span>
                   </template>
@@ -173,7 +186,7 @@
                 </el-table-column>
               </el-table>
             </template>
-            <div class="float-left mt-15 text-center">
+            <div class="float-left mt-15 text-center" v-if="list.length > 0">
               <el-pagination
                 @size-change="paginationSizeChange"
                 @current-change="paginationPageChange"
@@ -186,87 +199,30 @@
               </el-pagination>
             </div>
           </div>
-          <div
-            id="container"
-            class="float-left"
-            v-show="tab.active === 'upload'"
-          >
-            <div class="float-left mb-30">
-              <el-button
-                v-show="isAliService"
-                type="primary"
-                :disabled="upload.loading"
-                plain
-                @click="uploadAliyunVod"
-                >上传到阿里云点播</el-button
-              >
-              <el-button
-                v-show="isTenService"
-                type="primary"
-                :disabled="upload.loading"
-                plain
-                @click="uploadTencentVod"
-                >上传到腾讯云点播</el-button
-              >
-              <el-button
-                v-show="isLocalService"
-                type="primary"
-                :disabled="upload.loading"
-                plain
-                id="selectfiles"
-                >上传到本地</el-button
-              >
-            </div>
-
-            <template v-if="upload.loading || upload.fileId">
-              <div class="upload-process-box mb-30 mt-30">
-                <div>
-                  <el-progress
-                    type="circle"
-                    :stroke-width="15"
-                    :percentage="upload.process"
-                  ></el-progress>
-                </div>
-              </div>
-              <div class="float-left text-center">
-                <span class="helper-text">{{ upload.file.title }}</span>
-              </div>
-            </template>
-
-            <div style="display: none">
-              <input
-                type="file"
-                accept="video/*"
-                ref="video-file"
-                @change="fileChange"
-              />
-              <video ref="video-play" @loadedmetadata="videoPlayEvt"></video>
-            </div>
-          </div>
         </div>
         <div class="meedu-dialog-footer">
-          <el-button type="primary" @click="confirm" :loading="upload.loading">
-            确定
-          </el-button>
-          <el-button @click="close" class="ml-30" :loading="upload.loading"
-            >取消</el-button
-          >
+          <el-button type="primary" @click="confirm"> 确定 </el-button>
+          <el-button @click="close" class="ml-30">取消</el-button>
         </div>
       </div>
+      <upload-video-item
+        v-if="visible"
+        @close="visible = false"
+        @change="completeUpload"
+      ></upload-video-item>
     </div>
   </transition>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import TcVod from "vod-js-sdk-v6";
-import plupload from "plupload";
 import DurationText from "@/components/duration-text";
-import config from "@/js/config";
+import UploadVideoItem from "@/components/upload-video-item";
 
 export default {
   components: {
     DurationText,
+    UploadVideoItem,
   },
   props: ["show"],
   data() {
@@ -281,9 +237,6 @@ export default {
       total: 0,
       radio: "",
       loading: false,
-      tab: {
-        active: "upload",
-      },
       upload: {
         // 阿里云obj
         aliyun: null,
@@ -306,38 +259,11 @@ export default {
       },
       // 已选择的视频
       selectedVideo: null,
-      localUploadFiles: [],
+      visible: false,
     };
   },
   computed: {
     ...mapState(["user", "systemConfig"]),
-    tabList() {
-      let list = [];
-      if (this.systemConfig.video.default_service === "") {
-        return list;
-      }
-      if (this.systemConfig.video.default_service === "local") {
-        if (!this.checkPermission("addons.LocalUpload.video.index")) {
-          return [
-            {
-              name: "直接上传",
-              key: "upload",
-            },
-          ];
-        }
-      }
-
-      return [
-        {
-          name: "直接上传",
-          key: "upload",
-        },
-        {
-          name: "已上传视频",
-          key: "list",
-        },
-      ];
-    },
     tableCurrentRow() {
       if (this.selectedVideo === null) {
         return null;
@@ -365,20 +291,21 @@ export default {
     },
   },
   watch: {
-    "tab.active"(newVal) {
-      if (newVal === "list") {
-        this.paginationReset();
-      }
+    visible() {
+      this.paginationReset();
     },
   },
   mounted() {
     this.getData();
-
-    this.aliyunInit();
-
-    this.pluploadInit();
   },
   methods: {
+    openUploadItem() {
+      if (this.isNoService) {
+        this.$message.warning("请先在系统配置的视频存储中完成参数配置");
+        return;
+      }
+      this.visible = true;
+    },
     fileSizeConversion(byte) {
       var size = `${(byte / (1024 * 1024)).toFixed(2)}`;
       const sizeStr = `${size}`;
@@ -442,7 +369,6 @@ export default {
       });
     },
     getOldList() {
-      console.log(111);
       this.$api.Media.Video.List(this.pagination).then((res) => {
         this.loading = false;
         this.list = res.data.data;
@@ -454,6 +380,10 @@ export default {
       });
     },
     confirm() {
+      if (this.isNoService) {
+        this.$message.warning("请先在系统配置的视频存储中完成参数配置");
+        return;
+      }
       if (this.selectedVideo === null) {
         this.$message.warning("请选择视频");
         return;
@@ -464,278 +394,8 @@ export default {
       this.radio = "";
       this.$emit("close");
     },
-    videoPlayEvt() {
-      let duration = this.$refs["video-play"].duration;
-      this.upload.file.duration = duration;
-    },
-    pluploadInit() {
-      if (!this.isLocalService) {
-        return;
-      }
-      let that = this;
-      let url = config.url;
-      if (url.substr(-1, 1) === "/") {
-        url = url.substr(0, url.length - 1);
-      }
-      this.upload.up = new plupload.Uploader({
-        runtimes: "html5",
-        browse_button: "selectfiles",
-        container: document.getElementById("container"),
-        chunk_size: "1MB",
-        multi_selection: false,
-        multipart: true,
-        headers: {
-          Authorization: "Bearer " + that.$utils.getToken(),
-          accept: "application/json",
-        },
-        url: url + "/backend/addons/LocalUpload/upload",
-        filters: {
-          mime_types: "video/mp4",
-          max_file_size: "1024mb",
-          prevent_duplicates: true, //不允许选取重复文件
-        },
-        init: {
-          PostInit: function () {},
-          FilesAdded: (up, file) => {
-            this.upload.service = "local";
-            // 解析视频时长
-            var url = URL.createObjectURL(file[0].getNative());
-            var audioElement = new Audio(url);
-            var duration = 0;
-            audioElement.addEventListener("loadedmetadata", (_event) => {
-              duration = audioElement.duration;
-              this.setUploadParam(up, duration, true);
-            });
-          },
-          BeforeUpload: (up, file) => {
-            this.upload.loading = true;
-            this.upload.process = 0;
-            this.upload.file.title = file.name;
-            this.upload.file.size = file.size;
-          },
-          UploadProgress: (up, file) => {
-            this.upload.process = parseInt(file.percent);
-          },
-          FileUploaded: (up, file, info) => {
-            this.upload.loading = false;
-            if (info.status === 200) {
-              this.$message.success("上传成功");
-            }
-          },
-          Error: (up, err) => {
-            this.upload.loading = false;
-            if (err.code == -600) {
-              this.uploadFailHandle(
-                "选择的文件太大了，重新设置一下上传的最大大小"
-              );
-            } else if (err.code == -601) {
-              this.uploadFailHandle("选择的文件后缀不对");
-            } else if (err.code == -602) {
-              this.uploadFailHandle("这个文件已经上传过一遍了");
-            } else {
-              this.uploadFailHandle("Error xml:" + err.response);
-            }
-          },
-        },
-      });
-      this.upload.up.init();
-    },
-    setUploadParam(up, duration, ret) {
-      up.setOption("multipart_params", {
-        duration: duration,
-      });
-      up.start();
-    },
-    aliyunInit() {
-      if (!this.isAliService) {
-        return;
-      }
-      // 阿里云初始化
-      this.upload.aliyun = new window.AliyunUpload.Vod({
-        partSize: 1048576,
-        parallel: 5,
-        retryCount: 3,
-        retryDuration: 2,
-        onUploadstarted: (uploadInfo) => {
-          if (uploadInfo.videoId) {
-            this.$api.System.VideoUpload.AliyunTokenRefresh({
-              video_id: uploadInfo.videoId,
-            })
-              .then((res) => {
-                this.upload.aliyun.setUploadAuthAndAddress(
-                  uploadInfo,
-                  res.data.upload_auth,
-                  res.data.upload_address,
-                  res.data.video_id
-                );
-              })
-              .catch((e) => {
-                this.$message.error(e.message);
-              });
-          } else {
-            this.$api.System.VideoUpload.AliyunTokenCreate({
-              title: uploadInfo.file.name,
-              filename: uploadInfo.file.name,
-            })
-              .then((res) => {
-                this.upload.aliyun.setUploadAuthAndAddress(
-                  uploadInfo,
-                  res.data.upload_auth,
-                  res.data.upload_address,
-                  res.data.video_id
-                );
-              })
-              .catch((e) => {
-                this.$message.error(e.message);
-              });
-          }
-        },
-        onUploadSucceed: (uploadInfo) => {
-          this.upload.fileId = uploadInfo.videoId;
-          this.uploadSuccess(uploadInfo.videoId, "");
-        },
-        onUploadFailed: (uploadInfo, code, message) => {
-          this.upload.loading = false;
-          this.uploadFailHandle(
-            "视频上到阿里云失败传失败，错误信息：" + message + ":code:" + code
-          );
-        },
-        onUploadProgress: (uploadInfo, totalSize, loadedPercent) => {
-          this.upload.process = Math.ceil(loadedPercent * 100);
-        },
-        onUploadTokenExpired: (uploadInfo) => {
-          this.$api.System.VideoUpload.AliyunTokenRefresh({
-            video_id: uploadInfo.videoId,
-          })
-            .then((res) => {
-              this.upload.aliyun.resumeUploadWithAuth(res.data.upload_auth);
-            })
-            .catch((e) => {
-              this.$message.error(e.message);
-            });
-        },
-      });
-    },
-    uploadAliyunVod() {
-      if (this.upload.loading) {
-        return;
-      }
-      this.upload.service = "aliyun";
-      this.$refs["video-file"].click();
-    },
-    uploadTencentVod() {
-      if (this.upload.loading) {
-        return;
-      }
-      this.upload.service = "tencent";
-      this.$refs["video-file"].click();
-    },
-    fileChange(e) {
-      if (e.target.files.length === 0) {
-        return;
-      }
-
-      this.upload.process = 0;
-      this.upload.loading = true;
-
-      let file = e.target.files[0];
-      // 文件扩展名检测
-      let extension = file.name.split(".");
-      extension = extension[extension.length - 1];
-      if (extension !== "mp4") {
-        this.$message.error("请选择mp4文件");
-        this.upload.loading = false;
-        return;
-      }
-
-      // 文件基础信息
-      this.upload.file.title = file.name;
-      this.upload.file.size = file.size;
-
-      // 解析视频时长
-      this.$refs["video-play"].src = URL.createObjectURL(file);
-
-      if (this.upload.service === "aliyun") {
-        this.aliyunUploadHandle(file);
-      } else if (this.upload.service === "tencent") {
-        this.tencentUploadHandle(file);
-      }
-    },
-    aliyunUploadHandle(file) {
-      this.upload.aliyun.addFile(file, null, null, null, "");
-      this.upload.aliyun.startUpload();
-    },
-    tencentUploadHandle(file) {
-      const tcVod = new TcVod({
-        getSignature: () => {
-          return this.$api.System.VideoUpload.TencentToken()
-            .then((res) => {
-              return res.data.signature;
-            })
-            .catch((e) => {
-              this.$message.error(e.message);
-            });
-        },
-      });
-
-      const uploader = tcVod.upload({
-        mediaFile: file,
-      });
-
-      uploader.on("media_progress", (info) => {
-        this.upload.process = parseInt(info.percent * 100);
-      });
-
-      // 回调结果说明
-      // type doneResult = {
-      //   fileId: string,
-      //   video: {
-      //     url: string
-      //   },
-      //   cover: {
-      //     url: string
-      //   }
-      // }
-
-      uploader
-        .done()
-        .then((doneResult) => {
-          this.upload.fileId = doneResult.fileId;
-
-          this.uploadSuccess(doneResult.fileId, "");
-        })
-        .catch((err) => {
-          this.uploadFailHandle("上传视频到腾讯云点播错误");
-        });
-    },
-    uploadFailHandle(msg) {
-      this.upload.loading = false;
-      this.upload.fileId = null;
-      this.upload.file.title = null;
-      this.$refs["video-file"].value = null;
-
-      this.$message.error(msg);
-    },
-    uploadSuccess(fileId, thumb) {
-      this.upload.process = 100;
-      this.upload.loading = false;
-      this.$refs["video-file"].value = null;
-
-      this.$api.Media.Video.Store({
-        title: this.upload.file.title,
-        duration: this.upload.file.duration,
-        thumb: thumb,
-        size: this.upload.file.size,
-        storage_driver: this.upload.service,
-        storage_file_id: fileId,
-      })
-        .then((res) => {
-          this.selectedVideo = res.data;
-          this.$message.success("上传成功");
-        })
-        .catch((e) => {
-          this.$message.error(e.message);
-        });
+    completeUpload(val) {
+      this.visible = false;
     },
     destory(item) {
       //点击确定按钮的操作
@@ -781,15 +441,74 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.upload-process-box {
-  width: 100%;
-  height: auto;
-  float: left;
-  display: flex;
-  justify-content: center;
+.empty-icon {
+  width: 200px;
+  height: 200px;
+  margin-top: 68px;
+  margin-bottom: 98px;
 }
 .el-button--primary:hover {
   color: #fff;
+}
+//去掉最下面的那一条线
+.el-table::before {
+  height: 0px;
+}
+
+.upload-dialog-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2001;
+  transform: translateZ(1000px); /*这里是给safari用的*/
+  background-color: rgba(0, 0, 0, 0.5);
+  .meedu-dialog-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: auto;
+    margin-top: -327.5px;
+    margin-left: -400px;
+    background-color: white;
+    border-radius: 8px;
+    animation: scaleBig 0.3s;
+    .meedu-dialog-header {
+      width: 100%;
+      height: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 30px 30px 20px 30px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #333333;
+      line-height: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .meedu-dialog-body {
+      width: 100%;
+      height: auto;
+      min-height: 509px;
+      float: left;
+      box-sizing: border-box;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .meedu-dialog-footer {
+      width: 100%;
+      height: auto;
+      float: left;
+      box-sizing: border-box;
+      padding: 15px 30px;
+      border-top: 1px solid #e5e5e5;
+    }
+  }
 }
 </style>
 <style lang="less">
