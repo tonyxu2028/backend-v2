@@ -53,7 +53,15 @@
                 </div>
                 <b class="progress-status">
                   <template v-if="item.status === 1">
-                    <span class="link" :id="item.result">取消上传</span>
+                    <!-- <span class="link" :id="item.result">取消上传</span> -->
+                    <el-popconfirm
+                      title="确认取消上传吗？"
+                      @confirm="cancelTask(item.result)"
+                    >
+                      <el-link slot="reference" type="primary"
+                        >取消上传</el-link
+                      >
+                    </el-popconfirm>
                   </template>
                   <span v-else-if="item.status === 5" class="error"
                     >上传错误</span
@@ -149,6 +157,24 @@ export default {
     this.multipleDragEvent();
   },
   methods: {
+    cancelTask(result) {
+      if (this.isLocalService) {
+        var fileItem = result.up.getFile(result.fileId);
+        fileItem && result.up.removeFile(fileItem);
+      } else if (this.isAliService) {
+        this.upload.aliyun.cancelFile(result.up);
+      } else if (this.isTenService) {
+        result.up.cancel();
+      }
+
+      this.localUploadFiles = this.localUploadFiles.filter((item) => {
+        return item.id != result.fileId;
+      });
+      this.uploading--;
+      if (this.uploading === 0) {
+        this.upload.loading = false;
+      }
+    },
     initDropElement() {
       //阻止浏览器默认行为
       document.addEventListener(
@@ -311,38 +337,9 @@ export default {
           },
           UploadProgress: (up, file) => {
             let it = this.localUploadFiles.find((o) => o.id === file.id);
-            it.result = file.id;
+            it.result = { fileId: file.id, up: up };
             it.status = 1;
             it.progress = parseInt(file.percent);
-            document.getElementById(file.id) &&
-              document.getElementById(file.id).addEventListener("click", () => {
-                if (this.loading) {
-                  return;
-                }
-                this.loading = true;
-                this.$confirm("确认取消上传吗？", "警告", {
-                  confirmButtonText: "确定",
-                  cancelButtonText: "取消",
-                  type: "warning",
-                })
-                  .then(() => {
-                    this.loading = false;
-                    var fileItem = up.getFile(file.id);
-                    fileItem && up.removeFile(fileItem);
-                    this.localUploadFiles = this.localUploadFiles.filter(
-                      (item) => {
-                        return item.id != file.id;
-                      }
-                    );
-                    this.uploading--;
-                    if (this.uploading === 0) {
-                      this.upload.loading = false;
-                    }
-                  })
-                  .catch(() => {
-                    this.loading = false;
-                  });
-              });
           },
           FileUploaded: (up, file, info) => {
             this.upload.loading = false;
@@ -455,37 +452,9 @@ export default {
           let fileId = uploadInfo.videoInfo.CateId;
           let index = this.localUploadFiles.findIndex((o) => o.id === fileId);
           let it = this.localUploadFiles.find((o) => o.id === fileId);
-          it.result = fileId;
+          it.result = { fileId: fileId, up: index };
           it.status = 1;
           it.progress = parseInt(loadedPercent * 100);
-          document.getElementById(fileId) &&
-            document.getElementById(fileId).addEventListener("click", () => {
-              if (this.loading) {
-                return;
-              }
-              this.loading = true;
-              this.$confirm("确认取消上传吗？", "警告", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning",
-              })
-                .then(() => {
-                  this.loading = false;
-                  this.upload.aliyun.cancelFile(index);
-                  this.localUploadFiles = this.localUploadFiles.filter(
-                    (item) => {
-                      return item.id != fileId;
-                    }
-                  );
-                  this.uploading--;
-                  if (this.uploading === 0) {
-                    this.upload.loading = false;
-                  }
-                })
-                .catch(() => {
-                  this.loading = false;
-                });
-            });
         },
         onUploadTokenExpired: (uploadInfo) => {
           this.$api.System.VideoUpload.AliyunTokenRefresh({
@@ -571,35 +540,9 @@ export default {
 
       uploader.on("media_progress", (info) => {
         let it = this.localUploadFiles.find((o) => o.id === fileId);
-        it.result = fileId;
+        it.result = { fileId: fileId, up: uploader };
         it.status = 1;
         it.progress = parseInt(info.percent * 100);
-        document.getElementById(fileId) &&
-          document.getElementById(fileId).addEventListener("click", () => {
-            if (this.loading) {
-              return;
-            }
-            this.loading = true;
-            this.$confirm("确认取消上传吗？", "警告", {
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
-              type: "warning",
-            })
-              .then(() => {
-                this.loading = false;
-                uploader.cancel();
-                this.localUploadFiles = this.localUploadFiles.filter((item) => {
-                  return item.id != fileId;
-                });
-                this.uploading--;
-                if (this.uploading === 0) {
-                  this.upload.loading = false;
-                }
-              })
-              .catch(() => {
-                this.loading = false;
-              });
-          });
       });
 
       // 回调结果说明
