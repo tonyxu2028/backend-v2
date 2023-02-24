@@ -351,7 +351,7 @@ export default {
           },
           UploadProgress: (up, file) => {
             let it = this.localUploadFiles.find((o) => o.id === file.id);
-            it.result = { fileId: file.id, up: up };
+            it.result.up = up;
             it.status = 1;
             it.progress = parseInt(file.percent);
           },
