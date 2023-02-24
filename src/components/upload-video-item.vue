@@ -148,6 +148,7 @@ export default {
   mounted() {
     this.aliyunInit();
     this.pluploadInit();
+    this.multipleDragEvent();
   },
   methods: {
     initDropElement() {
@@ -204,10 +205,62 @@ export default {
       let duration = this.$refs["video-play"].duration;
       this.upload.file.duration = duration;
     },
+    multipleDragEvent() {
+      let dropbox = document.getElementById("container");
+      dropbox.addEventListener("drop", this.eventDrop, false);
+      dropbox.addEventListener("dragleave", function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        dropbox.style.backgroundColor = "#fff";
+      });
+      dropbox.addEventListener("dragenter", function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        dropbox.style.backgroundColor = "#fff";
+      });
+      dropbox.addEventListener("dragover", function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        dropbox.style.backgroundColor = "#eee";
+      });
+    },
+    eventDrop(e) {
+      let dropbox = document.getElementById("container");
+      e.stopPropagation();
+      e.preventDefault();
+      let fileData = e.dataTransfer.files;
+      dropbox.style.backgroundColor = "#fff";
+      for (let i = 0; i < fileData.length; i++) {
+        var file = fileData[i];
+        if (this.isLocalService) {
+          this.upload.service = "local";
+          this.upload.up.addFile(file, file.name);
+        } else {
+          this.uploading++;
+          let fileId = Math.random() * 100 + file.name;
+          this.localUploadFiles.push({
+            id: fileId,
+            file: file,
+            size: file.size,
+            result: null,
+            progress: 0,
+            status: 0,
+          });
+          if (this.isAliService) {
+            this.upload.service = "aliyun";
+            this.aliyunUploadHandle(fileId, file);
+          } else if (this.isTenService) {
+            this.upload.service = "tencent";
+            this.tencentUploadHandle(fileId, file);
+          }
+        }
+      }
+    },
     pluploadInit() {
       if (!this.isLocalService) {
         return;
       }
+      this.upload.service = "local";
       let that = this;
       let url = config.url;
       if (url.substr(-1, 1) === "/") {
@@ -233,7 +286,6 @@ export default {
         init: {
           PostInit: () => {},
           FilesAdded: (up, files) => {
-            this.upload.service = "local";
             plupload.each(files, (file) => {
               this.uploading++;
               this.localUploadFiles.push({
@@ -248,7 +300,6 @@ export default {
             this.setUploadParam(uploader, false);
           },
           BeforeUpload: (up, file) => {
-            this.upload.loading = true;
             // 解析视频时长
             var url = URL.createObjectURL(file.getNative());
             var audioElement = new Audio(url);
@@ -269,7 +320,8 @@ export default {
             it.status = 1;
             it.progress = parseInt(file.percent);
             document.getElementById(file.id).addEventListener("click", () => {
-              up.stop();
+              var fileItem = up.getFile(file.id);
+              fileItem && up.removeFile(fileItem);
               this.localUploadFiles = this.localUploadFiles.filter((item) => {
                 return item.id != file.id;
               });
@@ -320,6 +372,7 @@ export default {
       this.upload.up = uploader;
     },
     setUploadParam(up, ret) {
+      this.upload.loading = true;
       up.start();
     },
     aliyunInit() {
