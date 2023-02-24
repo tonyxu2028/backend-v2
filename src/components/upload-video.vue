@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="upload-dialog-mask" v-show="show">
+    <div class="upload-dialog-mask" >
       <div class="meedu-dialog-box" v-show="!visible">
         <div class="meedu-dialog-header">
           <span>视频列表</span>
@@ -224,7 +224,7 @@ export default {
     DurationText,
     UploadVideoItem,
   },
-  props: ["show"],
+  props: [],
   data() {
     return {
       pagination: {
@@ -293,6 +293,13 @@ export default {
   watch: {
     visible() {
       this.paginationReset();
+    },
+    list(data) {
+      if (data.length > 0) {
+        this.$nextTick(() => {
+          this.$refs.table.setCurrentRow(data[0]);
+        });
+      }
     },
   },
   mounted() {

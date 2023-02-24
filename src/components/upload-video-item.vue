@@ -231,7 +231,7 @@ export default {
           prevent_duplicates: false, //不允许选取重复文件
         },
         init: {
-          PostInit: function () {},
+          PostInit: () => {},
           FilesAdded: (up, files) => {
             this.upload.service = "local";
             plupload.each(files, (file) => {
@@ -259,7 +259,6 @@ export default {
                 duration: duration,
               });
             });
-            this.setUploadParam(up, true);
           },
           FilesRemoved: (up, files) => {
             this.upload.loading = false;

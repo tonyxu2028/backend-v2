@@ -195,7 +195,7 @@
     </div>
 
     <upload-video
-      :show="showUploadVideoWin"
+      v-if="showUploadVideoWin"
       @close="showUploadVideoWin = false"
       @change="uploadVideoChange"
     ></upload-video>
