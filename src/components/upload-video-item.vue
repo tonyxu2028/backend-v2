@@ -161,6 +161,7 @@ export default {
           (o) => o.id === result.fileId
         );
         this.upload.aliyun.cancelFile(index);
+        this.upload.aliyun.deleteFile(index);
       } else if (this.isTenService) {
         result.up.cancel();
       }
@@ -461,10 +462,12 @@ export default {
             "视频上到阿里云失败传失败，错误信息：" + message + ":code:" + code
           );
         },
+        onUploadCanceled: (uploadInfo, message) => {
+          console.log(message);
+        },
         onUploadProgress: (uploadInfo, totalSize, loadedPercent) => {
           let fileId = uploadInfo.videoInfo.CateId;
           let it = this.localUploadFiles.find((o) => o.id === fileId);
-          it.result = { fileId: fileId, up: null };
           it.status = 1;
           it.progress = parseInt(loadedPercent * 100);
         },
@@ -555,7 +558,7 @@ export default {
 
       uploader.on("media_progress", (info) => {
         let it = this.localUploadFiles.find((o) => o.id === fileId);
-        it.result = { fileId: fileId, up: uploader };
+        it.result.up = uploader;
         it.status = 1;
         it.progress = parseInt(info.percent * 100);
       });
