@@ -359,35 +359,16 @@ export default {
             this.upload.loading = false;
             this.uploading--;
             let it = this.localUploadFiles.find((o) => o.id === file.id);
-            if (info.status === 200) {
+            let data = JSON.parse(info.response);
+            if (data.status === 0) {
               this.$message.success("上传成功");
               it.status = 7;
               it.result = null;
-            } else if (info.status === 203) {
-              this.$message.error(
-                "上传到OSS成功，但是oss访问用户设置的上传回调服务器失败，失败原因是:" +
-                  info.response
-              );
+            } else {
+              this.$message.error(data.message);
               it.status = 5;
               it.result = null;
-            } else {
-              this.$message.error(info.response);
-              it.status = 5;
-              it.result = null;
-            }
-          },
-          Error: (up, err) => {
-            this.upload.loading = false;
-            if (err.code == -600) {
-              this.uploadFailHandle(
-                "选择的文件太大了，重新设置一下上传的最大大小"
-              );
-            } else if (err.code == -601) {
-              this.uploadFailHandle("选择的文件后缀不对");
-            } else if (err.code == -602) {
-              this.uploadFailHandle("这个文件已经上传过一遍了");
-            } else {
-              this.uploadFailHandle("Error xml:" + err.response);
+              console.log(data);
             }
           },
         },
