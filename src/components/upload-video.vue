@@ -103,12 +103,12 @@
             </template>
             <template v-else-if="isAliService || isTenService">
               <div class="float-left j-b-flex mb-15">
-                <div class="float-left d-flex">
+                <div class="d-flex">
                   <el-button type="primary" @click="openUploadItem"
                     >上传视频</el-button
                   >
                 </div>
-                <div class="float-left d-flex">
+                <div class="d-flex">
                   <div class="d-flex">
                     <el-input
                       class="w-150px"
