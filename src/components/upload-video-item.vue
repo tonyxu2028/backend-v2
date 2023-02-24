@@ -447,20 +447,24 @@ export default {
           this.upload.fileId = uploadInfo.videoId;
           let fileId = uploadInfo.videoInfo.CateId;
           let it = this.localUploadFiles.find((o) => o.id === fileId);
-          it.status = 7;
-          it.result = null;
-          this.uploadSuccess(uploadInfo.videoId, "", fileId);
+          if (it) {
+            it.status = 7;
+            it.result = null;
+            this.uploadSuccess(uploadInfo.videoId, "", fileId);
+          }
         },
         onUploadFailed: (uploadInfo, code, message) => {
           this.uploading--;
           this.upload.loading = false;
           let fileId = uploadInfo.videoInfo.CateId;
           let it = this.localUploadFiles.find((o) => o.id === fileId);
-          it.status = 5;
-          it.result = null;
-          this.uploadFailHandle(
-            "视频上到阿里云失败传失败，错误信息：" + message + ":code:" + code
-          );
+          if (it) {
+            it.status = 5;
+            it.result = null;
+            this.uploadFailHandle(
+              "视频上到阿里云失败传失败，错误信息：" + message + ":code:" + code
+            );
+          }
         },
         onUploadCanceled: (uploadInfo, message) => {
           console.log(message);
@@ -468,8 +472,10 @@ export default {
         onUploadProgress: (uploadInfo, totalSize, loadedPercent) => {
           let fileId = uploadInfo.videoInfo.CateId;
           let it = this.localUploadFiles.find((o) => o.id === fileId);
-          it.status = 1;
-          it.progress = parseInt(loadedPercent * 100);
+          if (it) {
+            it.status = 1;
+            it.progress = parseInt(loadedPercent * 100);
+          }
         },
         onUploadTokenExpired: (uploadInfo) => {
           this.$api.System.VideoUpload.AliyunTokenRefresh({
