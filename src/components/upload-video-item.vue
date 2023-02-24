@@ -316,12 +316,17 @@ export default {
             it.progress = parseInt(file.percent);
             document.getElementById(file.id) &&
               document.getElementById(file.id).addEventListener("click", () => {
+                if (this.loading) {
+                  return;
+                }
+                this.loading = true;
                 this.$confirm("确认取消上传吗？", "警告", {
                   confirmButtonText: "确定",
                   cancelButtonText: "取消",
                   type: "warning",
                 })
                   .then(() => {
+                    this.loading = false;
                     var fileItem = up.getFile(file.id);
                     fileItem && up.removeFile(fileItem);
                     this.localUploadFiles = this.localUploadFiles.filter(
@@ -334,7 +339,9 @@ export default {
                       this.upload.loading = false;
                     }
                   })
-                  .catch(() => {});
+                  .catch(() => {
+                    this.loading = false;
+                  });
               });
           },
           FileUploaded: (up, file, info) => {
@@ -453,12 +460,17 @@ export default {
           it.progress = parseInt(loadedPercent * 100);
           document.getElementById(fileId) &&
             document.getElementById(fileId).addEventListener("click", () => {
+              if (this.loading) {
+                return;
+              }
+              this.loading = true;
               this.$confirm("确认取消上传吗？", "警告", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning",
               })
                 .then(() => {
+                  this.loading = false;
                   this.upload.aliyun.cancelFile(index);
                   this.localUploadFiles = this.localUploadFiles.filter(
                     (item) => {
@@ -470,7 +482,9 @@ export default {
                     this.upload.loading = false;
                   }
                 })
-                .catch(() => {});
+                .catch(() => {
+                  this.loading = false;
+                });
             });
         },
         onUploadTokenExpired: (uploadInfo) => {

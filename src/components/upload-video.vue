@@ -229,7 +229,7 @@ export default {
     return {
       pagination: {
         page: 1,
-        size: 10,
+        size: 7,
         keywords: null,
         name: null,
       },
