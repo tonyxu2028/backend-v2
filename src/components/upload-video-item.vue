@@ -44,12 +44,17 @@
                   {{ fileSizeConversion(item.size) }}M
                 </p>
                 <div class="progress-bar">
-                  <el-progress
-                    type="line"
-                    :stroke-width="8"
-                    :percentage="item.progress"
-                    :show-text="false"
-                  ></el-progress>
+                  <span v-if="item.status === 5" class="error">{{
+                    item.result
+                  }}</span>
+                  <template v-else>
+                    <el-progress
+                      type="line"
+                      :stroke-width="8"
+                      :percentage="item.progress"
+                      :show-text="false"
+                    ></el-progress>
+                  </template>
                 </div>
                 <b class="progress-status">
                   <template v-if="item.status === 1">
@@ -367,7 +372,7 @@ export default {
             } else {
               this.$message.error(data.message);
               it.status = 5;
-              it.result = null;
+              it.result = data.message;
               console.log(data);
             }
           },
@@ -441,10 +446,9 @@ export default {
           let it = this.localUploadFiles.find((o) => o.id === fileId);
           if (it) {
             it.status = 5;
-            it.result = null;
-            this.uploadFailHandle(
-              "视频上到阿里云失败传失败，错误信息：" + message + ":code:" + code
-            );
+            it.result = message;
+            console.log(message);
+            this.uploadFailHandle(message);
           }
         },
         onUploadCanceled: (uploadInfo, message) => {
@@ -570,8 +574,9 @@ export default {
           this.uploading--;
           let it = this.localUploadFiles.find((o) => o.id === fileId);
           it.status = 5;
-          it.result = null;
-          this.uploadFailHandle("上传视频到腾讯云点播错误");
+          it.result = err.message;
+          console.log(err);
+          this.uploadFailHandle(err.message);
         });
       this.upload.ten = uploader;
     },
@@ -756,6 +761,15 @@ export default {
         .progress-bar {
           width: 100px;
           margin-left: 30px;
+          overflow: hidden; //溢出隐藏
+          white-space: nowrap; //禁止换行
+          text-overflow: ellipsis; //...
+          .error {
+            color: #ff4d4f;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 14px;
+          }
         }
         .progress-status {
           width: 56px;
