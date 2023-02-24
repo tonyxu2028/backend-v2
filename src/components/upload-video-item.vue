@@ -265,7 +265,10 @@ export default {
               id: fileId,
               file: file,
               size: file.size,
-              result: null,
+              result: {
+                fileId: fileId,
+                up: null,
+              },
               progress: 0,
               status: 1,
             });
@@ -320,7 +323,10 @@ export default {
                 id: file.id,
                 file: file,
                 size: file.size,
-                result: null,
+                result: {
+                  fileId: file.id,
+                  up: null,
+                },
                 progress: 0,
                 status: 1,
               });
@@ -504,7 +510,10 @@ export default {
           id: fileId,
           file: file,
           size: file.size,
-          result: null,
+          result: {
+            fileId: fileId,
+            up: null,
+          },
           progress: 0,
           status: 1,
         });
