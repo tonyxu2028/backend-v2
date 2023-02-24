@@ -57,16 +57,12 @@
                       title="确认取消上传吗？"
                       @confirm="cancelTask(item.result)"
                     >
-                      <el-link slot="reference" type="primary"
-                        >取消上传</el-link
-                      >
+                      <el-link slot="reference" type="primary">取消</el-link>
                     </el-popconfirm>
                   </template>
-                  <span v-else-if="item.status === 5" class="error"
-                    >上传错误</span
-                  >
+                  <span v-else-if="item.status === 5" class="error">失败</span>
                   <span v-else-if="item.status === 7" class="success"
-                    >上传成功</span
+                    >成功</span
                   >
                 </b>
               </div>
@@ -758,6 +754,7 @@ export default {
           font-weight: 400;
           line-height: 14px;
           margin-left: 30px;
+          text-align: right;
           .link {
             color: #3ca7fa;
             cursor: pointer;
