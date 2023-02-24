@@ -506,7 +506,7 @@ export default {
           size: file.size,
           result: null,
           progress: 0,
-          status: 0,
+          status: 1,
         });
         if (this.upload.service === "aliyun") {
           this.aliyunUploadHandle(fileId, file);

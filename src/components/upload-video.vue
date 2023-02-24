@@ -198,7 +198,7 @@
                 @size-change="paginationSizeChange"
                 @current-change="paginationPageChange"
                 :current-page="pagination.page"
-                :page-sizes="[10, 20, 50, 100]"
+                :page-sizes="[7]"
                 :page-size="pagination.size"
                 layout="total, sizes, prev, pager, next, jumper"
                 :total="total"
