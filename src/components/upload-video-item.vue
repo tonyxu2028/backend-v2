@@ -157,7 +157,10 @@ export default {
         var fileItem = result.up.getFile(result.fileId);
         fileItem && result.up.removeFile(fileItem);
       } else if (this.isAliService) {
-        this.upload.aliyun.cancelFile(result.up);
+        let index = this.localUploadFiles.findIndex(
+          (o) => o.id === result.fileId
+        );
+        this.upload.aliyun.cancelFile(index);
       } else if (this.isTenService) {
         result.up.cancel();
       }
@@ -248,27 +251,36 @@ export default {
       dropbox.style.backgroundColor = "#fff";
       for (let i = 0; i < fileData.length; i++) {
         var file = fileData[i];
-        if (this.isLocalService) {
-          this.upload.service = "local";
-          this.upload.up.addFile(file, file.name);
-        } else {
-          this.uploading++;
-          let fileId = Math.random() * 100 + file.name;
-          this.localUploadFiles.push({
-            id: fileId,
-            file: file,
-            size: file.size,
-            result: null,
-            progress: 0,
-            status: 0,
-          });
-          if (this.isAliService) {
-            this.upload.service = "aliyun";
-            this.aliyunUploadHandle(fileId, file);
-          } else if (this.isTenService) {
-            this.upload.service = "tencent";
-            this.tencentUploadHandle(fileId, file);
+        let fileName = file.name;
+        let pos = fileName.lastIndexOf(".");
+        let lastName = fileName.substring(pos, fileName.length);
+        if (lastName.toLowerCase() === ".mp4") {
+          if (this.isLocalService) {
+            this.upload.service = "local";
+            this.upload.up.addFile(file, file.name);
+          } else {
+            this.uploading++;
+            let fileId = Math.random() * 100 + file.name;
+            this.localUploadFiles.push({
+              id: fileId,
+              file: file,
+              size: file.size,
+              result: null,
+              progress: 0,
+              status: 1,
+            });
+            if (this.isAliService) {
+              this.upload.service = "aliyun";
+              this.aliyunUploadHandle(fileId, file);
+            } else if (this.isTenService) {
+              this.upload.service = "tencent";
+              this.tencentUploadHandle(fileId, file);
+            }
           }
+        } else {
+          this.$message.error(
+            lastName.toLowerCase().slice(1) + "格式不支持上传"
+          );
         }
       }
     },
@@ -445,9 +457,8 @@ export default {
         },
         onUploadProgress: (uploadInfo, totalSize, loadedPercent) => {
           let fileId = uploadInfo.videoInfo.CateId;
-          let index = this.localUploadFiles.findIndex((o) => o.id === fileId);
           let it = this.localUploadFiles.find((o) => o.id === fileId);
-          it.result = { fileId: fileId, up: index };
+          it.result = { fileId: fileId, up: null };
           it.status = 1;
           it.progress = parseInt(loadedPercent * 100);
         },
