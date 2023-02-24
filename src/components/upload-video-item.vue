@@ -326,7 +326,7 @@ export default {
                 size: file.size,
                 result: {
                   fileId: file.id,
-                  up: null,
+                  up: up,
                 },
                 progress: 0,
                 status: 1,
