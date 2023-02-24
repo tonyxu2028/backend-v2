@@ -38,7 +38,6 @@
                 class="progress-item"
                 v-for="item in localUploadFiles"
                 :key="item.id"
-                :id="item.id"
               >
                 <p class="progress-name">{{ item.file.name }}</p>
                 <p class="progress-size">
@@ -87,9 +86,6 @@
         >
           完 成
         </el-button>
-        <el-button @click="close" class="ml-30" :loading="upload.loading"
-          >取消</el-button
-        >
       </div>
     </div>
   </transition>
@@ -111,8 +107,10 @@ export default {
       upload: {
         // 阿里云obj
         aliyun: null,
-        //plupload
+        //plupload本地
         up: null,
+        //腾讯云
+        ten: null,
         // 上传服务商
         service: null,
         // 是否上传中
@@ -197,9 +195,6 @@ export default {
     },
     confirm() {
       this.$emit("change");
-    },
-    close() {
-      this.$emit("close");
     },
     videoPlayEvt() {
       let duration = this.$refs["video-play"].duration;
@@ -319,17 +314,28 @@ export default {
             it.result = file.id;
             it.status = 1;
             it.progress = parseInt(file.percent);
-            document.getElementById(file.id).addEventListener("click", () => {
-              var fileItem = up.getFile(file.id);
-              fileItem && up.removeFile(fileItem);
-              this.localUploadFiles = this.localUploadFiles.filter((item) => {
-                return item.id != file.id;
+            document.getElementById(file.id) &&
+              document.getElementById(file.id).addEventListener("click", () => {
+                this.$confirm("确认取消上传吗？", "警告", {
+                  confirmButtonText: "确定",
+                  cancelButtonText: "取消",
+                  type: "warning",
+                })
+                  .then(() => {
+                    var fileItem = up.getFile(file.id);
+                    fileItem && up.removeFile(fileItem);
+                    this.localUploadFiles = this.localUploadFiles.filter(
+                      (item) => {
+                        return item.id != file.id;
+                      }
+                    );
+                    this.uploading--;
+                    if (this.uploading === 0) {
+                      this.upload.loading = false;
+                    }
+                  })
+                  .catch(() => {});
               });
-              this.uploading--;
-              if (this.uploading === 0) {
-                this.upload.loading = false;
-              }
-            });
           },
           FileUploaded: (up, file, info) => {
             this.upload.loading = false;
@@ -445,16 +451,27 @@ export default {
           it.result = fileId;
           it.status = 1;
           it.progress = parseInt(loadedPercent * 100);
-          document.getElementById(fileId).addEventListener("click", () => {
-            this.upload.aliyun.cancelFile(index);
-            this.localUploadFiles = this.localUploadFiles.filter((item) => {
-              return item.id != fileId;
+          document.getElementById(fileId) &&
+            document.getElementById(fileId).addEventListener("click", () => {
+              this.$confirm("确认取消上传吗？", "警告", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning",
+              })
+                .then(() => {
+                  this.upload.aliyun.cancelFile(index);
+                  this.localUploadFiles = this.localUploadFiles.filter(
+                    (item) => {
+                      return item.id != fileId;
+                    }
+                  );
+                  this.uploading--;
+                  if (this.uploading === 0) {
+                    this.upload.loading = false;
+                  }
+                })
+                .catch(() => {});
             });
-            this.uploading--;
-            if (this.uploading === 0) {
-              this.upload.loading = false;
-            }
-          });
         },
         onUploadTokenExpired: (uploadInfo) => {
           this.$api.System.VideoUpload.AliyunTokenRefresh({
@@ -543,16 +560,32 @@ export default {
         it.result = fileId;
         it.status = 1;
         it.progress = parseInt(info.percent * 100);
-        document.getElementById(fileId).addEventListener("click", () => {
-          uploader.cancel();
-          this.localUploadFiles = this.localUploadFiles.filter((item) => {
-            return item.id != fileId;
+        document.getElementById(fileId) &&
+          document.getElementById(fileId).addEventListener("click", () => {
+            if (this.loading) {
+              return;
+            }
+            this.loading = true;
+            this.$confirm("确认取消上传吗？", "警告", {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning",
+            })
+              .then(() => {
+                this.loading = false;
+                uploader.cancel();
+                this.localUploadFiles = this.localUploadFiles.filter((item) => {
+                  return item.id != fileId;
+                });
+                this.uploading--;
+                if (this.uploading === 0) {
+                  this.upload.loading = false;
+                }
+              })
+              .catch(() => {
+                this.loading = false;
+              });
           });
-          this.uploading--;
-          if (this.uploading === 0) {
-            this.upload.loading = false;
-          }
-        });
       });
 
       // 回调结果说明
@@ -565,7 +598,6 @@ export default {
       //     url: string
       //   }
       // }
-
       uploader
         .done()
         .then((doneResult) => {
@@ -579,6 +611,7 @@ export default {
           it.result = null;
           this.uploadFailHandle("上传视频到腾讯云点播错误");
         });
+      this.upload.ten = uploader;
     },
     uploadFailHandle(msg) {
       this.upload.loading = false;

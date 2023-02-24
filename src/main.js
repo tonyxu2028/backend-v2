@@ -41,6 +41,12 @@ Vue.filter("dateFormat", function (dateStr, pattern = "YYYY-MM-DD HH:mm") {
   }
   return moment(dateStr).format(pattern);
 });
+Vue.filter("yearFormat", function (dateStr, pattern = "YYYY-MM-DD") {
+  if (!dateStr) {
+    return dateStr;
+  }
+  return moment(dateStr).format(pattern);
+});
 Vue.filter(
   "dateWholeFormat",
   function (dateStr, pattern = "YYYY-MM-DD HH:mm:ss") {

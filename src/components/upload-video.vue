@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="upload-dialog-mask" >
+    <div class="upload-dialog-mask">
       <div class="meedu-dialog-box" v-show="!visible">
         <div class="meedu-dialog-header">
           <span>视频列表</span>
@@ -79,9 +79,9 @@
                     <span>{{ fileSizeConversion(scope.row.size) }}MB</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="上传时间" width="150">
+                <el-table-column label="上传时间" width="120">
                   <template slot-scope="scope">
-                    <span>{{ scope.row.created_at | dateFormat }}</span>
+                    <span>{{ scope.row.created_at | yearFormat }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="60">
@@ -164,9 +164,9 @@
                 </el-table-column>
                 <el-table-column prop="storage_driver" label="存储" width="90">
                 </el-table-column>
-                <el-table-column label="上传时间" width="150">
+                <el-table-column label="上传时间" width="120">
                   <template slot-scope="scope">
-                    <span>{{ scope.row.created_at | dateFormat }}</span>
+                    <span>{{ scope.row.created_at | yearFormat }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="60">
@@ -477,7 +477,7 @@ export default {
     left: 50%;
     width: 800px;
     height: auto;
-    margin-top: -327.5px;
+    margin-top: -347px;
     margin-left: -400px;
     background-color: white;
     border-radius: 8px;
@@ -499,8 +499,9 @@ export default {
 
     .meedu-dialog-body {
       width: 100%;
-      height: auto;
-      min-height: 509px;
+      height: 555px;
+      overflow-x: hidden;
+      overflow-y: auto;
       float: left;
       box-sizing: border-box;
       padding-left: 30px;
