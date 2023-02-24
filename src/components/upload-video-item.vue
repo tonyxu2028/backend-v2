@@ -315,7 +315,7 @@ export default {
                 size: file.size,
                 result: null,
                 progress: 0,
-                status: 0,
+                status: 1,
               });
             });
             this.setUploadParam(uploader, false);
