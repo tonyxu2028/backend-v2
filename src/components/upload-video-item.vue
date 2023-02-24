@@ -53,7 +53,6 @@
                 </div>
                 <b class="progress-status">
                   <template v-if="item.status === 1">
-                    <!-- <span class="link" :id="item.result">取消上传</span> -->
                     <el-popconfirm
                       title="确认取消上传吗？"
                       @confirm="cancelTask(item.result)"
