@@ -162,7 +162,14 @@
                     <span>{{ scope.row.size_mb }}MB</span>
                   </template>
                 </el-table-column>
-                <el-table-column prop="storage_driver" label="存储" width="90">
+                <el-table-column label="存储" width="90">
+                  <template slot-scope="scope">
+                    <span>{{
+                      scope.row.storage_driver === "tencent"
+                        ? "腾讯云"
+                        : "阿里云"
+                    }}</span>
+                  </template>
                 </el-table-column>
                 <el-table-column label="上传时间" width="120">
                   <template slot-scope="scope">
