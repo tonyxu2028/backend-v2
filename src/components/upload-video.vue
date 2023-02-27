@@ -350,7 +350,6 @@ export default {
   },
   methods: {
     sortChange(column) {
-      console.log(column);
       this.pagination.sort = column.prop;
       this.pagination.order = column.order === "ascending" ? "asc" : "desc";
       this.getData();
