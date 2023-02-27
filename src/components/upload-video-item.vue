@@ -10,7 +10,6 @@
             <el-button
               v-show="isAliService"
               type="primary"
-              :disabled="upload.loading"
               plain
               @click="uploadAliyunVod"
               >选择文件</el-button
@@ -18,7 +17,6 @@
             <el-button
               v-show="isTenService"
               type="primary"
-              :disabled="upload.loading"
               plain
               @click="uploadTencentVod"
               >选择文件</el-button
@@ -26,7 +24,6 @@
             <el-button
               v-show="isLocalService"
               type="primary"
-              :disabled="upload.loading"
               plain
               id="selectfiles"
               >选择文件</el-button
