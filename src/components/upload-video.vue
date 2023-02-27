@@ -183,12 +183,12 @@
                 </el-table-column>
                 <el-table-column
                   sortable
-                  property="size_mb"
+                  property="size"
                   label="大小"
                   width="100"
                 >
                   <template slot-scope="scope">
-                    <span>{{ scope.row.size_mb }}MB</span>
+                    <span>{{ fileSizeConversion(scope.row.size) }}MB</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="存储" width="90">
