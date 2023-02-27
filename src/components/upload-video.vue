@@ -47,6 +47,8 @@
                 ref="table"
                 highlight-current-row
                 @current-change="handleCurrentChange"
+                @sort-change="sortChange"
+                :default-sort="{ prop: 'id', order: 'descending' }"
                 class="float-left mb-15"
                 v-loading="loading"
               >
@@ -66,7 +68,7 @@
                 </el-table-column>
                 <el-table-column prop="name" label="视频名称">
                 </el-table-column>
-                <el-table-column label="时长" width="90">
+                <el-table-column label="时长" sortable width="90">
                   <template slot-scope="scope">
                     <duration-text
                       v-if="!loading"
@@ -74,12 +76,12 @@
                     ></duration-text>
                   </template>
                 </el-table-column>
-                <el-table-column label="大小" width="100">
+                <el-table-column sortable label="大小" width="100">
                   <template slot-scope="scope">
                     <span>{{ fileSizeConversion(scope.row.size) }}MB</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="上传时间" width="120">
+                <el-table-column sortable label="上传时间" width="120">
                   <template slot-scope="scope">
                     <span>{{ scope.row.created_at | yearFormat }}</span>
                   </template>
@@ -130,6 +132,8 @@
                 ref="table"
                 highlight-current-row
                 @current-change="handleCurrentChange"
+                @sort-change="sortChange"
+                :default-sort="{ prop: 'id', order: 'descending' }"
                 class="float-left mb-15"
                 v-loading="loading"
               >
@@ -149,7 +153,7 @@
                 </el-table-column>
                 <el-table-column prop="title" label="视频名称">
                 </el-table-column>
-                <el-table-column label="时长" width="90">
+                <el-table-column sortable label="时长" width="90">
                   <template slot-scope="scope">
                     <duration-text
                       v-if="!loading"
@@ -157,7 +161,7 @@
                     ></duration-text>
                   </template>
                 </el-table-column>
-                <el-table-column label="大小" width="100">
+                <el-table-column sortable label="大小" width="100">
                   <template slot-scope="scope">
                     <span>{{ scope.row.size_mb }}MB</span>
                   </template>
@@ -171,7 +175,7 @@
                     }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="上传时间" width="120">
+                <el-table-column sortable label="上传时间" width="120">
                   <template slot-scope="scope">
                     <span>{{ scope.row.created_at | yearFormat }}</span>
                   </template>
@@ -239,6 +243,8 @@ export default {
         size: 7,
         keywords: null,
         name: null,
+        sort: "id",
+        order: "desc",
       },
       list: [],
       total: 0,
@@ -313,6 +319,11 @@ export default {
     this.getData();
   },
   methods: {
+    sortChange(column) {
+      this.pagination.sort = column.prop;
+      this.pagination.order = column.order === "ascending" ? "asc" : "desc";
+      this.getData();
+    },
     openUploadItem() {
       if (this.isNoService) {
         this.$message.warning("请先在系统配置的视频存储中完成参数配置");
