@@ -154,7 +154,32 @@ export default {
     this.pluploadInit();
     this.multipleDragEvent();
   },
+  beforeDestroy() {
+    let dropbox = document.getElementById("container");
+    dropbox.removeEventListener("drop", this.eventDrop, false);
+    dropbox.removeEventListener("dragleave", this.dragLeave, false);
+    dropbox.removeEventListener("dragenter", this.dragEnter, false);
+    dropbox.removeEventListener("dragover", this.dragOver, false);
+  },
   methods: {
+    dragEnter(ev) {
+      let dropbox = document.getElementById("container");
+      ev.stopPropagation();
+      ev.preventDefault();
+      dropbox.style.backgroundColor = "#fff";
+    },
+    dragOver(ev) {
+      let dropbox = document.getElementById("container");
+      ev.stopPropagation();
+      ev.preventDefault();
+      dropbox.style.backgroundColor = "#eee";
+    },
+    dragLeave(ev) {
+      let dropbox = document.getElementById("container");
+      ev.stopPropagation();
+      ev.preventDefault();
+      dropbox.style.backgroundColor = "#fff";
+    },
     cancelTask(result) {
       if (this.isLocalService) {
         var fileItem = result.up.getFile(result.fileId);
@@ -235,21 +260,9 @@ export default {
     multipleDragEvent() {
       let dropbox = document.getElementById("container");
       dropbox.addEventListener("drop", this.eventDrop, false);
-      dropbox.addEventListener("dragleave", function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        dropbox.style.backgroundColor = "#fff";
-      });
-      dropbox.addEventListener("dragenter", function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        dropbox.style.backgroundColor = "#fff";
-      });
-      dropbox.addEventListener("dragover", function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        dropbox.style.backgroundColor = "#eee";
-      });
+      dropbox.addEventListener("dragleave", this.dragLeave, false);
+      dropbox.addEventListener("dragenter", this.dragEnter, false);
+      dropbox.addEventListener("dragover", this.dragOver, false);
     },
     eventDrop(e) {
       let dropbox = document.getElementById("container");
