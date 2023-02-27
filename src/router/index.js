@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import i18n from "@/js/i18n";
 import index from "@/views/index/index";
+import Utils from "@/js/utils";
 
 Vue.use(VueRouter);
 
@@ -1638,7 +1639,14 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // 设置标题
   document.title = i18n.t(to.meta.title);
-  next();
+
+  if (to.name !== "Login" && !Utils.getToken()) {
+    router.replace({
+      name: "Login",
+    });
+  } else {
+    next();
+  }
 });
 
 export default router;

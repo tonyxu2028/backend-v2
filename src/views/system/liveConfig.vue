@@ -115,11 +115,7 @@
             </div>
             <div class="mt-5">
               <div class="form-helper-text">
-                <span
-                  >回调地址：{{
-                    appUrl
-                  }}addons/zhibo/api/v1/aliyun/callback</span
-                >
+                <span>{{ aliWebUrl }}</span>
               </div>
             </div>
           </div>
@@ -207,11 +203,7 @@
             </div>
             <div class="mt-5">
               <div class="form-helper-text">
-                <span
-                  >回调地址：{{
-                    appUrl
-                  }}addons/zhibo/api/v1/tencent/callback</span
-                >
+                <span>{{ tenWebUrl }}</span>
               </div>
             </div>
           </div>
@@ -318,6 +310,22 @@ export default {
         },
       },
     };
+  },
+  computed: {
+    aliWebUrl() {
+      if (!this.appUrl) {
+        return null;
+      }
+      return "回调地址：" + this.appUrl + "addons/zhibo/api/v1/aliyun/callback";
+    },
+    tenWebUrl() {
+      if (!this.appUrl) {
+        return null;
+      }
+      return (
+        "回调地址：" + this.appUrl + "addons/zhibo/api/v1/tencent/callback"
+      );
+    },
   },
   mounted() {
     this.getConfig();
@@ -444,12 +452,7 @@ export default {
         let configSysData = res.data["系统"];
         for (let index in configSysData) {
           if (configSysData[index].key === "app.url") {
-            let appUrl = configSysData[index].value;
-            if (appUrl.substr(appUrl.length - 1, 1) === "/") {
-              this.appUrl = appUrl;
-            } else {
-              this.appUrl = appUrl + "/";
-            }
+            this.appUrl = this.$utils.checkUrl(configSysData[index].value);
             break;
           }
         }

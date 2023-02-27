@@ -156,6 +156,9 @@ const Api = {
       Save(params) {
         return post(`/backend/api/v1/setting`, params);
       },
+      Config() {
+        return get(`/backend/api/v2/system/config`);
+      },
     },
     Addons: {
       LocalList(params) {
@@ -294,6 +297,15 @@ const Api = {
       },
       TencentToken(params) {
         return post(`/backend/api/v1/video/token/tencent`, params);
+      },
+      LocalUpload(params) {
+        return post(`/backend/addons/LocalUpload/upload`, params);
+      },
+      List(params) {
+        return get(`/backend/addons/LocalUpload/video/index`, params);
+      },
+      Destroy(id) {
+        return destroy(`/backend/addons/LocalUpload/video/${id}`);
       },
     },
     Log: {

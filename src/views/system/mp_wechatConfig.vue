@@ -13,8 +13,8 @@
               ></el-input>
             </div>
             <div class="mt-5">
-              <div class="form-helper-text" v-if="appUrl">
-                <span>微信公众号URL：{{ appUrl }}/api/wechat/serve</span>
+              <div class="form-helper-text">
+                <span>{{ webUrl }}</span>
               </div>
             </div>
           </div>
@@ -183,6 +183,12 @@ export default {
   },
   computed: {
     ...mapState(["enabledAddons"]),
+    webUrl() {
+      if (!this.appUrl) {
+        return null;
+      }
+      return "微信公众号URL：" + this.appUrl + "api/wechat/serve";
+    },
   },
   mounted() {
     if (this.enabledAddons) {
@@ -244,7 +250,7 @@ export default {
         let sysData = res.data["系统"];
         for (let index in sysData) {
           if (sysData[index].key === "app.url") {
-            this.appUrl = sysData[index].value;
+            this.appUrl = this.$utils.checkUrl(sysData[index].value);
           }
         }
 
