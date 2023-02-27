@@ -333,17 +333,19 @@ export default {
     uploadVideoChange(video) {
       this.video.duration = video.duration;
       // this.video.title = video.title;
-      this.tit = video.title;
 
       if (video.storage_driver === "aliyun") {
+        this.tit = video.title;
         this.video.aliyun_video_id = video.storage_file_id;
         this.video.tencent_video_id = null;
         this.video.url = null;
       } else if (video.storage_driver === "tencent") {
+        this.tit = video.title;
         this.video.tencent_video_id = video.storage_file_id;
         this.video.aliyun_video_id = null;
         this.video.url = null;
       } else if (video.visit_url) {
+        this.tit = video.name;
         this.video.tencent_video_id = null;
         this.video.aliyun_video_id = null;
         this.video.url = video.visit_url;
