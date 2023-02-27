@@ -95,11 +95,11 @@
             <div class="page-main-body-box">
               <keep-alive>
                 <router-view
-                  v-if="this.$route.meta.keepAlive && user"
+                  v-if="this.$route.meta.keepAlive && user && systemConfig"
                 ></router-view>
               </keep-alive>
               <router-view
-                v-if="!this.$route.meta.keepAlive && user"
+                v-if="!this.$route.meta.keepAlive && user && systemConfig"
               ></router-view>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["user"]),
+    ...mapState(["user", "systemConfig"]),
     activeMenus() {
       let menus = [];
       let defaultMenus = Menus;
@@ -204,7 +204,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["loginHandle", "setEnabledAddons", "logout"]),
+    ...mapMutations([
+      "loginHandle",
+      "setEnabledAddons",
+      "logout",
+      "setSystemConfig",
+    ]),
     goTeacherDevice() {
       window.open(
         Utils.checkUrl(Config.url) +
@@ -239,8 +244,15 @@ export default {
           let res = await this.$api.Administrator.Detail();
           this.loginHandle(res.data);
           await this.getEnabledAddons();
+          await this.getSystemConfig();
         }
       }
+    },
+    async getSystemConfig() {
+      // 获取已开启的插件
+      let res = await this.$api.System.Config.Config();
+
+      this.setSystemConfig(res.data);
     },
     initMenu() {
       let activeName =

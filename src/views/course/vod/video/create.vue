@@ -207,7 +207,7 @@
     </div>
 
     <upload-video
-      :show="showUploadVideoWin"
+      v-if="showUploadVideoWin"
       @close="showUploadVideoWin = false"
       @change="uploadVideoChange"
     ></upload-video>
@@ -355,19 +355,31 @@ export default {
     },
     uploadVideoChange(video) {
       this.video.duration = video.duration;
-      if (!this.video.title) {
-        this.video.title = video.title;
-      }
-      this.tit = video.title;
 
       if (video.storage_driver === "aliyun") {
+        if (!this.video.title) {
+          this.video.title = video.title;
+        }
+        this.tit = video.title;
         this.video.aliyun_video_id = video.storage_file_id;
         this.video.tencent_video_id = null;
         this.video.url = null;
       } else if (video.storage_driver === "tencent") {
+        if (!this.video.title) {
+          this.video.title = video.title;
+        }
+        this.tit = video.title;
         this.video.tencent_video_id = video.storage_file_id;
         this.video.aliyun_video_id = null;
         this.video.url = null;
+      } else if (video.visit_url) {
+        if (!this.video.title) {
+          this.video.title = video.name;
+        }
+        this.tit = video.name;
+        this.video.tencent_video_id = null;
+        this.video.aliyun_video_id = null;
+        this.video.url = video.visit_url;
       }
 
       this.showUploadVideoWin = false;

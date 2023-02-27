@@ -114,7 +114,7 @@ export default {
     this.getCaptcha();
   },
   methods: {
-    ...mapMutations(["loginHandle"]),
+    ...mapMutations(["loginHandle", "setSystemConfig"]),
     formValidate() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -145,7 +145,7 @@ export default {
 
           this.$api.Administrator.Detail().then((res) => {
             this.loginHandle(res.data);
-            this.goDashboard();
+            this.getSystemConfig();
           });
         })
         .catch((e) => {
@@ -154,6 +154,13 @@ export default {
           this.getCaptcha();
           this.$message.error(e.message);
         });
+    },
+    getSystemConfig() {
+      // 获取已开启的插件
+      this.$api.System.Config.Config().then((res) => {
+        this.setSystemConfig(res.data);
+        this.goDashboard();
+      });
     },
     goDashboard() {
       this.$router.push({ name: "Dashboard" });

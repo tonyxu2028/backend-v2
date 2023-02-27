@@ -11,6 +11,7 @@ export default new Vuex.Store({
     enabledAddons: {},
     enabledAddonsCount: 0,
     editorKey: null,
+    systemConfig: null,
   },
   mutations: {
     loginHandle(state, user) {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     setEnabledAddons(state, addons, count) {
       state.enabledAddons = addons;
       state.enabledAddonsCount = count;
+    },
+    setSystemConfig(state, config) {
+      state.systemConfig = config;
     },
     saveEditorKey(state, editorKey) {
       state.editorKey = editorKey;

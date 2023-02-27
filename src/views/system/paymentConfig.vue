@@ -58,11 +58,23 @@
           </div>
         </el-form-item>
         <div class="title">微信支付</div>
-        <el-form-item label="微信支付">
+        <el-form-item label="微信扫码支付">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-switch
                 v-model="form.config['meedu.payment.wechat.enabled']"
+                active-value="1"
+                inactive-value="0"
+              >
+              </el-switch>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="微信JSAPI支付">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-switch
+                v-model="form.config['meedu.payment.wechat-jsapi.enabled']"
                 active-value="1"
                 inactive-value="0"
               >
@@ -219,6 +231,7 @@ export default {
           "meedu.payment.handPay.introduction": "",
           "pay.wechat.cert_key": null,
           "pay.wechat.cert_client": null,
+          "meedu.payment.wechat-jsapi.enabled": null,
         },
       },
       upload: {
@@ -334,6 +347,11 @@ export default {
             this.form.config["pay.wechat.cert_key"] = configData[index].value;
           } else if (configData[index].key === "pay.wechat.cert_client") {
             this.form.config["pay.wechat.cert_client"] =
+              configData[index].value;
+          } else if (
+            configData[index].key === "meedu.payment.wechat-jsapi.enabled"
+          ) {
+            this.form.config["meedu.payment.wechat-jsapi.enabled"] =
               configData[index].value;
           }
         }
