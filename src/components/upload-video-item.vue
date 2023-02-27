@@ -166,11 +166,11 @@ export default {
         index && this.upload.aliyun.cancelFile(index);
         index && this.upload.aliyun.deleteFile(index);
       } else if (this.isTenService) {
-        if (result.up) {
-          result.up.cancel();
-        } else {
+        if (!result.up) {
           this.$message.warning("请稍后取消");
+          return;
         }
+        result.up.cancel();
       }
 
       this.localUploadFiles = this.localUploadFiles.filter((item) => {
