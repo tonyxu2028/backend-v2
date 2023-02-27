@@ -68,7 +68,12 @@
                 </el-table-column>
                 <el-table-column prop="name" label="视频名称">
                 </el-table-column>
-                <el-table-column label="时长" sortable width="90">
+                <el-table-column
+                  property="duration"
+                  label="时长"
+                  sortable
+                  width="90"
+                >
                   <template slot-scope="scope">
                     <duration-text
                       v-if="!loading"
@@ -76,12 +81,22 @@
                     ></duration-text>
                   </template>
                 </el-table-column>
-                <el-table-column sortable label="大小" width="100">
+                <el-table-column
+                  property="size"
+                  sortable
+                  label="大小"
+                  width="100"
+                >
                   <template slot-scope="scope">
                     <span>{{ fileSizeConversion(scope.row.size) }}MB</span>
                   </template>
                 </el-table-column>
-                <el-table-column sortable label="上传时间" width="120">
+                <el-table-column
+                  property="created_at"
+                  sortable
+                  label="上传时间"
+                  width="120"
+                >
                   <template slot-scope="scope">
                     <span>{{ scope.row.created_at | yearFormat }}</span>
                   </template>
@@ -153,7 +168,12 @@
                 </el-table-column>
                 <el-table-column prop="title" label="视频名称">
                 </el-table-column>
-                <el-table-column sortable label="时长" width="90">
+                <el-table-column
+                  property="duration"
+                  sortable
+                  label="时长"
+                  width="90"
+                >
                   <template slot-scope="scope">
                     <duration-text
                       v-if="!loading"
@@ -161,7 +181,12 @@
                     ></duration-text>
                   </template>
                 </el-table-column>
-                <el-table-column sortable label="大小" width="100">
+                <el-table-column
+                  sortable
+                  property="size_mb"
+                  label="大小"
+                  width="100"
+                >
                   <template slot-scope="scope">
                     <span>{{ scope.row.size_mb }}MB</span>
                   </template>
@@ -175,7 +200,12 @@
                     }}</span>
                   </template>
                 </el-table-column>
-                <el-table-column sortable label="上传时间" width="120">
+                <el-table-column
+                  property="created_at"
+                  sortable
+                  label="上传时间"
+                  width="120"
+                >
                   <template slot-scope="scope">
                     <span>{{ scope.row.created_at | yearFormat }}</span>
                   </template>
@@ -320,6 +350,7 @@ export default {
   },
   methods: {
     sortChange(column) {
+      console.log(column);
       this.pagination.sort = column.prop;
       this.pagination.order = column.order === "ascending" ? "asc" : "desc";
       this.getData();

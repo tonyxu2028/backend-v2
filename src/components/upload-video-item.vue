@@ -47,9 +47,10 @@
                   <template v-else>
                     <el-progress
                       type="line"
-                      :stroke-width="8"
+                      :text-inside="true"
+                      text-color="#fff"
+                      :stroke-width="14"
                       :percentage="item.progress"
-                      :show-text="false"
                     ></el-progress>
                   </template>
                 </div>
@@ -162,8 +163,8 @@ export default {
         let index = this.localUploadFiles.findIndex(
           (o) => o.id === result.fileId
         );
-        this.upload.aliyun.cancelFile(index);
-        this.upload.aliyun.deleteFile(index);
+        index && this.upload.aliyun.cancelFile(index);
+        index && this.upload.aliyun.deleteFile(index);
       } else if (this.isTenService) {
         result.up.cancel();
       }
@@ -757,6 +758,7 @@ export default {
         }
         .progress-bar {
           width: 100px;
+          margin-top: -4px;
           margin-left: 30px;
           overflow: hidden; //溢出隐藏
           white-space: nowrap; //禁止换行
