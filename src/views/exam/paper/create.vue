@@ -338,7 +338,11 @@ export default {
       if (this.loading) {
         return;
       }
-      if (this.addform.is_free === 0 && !this.addform.charge) {
+      if (
+        this.addform.enabled_invite === 0 &&
+        this.addform.is_free === 0 &&
+        !this.addform.charge
+      ) {
         this.$message.error("价格不能为空");
         return;
       }
