@@ -191,15 +191,6 @@
                     <span>{{ fileSizeConversion(scope.row.size) }}MB</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="存储" width="90">
-                  <template slot-scope="scope">
-                    <span>{{
-                      scope.row.storage_driver === "tencent"
-                        ? "腾讯云"
-                        : "阿里云"
-                    }}</span>
-                  </template>
-                </el-table-column>
                 <el-table-column
                   property="created_at"
                   sortable
