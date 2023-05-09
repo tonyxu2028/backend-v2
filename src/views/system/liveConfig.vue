@@ -226,7 +226,17 @@
           </div>
         </el-form-item>
         <div class="title">直播间聊天服务配置</div>
-        <el-form-item label="聊天服务URL地址">
+        <el-form-item label="聊天服务内网地址">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                v-model="form.config['meedu.addons.zhibo.go-meedu.internal_url']"
+              ></el-input>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="聊天服务外网地址">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
               <el-input
@@ -305,6 +315,7 @@ export default {
           "meedu.addons.zhibo.tencent.push_key": null,
           "meedu.addons.zhibo.tencent.record.callback.key": null,
           "meedu.addons.zhibo.tencent.webrtc_play": null,
+          "meedu.addons.zhibo.go-meedu.internal_url": null,
           "meedu.addons.zhibo.go-meedu.url": null,
           "meedu.addons.zhibo.go-meedu.key": null,
         },
@@ -435,6 +446,11 @@ export default {
             configData[index].key === "meedu.addons.zhibo.tencent.webrtc_play"
           ) {
             this.form.config["meedu.addons.zhibo.tencent.webrtc_play"] =
+              configData[index].value;
+          } else if (
+            configData[index].key === "meedu.addons.zhibo.go-meedu.internal_url"
+          ) {
+            this.form.config["meedu.addons.zhibo.go-meedu.internal_url"] =
               configData[index].value;
           } else if (
             configData[index].key === "meedu.addons.zhibo.go-meedu.url"
