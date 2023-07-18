@@ -25,16 +25,18 @@ export default {
   props: ["value", "total", "type"],
   data() {
     return {
-      result: "#333333",
+      result: "rgba(255,0,0,0.1)",
     };
   },
   mounted() {
     if (this.total > 0) {
       let opacity = this.value / this.total;
       if (opacity === 0) {
-        this.result = "#333333";
+        this.result = "rgba(255,0,0,0.1)";
       } else {
-        this.result = "rgba(255,0,0," + opacity.toFixed(2) + ")";
+        if (opacity > 0.1) {
+          this.result = "rgba(255,0,0," + opacity.toFixed(2) + ")";
+        }
       }
     }
   },
