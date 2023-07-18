@@ -1065,6 +1065,15 @@ const routes = [
     },
   },
   {
+    path: "/live/course/stat",
+    component: () => import("@/views/live/course/stats"),
+    name: "LiveCourseStats",
+    meta: {
+      title: "title.live.course.stats",
+      keepAlive: true,
+    },
+  },
+  {
     path: "/live/course/video/index",
     component: () => import("@/views/live/course/video/index"),
     name: "LiveCourseVideo",

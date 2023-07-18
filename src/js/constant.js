@@ -121,6 +121,7 @@ export default {
     LiveCourseCategory: "LiveCourse",
     LiveCourseChapter: "LiveCourse",
     LiveCourseUsers: "LiveCourse",
+    LiveCourseStats: "LiveCourse",
     LiveCourseVideo: "LiveCourse",
     LiveCourseVideoCreate: "LiveCourse",
     LiveCourseVideoUpdate: "LiveCourse",
