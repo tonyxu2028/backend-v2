@@ -1062,7 +1062,6 @@ const routes = [
     name: "LiveCourseUsers",
     meta: {
       title: "title.live.course.users.index",
-      keepAlive: true,
     },
   },
   {

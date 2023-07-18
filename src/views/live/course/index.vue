@@ -166,6 +166,18 @@
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
                   <p-dropdown-item
+                    text="统计"
+                    type="primary"
+                    @click="
+                      $router.push({
+                        name: 'LiveCourseUpdate',
+                        query: { id: scope.row.id },
+                      })
+                    "
+                    p="addons.Zhibo.course.stats"
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
                     text="编辑"
                     type="primary"
                     @click="
