@@ -1,7 +1,6 @@
 <template>
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="直播课程学员"></back-bar>
-
     <div class="float-left">
       <el-tabs v-model="resourceActive">
         <el-tab-pane

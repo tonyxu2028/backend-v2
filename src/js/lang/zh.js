@@ -158,6 +158,7 @@ const zh = {
         create: "新建直播课程",
         update: "编辑直播课程",
         comment: "直播课程评论",
+        stats: "直播课程统计",
         category: {
           index: "直播课程分类",
           create: "添加直播课程分类",

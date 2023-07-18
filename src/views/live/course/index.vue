@@ -170,7 +170,7 @@
                     type="primary"
                     @click="
                       $router.push({
-                        name: 'LiveCourseUpdate',
+                        name: 'LiveCourseStats',
                         query: { id: scope.row.id },
                       })
                     "
