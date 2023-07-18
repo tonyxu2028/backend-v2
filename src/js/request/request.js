@@ -498,6 +498,9 @@ const Api = {
         UserImport(id, params) {
           return post(`/backend/addons/zhibo/course/${id}/user/import`, params);
         },
+        Stats(id) {
+          return get(`/backend/addons/zhibo/course/${id}/stats`);
+        },
         Category: {
           List() {
             return get(`/backend/addons/zhibo/course_category/index`);
@@ -538,6 +541,9 @@ const Api = {
         Users: {
           List(id, params) {
             return get(`/backend/addons/zhibo/course/${id}/users`, params);
+          },
+          WatchUsers(id, params) {
+            return get(`/backend/addons/zhibo/course/${id}/watch-users`, params);
           },
           Add(id, params) {
             return post(`/backend/addons/zhibo/course/${id}/user/add`, params);
