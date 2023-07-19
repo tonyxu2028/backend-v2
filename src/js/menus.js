@@ -3,6 +3,7 @@ export default [
     name: "title.dashboard",
     key: "Dashboard",
     children: [],
+    permission: "dashboard",
     icon: "icon-icon-study-n",
   },
   {
