@@ -176,7 +176,6 @@ export default {
           arr.push(videos[i].id);
         }
         this.list = list;
-        this.ids = arr;
         if (this.enabledAddons["Snapshot"]) {
           this.getImages(arr);
         }
