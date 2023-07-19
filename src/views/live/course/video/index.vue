@@ -114,6 +114,21 @@
                   >
                   </p-dropdown-item>
                   <p-dropdown-item
+                    text="聊天"
+                    type="primary"
+                    @click="
+                      $router.push({
+                        name: 'LiveCourseVideoChats',
+                        query: {
+                          id: scope.row.id,
+                          course_id: scope.row.course_id,
+                        },
+                      })
+                    "
+                    p="addons.Zhibo.chat.list"
+                  >
+                  </p-dropdown-item>
+                  <p-dropdown-item
                     text="删除"
                     type="danger"
                     @click="destory(scope.row.id)"
