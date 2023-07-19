@@ -70,8 +70,24 @@
           >
             <template slot-scope="scope">
               <p-link
+                text="学员"
+                type="primary"
+                @click="
+                  $router.push({
+                    name: 'LiveCourseVideoUsers',
+                    query: {
+                      id: scope.row.id,
+                      course_id: scope.row.course_id,
+                    },
+                  })
+                "
+                p="addons.Zhibo.course_video.stats"
+              >
+              </p-link>
+              <p-link
                 text="编辑"
                 type="primary"
+                class="ml-5"
                 @click="
                   $router.push({
                     name: 'LiveCourseVideoUpdate',

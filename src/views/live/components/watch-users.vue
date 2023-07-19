@@ -213,6 +213,26 @@ export default {
         this.total = res.data.total;
       });
     },
+    durationTime(duration) {
+      let hour = parseInt(duration / 3600);
+      let minute = parseInt((duration - hour * 3600) / 60);
+      let second = duration - hour * 3600 - minute * 60;
+      if (hour === 0 && minute === 0 && second === 0) {
+        return null;
+      }
+      if (hour === 0) {
+        hour = "";
+      } else {
+        hour = hour + ":";
+      }
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+      if (second < 10) {
+        second = "0" + second;
+      }
+      return hour + minute + ":" + second;
+    },
     importexcel() {
       if (this.loading) {
         return;
@@ -248,6 +268,7 @@ export default {
             "学习总时长",
             "开始时间",
             "看完时间",
+            "看完",
           ],
         ];
         res.data.data.forEach((item) => {
@@ -260,13 +281,14 @@ export default {
             item.user.nick_name,
             item.user.mobile,
             item.progress + "%",
-            item.total_duration + "s",
+            this.durationTime(item.total_duration),
             item.created_at
               ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
               : "",
             item.watched_at
               ? moment(item.watched_at).format("YYYY-MM-DD HH:mm")
               : "",
+            item.is_watched === 1 ? "是" : "否",
           ]);
         });
         let wscols = [
@@ -277,6 +299,7 @@ export default {
           { wch: 15 },
           { wch: 20 },
           { wch: 20 },
+          { wch: 10 },
         ];
         Utils.exportExcel(data, filename, sheetName, wscols);
         this.loading = false;
