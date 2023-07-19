@@ -7,10 +7,6 @@
           <el-input v-model="user.display_name" class="w-300px"></el-input>
         </el-form-item>
 
-        <el-form-item label="Slug" prop="slug">
-          <el-input v-model="user.slug" class="w-300px"></el-input>
-        </el-form-item>
-
         <el-form-item label="描述" prop="description">
           <el-input v-model="user.description" class="w-300px"></el-input>
         </el-form-item>

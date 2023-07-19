@@ -144,8 +144,13 @@ export default {
         let menuItem = defaultMenus[i];
 
         if (menuItem.children.length === 0) {
-          // 一级菜单不做权限控制
-          menus.push(menuItem);
+          if (
+            typeof this.user.permissions[menuItem.permission] !== "undefined"
+          ) {
+            // 存在权限
+            menus.push(menuItem);
+          }
+
           continue;
         }
 
