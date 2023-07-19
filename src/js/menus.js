@@ -101,11 +101,11 @@ export default [
         key: "MemberIndex",
         permission: "member",
       },
-      {
-        name: "title.snapshot.index",
-        key: "SnapshotIndex",
-        permission: "addons.Snapshot.images",
-      },
+      // {
+      //   name: "title.snapshot.index",
+      //   key: "SnapshotIndex",
+      //   permission: "addons.Snapshot.images",
+      // },
       {
         name: "title.certificate.index",
         key: "Certificate",
