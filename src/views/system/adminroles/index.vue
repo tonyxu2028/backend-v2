@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="管理员角色"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="新建管理员角色"
         p="administrator_role.store"
         @click="$router.push({ name: 'AdminrolesCreate' })"
         type="primary"
