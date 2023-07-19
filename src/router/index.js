@@ -1099,6 +1099,15 @@ const routes = [
     },
   },
   {
+    path: "/live/course/video/chats",
+    component: () => import("@/views/live/course/video/chats"),
+    name: "LiveCourseVideoChats",
+    meta: {
+      title: "title.live.course.video.chat",
+      keepAlive: true,
+    },
+  },
+  {
     path: "/codeExchanger/index",
     component: () => import("@/views/codeExchanger/index"),
     name: "CodeExchanger",
