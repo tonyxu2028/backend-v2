@@ -85,19 +85,12 @@
               >
               </p-link>
               <p-link
-                text="编辑"
+                v-if="scope.row.status === 2"
+                text="统计"
                 type="primary"
                 class="ml-5"
-                @click="
-                  $router.push({
-                    name: 'LiveCourseVideoUpdate',
-                    query: {
-                      id: scope.row.id,
-                      course_id: scope.row.course_id,
-                    },
-                  })
-                "
-                p="addons.Zhibo.course_video.update"
+                @click="showStatsDialog(scope.row.id)"
+                p="addons.Zhibo.course_video.stats"
               >
               </p-link>
               <el-dropdown>
@@ -105,6 +98,21 @@
                   更多<i class="el-icon-arrow-down el-icon--right"></i>
                 </el-link>
                 <el-dropdown-menu slot="dropdown">
+                  <p-dropdown-item
+                    text="编辑"
+                    type="primary"
+                    @click="
+                      $router.push({
+                        name: 'LiveCourseVideoUpdate',
+                        query: {
+                          id: scope.row.id,
+                          course_id: scope.row.course_id,
+                        },
+                      })
+                    "
+                    p="addons.Zhibo.course_video.update"
+                  >
+                  </p-dropdown-item>
                   <p-dropdown-item
                     text="删除"
                     type="danger"
@@ -131,11 +139,20 @@
         </el-pagination>
       </div>
     </div>
+    <stats-dialog
+      :id="currentId"
+      :show="visiable"
+      @close="closeStatsDialog()"
+    ></stats-dialog>
   </div>
 </template>
 
 <script>
+import StatsDialog from "../../components/stats-dialog.vue";
 export default {
+  components: {
+    StatsDialog,
+  },
   data() {
     return {
       pageName: "liveVideo-list",
@@ -149,6 +166,8 @@ export default {
       loading: false,
       results: [],
       title: null,
+      visiable: false,
+      currentId: null,
     };
   },
   watch: {
@@ -195,6 +214,13 @@ export default {
         this.total = res.data.total;
         document.title = this.title;
       });
+    },
+    showStatsDialog(id) {
+      this.currentId = id;
+      this.visiable = true;
+    },
+    closeStatsDialog() {
+      this.visiable = false;
     },
     destory(item) {
       this.$confirm("确认操作？", "警告", {
