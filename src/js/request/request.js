@@ -569,7 +569,10 @@ const Api = {
             return get(`/backend/addons/zhibo/course/${id}/users`, params);
           },
           WatchUsers(id, params) {
-            return get(`/backend/addons/zhibo/course/${id}/watch-users`, params);
+            return get(
+              `/backend/addons/zhibo/course/${id}/watch-users`,
+              params
+            );
           },
           Add(id, params) {
             return post(`/backend/addons/zhibo/course/${id}/user/add`, params);
@@ -612,6 +615,12 @@ const Api = {
           Watch(params) {
             return get(
               `/backend/addons/zhibo/course_video/watch/users`,
+              params
+            );
+          },
+          WatchUsers(id, params) {
+            return get(
+              `/backend/addons/zhibo/course_video/${id}/watch-users`,
               params
             );
           },

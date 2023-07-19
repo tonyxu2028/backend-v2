@@ -125,6 +125,7 @@ export default {
     LiveCourseVideo: "LiveCourse",
     LiveCourseVideoCreate: "LiveCourse",
     LiveCourseVideoUpdate: "LiveCourse",
+    LiveCourseVideoUsers: "LiveCourse",
     CodeExchanger: "CodeExchanger",
     CodeExchangerCreate: "CodeExchanger",
     CodeExchangerUpdate: "CodeExchanger",
