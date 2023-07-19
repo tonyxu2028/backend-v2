@@ -94,12 +94,12 @@ export default {
         this.loading = false;
         this.rid = res.data[this.vid].id;
         this.images = res.data[this.vid].images;
-        this.showPreview();
+        this.showPreview(res.data[this.vid].images);
       });
     },
-    showPreview() {
+    showPreview(data) {
       let images = [];
-      this.images.forEach((item) => {
+      data.forEach((item) => {
         images.push(item.thumb);
       });
       this.srcList = images;

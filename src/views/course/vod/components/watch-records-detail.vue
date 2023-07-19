@@ -141,9 +141,13 @@ export default {
         user_id: this.uid,
         other_ids: ids,
       };
-      this.$api.Snapshot.Images.List(params).then((res) => {
-        this.images = res.data;
-      });
+      this.$api.Snapshot.Images.List(params)
+        .then((res) => {
+          this.images = res.data;
+        })
+        .catch((e) => {
+          this.$message.error(e.message);
+        });
     },
     close() {
       this.$emit("close");
