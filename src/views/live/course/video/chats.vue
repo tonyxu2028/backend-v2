@@ -29,7 +29,7 @@
               <span class="c-red" v-else>学员不存在</span>
             </template>
           </el-table-column>
-          <el-table-column label="角色" width="300">
+          <el-table-column label="角色" width="120">
             <template slot-scope="scope">
               <template v-if="scope.row.msg_body">
                 <span
