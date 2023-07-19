@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="聊天室内容"></back-bar>
+    <back-bar class="mb-30" title="聊天记录"></back-bar>
     <div class="float-left">
       <p-button
         text="删除"

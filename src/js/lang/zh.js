@@ -180,7 +180,7 @@ const zh = {
           update: "编辑直播排课",
           play: "直播详情",
           watch: "观看用户",
-          chat: "聊天室内容",
+          chat: "聊天记录",
           users: "课时学习记录",
         },
       },
