@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="课时学习记录"></back-bar>
+    <back-bar class="mb-30" title="直播课时学员"></back-bar>
 
     <div class="float-left">
       <div class="float-left d-flex">
@@ -35,8 +35,6 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
-          <el-table-column prop="id" sortable label="ID" width="80">
-          </el-table-column>
           <el-table-column prop="user_id" label="学员ID" width="120">
           </el-table-column>
           <el-table-column label="学员">
@@ -211,7 +209,7 @@ export default {
           return;
         }
 
-        let filename = "课时学习记录.xlsx";
+        let filename = "直播课时学员记录.xlsx";
         let sheetName = "sheet1";
 
         let data = [

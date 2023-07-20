@@ -181,7 +181,7 @@ const zh = {
           play: "直播详情",
           watch: "观看用户",
           chat: "聊天记录",
-          users: "课时学习记录",
+          users: "直播课时学员",
         },
       },
       teacher: {
