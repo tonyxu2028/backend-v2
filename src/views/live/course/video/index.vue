@@ -34,8 +34,6 @@
           :data="results"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" min-width="10%">
-          </el-table-column>
           <el-table-column prop="name" label="标题" min-width="42%">
             <template slot-scope="scope">
               <template v-if="scope.row.chapter">
@@ -65,7 +63,7 @@
           <el-table-column
             fixed="right"
             label="操作"
-            min-width="12%"
+            min-width="22%"
             align="right"
           >
             <template slot-scope="scope">
