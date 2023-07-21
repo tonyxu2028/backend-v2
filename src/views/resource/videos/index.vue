@@ -49,21 +49,21 @@
             <div>{{ scope.row.size_mb }}MB</div>
           </template>
         </el-table-column>
-        <el-table-column label="转码" width="150">
+        <el-table-column label="加密" width="150">
           <template slot-scope="scope">
             <span
               v-if="
                 scope.row.storage_driver === 'aliyun' &&
                 checkTrans(scope.row.storage_file_id)
               "
-              >已转码</span
+              >已加密</span
             >
             <span
               v-else-if="
                 scope.row.storage_driver === 'tencent' &&
                 checkTenTrans(scope.row.storage_file_id)
               "
-              >已转码</span
+              >已加密</span
             >
             <span v-else>-</span>
           </template>
@@ -77,14 +77,14 @@
           <template slot-scope="scope">
             <p-link
               v-if="scope.row.storage_driver === 'aliyun'"
-              text="转码"
+              text="加密"
               p="ali-hls-transcode.submit"
               @click="submit(scope.row.storage_file_id)"
               type="primary"
             ></p-link>
             <p-link
               v-else-if="scope.row.storage_driver === 'tencent'"
-              text="转码"
+              text="加密"
               p="addons.TencentCloudHls.transcode.submit"
               @click="tenSubmit(scope.row.storage_file_id)"
               type="primary"
