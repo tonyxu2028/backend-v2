@@ -68,7 +68,7 @@
           </el-table-column>
           <el-table-column label="看完" width="80">
             <template slot-scope="scope">
-              <span class="c-red" v-if="scope.row.is_watched === 1">是</span>
+              <span class="c-green" v-if="scope.row.is_watched === 1">是</span>
               <span v-else>否</span>
             </template>
           </el-table-column>

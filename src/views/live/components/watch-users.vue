@@ -82,6 +82,12 @@
               ></duration-text>
             </template>
           </el-table-column>
+          <el-table-column label="看完" width="80">
+            <template slot-scope="scope">
+              <span class="c-green" v-if="scope.row.is_watched === 1">是</span>
+              <span v-else>否</span>
+            </template>
+          </el-table-column>
           <el-table-column sortable label="开始时间" width="240">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
@@ -91,12 +97,6 @@
             <template slot-scope="scope">{{
               scope.row.watched_at | dateFormat
             }}</template>
-          </el-table-column>
-          <el-table-column label="看完" width="80">
-            <template slot-scope="scope">
-              <span class="c-red" v-if="scope.row.is_watched === 1">是</span>
-              <span v-else>否</span>
-            </template>
           </el-table-column>
         </el-table>
       </div>
@@ -266,9 +266,9 @@ export default {
             "手机号",
             "观看进度",
             "学习总时长",
+            "看完",
             "开始时间",
             "看完时间",
-            "看完",
           ],
         ];
         res.data.data.forEach((item) => {
@@ -282,13 +282,13 @@ export default {
             item.user.mobile,
             item.progress + "%",
             this.durationTime(item.total_duration),
+            item.is_watched === 1 ? "是" : "否",
             item.created_at
               ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
               : "",
             item.watched_at
               ? moment(item.watched_at).format("YYYY-MM-DD HH:mm")
               : "",
-            item.is_watched === 1 ? "是" : "否",
           ]);
         });
         let wscols = [
