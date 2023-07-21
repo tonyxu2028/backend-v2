@@ -28,6 +28,26 @@ const Api = {
       return get(`/backend/api/v1/dashboard/system/info`);
     },
   },
+  Resource: {
+    VideosList(params) {
+      return get(`/backend/api/v1/media/videos/index`, params);
+    },
+    VideosDestroyMulti(params) {
+      return post(`/backend/api/v1/media/videos/delete/multi`, params);
+    },
+    AliyunTranscode(params) {
+      return post(`/backend/addons/AliyunHls/transcode-submit`, params);
+    },
+    AliyunTranscodeRecords(params) {
+      return get(`/backend/addons/AliyunHls/transcode-records`, params);
+    },
+    TencentTranscode(params) {
+      return post(`/backend/addons/TencentCloudHls/transcode-submit`, params);
+    },
+    TencentTranscodeRecords(params) {
+      return get(`/backend/addons/TencentCloudHls/transcode-records`, params);
+    },
+  },
   Stat: {
     Statistic(params) {
       return get(`/backend/api/v1/dashboard/graph`, params);

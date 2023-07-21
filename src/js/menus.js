@@ -29,6 +29,18 @@ export default [
     ],
   },
   {
+    name: "title.resource",
+    key: "Resource",
+    icon: "icon-icon-file",
+    children: [
+      {
+        name: "title.resource_videos",
+        key: "ResourceVideos",
+        permission: "media.video.list",
+      },
+    ],
+  },
+  {
     name: "title.coursename",
     key: "Course",
     icon: "icon-icon-lesson",
@@ -191,7 +203,7 @@ export default [
   {
     name: "title.stats.name",
     key: "Stats",
-    icon: "icon-icon-stat",
+    icon: "icon-icon-data-n",
     children: [
       {
         name: "title.stats.transaction.name",
