@@ -40,7 +40,7 @@
                   class="c-gray"
                   >学生</span
                 >
-                <span v-else class="c-red">{{
+                <span v-else class="c-green">{{
                   scope.row.msg_body.role &&
                   scope.row.msg_body.role === "assistant"
                     ? "助教"
