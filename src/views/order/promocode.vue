@@ -152,7 +152,8 @@
             v-model="filter.expired_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="过期时间-开始"
             end-placeholder="过期时间-结束"
@@ -165,7 +166,8 @@
             v-model="filter.created_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="添加时间-开始"
             end-placeholder="添加时间-结束"
