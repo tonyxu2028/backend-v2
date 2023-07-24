@@ -252,7 +252,8 @@
             v-model="filter.created_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="注册开始日期"
             end-placeholder="注册结束日期"
@@ -331,8 +332,8 @@
               v-model="form.role_expired_at"
               type="datetime"
               placeholder="选择日期"
-              format="yyyy-MM-dd HH:mm:ss"
-              value-format="yyyy-MM-dd HH:mm:ss"
+              format="yyyy-MM-dd hh:mm:ss"
+              value-format="yyyy-MM-dd hh:mm:ss"
               :picker-options="newPickerOptions"
             >
             </el-date-picker>
