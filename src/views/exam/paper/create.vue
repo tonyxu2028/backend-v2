@@ -87,7 +87,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="仅添加学员" prop="enabled_invite">
+        <el-form-item label="仅添加学员">
           <div class="d-flex">
             <div>
               <el-switch
