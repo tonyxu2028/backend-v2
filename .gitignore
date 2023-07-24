@@ -29,3 +29,4 @@ pnpm-debug.log*
 
 deploy-demo.sh
 deploy-test.sh
+docker-light-build.sh
