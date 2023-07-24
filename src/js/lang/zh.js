@@ -227,8 +227,8 @@ const zh = {
         answer: "问题回答",
         comment: "问题评论",
         category: {
-          index: "问题分类",
-          create: "添加分类",
+          index: "问答分类",
+          create: "新建分类",
           update: "编辑分类",
         },
       },
