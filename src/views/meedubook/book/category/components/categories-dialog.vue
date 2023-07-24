@@ -62,7 +62,7 @@ export default {
         sort: [
           {
             required: true,
-            message: "升序不能为空",
+            message: "排序不能为空",
             trigger: "blur",
           },
         ],

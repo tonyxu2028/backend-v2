@@ -17,7 +17,7 @@
           class="float-left"
         >
           <el-table-column prop="id" label="ID" width="120"> </el-table-column>
-          <el-table-column prop="sort" label="升序" width="120">
+          <el-table-column prop="sort" label="排序" width="120">
           </el-table-column>
           <el-table-column prop="name" label="海报名"> </el-table-column>
           <el-table-column fixed="right" label="操作" width="160">
