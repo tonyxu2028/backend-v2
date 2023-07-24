@@ -75,9 +75,9 @@ const zh = {
         index: "秒杀订单",
       },
       goods: {
-        index: "秒杀课程",
-        create: "添加秒杀课程",
-        update: "编辑秒杀课程",
+        index: "秒杀活动",
+        create: "新建秒杀活动",
+        update: "编辑秒杀活动",
       },
     },
     certificate: {
@@ -103,9 +103,9 @@ const zh = {
       name: "团购",
       orders: "团购订单",
       goods: {
-        index: "团购课程",
-        create: "添加团购课程",
-        update: "编辑团购课程",
+        index: "团购活动",
+        create: "新建团购活动",
+        update: "编辑团购活动",
         order: "团购订单",
         refund: "团购退款订单",
         tuanorder: "团列表",
