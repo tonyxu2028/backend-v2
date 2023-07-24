@@ -104,7 +104,11 @@ export default {
     },
     tableItemChoice(row) {
       if (row) {
-        this.link = "/packageA/exam/paper/show?id=" + row.id;
+        this.link =
+          "/pages/webview/webview?course_type=paperRead&id=" +
+          row.id +
+          "&title=" +
+          row.title;
         this.radio = row.id;
       }
     },

@@ -105,7 +105,11 @@ export default {
     },
     tableItemChoice(row) {
       if (row) {
-        this.link = "/packageA/exam/mock/show?id=" + row.id;
+        this.link =
+          "/pages/webview/webview?course_type=mockRead&id=" +
+          row.id +
+          "&title=" +
+          row.title;
         this.radio = row.id;
       }
     },
