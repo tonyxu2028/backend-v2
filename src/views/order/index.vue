@@ -312,7 +312,8 @@
             v-model="filter.created_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="订单添加开始时间"
             end-placeholder="结束时间"
