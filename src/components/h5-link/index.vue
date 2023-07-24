@@ -187,8 +187,6 @@ export default {
         return;
       }
 
-      console.log(this.link);
-
       let link = this.link;
 
       if (link === "/packageA/vod/index" && this.enabledAddonsCount === 0) {

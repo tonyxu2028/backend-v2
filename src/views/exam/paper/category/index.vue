@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="试卷分类"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="新建分类"
         p="addons.Paper.paper_category.store"
         @click="addCategory"
         type="primary"
@@ -19,7 +19,6 @@
           :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" width="150"> </el-table-column>
           <el-table-column prop="sort" label="排序" width="150">
           </el-table-column>
 
@@ -103,7 +102,7 @@ export default {
   },
   methods: {
     addCategory() {
-      this.tit = "添加分类";
+      this.tit = "新建分类";
       this.updateId = null;
       this.showAddWin = true;
     },

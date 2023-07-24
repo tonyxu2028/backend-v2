@@ -336,11 +336,11 @@ const zh = {
         user: "试卷学员",
         stat: "分数统计",
         question: "组卷",
-        questionadd: "添加试题",
+        questionadd: "新建试题",
         marking: "阅卷",
         category: {
           index: "试卷分类",
-          create: "添加试卷分类",
+          create: "新建试卷分类",
           update: "编辑试卷分类",
         },
       },
@@ -367,8 +367,8 @@ const zh = {
         import: "试题批量导入",
         category: {
           index: "试题分类",
-          create: "添加试题分类",
-          update: "编辑试题分类",
+          create: "新建分类",
+          update: "编辑分类",
         },
       },
       practice: {

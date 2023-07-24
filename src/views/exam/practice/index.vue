@@ -56,8 +56,6 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
-          <el-table-column prop="id" sortable label="ID" width="120">
-          </el-table-column>
           <el-table-column prop="category.name" label="分类" width="200">
           </el-table-column>
           <el-table-column prop="name" label="练习名" width="500">
