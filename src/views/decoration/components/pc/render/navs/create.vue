@@ -76,6 +76,7 @@
         @close="showLinkWin = false"
         @change="linkChange"
         :show="showLinkWin"
+        :selected="form.url"
       ></pc-link>
     </div>
   </transition>

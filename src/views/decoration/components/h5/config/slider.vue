@@ -56,6 +56,7 @@
       @change="linkChange"
       @close="showLinkWin = false"
       :show="showLinkWin"
+      :selected="curLink"
     ></h5-link>
   </div>
 </template>
@@ -80,6 +81,7 @@ export default {
       curIndex: null,
       curLinkIndex: null,
       loading: false,
+      curLink: null,
     };
   },
   mounted() {
@@ -140,6 +142,7 @@ export default {
     },
     selectLink(index) {
       this.curLinkIndex = index;
+      this.curLink = this.sliders[this.curLinkIndex].href;
       this.showLinkWin = true;
     },
   },

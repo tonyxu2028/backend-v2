@@ -337,9 +337,7 @@
             <el-input v-model="link" class="w-100"></el-input>
           </div>
           <div class="ml-15">
-            <el-link type="primary" @click="showLinkWin = true">
-              选择链接
-            </el-link>
+            <el-link type="primary" @click="selectLink()"> 选择链接 </el-link>
           </div>
         </div>
       </div>
@@ -362,6 +360,7 @@
       @change="linkChange"
       @close="showLinkWin = false"
       :show="showLinkWin"
+      :selected="curLink"
     ></h5-link>
   </div>
 </template>
@@ -384,6 +383,7 @@ export default {
       loading: false,
       curIndex: null,
       link: null,
+      curLink: null,
     };
   },
   watch: {
@@ -397,6 +397,10 @@ export default {
     this.config = this.block.config_render;
   },
   methods: {
+    selectLink() {
+      this.curLink = this.config.items[this.curIndex].url;
+      this.showLinkWin = true;
+    },
     setCurIndex(index) {
       this.curIndex = index;
       this.link = this.config.items[this.curIndex].url;
