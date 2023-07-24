@@ -76,28 +76,67 @@ export default {
           this.$message.error("数据为空");
           return;
         }
-        for (let i = 0; i < parseData.length; i++) {
-          let data = parseData[i];
-          data.splice(7, 0, 1000);
-          data.splice(9, 0, "");
-          data.splice(10, 0, "");
-        }
         this.loading = true;
-
-        // 请求导入api
+        let arr = [];
+        for (let i = 0; i < parseData.length; i++) {
+          let item = parseData[i];
+          let tmpItem = [];
+          tmpItem[0] = item[0]; //课程名
+          tmpItem[1] = item[1]; //章节名
+          tmpItem[2] = item[2]; //视频名
+          tmpItem[3] = parseInt(item[3] || 0); //视频时长
+          tmpItem[4] = item[4]; //腾讯云视频id
+          tmpItem[5] = item[5]; //URL直链
+          tmpItem[6] = item[6]; //阿里云视频id
+          tmpItem[7] = 0; //价格[已废弃字段,但是位置保留]
+          tmpItem[8] = item[7] || ""; //上架时间
+          tmpItem[9] = ""; //seo关键字
+          tmpItem[10] = ""; //seo描述
+          tmpItem[11] = parseInt(item[8] || 0); //试看秒数
+          arr.push(tmpItem);
+        }
         this.$refs.form.reset();
-
-        this.$api.Course.Vod.Videos.ImportAct({ line: 3, data: parseData })
-          .then(() => {
-            this.loading = false;
-            this.$message.success("导入成功");
-          })
-          .catch((e) => {
-            this.loading = false;
-            this.$message.error(e.message, 0);
-          });
+        this.storeBatchTableCertData(arr);
       };
       reader.readAsArrayBuffer(f);
+    },
+    storeBatchTableCertData(data) {
+      // 请求导入api
+      for (let i = 0; i < data.length; i++) {
+        let tempItem = data[i];
+        if (!tempItem[0]) {
+          this.loading = false;
+          this.$message.error(`第${i + 2}行课程名为空`);
+          return;
+        }
+        if (!tempItem[2]) {
+          this.loading = false;
+          this.$message.error(`第${i + 2}行课时名称为空`);
+          return;
+        }
+        if (tempItem[3] <= 0) {
+          this.loading = false;
+          this.$message.error(`第${i + 2}行课时时长必须大于0`);
+          return;
+        }
+        if (!tempItem[4] && !tempItem[5] && !tempItem[6]) {
+          this.loading = false;
+          this.$message.error(
+            `第${i + 2}行的腾讯云视频ID、阿里云视频ID、视频URL必须填写一个`
+          );
+          return;
+        }
+      }
+
+      this.$api.Course.Vod.Videos.ImportAct({ line: 3, data: data })
+        .then(() => {
+          this.loading = false;
+          this.$message.success("导入成功");
+        })
+        .catch((e) => {
+          this.loading = false;
+          this.$message.error(e.message, 0);
+        });
     },
     model() {
       var array = [
