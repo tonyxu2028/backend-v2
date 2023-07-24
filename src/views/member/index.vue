@@ -711,7 +711,7 @@ export default {
         .catch(() => {});
     },
     removeMember(id) {
-      this.$confirm("即将删除此账号，确认操作？", "警告", {
+      this.$confirm("删除学员账号将删除其所有数据，确认删除？", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
