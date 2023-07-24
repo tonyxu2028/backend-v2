@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="问题分类"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="新建分类"
         p="addons.Wenda.category.store"
         @click="
           $router.push({
