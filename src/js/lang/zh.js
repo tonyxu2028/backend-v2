@@ -146,9 +146,9 @@ const zh = {
         update: "编辑分销海报",
       },
       goods: {
-        index: "分销课程",
-        create: "添加分销课程",
-        update: "编辑分销课程",
+        index: "分销活动",
+        create: "新建分销活动",
+        update: "编辑分销活动",
         rewards: "奖励记录",
       },
     },
