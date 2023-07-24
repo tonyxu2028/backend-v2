@@ -2,7 +2,10 @@
   <transition name="fade">
     <div class="meedu-dialog-mask" v-if="show">
       <div class="meedu-dialog-box">
-        <div class="meedu-dialog-header">友情链接</div>
+        <div class="meedu-dialog-header">
+          友情链接
+          <img class="icon-close" @click="close" src="@/assets/img/close.png" />
+        </div>
         <div class="meedu-dialog-body" v-loading="loading">
           <div class="float-left mb-15">
             <el-button type="primary" @click="showCreateWin = true">
@@ -36,9 +39,6 @@
               </template>
             </el-table-column>
           </el-table>
-        </div>
-        <div class="meedu-dialog-footer">
-          <el-button @click="close">取消</el-button>
         </div>
       </div>
 
