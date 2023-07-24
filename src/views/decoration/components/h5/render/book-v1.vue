@@ -8,36 +8,64 @@
         <div class="more">更多</div>
       </div>
       <div class="body">
-        <div
-          class="book-item"
-          v-for="(item, index) in config.items"
-          :key="index"
-        >
-          <div class="book-thumb">
-            <img v-if="item.thumb" :src="item.thumb" width="90" height="120" />
-            <img
-              v-else
-              src="@/assets/images/decoration/h5/book-back.png"
-              width="90"
-              height="120"
-            />
-          </div>
-          <div class="book-body">
-            <div class="book-name">{{ item.name }}</div>
-            <div class="book-desc">
-              {{ item.short_desc }}
+        <template v-if="config.items.length === 0">
+          <div class="book-item" v-for="(item, index) in 2" :key="index">
+            <div class="book-thumb">
+              <img
+                src="@/assets/images/decoration/h5/book-back.png"
+                width="90"
+                height="120"
+              />
             </div>
-            <div class="book-info">
-              <div class="sub">
-                <span>{{ item.user_count || 0 }}人已订阅</span>
-              </div>
-              <div class="price">
-                <small class="unit">￥</small>
-                <span>{{ item.charge || "XX" }}</span>
+            <div class="book-body">
+              <div class="book-name">电子书一</div>
+              <div class="book-desc"></div>
+              <div class="book-info">
+                <div class="sub"></div>
+                <div class="price">
+                  <span class="free">免费</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
+        <template v-if="config.items.length > 0">
+          <div
+            class="book-item"
+            v-for="(item, index) in config.items"
+            :key="index"
+          >
+            <div class="book-thumb">
+              <img
+                v-if="item.thumb"
+                :src="item.thumb"
+                width="90"
+                height="120"
+              />
+              <img
+                v-else
+                src="@/assets/images/decoration/h5/book-back.png"
+                width="90"
+                height="120"
+              />
+            </div>
+            <div class="book-body">
+              <div class="book-name">{{ item.name }}</div>
+              <div class="book-desc">
+                {{ item.short_desc }}
+              </div>
+              <div class="book-info">
+                <div class="sub">
+                  <span>{{ item.user_count || 0 }}人已订阅</span>
+                </div>
+                <div class="price">
+                  <small class="unit">￥</small>
+                  <span>{{ item.charge || "XX" }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -170,6 +198,9 @@ export default {
 
             .unit {
               font-size: 14px;
+            }
+            .free {
+              color: #04c877;
             }
           }
         }
