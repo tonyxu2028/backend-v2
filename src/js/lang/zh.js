@@ -29,7 +29,7 @@ const zh = {
     "mp-wechat": "微信公众号",
     "system-administrator": "管理人员",
     "system-adminroles": "管理员角色",
-    createadmin: "添加管理员",
+    createadmin: "新建管理员",
     updateadmin: "编辑管理员",
     createadminroles: "添加管理员角色",
     updateadminroles: "编辑管理员角色",
