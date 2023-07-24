@@ -189,71 +189,69 @@
         <!-- 公告 -->
         <render-notice :reload="showNoticeWin"></render-notice>
 
-        <template v-for="(item, index) in blocks">
-          <div class="float-left" :key="item.id">
-            <div
-              class="item"
-              :class="{ active: curBlockIndex === index }"
-              @click="curBlockIndex = index"
-            >
-              <render-vod-v1
-                v-if="item.sign === 'pc-vod-v1'"
-                :config="item.config_render"
-              ></render-vod-v1>
-              <render-live-v1
-                v-if="item.sign === 'pc-live-v1'"
-                :config="item.config_render"
-              ></render-live-v1>
-              <render-book-v1
-                v-if="item.sign === 'pc-book-v1'"
-                :config="item.config_render"
-              ></render-book-v1>
-              <render-topic-v1
-                v-if="item.sign === 'pc-topic-v1'"
-                :config="item.config_render"
-              ></render-topic-v1>
-              <render-learn-path-v1
-                v-if="item.sign === 'pc-learnPath-v1'"
-                :config="item.config_render"
-              ></render-learn-path-v1>
-              <render-ms-v1
-                v-if="item.sign === 'pc-ms-v1'"
-                :config="item.config_render"
-              ></render-ms-v1>
-              <render-tg-v1
-                v-if="item.sign === 'pc-tg-v1'"
-                :config="item.config_render"
-              ></render-tg-v1>
-              <render-code
-                v-if="item.sign === 'code'"
-                :config="item.config_render"
-              ></render-code>
+        <div v-for="(item, index) in blocks" class="float-left" :key="item.id">
+          <div
+            class="item"
+            :class="{ active: curBlockIndex === index }"
+            @click="curBlockIndex = index"
+          >
+            <render-vod-v1
+              v-if="item.sign === 'pc-vod-v1'"
+              :config="item.config_render"
+            ></render-vod-v1>
+            <render-live-v1
+              v-if="item.sign === 'pc-live-v1'"
+              :config="item.config_render"
+            ></render-live-v1>
+            <render-book-v1
+              v-if="item.sign === 'pc-book-v1'"
+              :config="item.config_render"
+            ></render-book-v1>
+            <render-topic-v1
+              v-if="item.sign === 'pc-topic-v1'"
+              :config="item.config_render"
+            ></render-topic-v1>
+            <render-learn-path-v1
+              v-if="item.sign === 'pc-learnPath-v1'"
+              :config="item.config_render"
+            ></render-learn-path-v1>
+            <render-ms-v1
+              v-if="item.sign === 'pc-ms-v1'"
+              :config="item.config_render"
+            ></render-ms-v1>
+            <render-tg-v1
+              v-if="item.sign === 'pc-tg-v1'"
+              :config="item.config_render"
+            ></render-tg-v1>
+            <render-code
+              v-if="item.sign === 'code'"
+              :config="item.config_render"
+            ></render-code>
 
-              <div class="item-options" v-if="curBlockIndex === index">
-                <div class="btn-item" @click="blockDestroy(index, item)">
-                  <i class="el-icon-delete-solid"></i>
-                </div>
-                <div class="btn-item" @click="blockCopy(index, item)">
-                  <i class="el-icon-document-copy"></i>
-                </div>
-                <div
-                  class="btn-item"
-                  v-if="index !== 0"
-                  @click="moveTop(index, item)"
-                >
-                  <i class="el-icon-arrow-up"></i>
-                </div>
-                <div
-                  class="btn-item"
-                  v-if="index !== blocks.length - 1"
-                  @click="moveBottom(index, item)"
-                >
-                  <i class="el-icon-arrow-down"></i>
-                </div>
+            <div class="item-options" v-if="curBlockIndex === index">
+              <div class="btn-item" @click="blockDestroy(index, item)">
+                <i class="el-icon-delete-solid"></i>
+              </div>
+              <div class="btn-item" @click="blockCopy(index, item)">
+                <i class="el-icon-document-copy"></i>
+              </div>
+              <div
+                class="btn-item"
+                v-if="index !== 0"
+                @click="moveTop(index, item)"
+              >
+                <i class="el-icon-arrow-up"></i>
+              </div>
+              <div
+                class="btn-item"
+                v-if="index !== blocks.length - 1"
+                @click="moveBottom(index, item)"
+              >
+                <i class="el-icon-arrow-down"></i>
               </div>
             </div>
           </div>
-        </template>
+        </div>
 
         <!-- 友情链接 -->
         <render-link :reload="showLinkWin"></render-link>
@@ -383,8 +381,10 @@ export default {
         page: this.page,
       }).then((res) => {
         this.blocks = res.data;
+
         this.loading = false;
         if (toBottom) {
+          // this.curBlockIndex = this.blocks.length;
           // 滚动到底部
           this.$nextTick(() => {
             this.$refs["preview-box"].$el.scrollTop =
