@@ -229,26 +229,34 @@
             ></render-code>
 
             <div class="item-options" v-if="curBlockIndex === index">
-              <div class="btn-item" @click="blockDestroy(index, item)">
-                <i class="el-icon-delete-solid"></i>
-              </div>
-              <div class="btn-item" @click="blockCopy(index, item)">
-                <i class="el-icon-document-copy"></i>
-              </div>
-              <div
-                class="btn-item"
-                v-if="index !== 0"
-                @click="moveTop(index, item)"
-              >
-                <i class="el-icon-arrow-up"></i>
-              </div>
-              <div
-                class="btn-item"
-                v-if="index !== blocks.length - 1"
-                @click="moveBottom(index, item)"
-              >
-                <i class="el-icon-arrow-down"></i>
-              </div>
+              <el-tooltip effect="dark" content="删除模块" placement="top">
+                <div class="btn-item" @click="blockDestroy(index, item)">
+                  <i class="el-icon-delete-solid"></i>
+                </div>
+              </el-tooltip>
+              <el-tooltip effect="dark" content="复制模块" placement="top">
+                <div class="btn-item" @click="blockCopy(index, item)">
+                  <i class="el-icon-document-copy"></i>
+                </div>
+              </el-tooltip>
+              <el-tooltip effect="dark" content="模块上移" placement="top">
+                <div
+                  class="btn-item"
+                  v-if="index !== 0"
+                  @click="moveTop(index, item)"
+                >
+                  <i class="el-icon-arrow-up"></i>
+                </div>
+              </el-tooltip>
+              <el-tooltip effect="dark" content="模块下移" placement="top">
+                <div
+                  class="btn-item"
+                  v-if="index !== blocks.length - 1"
+                  @click="moveBottom(index, item)"
+                >
+                  <i class="el-icon-arrow-down"></i>
+                </div>
+              </el-tooltip>
             </div>
           </div>
         </div>
@@ -685,6 +693,7 @@ export default {
         .then(() => {
           this.loading = false;
           this.getData(true);
+          this.$message.success("添加成功");
         })
         .catch((e) => {
           this.loading = false;
