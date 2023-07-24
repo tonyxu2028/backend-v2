@@ -24,7 +24,7 @@
               </el-select>
             </el-form-item>
 
-            <el-form-item prop="sort" label="排序值">
+            <el-form-item prop="sort" label="排序">
               <div class="d-flex">
                 <div>
                   <el-input v-model="form.sort" class="w-200px"></el-input>

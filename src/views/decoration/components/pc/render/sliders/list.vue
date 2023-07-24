@@ -16,7 +16,7 @@
             :tree-props="{ children: 'children' }"
             v-loading="loading"
           >
-            <el-table-column prop="sort" label="升序" width="120">
+            <el-table-column prop="sort" label="排序" width="120">
             </el-table-column>
             <el-table-column label="幻灯片">
               <template slot-scope="scope">
