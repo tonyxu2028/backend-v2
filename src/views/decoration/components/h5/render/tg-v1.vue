@@ -43,8 +43,11 @@
               <div class="tg-original_charge">
                 原价:￥{{ item.original_charge || 0 }}
               </div>
-              <div class="tg-charge">
-                <span class="unit">￥</span>{{ item.charge || "XX" }}
+              <div class="tg-charge" v-if="!item.charge">
+                <span class="free">免费</span>
+              </div>
+              <div class="tg-charge" v-else-if="item.charge > 0">
+                <span class="unit">￥</span>{{ item.charge }}
               </div>
             </div>
           </div>
@@ -200,6 +203,9 @@ export default {
               .unit {
                 font-size: 14px;
                 line-height: 20px;
+              }
+              .free {
+                color: #04c877;
               }
             }
           }

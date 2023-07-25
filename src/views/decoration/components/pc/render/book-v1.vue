@@ -2,33 +2,57 @@
   <div class="float-left">
     <div class="vod-title">{{ config.title }}</div>
     <div class="vod-courses-box">
-      <div class="vod-item" v-for="(item, index) in config.items" :key="index">
-        <div class="course-thumb">
-          <div
-            v-if="item.thumb"
-            style="display: inline-block; width: 120px; height: 160px"
-          >
-            <thumb-bar
-              :border="8"
-              :value="item.thumb"
-              :width="120"
-              :height="160"
-            ></thumb-bar>
+      <template v-if="config.items.length === 0">
+        <div class="vod-item" v-for="(item, index) in 4" :key="index">
+          <div class="course-thumb">
+            <img
+              src="@/assets/images/decoration/h5/book-back.png"
+              width="120"
+              height="160"
+            />
           </div>
-          <img
-            v-else
-            src="@/assets/images/decoration/h5/book-back.png"
-            width="120"
-            height="160"
-          />
+          <div class="course-title">电子书</div>
+          <div class="book-charge">
+            <span class="free">免费</span>
+          </div>
         </div>
-        <div class="course-title">
-          {{ item.name }}
+      </template>
+      <template v-if="config.items.length > 0">
+        <div
+          class="vod-item"
+          v-for="(item, index) in config.items"
+          :key="index"
+        >
+          <div class="course-thumb">
+            <div
+              v-if="item.thumb"
+              style="display: inline-block; width: 120px; height: 160px"
+            >
+              <thumb-bar
+                :border="8"
+                :value="item.thumb"
+                :width="120"
+                :height="160"
+              ></thumb-bar>
+            </div>
+            <img
+              v-else
+              src="@/assets/images/decoration/h5/book-back.png"
+              width="120"
+              height="160"
+            />
+          </div>
+          <div class="course-title">
+            {{ item.name }}
+          </div>
+          <div class="book-charge" v-if="item.charge === 0">
+            <span class="free">免费</span>
+          </div>
+          <div class="book-charge" v-else>
+            <span class="unit">￥</span>{{ item.charge }}
+          </div>
         </div>
-        <div class="book-charge">
-          <span class="unit">￥</span>{{ item.charge }}
-        </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>
@@ -112,6 +136,9 @@ export default {
 
       .unit {
         font-size: 14px;
+      }
+      .free {
+        color: #04c877;
       }
     }
   }

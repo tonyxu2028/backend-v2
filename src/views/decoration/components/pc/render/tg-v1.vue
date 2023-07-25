@@ -28,7 +28,10 @@
         <div class="ms-title">{{ item.goods_title }}</div>
         <div class="ms-charge">
           <div class="charge">
-            <div class="now-charge">
+            <div class="now-charge" v-if="item.charge === 0">
+              <span class="free">免费</span>
+            </div>
+            <div class="now-charge" v-else>
               <span class="unit">￥</span>{{ item.charge }}
             </div>
             <div class="ori-charge">
@@ -134,6 +137,9 @@ export default {
 
           .unit {
             font-size: 14px;
+          }
+          .free {
+            color: #04c877;
           }
         }
 

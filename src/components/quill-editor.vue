@@ -156,9 +156,9 @@ export default {
     toolbar() {
       if (this.mode && this.mode === "question") {
         if (this.isFormula) {
-          return ["video", "image", "formula"];
+          return ["image", "formula"];
         }
-        return ["bold", "italic", "underline", "strike", "video", "image"];
+        return ["bold", "italic", "underline", "strike", "image"];
       }
       if (this.mode && this.mode === "remark") {
         return [

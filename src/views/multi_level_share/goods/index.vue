@@ -3,7 +3,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="添加"
+          text="新建分销"
           p="addons.MultiLevelShare.goods.store"
           @click="$router.push({ name: 'ShareGoodsCreate' })"
           type="primary"
@@ -27,7 +27,7 @@
           <el-input
             class="w-150px"
             v-model="filter.keywords"
-            placeholder="关键字搜索"
+            placeholder="商品名称关键字"
           ></el-input>
         </div>
 
@@ -44,12 +44,9 @@
           :data="list"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" width="100"> </el-table-column>
-          <el-table-column prop="goods_id" label="商品ID" width="100">
-          </el-table-column>
           <el-table-column prop="goods_type_text" label="类型">
           </el-table-column>
-          <el-table-column prop="goods_title" label="商品" width="400">
+          <el-table-column prop="goods_title" label="商品名称" width="400">
           </el-table-column>
           <el-table-column label="价格" width="150">
             <template slot-scope="scope">

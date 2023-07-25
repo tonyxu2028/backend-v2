@@ -37,21 +37,14 @@
           <el-input
             class="w-150px"
             v-model="filter.key"
-            placeholder="优惠码"
-          ></el-input>
-        </div>
-        <div class="ml-10">
-          <el-input
-            class="w-150px"
-            v-model="filter.user_id"
-            placeholder="学员ID"
+            placeholder="优惠码关键字"
           ></el-input>
         </div>
         <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
         </div>
-        <div class="drawerMore d-flex ml-10" @click="drawer = true">
+        <!-- <div class="drawerMore d-flex ml-10" @click="drawer = true">
           <template v-if="showStatus">
             <img src="../../assets/img/icon-filter-h.png" />
             <span class="act">已选</span>
@@ -60,7 +53,7 @@
             <img src="../../assets/img/icon-filter.png" />
             <span>更多</span>
           </template>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="float-left" v-loading="loading">
@@ -152,7 +145,8 @@
             v-model="filter.expired_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="过期时间-开始"
             end-placeholder="过期时间-结束"
@@ -165,7 +159,8 @@
             v-model="filter.created_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="添加时间-开始"
             end-placeholder="添加时间-结束"

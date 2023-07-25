@@ -21,7 +21,7 @@
           class="float-left"
         >
           <el-table-column prop="name" label="分类名"> </el-table-column>
-          <el-table-column prop="sort" label="升序" width="300">
+          <el-table-column prop="sort" label="排序" width="300">
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">

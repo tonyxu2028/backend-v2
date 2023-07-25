@@ -5,7 +5,7 @@
         <div class="d-flex" style="margin-left: 345px">
           <el-input
             class="w-200px"
-            v-model="pagination.key"
+            v-model="pagination.keywords"
             placeholder="关键字"
           ></el-input>
         </div>
@@ -63,7 +63,7 @@ export default {
         size: 10,
         sort: "created_at",
         order: "desc",
-        key: null,
+        keywords: null,
       },
       loading: false,
       total: 0,
@@ -86,7 +86,7 @@ export default {
   methods: {
     paginationReset() {
       this.pagination.page = 1;
-      this.pagination.key = null;
+      this.pagination.keywords = null;
       this.getCourse();
     },
     paginationSizeChange(size) {
@@ -104,7 +104,11 @@ export default {
     },
     tableItemChoice(row) {
       if (row) {
-        this.link = "/packageA/exam/paper/show?id=" + row.id;
+        this.link =
+          "/pages/webview/webview?course_type=paperRead&id=" +
+          row.id +
+          "&title=" +
+          row.title;
         this.radio = row.id;
       }
     },

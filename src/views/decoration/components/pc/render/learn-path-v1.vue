@@ -20,7 +20,10 @@
         <div class="path-body">
           <div class="path-title">{{ item.name }}</div>
           <div class="path-charge">
-            <div class="charge">
+            <div class="charge" v-if="item.charge === 0">
+              <span class="free">免费</span>
+            </div>
+            <div class="charge" v-else>
               <span class="unit">￥</span>{{ item.charge }}
             </div>
             <div class="count">
@@ -118,6 +121,9 @@ export default {
 
           .unit {
             font-size: 14px;
+          }
+          .free {
+            color: #04c877;
           }
         }
         .count {

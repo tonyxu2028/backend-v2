@@ -3,7 +3,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="分类管理"
+          text="问答分类"
           p="addons.Wenda.category.list"
           @click="$router.push({ name: 'QuestionCategory' })"
           type="primary"
@@ -68,10 +68,6 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" sortable label="ID" width="120">
-          </el-table-column>
-          <el-table-column prop="user_id" sortable label="学员ID" width="120">
-          </el-table-column>
           <el-table-column prop="category.name" label="分类" width="200">
           </el-table-column>
           <el-table-column label="学员" width="300">
@@ -97,16 +93,6 @@
           >
             <template slot-scope="scope">
               <span>{{ scope.row.view_times }}次</span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="点赞"
-            sortable
-            property="vote_count"
-            width="120"
-          >
-            <template slot-scope="scope">
-              <span>{{ scope.row.vote_count }}次</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -217,7 +203,8 @@
             v-model="filter.created_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"

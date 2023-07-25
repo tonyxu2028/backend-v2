@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="编辑商品"></back-bar>
+    <back-bar class="mb-30" title="编辑积分商品"></back-bar>
 
     <div class="center-tabs mb-30">
       <div>

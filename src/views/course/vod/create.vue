@@ -39,7 +39,7 @@
               helper="长宽比4:3，建议尺寸：400x300像素"
               width="200"
               height="150"
-              name="上传封面"
+              name="选择图片"
             ></upload-image>
           </el-form-item>
 

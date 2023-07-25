@@ -19,8 +19,7 @@
           :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" width="150"> </el-table-column>
-          <el-table-column prop="sort" label="升序" width="150">
+          <el-table-column prop="sort" label="排序" width="150">
           </el-table-column>
 
           <el-table-column label="分类名"

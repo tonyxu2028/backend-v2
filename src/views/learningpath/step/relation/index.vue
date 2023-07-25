@@ -23,7 +23,7 @@
           class="float-left"
         >
           <el-table-column prop="id" label="ID" width="120"> </el-table-column>
-          <el-table-column prop="sort" label="升序" width="120">
+          <el-table-column prop="sort" label="排序" width="120">
           </el-table-column>
           <el-table-column prop="type_text" label="类型" width="120">
           </el-table-column>

@@ -57,7 +57,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="升序" prop="sort">
+        <el-form-item label="排序" prop="sort">
           <div class="d-flex">
             <div>
               <el-input
@@ -130,7 +130,7 @@ export default {
         sort: [
           {
             required: true,
-            message: "升序不能为空",
+            message: "排序不能为空",
             trigger: "blur",
           },
         ],

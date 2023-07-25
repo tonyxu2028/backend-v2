@@ -3,14 +3,14 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="添加"
+          text="新建积分商品"
           p="addons.credit1Mall.goods.store"
           @click="$router.push({ name: 'CreditMallCreate' })"
           type="primary"
         >
         </p-button>
         <p-button
-          text="订单"
+          text="积分订单"
           p="addons.credit1Mall.orders.list"
           @click="$router.push({ name: 'CreditMallOrders' })"
           type="primary"
@@ -24,7 +24,7 @@
           <el-input
             class="w-150px"
             v-model="filter.key"
-            placeholder="关键字"
+            placeholder="商品名称关键字"
           ></el-input>
         </div>
 
@@ -57,7 +57,6 @@
           :data="results"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" width="120"> </el-table-column>
           <el-table-column label="商品" width="400">
             <template slot-scope="scope">
               <div class="d-flex">
@@ -80,10 +79,16 @@
           <el-table-column property="charge" label="价格">
             <template slot-scope="scope"> {{ scope.row.charge }}积分 </template>
           </el-table-column>
-          <el-table-column label="库存" width="250">
+          <el-table-column label="库存" width="120">
             <template slot-scope="scope">
               兑换：{{ scope.row.sales_count }}<br />
               库存：{{ scope.row.stock_count }}
+            </template>
+          </el-table-column>
+          <el-table-column label="是否显示" width="120">
+            <template slot-scope="scope">
+              <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
+              <span class="c-red" v-else>· 隐藏</span>
             </template>
           </el-table-column>
           <el-table-column label="时间" width="200">
