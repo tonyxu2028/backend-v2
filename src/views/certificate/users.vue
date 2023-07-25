@@ -61,7 +61,7 @@
         </el-table-column>
         <el-table-column label="手机号" width="150">
           <template slot-scope="scope">
-            <span>{{ scope.row.user?.mobile }}</span>
+            <span v-if="scope.row.user">{{ scope.row.user.mobile }}</span>
           </template>
         </el-table-column>
         <el-table-column label="证书编号" width="400">
