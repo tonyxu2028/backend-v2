@@ -2,7 +2,10 @@
   <transition name="fade">
     <div class="meedu-dialog-mask" v-if="show">
       <div class="meedu-dialog-box">
-        <div class="meedu-dialog-header">幻灯片</div>
+        <div class="meedu-dialog-header">
+          幻灯片
+          <img class="icon-close" @click="close" src="@/assets/img/close.png" />
+        </div>
         <div class="meedu-dialog-body" v-loading="loading">
           <div class="float-left mb-15">
             <el-button type="primary" @click="showCreateWin = true">
@@ -16,7 +19,7 @@
             :tree-props="{ children: 'children' }"
             v-loading="loading"
           >
-            <el-table-column prop="sort" label="升序" width="120">
+            <el-table-column prop="sort" label="排序" width="120">
             </el-table-column>
             <el-table-column label="幻灯片">
               <template slot-scope="scope">
@@ -40,9 +43,6 @@
               </template>
             </el-table-column>
           </el-table>
-        </div>
-        <div class="meedu-dialog-footer">
-          <el-button @click="close">取消</el-button>
         </div>
       </div>
 

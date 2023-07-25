@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="管理员角色"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="新建管理员角色"
         p="administrator_role.store"
         @click="$router.push({ name: 'AdminrolesCreate' })"
         type="primary"
@@ -28,24 +28,26 @@
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
-              <p-link
-                text="编辑"
-                p="administrator_role.update"
-                type="primary"
-                @click="
-                  $router.push({
-                    name: 'AdminrolesUpdate',
-                    query: { id: scope.row.id },
-                  })
-                "
-              ></p-link>
-              <p-link
-                text="删除"
-                p="administrator_role.destroy"
-                class="ml-5"
-                type="danger"
-                @click="destory(scope.row.id)"
-              ></p-link>
+              <template v-if="scope.row.slug !== 'administrator'">
+                <p-link
+                  text="编辑"
+                  p="administrator_role.update"
+                  type="primary"
+                  @click="
+                    $router.push({
+                      name: 'AdminrolesUpdate',
+                      query: { id: scope.row.id },
+                    })
+                  "
+                ></p-link>
+                <p-link
+                  text="删除"
+                  p="administrator_role.destroy"
+                  class="ml-5"
+                  type="danger"
+                  @click="destory(scope.row.id)"
+                ></p-link>
+              </template>
             </template>
           </el-table-column>
         </el-table>

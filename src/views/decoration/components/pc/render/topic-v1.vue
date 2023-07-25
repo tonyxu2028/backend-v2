@@ -2,37 +2,58 @@
   <div class="float-left">
     <div class="title">{{ config.title }}</div>
     <div class="topics-box">
-      <div
-        class="topic-item"
-        v-for="(item, index) in config.items"
-        :key="index"
-      >
-        <div class="topic-thumb">
-          <thumb-bar
-            v-if="item.thumb"
-            :value="item.thumb"
-            :width="133"
-            :height="100"
-          ></thumb-bar>
-          <img
-            v-else
-            src="@/assets/images/decoration/h5/course-back.png"
-            width="133"
-            height="100"
-          />
-        </div>
-        <div class="topic-body">
-          <div class="topic-title">{{ item.title }}</div>
-          <div class="topic-info">
-            <div class="topic-category">
-              <span class="category" v-if="item.category">{{
-                item.category.name
-              }}</span>
+      <template v-if="config.items.length === 0">
+        <div class="topic-item" v-for="(item, index) in 2" :key="index">
+          <div class="topic-thumb">
+            <img
+              src="@/assets/images/decoration/h5/course-back.png"
+              width="133"
+              height="100"
+            />
+          </div>
+          <div class="topic-body">
+            <div class="topic-title">图文一</div>
+            <div class="topic-info">
+              <div class="topic-category">
+                <span class="category">未知分类</span>
+              </div>
             </div>
-            <div class="view-times">{{ item.view_times }}次阅读</div>
           </div>
         </div>
-      </div>
+      </template>
+      <template v-if="config.items.length > 0">
+        <div
+          class="topic-item"
+          v-for="(item, index) in config.items"
+          :key="index"
+        >
+          <div class="topic-thumb">
+            <thumb-bar
+              v-if="item.thumb"
+              :value="item.thumb"
+              :width="133"
+              :height="100"
+            ></thumb-bar>
+            <img
+              v-else
+              src="@/assets/images/decoration/h5/course-back.png"
+              width="133"
+              height="100"
+            />
+          </div>
+          <div class="topic-body">
+            <div class="topic-title">{{ item.title }}</div>
+            <div class="topic-info">
+              <div class="topic-category">
+                <span class="category" v-if="item.category">{{
+                  item.category.name
+                }}</span>
+              </div>
+              <div class="view-times">{{ item.view_times }}次阅读</div>
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="编辑秒杀商品"></back-bar>
+    <back-bar class="mb-30" title="编辑秒杀活动"></back-bar>
     <div class="float-left" v-if="course">
       <el-form ref="form" :model="course" :rules="rules" label-width="200px">
         <el-form-item label="秒杀价" prop="charge">

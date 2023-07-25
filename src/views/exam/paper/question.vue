@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="组卷"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加试题"
+        text="新建试题"
         p="addons.Paper.paper.questions.add"
         type="primary"
         @click="

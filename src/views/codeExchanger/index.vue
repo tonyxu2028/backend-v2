@@ -15,7 +15,7 @@
           <el-input
             class="w-150px"
             v-model="filter.name"
-            placeholder="活动名"
+            placeholder="活动名称关键字"
           ></el-input>
         </div>
         <div class="ml-10">
@@ -30,7 +30,6 @@
         :data="list"
         class="float-left"
       >
-        <el-table-column prop="id" label="ID" width="100"> </el-table-column>
         <el-table-column prop="name" label="活动名" width="240">
         </el-table-column>
         <el-table-column label="兑换商品">

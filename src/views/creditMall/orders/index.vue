@@ -2,12 +2,13 @@
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="积分订单"></back-bar>
     <div class="float-left j-b-flex mb-30">
+      <div></div>
       <div class="d-flex">
         <div>
           <el-input
             class="w-150px"
             v-model="filter.key"
-            placeholder="关键字"
+            placeholder="商品名称关键字"
           ></el-input>
         </div>
 
@@ -41,15 +42,15 @@
           class="float-left"
         >
           <el-table-column prop="id" label="ID" width="60"> </el-table-column>
-          <el-table-column label="类型">
+          <el-table-column label="类型" width="60">
             <template slot-scope="scope">
               <span v-if="scope.row.goods_is_v === 1">虚拟</span>
               <span v-else-if="scope.row.goods_is_v === 0">实物</span>
             </template>
           </el-table-column>
-          <el-table-column prop="goods_title" width="300" label="商品">
+          <el-table-column prop="goods_title" label="商品名称">
           </el-table-column>
-          <el-table-column label="用户" width="300">
+          <el-table-column label="学员" width="300">
             <template slot-scope="scope">
               <div class="d-flex" v-if="scope.row.user">
                 <div>
@@ -68,7 +69,7 @@
           </el-table-column>
           <el-table-column label="状态" width="120">
             <template slot-scope="scope">
-              <span v-if="scope.row.is_send === 1">已发放成功</span>
+              <span v-if="scope.row.is_send === 1">已发货成功</span>
               <span v-else-if="scope.row.is_send === 0">发货中</span>
             </template>
           </el-table-column>
@@ -78,6 +79,8 @@
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
             }}</template>
+          </el-table-column>
+          <el-table-column prop="remark" width="150" label="备注">
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">

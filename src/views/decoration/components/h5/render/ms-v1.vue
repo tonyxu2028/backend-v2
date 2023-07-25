@@ -43,7 +43,10 @@
             <div class="ms-original_charge">
               原价:￥{{ item.original_charge || "XX" }}
             </div>
-            <div class="ms-charge">
+            <div class="ms-charge" v-if="!item.charge">
+              <span class="free">免费</span>
+            </div>
+            <div class="ms-charge" v-else-if="item.charge > 0">
               <span class="unit">￥</span>{{ item.charge }}
             </div>
           </div>
@@ -196,6 +199,9 @@ export default {
             .unit {
               font-size: 14px;
               line-height: 20px;
+            }
+            .free {
+              color: #04c877;
             }
           }
         }

@@ -46,7 +46,7 @@
       <div class="el_row_item2">
         <div class="el_item">
           <div class="item_title">
-            <span>客单价(元)</span>
+            <span>客单均价(元)</span>
             <span class="el_item_num flex-1">
               {{ todayPaidSingle }}
             </span>
@@ -453,7 +453,7 @@ export default {
             data: this.changeObject(params.paid_user_count),
           },
           {
-            name: "客单价",
+            name: "客单均价",
             type: "line",
             data: this.changeObject(params.paid_avg_charge),
           },

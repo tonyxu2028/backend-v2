@@ -7,28 +7,45 @@
       <div class="more">更多</div>
     </div>
     <div class="body">
-      <div
-        class="topic-item"
-        v-for="(item, index) in config.items"
-        :key="index"
-      >
-        <div class="topic-body">
-          <div class="topic-title">{{ item.title }}</div>
-          <div class="topic-info">
-            <span>{{ item.view_times || 0 }}阅读</span>
-            <span class="ml-15">{{ item.comment_times || 0 }}评论</span>
+      <template v-if="config.items.length === 0">
+        <div class="topic-item" v-for="(item, index) in 2" :key="index">
+          <div class="topic-body">
+            <div class="topic-title">图文一</div>
+            <div class="topic-info"></div>
+          </div>
+          <div class="topic-thumb">
+            <img
+              src="@/assets/images/decoration/h5/course-back.png"
+              width="120"
+              height="90"
+            />
           </div>
         </div>
-        <div class="topic-thumb">
-          <img v-if="item.thumb" :src="item.thumb" width="120" height="90" />
-          <img
-            v-else
-            src="@/assets/images/decoration/h5/course-back.png"
-            width="120"
-            height="90"
-          />
+      </template>
+      <template v-if="config.items.length > 0">
+        <div
+          class="topic-item"
+          v-for="(item, index) in config.items"
+          :key="index"
+        >
+          <div class="topic-body">
+            <div class="topic-title">{{ item.title }}</div>
+            <div class="topic-info">
+              <span>{{ item.view_times || 0 }}阅读</span>
+              <span class="ml-15">{{ item.comment_times || 0 }}评论</span>
+            </div>
+          </div>
+          <div class="topic-thumb">
+            <img v-if="item.thumb" :src="item.thumb" width="120" height="90" />
+            <img
+              v-else
+              src="@/assets/images/decoration/h5/course-back.png"
+              width="120"
+              height="90"
+            />
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

@@ -12,7 +12,7 @@
     <div class="float-left" v-loading="loading">
       <div class="float-left">
         <el-table :data="chapters" class="float-left">
-          <el-table-column prop="sort" label="升序" width="150">
+          <el-table-column prop="sort" label="排序" width="150">
           </el-table-column>
 
           <el-table-column label="章节"

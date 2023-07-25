@@ -110,7 +110,7 @@ export default {
     },
     tableItemChoice(row) {
       if (row) {
-        this.link = "/pages/book/show?id=" + row.id;
+        this.link = "/packageA/book/show?id=" + row.id;
         this.radio = row.id;
       }
     },
