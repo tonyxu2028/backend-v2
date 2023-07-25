@@ -379,16 +379,20 @@ export default {
         this.video.tencent_video_id = video.storage_file_id;
         this.video.aliyun_video_id = null;
         this.video.url = null;
-      } else if (video.visit_url) {
+      } else if (video.storage_driver === "local") {
         if (!this.video.title) {
           this.video.title = video.name
             .replace(".m3u8", "")
             .replace(".mp4", "");
         }
-        this.tit = video.name;
-        this.video.tencent_video_id = null;
-        this.video.aliyun_video_id = null;
-        this.video.url = video.visit_url;
+        this.$api.Resource.LocalVideosUrl(video.storage_file_id, {}).then(
+          (res) => {
+            this.tit = video.title;
+            this.video.tencent_video_id = null;
+            this.video.aliyun_video_id = null;
+            this.video.url = res.data.url;
+          }
+        );
       }
 
       this.showUploadVideoWin = false;
