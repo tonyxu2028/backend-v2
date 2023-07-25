@@ -136,6 +136,8 @@ export default {
       spids: {
         ids: [],
       },
+      selectedLocalKeys: [],
+      selectedOtherKeys: [],
       filter: {
         keywords: null,
       },
@@ -224,10 +226,19 @@ export default {
     //保存选中结果
     handleSelectionChange(val) {
       var newbox = [];
+      var arrLocal = [];
+      var arr = [];
       for (var i = 0; i < val.length; i++) {
         newbox.push(val[i].id);
+        if (val[i].storage_driver === "local") {
+          arrLocal.push(val[i].storage_file_id);
+        } else {
+          arr.push(val[i].id);
+        }
       }
       this.spids.ids = newbox;
+      this.selectedLocalKeys = arrLocal;
+      this.selectedOtherKeys = arr;
     },
     getData() {
       if (this.loading) {
@@ -271,25 +282,36 @@ export default {
       })
         .then(() => {
           //点击确定按钮的操作
-          if (this.loading) {
-            return;
-          }
-
-          this.loading = true;
-          this.$api.Resource.VideosDestroyMulti(this.spids)
-            .then(() => {
-              this.loading = false;
-              this.$message.success(this.$t("common.success"));
-              this.getData();
-            })
-            .catch((e) => {
-              this.loading = false;
-              this.$message.error(e.message);
-            });
+          this.destoryConfirm();
         })
         .catch(() => {
           //点击删除按钮的操作
         });
+    },
+    async destoryConfirm() {
+      if (this.loading) {
+        return;
+      }
+
+      this.loading = true;
+      try {
+        if (this.selectedLocalKeys.length > 0) {
+          let localRes = await this.$api.Resource.LocalVideosDestroyMulti({
+            ids: this.selectedLocalKeys,
+          });
+        }
+        if (this.selectedOtherKeys.length > 0) {
+          let otherRes = await this.$api.Resource.VideosDestroyMulti({
+            ids: this.selectedOtherKeys,
+          });
+        }
+        this.$message.success(this.$t("common.success"));
+        this.getData();
+        this.loading = false;
+      } catch (e) {
+        this.$message.error(e.message);
+        this.loading = false;
+      }
     },
     getAliRecords(newbox) {
       this.$api.Resource.AliyunTranscodeRecords({
