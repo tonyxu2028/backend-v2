@@ -243,7 +243,7 @@ const zh = {
         "user-import": "学员批量导入",
         comment: "课程评论",
         category: {
-          index: "课程分类管理",
+          index: "录播分类管理",
           create: "添加课程分类",
           update: "编辑课程分类",
         },
