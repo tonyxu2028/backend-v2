@@ -20,8 +20,10 @@
         <div class="float-left" v-show="tab.active === 'base'">
           <el-form-item label="上传课时">
             <el-button type="primary" @click="showUploadVideoWin = true">
-              <span>重新上传视频</span>
-              <span class="ml-10" v-if="tit">{{ tit }}</span>
+              <span>重新选择视频</span>
+              <span class="ml-10" v-if="tit">{{
+                tit.replace(".m3u8", "").replace(".mp4", "")
+              }}</span>
             </el-button>
           </el-form-item>
 

@@ -20,8 +20,10 @@
         <div class="float-left" v-show="tab.active === 'base'">
           <el-form-item label="上传课时">
             <el-button type="primary" @click="showUploadVideoWin = true">
-              <span>上传视频</span>
-              <span class="ml-10" v-if="tit">{{ tit }}</span>
+              <span>选择视频</span>
+              <span class="ml-10" v-if="tit">{{
+                tit.replace(".m3u8", "").replace(".mp4", "")
+              }}</span>
             </el-button>
           </el-form-item>
 
@@ -358,7 +360,9 @@ export default {
 
       if (video.storage_driver === "aliyun") {
         if (!this.video.title) {
-          this.video.title = video.title;
+          this.video.title = video.title
+            .replace(".m3u8", "")
+            .replace(".mp4", "");
         }
         this.tit = video.title;
         this.video.aliyun_video_id = video.storage_file_id;
@@ -366,7 +370,9 @@ export default {
         this.video.url = null;
       } else if (video.storage_driver === "tencent") {
         if (!this.video.title) {
-          this.video.title = video.title;
+          this.video.title = video.title
+            .replace(".m3u8", "")
+            .replace(".mp4", "");
         }
         this.tit = video.title;
         this.video.tencent_video_id = video.storage_file_id;
@@ -374,7 +380,9 @@ export default {
         this.video.url = null;
       } else if (video.visit_url) {
         if (!this.video.title) {
-          this.video.title = video.name;
+          this.video.title = video.name
+            .replace(".m3u8", "")
+            .replace(".mp4", "");
         }
         this.tit = video.name;
         this.video.tencent_video_id = null;
