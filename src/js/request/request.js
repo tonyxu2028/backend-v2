@@ -47,7 +47,7 @@ const Api = {
     TencentTranscodeRecords(params) {
       return get(`/backend/addons/TencentCloudHls/transcode-records`, params);
     },
-    LocalVideosList(id, params) {
+    LocalVideosUrl(id, params) {
       return get(`/backend/addons/LocalUpload/video/${id}/play`, params);
     },
     LocalVideosDestroyMulti(params) {
