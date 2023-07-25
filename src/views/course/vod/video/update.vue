@@ -62,7 +62,7 @@
 
               <div class="ml-10">
                 <helper-text
-                  text="定义课时免费试看时长吸引更多学员试看"
+                  text="设置此课时免费试看时长（此配置对本地存储或URL视频无效）"
                 ></helper-text>
               </div>
             </div>
