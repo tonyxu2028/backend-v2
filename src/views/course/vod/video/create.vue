@@ -356,6 +356,7 @@ export default {
         });
     },
     uploadVideoChange(video) {
+      console.log(video);
       this.video.duration = video.duration;
 
       if (video.storage_driver === "aliyun") {
