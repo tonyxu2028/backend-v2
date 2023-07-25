@@ -6,44 +6,49 @@
         <el-table
           :header-cell-style="{ background: '#f1f2f9' }"
           :data="videos"
+          @sort-change="sortChange"
+          :default-sort="{ prop: '', order: 'descending' }"
           class="float-left"
         >
           <el-table-column prop="title" label="直播课"> </el-table-column>
-          <el-table-column label="学习人数" width="200">
+          <el-table-column
+            label="学习人数"
+            sortable
+            prop="user_count"
+            width="200"
+          >
             <template slot-scope="scope">
               <span v-if="scope.row.status === 0 || scope.row.status === 1"
                 >-</span
               >
-              <ani-text
-                v-else
-                :value="scope.row.user_count"
-                :total="max_user_count"
-              ></ani-text>
+              <span v-else>{{ scope.row.user_count }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="聊天消息数" width="200">
+          <el-table-column
+            label="聊天消息数"
+            sortable
+            prop="chat_count"
+            width="200"
+          >
             <template slot-scope="scope">
               <span v-if="scope.row.status === 0 || scope.row.status === 1"
                 >-</span
               >
-              <ani-text
-                v-else
-                :value="scope.row.chat_count"
-                :total="max_chat_count"
-              ></ani-text>
+              <span v-else>{{ scope.row.chat_count }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="直播时长" width="200">
+          <el-table-column
+            label="直播时长"
+            sortable
+            prop="real_duration"
+            width="200"
+          >
             <template slot-scope="scope">
               <span v-if="scope.row.status === 0 || scope.row.status === 1"
                 >-</span
               >
-              <ani-text
-                v-else
-                type="time"
-                :value="scope.row.real_duration"
-                :total="max_duration"
-              ></ani-text>
+              <duration-text v-else :duration="scope.row.real_duration">
+              </duration-text>
             </template>
           </el-table-column>
         </el-table>
@@ -53,16 +58,18 @@
 </template>
 
 <script>
-import AniText from "../components/ani-text.vue";
+import DurationText from "@/components/duration-text";
 export default {
   components: {
-    AniText,
+    DurationText,
   },
   data() {
     return {
       pageName: "liveStats-list",
       pagination: {
         id: null,
+        sort: "",
+        order: "desc",
       },
       loading: false,
       videos: [],
@@ -80,6 +87,11 @@ export default {
     next();
   },
   methods: {
+    sortChange(column) {
+      this.pagination.sort = column.prop;
+      this.pagination.order = column.order === "ascending" ? "asc" : "desc";
+      this.getData();
+    },
     getData() {
       if (this.loading) {
         return;
