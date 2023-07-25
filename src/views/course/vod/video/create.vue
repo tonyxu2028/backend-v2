@@ -381,7 +381,7 @@ export default {
         this.video.url = null;
       } else if (video.storage_driver === "local") {
         if (!this.video.title) {
-          this.video.title = video.name
+          this.video.title = video.title
             .replace(".m3u8", "")
             .replace(".mp4", "");
         }
