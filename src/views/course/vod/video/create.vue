@@ -20,7 +20,7 @@
         <div class="float-left" v-show="tab.active === 'base'">
           <el-form-item label="上传课时">
             <el-button type="primary" @click="showUploadVideoWin = true">
-              <span>上传视频</span>
+              <span>选择视频</span>
               <span class="ml-10" v-if="tit">{{
                 tit.replace(".m3u8", "").replace(".mp4", "")
               }}</span>
@@ -380,7 +380,7 @@ export default {
         this.video.url = null;
       } else if (video.storage_driver === "local") {
         if (!this.video.title) {
-          this.video.title = video.title
+          this.video.title = video.name
             .replace(".m3u8", "")
             .replace(".mp4", "");
         }
