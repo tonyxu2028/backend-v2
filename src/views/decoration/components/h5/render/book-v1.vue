@@ -58,7 +58,10 @@
                 <div class="sub">
                   <span>{{ item.user_count || 0 }}人已订阅</span>
                 </div>
-                <div class="price">
+                <div class="price" v-if="!item.charge">
+                  <span class="free">免费</span>
+                </div>
+                <div class="price" v-else-if="item.charge > 0">
                   <small class="unit">￥</small>
                   <span>{{ item.charge || "XX" }}</span>
                 </div>
