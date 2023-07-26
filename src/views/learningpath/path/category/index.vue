@@ -21,7 +21,6 @@
         >
           <el-table-column prop="sort" label="排序" width="150">
           </el-table-column>
-
           <el-table-column label="分类名"
             ><template slot-scope="scope">
               <span>{{ scope.row.name }} </span>
