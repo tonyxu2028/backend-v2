@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="电子书分类管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加分类"
+        text="新建分类"
         p="addons.meedu_books.book_category.store"
         @click="addCategory"
         type="primary"
@@ -16,7 +16,6 @@
           :data="categories"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" width="150"> </el-table-column>
           <el-table-column prop="sort" label="排序" width="150">
           </el-table-column>
           <el-table-column label="分类名"
@@ -81,7 +80,7 @@ export default {
   },
   methods: {
     addCategory() {
-      this.tit = "添加分类";
+      this.tit = "新建分类";
       this.updateId = null;
       this.showAddWin = true;
     },

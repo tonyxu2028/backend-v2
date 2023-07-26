@@ -4,7 +4,7 @@
 
     <div class="float-left mb-30">
       <p-button
-        text="添加分类"
+        text="新建分类"
         @click="addCategory"
         type="primary"
         p="addons.Zhibo.course_category.store"
@@ -20,7 +20,6 @@
           class="float-left"
           :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         >
-          <el-table-column prop="id" label="ID" width="100"> </el-table-column>
           <el-table-column prop="sort" label="排序" width="100">
           </el-table-column>
           <el-table-column prop="name" label="课程名"> </el-table-column>
@@ -91,7 +90,7 @@ export default {
   },
   methods: {
     addCategory() {
-      this.tit = "添加分类";
+      this.tit = "新建分类";
       this.updateId = null;
       this.showAddWin = true;
     },

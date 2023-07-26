@@ -25,31 +25,6 @@
       </div>
       <div class="d-flex">
         <div>
-          <el-input
-            class="w-150px"
-            v-model="filter.user_id"
-            placeholder="学员ID"
-          ></el-input>
-        </div>
-        <div class="ml-10">
-          <el-select
-            filterable
-            :filter-method="dataFilter"
-            placeholder="课程"
-            class="w-150px"
-            v-model="filter.course_id"
-            v-el-select-loadmore="loadmore"
-          >
-            <el-option
-              v-for="(item, index) in filterData.courses"
-              :key="index"
-              :label="item.title"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
-        </div>
-        <div class="ml-10">
           <el-date-picker
             :picker-options="pickerOptions"
             v-model="filter.created_at"
@@ -78,9 +53,6 @@
           class="float-left"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" label="ID" width="120"> </el-table-column>
-          <el-table-column prop="user_id" label="学员ID" width="120">
-          </el-table-column>
           <el-table-column label="学员" width="300">
             <template slot-scope="scope">
               <div class="user-item d-flex" v-if="scope.row.user">

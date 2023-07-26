@@ -389,11 +389,10 @@ export default {
         page: this.page,
       }).then((res) => {
         this.blocks = res.data;
-
         this.loading = false;
         if (toBottom) {
-          // this.curBlockIndex = this.blocks.length;
           // 滚动到底部
+          this.curBlockIndex = res.data.length - 1;
           this.$nextTick(() => {
             this.$refs["preview-box"].$el.scrollTop =
               this.$refs["preview-box"].$el.scrollHeight;
