@@ -108,7 +108,7 @@ export default {
         return;
       }
       this.loading = true;
-      if (this.text === "添加分类") {
+      if (this.text === "新建分类") {
         this.$api.Meedubook.Book.Categories.Store(this.form)
           .then(() => {
             this.loading = false;

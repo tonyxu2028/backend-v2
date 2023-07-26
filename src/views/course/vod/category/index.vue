@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="录播分类管理"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加分类"
+        text="新建分类"
         p="courseCategory.store"
         @click="addCategory"
         type="primary"
@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     addCategory() {
-      this.tit = "添加分类";
+      this.tit = "新建分类";
       this.updateId = null;
       this.showAddWin = true;
     },
