@@ -91,7 +91,7 @@
                 </template>
               </el-table-column>
               <template v-if="enabledAddons['Snapshot']">
-                <el-table-column label="已拍照片" width="120">
+                <el-table-column label="已拍照片" min-width="12%">
                   <template slot-scope="scope">
                     <el-link
                       type="primary"
@@ -176,7 +176,6 @@ export default {
           arr.push(videos[i].id);
         }
         this.list = list;
-        this.ids = arr;
         if (this.enabledAddons["Snapshot"]) {
           this.getImages(arr);
         }
