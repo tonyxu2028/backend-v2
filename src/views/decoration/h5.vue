@@ -407,6 +407,7 @@ export default {
         this.loading = false;
         this.curBlock = null;
         if (toBottom) {
+          this.curBlock = res.data.length - 1;
           // 滚动到底部
           this.$nextTick(() => {
             let dom = document.querySelector(".bg");
