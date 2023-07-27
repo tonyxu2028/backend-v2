@@ -31,9 +31,6 @@
           :data="list"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID" width="120"> </el-table-column>
-          <el-table-column prop="user_id" label="学员ID" width="120">
-          </el-table-column>
           <el-table-column label="学员" width="300">
             <template slot-scope="scope">
               <div class="user-item d-flex" v-if="scope.row.user">
