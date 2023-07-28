@@ -120,7 +120,6 @@
             </div>
           </div>
         </el-form-item>
-        <div class="title">腾讯云直播服务商配置</div>
         <el-form-item label="启用RTS播放">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
@@ -138,6 +137,7 @@
             </div>
           </div>
         </el-form-item>
+        <div class="title">腾讯云直播服务商配置</div>
         <el-form-item label="腾讯云AppId">
           <div class="j-flex flex-column" style="margin-left: 3px">
             <div>
