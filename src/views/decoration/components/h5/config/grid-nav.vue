@@ -20,44 +20,46 @@
     <div class="config-item">
       <div class="config-item-title">导航内容</div>
       <div class="config-body">
-        <template v-for="(item, index) in config.items">
-          <div class="nav-item" :key="index">
-            <div class="btn-del" @click="delNav(index)">
-              <close-icon></close-icon>
-            </div>
-            <div class="nav-icon" @click="selectIcon(index)">
-              <img v-if="item.src" :src="item.src" width="60" height="60" />
-              <img
-                v-else
-                src="@/assets/images/decoration/h5/default-grid-nav.png"
-                width="60"
-                height="60"
-              />
-            </div>
-            <div class="nav-body">
-              <div class="float-left d-flex">
-                <div class="form-label">标题</div>
-                <div class="ml-15">
-                  <el-input class="w-100px" v-model="item.name"></el-input>
-                </div>
+        <div
+          class="nav-item"
+          v-for="(item, index) in config.items"
+          :key="index"
+        >
+          <div class="btn-del" @click="delNav(index)">
+            <close-icon></close-icon>
+          </div>
+          <div class="nav-icon" @click="selectIcon(index)">
+            <img v-if="item.src" :src="item.src" width="60" height="60" />
+            <img
+              v-else
+              src="@/assets/images/decoration/h5/default-grid-nav.png"
+              width="60"
+              height="60"
+            />
+          </div>
+          <div class="nav-body">
+            <div class="float-left d-flex">
+              <div class="form-label">标题</div>
+              <div class="ml-15">
+                <el-input class="w-100px" v-model="item.name"></el-input>
               </div>
-              <div class="float-left d-flex mt-15">
-                <div class="form-label">链接</div>
-                <div class="ml-15 flex-1">
-                  <el-input class="w-100px" v-model="item.href"></el-input>
-                </div>
-                <div class="ml-10">
-                  <el-link
-                    type="primary"
-                    style="font-size: 12px"
-                    @click="selectLink(index)"
-                    >选择</el-link
-                  >
-                </div>
+            </div>
+            <div class="float-left d-flex mt-15">
+              <div class="form-label">链接</div>
+              <div class="ml-15 flex-1">
+                <el-input class="w-100px" v-model="item.href"></el-input>
+              </div>
+              <div class="ml-10">
+                <el-link
+                  type="primary"
+                  style="font-size: 12px"
+                  @click="selectLink(index)"
+                  >选择</el-link
+                >
               </div>
             </div>
           </div>
-        </template>
+        </div>
       </div>
     </div>
 
@@ -84,6 +86,7 @@
       @change="linkChange"
       @close="showLinkWin = false"
       :show="showLinkWin"
+      :selected="curLink"
     ></h5-link>
   </div>
 </template>
@@ -107,6 +110,7 @@ export default {
       curImageIndex: null,
       curLinkIndex: null,
       loading: false,
+      curLink: null,
     };
   },
   computed: {
@@ -168,6 +172,7 @@ export default {
     },
     selectLink(index) {
       this.curLinkIndex = index;
+      this.curLink = this.config.items[this.curLinkIndex].href;
       this.showLinkWin = true;
     },
     selectIcon(index) {

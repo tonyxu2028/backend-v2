@@ -47,14 +47,14 @@ export default {
         title: [
           {
             required: true,
-            message: "请输入链接名",
+            message: "请输入标题",
             trigger: "blur",
           },
         ],
         announcement: [
           {
             required: true,
-            message: "请输入链接地址",
+            message: "请输入内容",
             trigger: "blur",
           },
         ],

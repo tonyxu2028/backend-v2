@@ -60,7 +60,7 @@ export default {
     CourseCategory,
     Courses,
   },
-  props: ["show"],
+  props: ["show", "selected"],
   data() {
     return {
       link: null,
@@ -170,8 +170,11 @@ export default {
     },
   },
   watch: {
-    tabActive() {
-      this.link = null;
+    tabActive() {},
+    selected() {
+      if (this.selected) {
+        this.link = this.selected;
+      }
     },
   },
   methods: {

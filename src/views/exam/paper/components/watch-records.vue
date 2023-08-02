@@ -172,7 +172,8 @@
             v-model="filter.created_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="考试开始时间-起始"
             end-placeholder="考试开始时间-结束"
@@ -186,7 +187,8 @@
             v-model="filter.submit_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="交卷时间-起始"
             end-placeholder="交卷时间-结束"

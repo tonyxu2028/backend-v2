@@ -120,6 +120,7 @@ export default {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
+    background-color: #f4fafe;
   }
 }
 </style>

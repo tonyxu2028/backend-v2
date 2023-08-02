@@ -22,7 +22,7 @@
         <div class="ml-10">
           <el-input
             v-model="filter.goods_name"
-            placeholder="商品关键字"
+            placeholder="商品全称字"
             class="w-150px"
           ></el-input>
         </div>
@@ -276,7 +276,7 @@
         <div class="j-flex mt-20">
           <el-input
             v-model="filter.goods_name"
-            placeholder="商品关键字"
+            placeholder="商品全称"
             class="w-300px"
           ></el-input>
         </div>
@@ -312,7 +312,8 @@
             v-model="filter.created_at"
             type="daterange"
             align="right"
-            unlink-panels
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
             range-separator="至"
             start-placeholder="订单添加开始时间"
             end-placeholder="结束时间"

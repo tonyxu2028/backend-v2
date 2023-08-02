@@ -5,7 +5,7 @@
         <div class="meedu-dialog-header">编辑幻灯片</div>
         <div class="meedu-dialog-body">
           <el-form ref="form" :model="form" :rules="rules" label-width="200px">
-            <el-form-item label="排序值" prop="sort">
+            <el-form-item label="排序" prop="sort">
               <div class="d-flex">
                 <div>
                   <el-input v-model="form.sort" class="w-200px"></el-input>
@@ -53,6 +53,7 @@
         @close="showLinkWin = false"
         @change="linkChange"
         :show="showLinkWin"
+        :selected="form.url"
       ></pc-link>
     </div>
   </transition>

@@ -3,7 +3,7 @@
     <back-bar class="mb-30" title="问题分类"></back-bar>
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="新建分类"
         p="addons.Wenda.category.store"
         @click="
           $router.push({
@@ -21,7 +21,7 @@
           class="float-left"
         >
           <el-table-column prop="id" label="ID" width="120"> </el-table-column>
-          <el-table-column prop="sort" label="升序" width="120">
+          <el-table-column prop="sort" label="排序" width="120">
           </el-table-column>
           <el-table-column label="分类名"
             ><template slot-scope="scope">

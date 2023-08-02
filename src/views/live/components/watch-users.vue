@@ -1,9 +1,7 @@
 <template>
   <div class="float-left">
     <div class="float-left j-b-flex mb-30">
-      <div class="d-flex">
-        <el-button type="danger" @click="delRecords()">删除</el-button>
-      </div>
+      <div class="d-flex"></div>
       <div class="d-flex">
         <div>
           <el-select
@@ -23,11 +21,10 @@
         <div class="ml-10">
           <el-date-picker
             :picker-options="pickerOptions"
-            v-model="watched_at"
+            v-model="filter.watched_at"
             type="daterange"
             align="right"
-            format="yyyy-MM-dd hh:mm:ss"
-            value-format="yyyy-MM-dd hh:mm:ss"
+            unlink-panels
             range-separator="至"
             start-placeholder="看完时间-开始"
             end-placeholder="看完时间-结束"
@@ -52,23 +49,19 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55"> </el-table-column>
           <el-table-column prop="id" sortable label="ID" width="120">
           </el-table-column>
           <el-table-column label="学员">
             <template slot-scope="scope">
-              <div class="user-item d-flex" v-if="users[scope.row.user_id]">
+              <div class="user-item d-flex" v-if="scope.row.user">
                 <div class="avatar">
-                  <img
-                    :src="users[scope.row.user_id].avatar"
-                    width="40"
-                    height="40"
-                  />
+                  <img :src="scope.row.user.avatar" width="40" height="40" />
                 </div>
                 <div class="ml-10">
-                  {{ users[scope.row.user_id].nick_name }}
+                  {{ scope.row.user.nick_name }}
                 </div>
               </div>
+              <span v-else class="c-red">学员不存在</span>
             </template>
           </el-table-column>
           <el-table-column
@@ -81,6 +74,20 @@
               <span>{{ scope.row.progress }}%</span>
             </template>
           </el-table-column>
+          <el-table-column property="duration" label="学习总时长" width="150">
+            <template slot-scope="scope">
+              <duration-text
+                v-if="!loading"
+                :duration="scope.row.total_duration"
+              ></duration-text>
+            </template>
+          </el-table-column>
+          <el-table-column label="看完" width="80">
+            <template slot-scope="scope">
+              <span class="c-green" v-if="scope.row.is_watched === 1">是</span>
+              <span v-else>否</span>
+            </template>
+          </el-table-column>
           <el-table-column sortable label="开始时间" width="240">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
@@ -90,19 +97,6 @@
             <template slot-scope="scope">{{
               scope.row.watched_at | dateFormat
             }}</template>
-          </el-table-column>
-          <el-table-column label="看完" width="80">
-            <template slot-scope="scope">
-              <span class="c-red" v-if="scope.row.is_watched === 1">是</span>
-              <span v-else>否</span>
-            </template>
-          </el-table-column>
-          <el-table-column fixed="right" label="操作" width="100">
-            <template slot-scope="scope">
-              <el-link type="primary" @click="showDetailDialog(scope.row)"
-                >详情</el-link
-              >
-            </template>
           </el-table-column>
         </el-table>
       </div>
@@ -120,29 +114,21 @@
         </el-pagination>
       </div>
     </div>
-    <watch-records-detail
-      v-if="visible"
-      :cid="cid"
-      :uid="uid"
-      @close="visible = false"
-    >
-    </watch-records-detail>
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import DurationText from "@/components/duration-text";
 import Utils from "@/js/utils.js";
-import WatchRecordsDetail from "./watch-records-detail.vue";
 
 export default {
   components: {
-    WatchRecordsDetail,
+    DurationText,
   },
-  props: ["id"],
   data() {
     return {
-      course_id: this.id,
+      course_id: this.$route.query.id,
       pagination: {
         page: 1,
         size: 10,
@@ -150,18 +136,18 @@ export default {
         order: "desc",
       },
       filter: {
-        user_id: null,
-        is_watched: null,
-        watched_start_at: null,
-        watched_end_at: null,
+        is_watched: -1,
+        watched_at: [],
       },
-      watched_at: [],
       total: 0,
       loading: false,
       records: [],
-      users: [],
       selectedRows: [],
       statusMapRows: [
+        {
+          name: "全部",
+          key: -1,
+        },
         {
           name: "未看完",
           key: 0,
@@ -176,35 +162,17 @@ export default {
           return time.getTime() > Date.now();
         },
       },
-      visible: false,
-      list: [],
-      cid: null,
-      uid: null,
     };
   },
-  watch: {
-    watched_at(newVal) {
-      if (newVal) {
-        this.filter.watched_start_at = newVal[0];
-        this.filter.watched_end_at = newVal[1];
-      } else {
-        this.filter.watched_start_at = null;
-        this.filter.watched_end_at = null;
-      }
-    },
-  },
   mounted() {
-    this.course_id = this.id;
     this.getRecords();
   },
   methods: {
     paginationReset() {
       this.watched_at = null;
       this.pagination.page = 1;
-      this.filter.user_id = null;
-      this.filter.is_watched = null;
-      this.filter.watched_start_at = null;
-      this.filter.watched_end_at = null;
+      this.filter.is_watched = -1;
+      this.filter.watched_at = [];
       this.getRecords();
     },
     paginationSizeChange(size) {
@@ -236,20 +204,34 @@ export default {
       let params = {};
       Object.assign(params, this.filter);
       Object.assign(params, this.pagination);
-      if (params.is_watched === null) {
-        params.is_watched = -1;
-      }
-      this.$api.Course.Vod.Records.List(this.course_id, params).then((res) => {
+      this.$api.Course.Live.Course.Users.WatchUsers(
+        this.$route.query.id,
+        params
+      ).then((res) => {
         this.loading = false;
-        this.records = res.data.data.data;
-        this.total = res.data.data.total;
-        this.users = res.data.users;
+        this.records = res.data.data;
+        this.total = res.data.total;
       });
     },
-    showDetailDialog(item) {
-      this.cid = item.course_id;
-      this.uid = item.user_id;
-      this.visible = true;
+    durationTime(duration) {
+      let hour = parseInt(duration / 3600);
+      let minute = parseInt((duration - hour * 3600) / 60);
+      let second = duration - hour * 3600 - minute * 60;
+      if (hour === 0 && minute === 0 && second === 0) {
+        return null;
+      }
+      if (hour === 0) {
+        hour = "";
+      } else {
+        hour = hour + ":";
+      }
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+      if (second < 10) {
+        second = "0" + second;
+      }
+      return hour + minute + ":" + second;
     },
     importexcel() {
       if (this.loading) {
@@ -264,34 +246,43 @@ export default {
         order: "desc",
       };
       Object.assign(params, this.filter);
-      if (params.is_watched === null) {
-        params.is_watched = -1;
-      }
-      this.$api.Course.Vod.Records.List(this.course_id, params).then((res) => {
-        if (res.data.data.total === 0) {
+      this.$api.Course.Live.Course.Users.WatchUsers(
+        this.$route.query.id,
+        params
+      ).then((res) => {
+        if (res.data.total === 0) {
           this.$message.error("数据为空");
           this.loading = false;
           return;
         }
 
-        let users = res.data.users;
-        let filename = "课程学习记录|" + Utils.currentDate() + ".xlsx";
+        let filename = "直播课程观看学员|" + Utils.currentDate() + ".xlsx";
         let sheetName = "sheet1";
 
         let data = [
-          ["用户ID", "用户", "手机号", "观看进度", "开始时间", "看完时间"],
+          [
+            "用户ID",
+            "用户",
+            "手机号",
+            "观看进度",
+            "学习总时长",
+            "看完",
+            "开始时间",
+            "看完时间",
+          ],
         ];
-        res.data.data.data.forEach((item) => {
-          let user = users[item.user_id];
+        res.data.data.forEach((item) => {
           if (typeof user === "undefined") {
             return;
           }
 
           data.push([
             item.user_id,
-            user.nick_name,
-            user.mobile,
+            item.user.nick_name,
+            item.user.mobile,
             item.progress + "%",
+            this.durationTime(item.total_duration),
+            item.is_watched === 1 ? "是" : "否",
             item.created_at
               ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
               : "",
@@ -305,33 +296,14 @@ export default {
           { wch: 20 },
           { wch: 15 },
           { wch: 20 },
+          { wch: 15 },
           { wch: 20 },
           { wch: 20 },
+          { wch: 10 },
         ];
         Utils.exportExcel(data, filename, sheetName, wscols);
         this.loading = false;
       });
-    },
-    delRecords() {
-      if (this.selectedRows === null || this.selectedRows.length === 0) {
-        this.$message.warning("请选择需要操作的数据");
-        return;
-      }
-      this.loading = true;
-      let ids = [];
-      this.selectedRows.forEach((item) => {
-        ids.push(item.id);
-      });
-      this.$api.Course.Vod.Records.Del(this.course_id, { record_ids: ids })
-        .then(() => {
-          this.loading = false;
-          this.$message.success(this.$t("common.success"));
-          this.getRecords();
-        })
-        .catch((e) => {
-          this.loading = false;
-          this.$message.error(e.message);
-        });
     },
   },
 };
@@ -353,6 +325,7 @@ export default {
     color: rgba(0, 0, 0, 0.7);
   }
 }
+
 .records-box {
   width: 100%;
   height: 400px;
@@ -361,6 +334,7 @@ export default {
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
+
   .item {
     width: 100%;
     height: 30px;
@@ -373,6 +347,7 @@ export default {
     border-radius: 4px;
     box-sizing: border-box;
     padding: 0px 10px;
+
     &:last-child {
       margin-bottom: 0px;
     }
@@ -389,6 +364,7 @@ export default {
       overflow: hidden;
       word-break: break-all;
     }
+
     .item-time {
       width: 160px;
       height: 30px;
@@ -398,6 +374,7 @@ export default {
       line-height: 30px;
       text-align: right;
     }
+
     .item-text {
       width: 90px;
       height: 30px;
@@ -408,6 +385,7 @@ export default {
       margin-left: 10px;
       text-align: right;
     }
+
     .item-progress {
       width: 90px;
       height: 30px;

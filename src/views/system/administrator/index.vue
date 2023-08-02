@@ -2,7 +2,7 @@
   <div class="meedu-main-body">
     <div class="float-left mb-30">
       <p-button
-        text="添加"
+        text="新建管理员"
         p="administrator.store"
         @click="$router.push({ name: 'AdministratorCreate' })"
         type="primary"

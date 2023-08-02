@@ -1062,6 +1062,14 @@ const routes = [
     name: "LiveCourseUsers",
     meta: {
       title: "title.live.course.users.index",
+    },
+  },
+  {
+    path: "/live/course/stat",
+    component: () => import("@/views/live/course/stats"),
+    name: "LiveCourseStats",
+    meta: {
+      title: "title.live.course.stats",
       keepAlive: true,
     },
   },
@@ -1088,6 +1096,24 @@ const routes = [
     name: "LiveCourseVideoUpdate",
     meta: {
       title: "title.live.course.video.update",
+    },
+  },
+  {
+    path: "/live/course/video/users",
+    component: () => import("@/views/live/course/video/users"),
+    name: "LiveCourseVideoUsers",
+    meta: {
+      title: "title.live.course.video.users",
+      keepAlive: true,
+    },
+  },
+  {
+    path: "/live/course/video/chats",
+    component: () => import("@/views/live/course/video/chats"),
+    name: "LiveCourseVideoChats",
+    meta: {
+      title: "title.live.course.video.chat",
+      keepAlive: true,
     },
   },
   {

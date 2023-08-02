@@ -7,30 +7,57 @@
       <div class="more">更多</div>
     </div>
     <div class="body">
-      <div
-        class="course-item"
-        v-for="(item, index) in config.items"
-        :key="index"
-      >
-        <div class="course-thumb">
-          <img v-if="item.thumb" :src="item.thumb" width="120" height="90" />
-          <img
-            v-else
-            src="@/assets/images/decoration/h5/course-back.png"
-            width="120"
-            height="90"
-          />
-        </div>
-        <div class="course-body">
-          <div class="course-title">{{ item.title }}</div>
-          <div class="course-info">
-            <div class="sub">
-              <span>{{ item.user_count || 0 }}人已订阅</span>
+      <template v-if="config.items.length === 0">
+        <div class="course-item" v-for="(item, index) in 2" :key="index">
+          <div class="course-thumb">
+            <img
+              src="@/assets/images/decoration/h5/course-back.png"
+              width="120"
+              height="90"
+            />
+          </div>
+          <div class="course-body">
+            <div class="course-title">录播课程</div>
+            <div class="course-info">
+              <div class="sub"></div>
+              <div class="price">
+                <span class="free">免费</span>
+              </div>
             </div>
-            <div class="price"><small>￥</small>{{ item.charge || "XX" }}</div>
           </div>
         </div>
-      </div>
+      </template>
+      <template v-if="config.items.length > 0">
+        <div
+          class="course-item"
+          v-for="(item, index) in config.items"
+          :key="index"
+        >
+          <div class="course-thumb">
+            <img v-if="item.thumb" :src="item.thumb" width="120" height="90" />
+            <img
+              v-else
+              src="@/assets/images/decoration/h5/course-back.png"
+              width="120"
+              height="90"
+            />
+          </div>
+          <div class="course-body">
+            <div class="course-title">{{ item.title }}</div>
+            <div class="course-info">
+              <div class="sub">
+                <span>{{ item.user_count || 0 }}人已订阅</span>
+              </div>
+              <div class="price" v-if="item.charge">
+                <small>￥</small>{{ item.charge }}
+              </div>
+              <div class="price" v-else>
+                <span class="free">免费</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -150,6 +177,9 @@ export default {
 
             .unit {
               font-size: 14px;
+            }
+            .free {
+              color: #04c877;
             }
           }
         }

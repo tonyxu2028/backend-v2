@@ -104,7 +104,11 @@ export default {
     },
     tableItemChoice(row) {
       if (row) {
-        this.link = "/packageA/exam/practice/show?id=" + row.id;
+        this.link =
+          "/pages/webview/webview?course_type=practiceRead&id=" +
+          row.id +
+          "&title=" +
+          row.name;
         this.radio = row.id;
       }
     },

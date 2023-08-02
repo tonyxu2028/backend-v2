@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="添加分类"></back-bar>
+    <back-bar class="mb-30" title="新建分类"></back-bar>
     <div class="float-left">
       <el-form ref="form" :model="form" :rules="rules" label-width="200px">
         <el-form-item label="分类名" prop="name">

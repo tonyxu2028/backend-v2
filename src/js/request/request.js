@@ -47,6 +47,12 @@ const Api = {
     TencentTranscodeRecords(params) {
       return get(`/backend/addons/TencentCloudHls/transcode-records`, params);
     },
+    LocalVideosUrl(id, params) {
+      return get(`/backend/addons/LocalUpload/video/${id}/play`, params);
+    },
+    LocalVideosDestroyMulti(params) {
+      return post(`/backend/addons/LocalUpload/video/delete`, params);
+    },
   },
   Stat: {
     Statistic(params) {
@@ -518,6 +524,9 @@ const Api = {
         UserImport(id, params) {
           return post(`/backend/addons/zhibo/course/${id}/user/import`, params);
         },
+        Stats(id) {
+          return get(`/backend/addons/zhibo/course/${id}/stats`);
+        },
         Category: {
           List() {
             return get(`/backend/addons/zhibo/course_category/index`);
@@ -558,6 +567,12 @@ const Api = {
         Users: {
           List(id, params) {
             return get(`/backend/addons/zhibo/course/${id}/users`, params);
+          },
+          WatchUsers(id, params) {
+            return get(
+              `/backend/addons/zhibo/course/${id}/watch-users`,
+              params
+            );
           },
           Add(id, params) {
             return post(`/backend/addons/zhibo/course/${id}/user/add`, params);
@@ -600,6 +615,12 @@ const Api = {
           Watch(params) {
             return get(
               `/backend/addons/zhibo/course_video/watch/users`,
+              params
+            );
+          },
+          WatchUsers(id, params) {
+            return get(
+              `/backend/addons/zhibo/course_video/${id}/watch-users`,
               params
             );
           },

@@ -1,83 +1,97 @@
 <template>
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="直播课程学员"></back-bar>
-    <div class="float-left j-b-flex mb-30">
-      <div class="d-flex">
-        <el-button @click="showUserAddWin = true" type="primary"
-          >添加学员</el-button
-        >
-        <p-button
-          text="批量导入"
-          p="addons.Zhibo.course.user.import"
-          type="primary"
-          @click="importDialog = true"
-        >
-        </p-button>
-        <el-button type="danger" @click="delUser">删除学员</el-button>
-      </div>
-      <div class="d-flex">
-        <div>
-          <el-input
-            v-model="filter.user_id"
-            class="w-200px"
-            placeholder="学员ID"
-          ></el-input>
-        </div>
-        <div class="ml-10">
-          <el-button @click="paginationReset">清空</el-button>
-          <el-button @click="firstPageLoad()" type="primary">筛选</el-button>
-          <el-button @click="importexcel" type="primary">导出表格</el-button>
-        </div>
-      </div>
+    <div class="float-left">
+      <el-tabs v-model="resourceActive">
+        <el-tab-pane
+          :label="item.name"
+          :name="item.key"
+          v-for="(item, index) in avaliableResources"
+          :key="index"
+        ></el-tab-pane>
+      </el-tabs>
     </div>
-    <div class="float-left" v-loading="loading">
-      <el-table
-        :header-cell-style="{ background: '#f1f2f9' }"
-        :data="list"
-        @selection-change="handleSelectionChange"
-        class="float-left"
-      >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="user_id" label="学员ID" width="150">
-        </el-table-column>
-        <el-table-column label="学员">
-          <template slot-scope="scope">
-            <div class="user-item d-flex" v-if="scope.row.user">
-              <div class="avatar">
-                <img :src="scope.row.user.avatar" width="40" height="40" />
+    <template v-if="resourceActive === 'watch-user'">
+      <watch-users></watch-users>
+    </template>
+    <template v-else-if="resourceActive === 'sub-user'">
+      <div class="float-left j-b-flex mb-30">
+        <div class="d-flex">
+          <el-button @click="showUserAddWin = true" type="primary"
+            >添加学员</el-button
+          >
+          <p-button
+            text="批量导入"
+            p="addons.Zhibo.course.user.import"
+            type="primary"
+            @click="importDialog = true"
+          >
+          </p-button>
+          <el-button type="danger" @click="delUser">删除学员</el-button>
+        </div>
+        <div class="d-flex">
+          <div>
+            <el-input
+              v-model="filter.user_id"
+              class="w-200px"
+              placeholder="学员ID"
+            ></el-input>
+          </div>
+          <div class="ml-10">
+            <el-button @click="paginationReset">清空</el-button>
+            <el-button @click="firstPageLoad()" type="primary">筛选</el-button>
+            <el-button @click="importexcel" type="primary">导出表格</el-button>
+          </div>
+        </div>
+      </div>
+      <div class="float-left" v-loading="loading">
+        <el-table
+          :header-cell-style="{ background: '#f1f2f9' }"
+          :data="list"
+          @selection-change="handleSelectionChange"
+          class="float-left"
+        >
+          <el-table-column type="selection" width="55"></el-table-column>
+          <el-table-column prop="user_id" label="学员ID" width="150">
+          </el-table-column>
+          <el-table-column label="学员">
+            <template slot-scope="scope">
+              <div class="user-item d-flex" v-if="scope.row.user">
+                <div class="avatar">
+                  <img :src="scope.row.user.avatar" width="40" height="40" />
+                </div>
+                <div class="ml-10">{{ scope.row.user.nick_name }}</div>
               </div>
-              <div class="ml-10">{{ scope.row.user.nick_name }}</div>
-            </div>
-            <span class="c-red" v-else>学员不存在</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="价格" width="200">
-          <template slot-scope="scope">
-            <span v-if="scope.row.charge == 0">-</span>
-            <span v-else>￥{{ scope.row.charge }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="订阅时间" width="200">
-          <template slot-scope="scope">{{
-            scope.row.created_at | dateFormat
-          }}</template>
-        </el-table-column>
-      </el-table>
+              <span class="c-red" v-else>学员不存在</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="价格" width="200">
+            <template slot-scope="scope">
+              <span v-if="scope.row.charge == 0">-</span>
+              <span v-else>￥{{ scope.row.charge }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="订阅时间" width="200">
+            <template slot-scope="scope">{{
+              scope.row.created_at | dateFormat
+            }}</template>
+          </el-table-column>
+        </el-table>
 
-      <div class="float-left mt-30 text-center">
-        <el-pagination
-          @size-change="paginationSizeChange"
-          @current-change="paginationPageChange"
-          :current-page="pagination.page"
-          :page-sizes="[10, 20, 50, 100]"
-          :page-size="pagination.size"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-        >
-        </el-pagination>
+        <div class="float-left mt-30 text-center">
+          <el-pagination
+            @size-change="paginationSizeChange"
+            @current-change="paginationPageChange"
+            :current-page="pagination.page"
+            :page-sizes="[10, 20, 50, 100]"
+            :page-size="pagination.size"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total"
+          >
+          </el-pagination>
+        </div>
       </div>
-    </div>
-
+    </template>
     <user-add-comp
       :show="showUserAddWin"
       @close="showUserAddWin = false"
@@ -97,11 +111,13 @@
 import moment from "moment";
 import UserAddComp from "@/components/user-add";
 import UserImportComp from "@/components/user-import";
+import WatchUsers from "../../components/watch-users.vue";
 
 export default {
   components: {
     UserAddComp,
     UserImportComp,
+    WatchUsers,
   },
   data() {
     return {
@@ -120,6 +136,17 @@ export default {
       loading: false,
       list: [],
       selectedRows: null,
+      resourceActive: "watch-user",
+      avaliableResources: [
+        {
+          name: "观看学员",
+          key: "watch-user",
+        },
+        {
+          name: "付费学员",
+          key: "sub-user",
+        },
+      ],
     };
   },
   watch: {
@@ -127,14 +154,16 @@ export default {
       this.pagination.page = 1;
       this.filter.user_id = null;
     },
+    resourceActive() {
+      if (this.resourceActive === "sub-user") {
+        this.firstPageLoad();
+      }
+    },
   },
-  activated() {
-    this.getData();
-    this.$utils.scrollTopSet(this.pageName);
-  },
-  beforeRouteLeave(to, from, next) {
-    this.$utils.scrollTopRecord(this.pageName);
-    next();
+  mounted() {
+    if (this.resourceActive === "sub-user") {
+      this.firstPageLoad();
+    }
   },
   methods: {
     firstPageLoad() {

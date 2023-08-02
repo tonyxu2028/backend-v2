@@ -27,11 +27,19 @@
 import { mapState } from "vuex";
 
 export default {
-  props: ["show"],
+  props: ["show", "selected"],
   data() {
     return {
       link: null,
     };
+  },
+  watch: {
+    selected() {
+      if (this.selected) {
+        let index = this.funcLinks.findIndex((o) => o.url === this.selected);
+        this.link = index;
+      }
+    },
   },
   computed: {
     ...mapState(["enabledAddons"]),
@@ -93,7 +101,7 @@ export default {
       if (this.enabledAddons["CodeExchanger"]) {
         links.push({
           name: "兑换码",
-          url: "/member/codeexchanger",
+          url: "/member/code-exchanger",
           active: "exchanger",
         });
       }

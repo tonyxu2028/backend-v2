@@ -41,82 +41,6 @@
                   </div>
                 </div>
               </div>
-              <el-table
-                :header-cell-style="{ background: '#f1f2f9' }"
-                :data="list"
-                ref="table"
-                highlight-current-row
-                @current-change="handleCurrentChange"
-                @sort-change="sortChange"
-                :default-sort="{ prop: 'id', order: 'descending' }"
-                class="float-left mb-15"
-                v-loading="loading"
-              >
-                <template slot="empty">
-                  <img
-                    class="empty-icon"
-                    src="@/assets/images/upload-video/empty.png"
-                    alt=""
-                  />
-                </template>
-                <el-table-column label width="55">
-                  <template slot-scope="scope">
-                    <el-radio :label="scope.row.id" v-model="radio"
-                      ><span></span
-                    ></el-radio>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="name" label="视频名称">
-                </el-table-column>
-                <el-table-column
-                  property="duration"
-                  label="时长"
-                  sortable
-                  width="90"
-                >
-                  <template slot-scope="scope">
-                    <duration-text
-                      v-if="!loading"
-                      :duration="scope.row.duration"
-                    ></duration-text>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  property="size"
-                  sortable
-                  label="大小"
-                  width="100"
-                >
-                  <template slot-scope="scope">
-                    <span>{{ fileSizeConversion(scope.row.size) }}MB</span>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  property="created_at"
-                  sortable
-                  label="上传时间"
-                  width="120"
-                >
-                  <template slot-scope="scope">
-                    <span>{{ scope.row.created_at | yearFormat }}</span>
-                  </template>
-                </el-table-column>
-                <el-table-column fixed="right" label="操作" width="60">
-                  <template slot-scope="scope">
-                    <el-popconfirm
-                      title="确认删除吗？"
-                      @confirm="destoryLocal(scope.row.id)"
-                    >
-                      <p-link
-                        slot="reference"
-                        text="删除"
-                        p="addons.LocalUpload.video.destroy"
-                        type="danger"
-                      ></p-link>
-                    </el-popconfirm>
-                  </template>
-                </el-table-column>
-              </el-table>
             </template>
             <template v-else-if="isAliService || isTenService">
               <div class="float-left j-b-flex mb-15">
@@ -141,6 +65,8 @@
                   </div>
                 </div>
               </div>
+            </template>
+            <template v-if="!isNoService">
               <el-table
                 :header-cell-style="{ background: '#f1f2f9' }"
                 :data="list"
@@ -203,33 +129,48 @@
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="60">
                   <template slot-scope="scope">
-                    <el-popconfirm
-                      title="确认删除吗？"
-                      @confirm="destory(scope.row.id)"
-                    >
-                      <p-link
-                        slot="reference"
-                        text="删除"
-                        p="media.video.delete.multi"
-                        type="danger"
-                      ></p-link>
-                    </el-popconfirm>
+                    <template v-if="scope.row.storage_driver === 'local'">
+                      <el-popconfirm
+                        title="确认删除吗？"
+                        @confirm="destoryLocal(scope.row.storage_file_id)"
+                      >
+                        <p-link
+                          slot="reference"
+                          text="删除"
+                          p="addons.LocalUpload.video.destroy"
+                          type="danger"
+                        ></p-link>
+                      </el-popconfirm>
+                    </template>
+                    <template v-else>
+                      <el-popconfirm
+                        title="确认删除吗？"
+                        @confirm="destory(scope.row.id)"
+                      >
+                        <p-link
+                          slot="reference"
+                          text="删除"
+                          p="media.video.delete.multi"
+                          type="danger"
+                        ></p-link>
+                      </el-popconfirm>
+                    </template>
                   </template>
                 </el-table-column>
               </el-table>
+              <div class="float-left mt-15 text-center" v-if="list.length > 0">
+                <el-pagination
+                  @size-change="paginationSizeChange"
+                  @current-change="paginationPageChange"
+                  :current-page="pagination.page"
+                  :page-sizes="[7]"
+                  :page-size="pagination.size"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="total"
+                >
+                </el-pagination>
+              </div>
             </template>
-            <div class="float-left mt-15 text-center" v-if="list.length > 0">
-              <el-pagination
-                @size-change="paginationSizeChange"
-                @current-change="paginationPageChange"
-                :current-page="pagination.page"
-                :page-sizes="[7]"
-                :page-size="pagination.size"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="total"
-              >
-              </el-pagination>
-            </div>
           </div>
         </div>
         <div class="meedu-dialog-footer">
@@ -397,11 +338,7 @@ export default {
         return;
       }
       this.loading = true;
-      if (this.isLocalService) {
-        this.getLocalList();
-      } else if (this.isTenService || this.isAliService) {
-        this.getOldList();
-      }
+      this.getOldList();
     },
     getLocalList() {
       this.$api.System.VideoUpload.List(this.pagination).then((res) => {
@@ -470,8 +407,11 @@ export default {
         return;
       }
       this.loading = true;
-
-      this.$api.System.VideoUpload.Destroy(item)
+      let ids = [];
+      ids.push(item);
+      this.$api.Resource.LocalVideosDestroyMulti({
+        ids: ids,
+      })
         .then(() => {
           this.loading = false;
           this.$message.success(this.$t("common.success"));

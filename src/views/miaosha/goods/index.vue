@@ -3,7 +3,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="添加"
+          text="新建秒杀"
           p="addons.MiaoSha.goods.store"
           @click="$router.push({ name: 'MiaoshaGoodsCreate' })"
           type="primary"
@@ -15,7 +15,7 @@
           <el-input
             class="w-150px"
             v-model="filter.keywords"
-            placeholder="关键字"
+            placeholder="商品名称关键字"
           ></el-input>
         </div>
         <div class="ml-10">
@@ -30,9 +30,8 @@
         :data="results"
         class="float-left"
       >
-        <el-table-column prop="id" label="ID" width="100"> </el-table-column>
         <el-table-column prop="goods_type_text" label="类型"> </el-table-column>
-        <el-table-column label="商品" width="400">
+        <el-table-column label="商品名称" width="400">
           <template slot-scope="scope">
             <template v-if="scope.row.goods_type === 'book'">
               <thumb-bar

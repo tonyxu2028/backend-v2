@@ -1,29 +1,22 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="课时学习记录"></back-bar>
+    <back-bar class="mb-30" title="直播课时学员"></back-bar>
 
     <div class="float-left">
       <div class="float-left d-flex">
         <div>
           <el-input
             class="w-150px"
-            v-model="filter.user_id"
-            placeholder="学员ID"
+            v-model="filter.mobile"
+            placeholder="学员手机号"
           ></el-input>
         </div>
         <div class="ml-10">
-          <el-date-picker
-            :picker-options="pickerOptions"
-            v-model="watched_at"
-            type="daterange"
-            align="right"
-            format="yyyy-MM-dd hh:mm:ss"
-            value-format="yyyy-MM-dd hh:mm:ss"
-            range-separator="至"
-            start-placeholder="看完时间-开始"
-            end-placeholder="看完时间-结束"
-          >
-          </el-date-picker>
+          <el-input
+            class="w-150px"
+            v-model="filter.nick_name"
+            placeholder="学员昵称"
+          ></el-input>
         </div>
         <div class="ml-15">
           <el-button @click="firstPageLoad" type="primary"> 筛选 </el-button>
@@ -38,51 +31,53 @@
         <el-table
           :header-cell-style="{ background: '#f1f2f9' }"
           :data="list"
+          @sort-change="sortChange"
+          :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
           <el-table-column prop="user_id" label="学员ID" width="120">
           </el-table-column>
           <el-table-column label="学员">
             <template slot-scope="scope">
-              <div class="user-item d-flex" v-if="users[scope.row.user_id]">
+              <div class="user-item d-flex" v-if="scope.row.user">
                 <div class="avatar">
-                  <img
-                    :src="users[scope.row.user_id].avatar"
-                    height="40"
-                    width="40"
-                  />
+                  <img :src="scope.row.user.avatar" width="40" height="40" />
                 </div>
-                <div class="ml-10">
-                  {{ users[scope.row.user_id].nick_name }}
-                </div>
+                <div class="ml-10">{{ scope.row.user.nick_name }}</div>
               </div>
               <span class="c-red" v-else>学员不存在</span>
             </template>
           </el-table-column>
-          <el-table-column label="课时时长" width="150">
+          <el-table-column sortable label="观看时长" width="150">
             <template slot-scope="scope">
               <duration-text
-                v-if="!loading && videos[scope.row.video_id]"
-                :duration="videos[scope.row.video_id].duration"
+                v-if="!loading"
+                :duration="scope.row.duration"
               ></duration-text>
               <span class="c-red" v-else>已删除</span>
             </template>
           </el-table-column>
-          <el-table-column label="已观看" width="150">
+          <el-table-column label="总时长" width="150">
             <template slot-scope="scope">
               <duration-text
                 v-if="!loading"
-                :duration="scope.row.watch_seconds"
+                :duration="scope.row.total_duration"
               ></duration-text>
+              <span class="c-red" v-else>已删除</span>
             </template>
           </el-table-column>
-
-          <el-table-column label="开始时间" width="200">
+          <el-table-column label="看完" width="80">
+            <template slot-scope="scope">
+              <span class="c-green" v-if="scope.row.is_watched === 1">是</span>
+              <span v-else>否</span>
+            </template>
+          </el-table-column>
+          <el-table-column sortable label="开始时间" width="200">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
             }}</template>
           </el-table-column>
-          <el-table-column label="看完时间" width="200">
+          <el-table-column sortable label="看完时间" width="200">
             <template slot-scope="scope">{{
               scope.row.watched_at | dateFormat
             }}</template>
@@ -114,48 +109,29 @@ export default {
   },
   data() {
     return {
-      pageName: "videoRecords-list",
+      pageName: "liveVideoRecords-list",
       video_id: this.$route.query.id,
       pagination: {
         course_id: this.$route.query.course_id,
         page: 1,
         size: 10,
+        sort: "id",
+        order: "desc",
       },
       filter: {
-        user_id: null,
-        watched_start_at: null,
-        watched_end_at: null,
+        mobile: null,
+        nick_name: null,
       },
-      watched_at: null,
       total: 0,
       loading: false,
       list: [],
-      users: [],
-      videos: [],
-      courses: [],
-      pickerOptions: {
-        disabledDate(time) {
-          return time.getTime() > Date.now();
-        },
-      },
     };
   },
   watch: {
-    watched_at(newVal) {
-      if (newVal) {
-        this.filter.watched_start_at = newVal[0];
-        this.filter.watched_end_at = newVal[1];
-      } else {
-        this.filter.watched_start_at = null;
-        this.filter.watched_end_at = null;
-      }
-    },
     "$route.query.id"() {
       this.pagination.page = 1;
-      this.filter.user_id = null;
-      this.watched_at = null;
-      this.filter.watched_start_at = null;
-      this.filter.watched_end_at = null;
+      this.filter.mobile = null;
+      this.filter.nick_name = null;
     },
   },
   activated() {
@@ -169,10 +145,8 @@ export default {
   methods: {
     paginationReset() {
       this.pagination.page = 1;
-      this.filter.user_id = null;
-      this.watched_at = null;
-      this.filter.watched_start_at = null;
-      this.filter.watched_end_at = null;
+      this.filter.nick_name = null;
+      this.filter.mobile = null;
       this.getWatchRecords();
     },
     paginationSizeChange(size) {
@@ -182,6 +156,11 @@ export default {
     },
     paginationPageChange(page) {
       this.pagination.page = page;
+      this.getWatchRecords();
+    },
+    sortChange(column) {
+      this.pagination.sort = column.prop;
+      this.pagination.order = column.order === "ascending" ? "asc" : "desc";
       this.getWatchRecords();
     },
     firstPageLoad() {
@@ -198,15 +177,11 @@ export default {
       this.pagination.course_id = this.$route.query.course_id;
       Object.assign(params, this.filter);
       Object.assign(params, this.pagination);
-      this.$api.Course.Vod.Videos.WatchRecords(this.video_id, params).then(
+      this.$api.Course.Live.Course.Video.WatchUsers(this.video_id, params).then(
         (res) => {
           this.loading = false;
-          this.list = res.data.data.data;
-          this.total = res.data.data.total;
-
-          this.users = res.data.users;
-          this.videos = res.data.videos;
-          this.courses = res.data.courses;
+          this.list = res.data.data;
+          this.total = res.data.total;
         }
       );
     },
@@ -224,17 +199,17 @@ export default {
       this.pagination.course_id = this.$route.query.course_id;
       Object.assign(params, this.filter);
 
-      this.$api.Course.Vod.Videos.WatchRecords(
+      this.$api.Course.Live.Course.Video.WatchUsers(
         this.$route.query.id,
         params
       ).then((res) => {
-        if (res.data.data.total === 0) {
+        if (res.data.total === 0) {
           this.$message.error("数据为空");
           this.loading = false;
           return;
         }
 
-        let filename = "课时学习记录.xlsx";
+        let filename = "直播课时学员记录.xlsx";
         let sheetName = "sheet1";
 
         let data = [
@@ -242,19 +217,21 @@ export default {
             "学员ID",
             "学员",
             "手机号",
-            "课时时长",
-            "已观看",
+            "观看时长",
+            "总时长",
+            "看完",
             "开始时间",
             "结束时间",
           ],
         ];
-        res.data.data.data.forEach((item) => {
+        res.data.data.forEach((item) => {
           data.push([
             item.user_id,
-            this.users[item.user_id].nick_name,
-            this.users[item.user_id].mobile,
-            this.durationTime(this.videos[item.video_id].duration),
-            this.durationTime(item.watch_seconds),
+            item.user.nick_name,
+            item.user.mobile,
+            this.durationTime(item.duration),
+            this.durationTime(item.total_duration),
+            item.is_watched === 1 ? "是" : "否",
             item.created_at
               ? moment(item.created_at).format("YYYY-MM-DD HH:mm")
               : "",
@@ -266,6 +243,7 @@ export default {
         let wscols = [
           { wch: 10 },
           { wch: 20 },
+          { wch: 15 },
           { wch: 15 },
           { wch: 15 },
           { wch: 15 },

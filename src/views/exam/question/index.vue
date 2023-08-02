@@ -3,7 +3,7 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="添加试题"
+          text="新建试题"
           p="addons.Paper.question.store"
           @click="
             $router.push({
@@ -93,7 +93,6 @@
           class="float-left"
         >
           <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="id" label="ID" width="120"> </el-table-column>
           <el-table-column prop="category.name" label="分类" width="200">
           </el-table-column>
           <el-table-column prop="type_text" label="类型" width="100">

@@ -62,7 +62,7 @@ export default {
         sort: [
           {
             required: true,
-            message: "升序不能为空",
+            message: "排序不能为空",
             trigger: "blur",
           },
         ],
@@ -107,7 +107,7 @@ export default {
         return;
       }
       this.loading = true;
-      if (this.text === "添加分类") {
+      if (this.text === "新建分类") {
         this.$api.Course.Topic.Category.Store(this.form)
           .then(() => {
             this.loading = false;

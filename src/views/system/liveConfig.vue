@@ -120,6 +120,23 @@
             </div>
           </div>
         </el-form-item>
+        <el-form-item label="启用RTS播放">
+          <div class="j-flex flex-column" style="margin-left: 3px">
+            <div>
+              <el-switch
+                v-model="form.config['meedu.addons.zhibo.aliyun.rts_play']"
+                active-value="1"
+                inactive-value="0"
+              >
+              </el-switch>
+            </div>
+            <div class="mt-5">
+              <div class="form-helper-text">
+                <span>该播放方式毫秒级延迟。</span>
+              </div>
+            </div>
+          </div>
+        </el-form-item>
         <div class="title">腾讯云直播服务商配置</div>
         <el-form-item label="腾讯云AppId">
           <div class="j-flex flex-column" style="margin-left: 3px">
@@ -231,7 +248,9 @@
             <div>
               <el-input
                 class="w-200px"
-                v-model="form.config['meedu.addons.zhibo.go-meedu.internal_url']"
+                v-model="
+                  form.config['meedu.addons.zhibo.go-meedu.internal_url']
+                "
               ></el-input>
             </div>
           </div>
@@ -446,6 +465,11 @@ export default {
             configData[index].key === "meedu.addons.zhibo.tencent.webrtc_play"
           ) {
             this.form.config["meedu.addons.zhibo.tencent.webrtc_play"] =
+              configData[index].value;
+          } else if (
+            configData[index].key === "meedu.addons.zhibo.aliyun.rts_play"
+          ) {
+            this.form.config["meedu.addons.zhibo.aliyun.rts_play"] =
               configData[index].value;
           } else if (
             configData[index].key === "meedu.addons.zhibo.go-meedu.internal_url"

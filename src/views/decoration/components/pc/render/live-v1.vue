@@ -20,8 +20,13 @@
           {{ item.title }}
         </div>
         <div class="course-info">
-          <div class="videos-count">{{ item.videos_count }}课时</div>
-          <div class="charge">
+          <div class="videos-count">
+            {{ item.category ? item.category.name : "" }}
+          </div>
+          <div class="charge" v-if="item.charge === 0">
+            <span class="free">免费</span>
+          </div>
+          <div class="charge" v-else>
             <span class="unit">￥</span>{{ item.charge }}
           </div>
         </div>
@@ -118,6 +123,9 @@ export default {
 
         .unit {
           font-size: 14px;
+        }
+        .free {
+          color: #04c877;
         }
       }
     }

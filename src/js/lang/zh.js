@@ -29,9 +29,9 @@ const zh = {
     "mp-wechat": "微信公众号",
     "system-administrator": "管理人员",
     "system-adminroles": "管理员角色",
-    createadmin: "添加管理员",
+    createadmin: "新建管理员",
     updateadmin: "编辑管理员",
-    createadminroles: "添加管理员角色",
+    createadminroles: "新建管理员角色",
     updateadminroles: "编辑管理员角色",
     administrator: {
       "change-password": "修改密码",
@@ -75,9 +75,9 @@ const zh = {
         index: "秒杀订单",
       },
       goods: {
-        index: "秒杀课程",
-        create: "添加秒杀课程",
-        update: "编辑秒杀课程",
+        index: "秒杀活动",
+        create: "新建秒杀活动",
+        update: "编辑秒杀活动",
       },
     },
     certificate: {
@@ -90,9 +90,9 @@ const zh = {
     },
     creditMall: {
       name: "积分商城",
-      index: "商品列表",
-      create: "添加商品",
-      update: "编辑商品",
+      index: "积分商城",
+      create: "新建积分商品",
+      update: "编辑积分商品",
       orders: {
         index: "积分订单",
         update: "编辑积分订单",
@@ -103,9 +103,9 @@ const zh = {
       name: "团购",
       orders: "团购订单",
       goods: {
-        index: "团购课程",
-        create: "添加团购课程",
-        update: "编辑团购课程",
+        index: "团购活动",
+        create: "新建团购活动",
+        update: "编辑团购活动",
         order: "团购订单",
         refund: "团购退款订单",
         tuanorder: "团列表",
@@ -146,9 +146,9 @@ const zh = {
         update: "编辑分销海报",
       },
       goods: {
-        index: "分销课程",
-        create: "添加分销课程",
-        update: "编辑分销课程",
+        index: "分销活动",
+        create: "新建分销活动",
+        update: "编辑分销活动",
         rewards: "奖励记录",
       },
     },
@@ -160,6 +160,7 @@ const zh = {
         create: "新建直播课程",
         update: "编辑直播课程",
         comment: "直播课程评论",
+        stats: "直播课程统计",
         category: {
           index: "直播课程分类",
           create: "添加直播课程分类",
@@ -179,7 +180,8 @@ const zh = {
           update: "编辑直播排课",
           play: "直播详情",
           watch: "观看用户",
-          chat: "聊天室内容",
+          chat: "聊天记录",
+          users: "直播课时学员",
         },
       },
       teacher: {
@@ -227,8 +229,8 @@ const zh = {
         answer: "问题回答",
         comment: "问题评论",
         category: {
-          index: "问题分类",
-          create: "添加分类",
+          index: "问答分类",
+          create: "新建分类",
           update: "编辑分类",
         },
       },
@@ -243,7 +245,7 @@ const zh = {
         "user-import": "学员批量导入",
         comment: "课程评论",
         category: {
-          index: "课程分类管理",
+          index: "录播分类管理",
           create: "添加课程分类",
           update: "编辑课程分类",
         },
@@ -336,11 +338,11 @@ const zh = {
         user: "试卷学员",
         stat: "分数统计",
         question: "组卷",
-        questionadd: "添加试题",
+        questionadd: "新建试题",
         marking: "阅卷",
         category: {
           index: "试卷分类",
-          create: "添加试卷分类",
+          create: "新建试卷分类",
           update: "编辑试卷分类",
         },
       },
@@ -367,8 +369,8 @@ const zh = {
         import: "试题批量导入",
         category: {
           index: "试题分类",
-          create: "添加试题分类",
-          update: "编辑试题分类",
+          create: "新建分类",
+          update: "编辑分类",
         },
       },
       practice: {
@@ -476,8 +478,8 @@ const zh = {
     none: "暂无数据",
   },
   member: {
-    btn_add: "添加",
-    btn_edit: "编辑",
+    btn_add: "新建会员",
+    btn_edit: "编辑会员",
     btn_del: "删除",
     day: "天",
     currency: "￥",

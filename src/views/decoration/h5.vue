@@ -233,73 +233,77 @@
           />
         </div>
 
-        <template v-for="(item, index) in blocks">
-          <div class="float-left" :key="item.id">
-            <div
-              class="item"
-              :class="{ active: curBlock === index }"
-              @click="curBlock = index"
-            >
-              <render-slider
-                v-if="item.sign === 'slider'"
-                :config="item.config_render"
-              ></render-slider>
-              <render-grid-nav
-                v-else-if="item.sign === 'grid-nav'"
-                :config="item.config_render"
-              ></render-grid-nav>
-              <render-vod-v1
-                v-else-if="item.sign === 'h5-vod-v1'"
-                :config="item.config_render"
-              ></render-vod-v1>
-              <render-live-v1
-                v-else-if="item.sign === 'h5-live-v1'"
-                :config="item.config_render"
-              ></render-live-v1>
-              <render-book-v1
-                v-else-if="item.sign === 'h5-book-v1'"
-                :config="item.config_render"
-              ></render-book-v1>
-              <render-topic-v1
-                v-else-if="item.sign === 'h5-topic-v1'"
-                :config="item.config_render"
-              ></render-topic-v1>
-              <render-learn-path-v1
-                v-else-if="item.sign === 'h5-learnPath-v1'"
-                :config="item.config_render"
-              ></render-learn-path-v1>
-              <render-tg-v1
-                v-else-if="item.sign === 'h5-tg-v1'"
-                :config="item.config_render"
-              ></render-tg-v1>
-              <render-ms-v1
-                v-else-if="item.sign === 'h5-ms-v1'"
-                :config="item.config_render"
-              ></render-ms-v1>
-              <render-blank
-                v-else-if="item.sign === 'blank'"
-                :config="item.config_render"
-              ></render-blank>
-              <render-mp-wechat
-                v-else-if="item.sign === 'mp-wechat'"
-                :config="item.config_render"
-              ></render-mp-wechat>
-              <render-image-group
-                v-else-if="item.sign === 'image-group'"
-                :config="item.config_render"
-              ></render-image-group>
-              <render-gzh-v1
-                v-else-if="item.sign === 'h5-gzh-v1'"
-                :config="item.config_render"
-              ></render-gzh-v1>
+        <div class="float-left" v-for="(item, index) in blocks" :key="item.id">
+          <div
+            class="item"
+            :class="{ active: curBlock === index }"
+            @click="curBlock = index"
+          >
+            <render-slider
+              v-if="item.sign === 'slider'"
+              :config="item.config_render"
+            ></render-slider>
+            <render-grid-nav
+              v-else-if="item.sign === 'grid-nav'"
+              :config="item.config_render"
+            ></render-grid-nav>
+            <render-vod-v1
+              v-else-if="item.sign === 'h5-vod-v1'"
+              :config="item.config_render"
+            ></render-vod-v1>
+            <render-live-v1
+              v-else-if="item.sign === 'h5-live-v1'"
+              :config="item.config_render"
+            ></render-live-v1>
+            <render-book-v1
+              v-else-if="item.sign === 'h5-book-v1'"
+              :config="item.config_render"
+            ></render-book-v1>
+            <render-topic-v1
+              v-else-if="item.sign === 'h5-topic-v1'"
+              :config="item.config_render"
+            ></render-topic-v1>
+            <render-learn-path-v1
+              v-else-if="item.sign === 'h5-learnPath-v1'"
+              :config="item.config_render"
+            ></render-learn-path-v1>
+            <render-tg-v1
+              v-else-if="item.sign === 'h5-tg-v1'"
+              :config="item.config_render"
+            ></render-tg-v1>
+            <render-ms-v1
+              v-else-if="item.sign === 'h5-ms-v1'"
+              :config="item.config_render"
+            ></render-ms-v1>
+            <render-blank
+              v-else-if="item.sign === 'blank'"
+              :config="item.config_render"
+            ></render-blank>
+            <render-mp-wechat
+              v-else-if="item.sign === 'mp-wechat'"
+              :config="item.config_render"
+            ></render-mp-wechat>
+            <render-image-group
+              v-else-if="item.sign === 'image-group'"
+              :config="item.config_render"
+            ></render-image-group>
+            <render-gzh-v1
+              v-else-if="item.sign === 'h5-gzh-v1'"
+              :config="item.config_render"
+            ></render-gzh-v1>
 
-              <div class="item-options" v-if="curBlock === index">
+            <div class="item-options" v-if="curBlock === index">
+              <el-tooltip effect="dark" content="删除模块" placement="top">
                 <div class="btn-item" @click="blockDestroy(index, item)">
                   <i class="el-icon-delete-solid"></i>
                 </div>
+              </el-tooltip>
+              <el-tooltip effect="dark" content="复制模块" placement="top">
                 <div class="btn-item" @click="blockCopy(index, item)">
                   <i class="el-icon-document-copy"></i>
                 </div>
+              </el-tooltip>
+              <el-tooltip effect="dark" content="模块上移" placement="top">
                 <div
                   class="btn-item"
                   v-if="index !== 0"
@@ -307,6 +311,8 @@
                 >
                   <i class="el-icon-arrow-up"></i>
                 </div>
+              </el-tooltip>
+              <el-tooltip effect="dark" content="模块下移" placement="top">
                 <div
                   class="btn-item"
                   v-if="index !== blocks.length - 1"
@@ -314,10 +320,10 @@
                 >
                   <i class="el-icon-arrow-down"></i>
                 </div>
-              </div>
+              </el-tooltip>
             </div>
           </div>
-        </template>
+        </div>
       </draggable>
 
       <div class="config-box" v-if="curBlock !== null">
@@ -401,6 +407,7 @@ export default {
         this.loading = false;
         this.curBlock = null;
         if (toBottom) {
+          this.curBlock = res.data.length - 1;
           // 滚动到底部
           this.$nextTick(() => {
             let dom = document.querySelector(".bg");
@@ -583,6 +590,7 @@ export default {
         .then(() => {
           this.loading = false;
           this.getData(true);
+          this.$message.success("添加成功");
         })
         .catch((e) => {
           this.loading = false;

@@ -1,6 +1,6 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="添加管理员"></back-bar>
+    <back-bar class="mb-30" title="新建管理员"></back-bar>
     <div class="float-left">
       <el-form ref="form" :model="user" :rules="rules" label-width="200px">
         <el-form-item label="角色">

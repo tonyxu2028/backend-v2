@@ -34,7 +34,8 @@
                   v-model="filter.created_at"
                   type="daterange"
                   align="right"
-                  unlink-panels
+                  format="yyyy-MM-dd hh:mm:ss"
+                  value-format="yyyy-MM-dd hh:mm:ss"
                   range-separator="至"
                   start-placeholder="注册开始日期"
                   end-placeholder="注册结束日期"

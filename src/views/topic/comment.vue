@@ -1,110 +1,81 @@
 <template>
   <div class="meedu-main-body">
     <back-bar class="mb-30" title="图文文章评论"></back-bar>
-    <div class="float-left">
-      <div class="float-left">
-        <div class="float-left d-flex">
-          <div>
-            <el-input
-              v-model="filter.user_id"
-              class="w-200px"
-              placeholder="学员ID"
-            ></el-input>
-          </div>
-          <div class="ml-10">
-            <el-select
-              filterable
-              :filter-method="dataFilter"
-              placeholder="图文"
-              class="w-200px"
-              v-model="filter.topic_id"
-              v-el-select-loadmore="loadmore"
-            >
-              <el-option
-                v-for="(item, index) in filterData.topics"
-                :key="index"
-                :label="item.title"
-                :value="item.id"
-              >
-              </el-option>
-            </el-select>
-          </div>
-          <div class="ml-10">
-            <el-date-picker
-              :picker-options="pickerOptions"
-              v-model="filter.created_at"
-              type="daterange"
-              align="right"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="评论时间-开始"
-              end-placeholder="评论时间-结束"
-            >
-            </el-date-picker>
-          </div>
-          <div class="ml-10">
-            <el-button @click="paginationReset">清空</el-button>
-            <el-button @click="firstPageLoad" type="primary">筛选</el-button>
-          </div>
+    <div class="float-left j-b-flex">
+      <div></div>
+      <div class="d-flex">
+        <div>
+          <el-date-picker
+            :picker-options="pickerOptions"
+            v-model="filter.created_at"
+            type="daterange"
+            align="right"
+            format="yyyy-MM-dd hh:mm:ss"
+            value-format="yyyy-MM-dd hh:mm:ss"
+            range-separator="至"
+            start-placeholder="评论时间-开始"
+            end-placeholder="评论时间-结束"
+          >
+          </el-date-picker>
+        </div>
+        <div class="ml-10">
+          <el-button @click="paginationReset">清空</el-button>
+          <el-button @click="firstPageLoad" type="primary">筛选</el-button>
         </div>
       </div>
-      <div class="float-left mt-30" v-loading="loading">
-        <div class="float-left">
-          <el-table
-            :header-cell-style="{ background: '#f1f2f9' }"
-            :data="list"
-            class="float-left"
-          >
-            <el-table-column prop="id" label="ID" width="120">
-            </el-table-column>
-            <el-table-column prop="user_id" label="学员ID" width="120">
-            </el-table-column>
-            <el-table-column label="学员" width="300">
-              <template slot-scope="scope">
-                <div class="user-item d-flex" v-if="scope.row.user">
-                  <div class="avatar">
-                    <img :src="scope.row.user.avatar" width="40" height="40" />
-                  </div>
-                  <div class="ml-10">
-                    {{ scope.row.user.nick_name }}
-                  </div>
+    </div>
+    <div class="float-left mt-30" v-loading="loading">
+      <div class="float-left">
+        <el-table
+          :header-cell-style="{ background: '#f1f2f9' }"
+          :data="list"
+          class="float-left"
+        >
+          <el-table-column label="学员" width="300">
+            <template slot-scope="scope">
+              <div class="user-item d-flex" v-if="scope.row.user">
+                <div class="avatar">
+                  <img :src="scope.row.user.avatar" width="40" height="40" />
                 </div>
-                <span v-else class="c-red">学员不存在</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="topic.title" label="图文"> </el-table-column>
-            <el-table-column label="评论内容">
-              <template slot-scope="scope">
-                <span v-html="scope.row.content"></span>
-              </template>
-            </el-table-column>
-            <el-table-column label="时间">
-              <template slot-scope="scope">{{
-                scope.row.updated_at | dateFormat
-              }}</template>
-            </el-table-column>
-            <el-table-column fixed="right" label="操作" width="80">
-              <template slot-scope="scope">
-                <el-link type="danger" @click="destroy(scope.row.id)"
-                  >删除</el-link
-                >
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
+                <div class="ml-10">
+                  {{ scope.row.user.nick_name }}
+                </div>
+              </div>
+              <span v-else class="c-red">学员不存在</span>
+            </template>
+          </el-table-column>
+          <el-table-column prop="topic.title" label="图文"> </el-table-column>
+          <el-table-column label="评论内容">
+            <template slot-scope="scope">
+              <span v-html="scope.row.content"></span>
+            </template>
+          </el-table-column>
+          <el-table-column label="时间">
+            <template slot-scope="scope">{{
+              scope.row.updated_at | dateFormat
+            }}</template>
+          </el-table-column>
+          <el-table-column fixed="right" label="操作" width="80">
+            <template slot-scope="scope">
+              <el-link type="danger" @click="destroy(scope.row.id)"
+                >删除</el-link
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
 
-        <div class="float-left mt-30 text-center">
-          <el-pagination
-            @size-change="paginationSizeChange"
-            @current-change="paginationPageChange"
-            :current-page="pagination.page"
-            :page-sizes="[10, 20, 50, 100]"
-            :page-size="pagination.size"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="total"
-          >
-          </el-pagination>
-        </div>
+      <div class="float-left mt-30 text-center">
+        <el-pagination
+          @size-change="paginationSizeChange"
+          @current-change="paginationPageChange"
+          :current-page="pagination.page"
+          :page-sizes="[10, 20, 50, 100]"
+          :page-size="pagination.size"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
+        >
+        </el-pagination>
       </div>
     </div>
   </div>

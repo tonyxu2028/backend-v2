@@ -129,7 +129,6 @@ export default {
             arr.push(item.video_id);
           });
         }
-        this.ids = arr;
         if (this.enabledAddons["Snapshot"]) {
           this.getImages(arr);
         }

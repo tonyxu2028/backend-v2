@@ -9,22 +9,19 @@
             <div class="info">支持多个视频同时上传 / 仅支持mp4格式</div>
             <el-button
               v-show="isAliService"
-              type="primary"
-              plain
+              class="sel-button"
               @click="uploadAliyunVod"
               >选择文件</el-button
             >
             <el-button
               v-show="isTenService"
-              type="primary"
-              plain
+              class="sel-button"
               @click="uploadTencentVod"
               >选择文件</el-button
             >
             <el-button
               v-show="isLocalService"
-              type="primary"
-              plain
+              class="sel-button"
               id="selectfiles"
               >选择文件</el-button
             >
@@ -675,9 +672,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-button--primary:hover {
-  color: #fff;
+.sel-button {
+  background: #ecf5ff;
+  border-color: #b3d8ff;
+  color: #409eff;
 }
+.sel-button:hover {
+  color: #ffffff;
+  background-color: #409eff;
+  border-color: #409eff;
+}
+
 .upload-dialog-box {
   position: absolute;
   top: 50%;
