@@ -28,32 +28,56 @@
           </div>
         </el-form-item>
         <el-form-item label="支付宝公钥">
-          <div class="j-flex flex-column" style="margin-left: 3px">
+          <div class="d-flex float-left" style="margin-left: 3px">
             <div>
               <el-input
                 class="w-200px"
+                type="textarea"
+                :rows="3"
                 v-model="form.config['pay.alipay.ali_public_key']"
-              ></el-input>
+              >
+              </el-input>
             </div>
-            <div class="mt-5">
-              <div class="form-helper-text">
-                <span>RSA2加密方式</span>
-              </div>
+            <div class="ml-10">
+              <el-button @click="uploadAliPublicClient" type="primary"
+                >选择证书</el-button
+              >
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="支付宝私钥">
-          <div class="j-flex flex-column" style="margin-left: 3px">
+        <el-form-item label="支付宝根证书">
+          <div class="d-flex float-left" style="margin-left: 3px">
             <div>
               <el-input
                 class="w-200px"
-                v-model="form.config['pay.alipay.private_key']"
-              ></el-input>
+                type="textarea"
+                :rows="3"
+                v-model="form.config['pay.alipay.alipay_root_cert']"
+              >
+              </el-input>
             </div>
-            <div class="mt-5">
-              <div class="form-helper-text">
-                <span>RSA2加密方式</span>
-              </div>
+            <div class="ml-10">
+              <el-button @click="uploadAliRootCertClient" type="primary"
+                >选择证书</el-button
+              >
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="支付宝应用公钥证书">
+          <div class="d-flex float-left" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                type="textarea"
+                :rows="3"
+                v-model="form.config['pay.alipay.app_cert_public_key']"
+              >
+              </el-input>
+            </div>
+            <div class="ml-10">
+              <el-button @click="uploadAliCertPublicClient" type="primary"
+                >选择证书</el-button
+              >
             </div>
           </div>
         </el-form-item>
@@ -189,6 +213,13 @@
       <div style="display: none">
         <input type="file" ref="cert-client-file" @change="clientChange" />
         <input type="file" ref="cert-key-file" @change="keyChange" />
+        <input type="file" ref="ali-public-file" @change="publicChange" />
+        <input type="file" ref="ali-root-cert-file" @change="rootCertChange" />
+        <input
+          type="file"
+          ref="ali-cert-public-file"
+          @change="certPublicChange"
+        />
       </div>
       <div class="bottom-menus">
         <div class="bottom-menus-box">
@@ -221,6 +252,8 @@ export default {
           "meedu.payment.alipay.enabled": null,
           "pay.alipay.app_id": null,
           "pay.alipay.ali_public_key": null,
+          "pay.alipay.alipay_root_cert": null,
+          "pay.alipay.app_cert_public_key": null,
           "pay.alipay.private_key": null,
           "meedu.payment.wechat.enabled": null,
           "pay.wechat.app_id": null,
@@ -258,6 +291,24 @@ export default {
       }
       this.$refs["cert-key-file"].click();
     },
+    uploadAliPublicClient() {
+      if (this.upload.loading) {
+        return;
+      }
+      this.$refs["ali-public-file"].click();
+    },
+    uploadAliRootCertClient() {
+      if (this.upload.loading) {
+        return;
+      }
+      this.$refs["ali-root-cert-file"].click();
+    },
+    uploadAliCertPublicClient() {
+      if (this.upload.loading) {
+        return;
+      }
+      this.$refs["ali-cert-public-file"].click();
+    },
     clientChange(e) {
       if (e.target.files.length === 0) {
         return;
@@ -269,6 +320,7 @@ export default {
       extension = extension[extension.length - 1];
       if (extension !== "pem") {
         this.$message.error("请选择pem文件");
+        this.upload.loading = false;
         return;
       }
       // 读取数据
@@ -291,6 +343,7 @@ export default {
       extension = extension[extension.length - 1];
       if (extension !== "pem") {
         this.$message.error("请选择pem文件");
+        this.upload.loading = false;
         return;
       }
       // 读取数据
@@ -300,6 +353,75 @@ export default {
         let data = e.target.result;
         this.upload.loading = false;
         this.form.config["pay.wechat.cert_key"] = data;
+      };
+    },
+    publicChange(e) {
+      if (e.target.files.length === 0) {
+        return;
+      }
+      this.upload.loading = true;
+      let file = e.target.files[0];
+      // 文件扩展名检测
+      let extension = file.name.split(".");
+      extension = extension[extension.length - 1];
+      if (extension !== "txt") {
+        this.$message.error("请选择txt文件");
+        this.upload.loading = false;
+        return;
+      }
+      // 读取数据
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = (e) => {
+        let data = e.target.result;
+        this.upload.loading = false;
+        this.form.config["pay.alipay.ali_public_key"] = data;
+      };
+    },
+    rootCertChange(e) {
+      if (e.target.files.length === 0) {
+        return;
+      }
+      this.upload.loading = true;
+      let file = e.target.files[0];
+      // 文件扩展名检测
+      let extension = file.name.split(".");
+      extension = extension[extension.length - 1];
+      if (extension !== "crt") {
+        this.$message.error("请选择crt文件");
+        this.upload.loading = false;
+        return;
+      }
+      // 读取数据
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = (e) => {
+        let data = e.target.result;
+        this.upload.loading = false;
+        this.form.config["pay.alipay.alipay_root_cert"] = data;
+      };
+    },
+    certPublicChange(e) {
+      if (e.target.files.length === 0) {
+        return;
+      }
+      this.upload.loading = true;
+      let file = e.target.files[0];
+      // 文件扩展名检测
+      let extension = file.name.split(".");
+      extension = extension[extension.length - 1];
+      if (extension !== "crt") {
+        this.$message.error("请选择crt文件");
+        this.upload.loading = false;
+        return;
+      }
+      // 读取数据
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = (e) => {
+        let data = e.target.result;
+        this.upload.loading = false;
+        this.form.config["pay.alipay.app_cert_public_key"] = data;
       };
     },
     getConfig() {
@@ -318,6 +440,14 @@ export default {
             this.form.config["pay.alipay.app_id"] = configData[index].value;
           } else if (configData[index].key === "pay.alipay.ali_public_key") {
             this.form.config["pay.alipay.ali_public_key"] =
+              configData[index].value;
+          } else if (configData[index].key === "pay.alipay.alipay_root_cert") {
+            this.form.config["pay.alipay.alipay_root_cert"] =
+              configData[index].value;
+          } else if (
+            configData[index].key === "pay.alipay.app_cert_public_key"
+          ) {
+            this.form.config["pay.alipay.app_cert_public_key"] =
               configData[index].value;
           } else if (configData[index].key === "pay.alipay.private_key") {
             this.form.config["pay.alipay.private_key"] =
