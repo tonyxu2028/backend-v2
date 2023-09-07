@@ -40,7 +40,25 @@
             </div>
             <div class="ml-10">
               <el-button @click="uploadAliPublicClient" type="primary"
-                >选择证书</el-button
+                >选择TXT</el-button
+              >
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item label="应用私钥">
+          <div class="d-flex float-left" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                type="textarea"
+                :rows="3"
+                v-model="form.config['pay.alipay.private_key']"
+              >
+              </el-input>
+            </div>
+            <div class="ml-10">
+              <el-button @click="uploadAliPrivateClient" type="primary"
+                >选择TXT</el-button
               >
             </div>
           </div>
@@ -63,7 +81,7 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item label="支付宝应用公钥证书">
+        <el-form-item label="应用公钥证书">
           <div class="d-flex float-left" style="margin-left: 3px">
             <div>
               <el-input
@@ -76,24 +94,6 @@
             </div>
             <div class="ml-10">
               <el-button @click="uploadAliCertPublicClient" type="primary"
-                >选择证书</el-button
-              >
-            </div>
-          </div>
-        </el-form-item>
-        <el-form-item label="支付宝应用私钥证书">
-          <div class="d-flex float-left" style="margin-left: 3px">
-            <div>
-              <el-input
-                class="w-200px"
-                type="textarea"
-                :rows="3"
-                v-model="form.config['pay.alipay.private_key']"
-              >
-              </el-input>
-            </div>
-            <div class="ml-10">
-              <el-button @click="uploadAliPrivateClient" type="primary"
                 >选择证书</el-button
               >
             </div>
