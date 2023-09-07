@@ -81,6 +81,24 @@
             </div>
           </div>
         </el-form-item>
+        <el-form-item label="支付宝应用私钥证书">
+          <div class="d-flex float-left" style="margin-left: 3px">
+            <div>
+              <el-input
+                class="w-200px"
+                type="textarea"
+                :rows="3"
+                v-model="form.config['pay.alipay.private_key']"
+              >
+              </el-input>
+            </div>
+            <div class="ml-10">
+              <el-button @click="uploadAliPrivateClient" type="primary"
+                >选择证书</el-button
+              >
+            </div>
+          </div>
+        </el-form-item>
         <div class="title">微信支付</div>
         <el-form-item label="微信扫码支付">
           <div class="j-flex flex-column" style="margin-left: 3px">
@@ -220,6 +238,7 @@
           ref="ali-cert-public-file"
           @change="certPublicChange"
         />
+        <input type="file" ref="ali-private-file" @change="privateChange" />
       </div>
       <div class="bottom-menus">
         <div class="bottom-menus-box">
@@ -308,6 +327,12 @@ export default {
         return;
       }
       this.$refs["ali-cert-public-file"].click();
+    },
+    uploadAliPrivateClient() {
+      if (this.upload.loading) {
+        return;
+      }
+      this.$refs["ali-private-file"].click();
     },
     clientChange(e) {
       if (e.target.files.length === 0) {
@@ -422,6 +447,29 @@ export default {
         let data = e.target.result;
         this.upload.loading = false;
         this.form.config["pay.alipay.app_cert_public_key"] = data;
+      };
+    },
+    privateChange(e) {
+      if (e.target.files.length === 0) {
+        return;
+      }
+      this.upload.loading = true;
+      let file = e.target.files[0];
+      // 文件扩展名检测
+      let extension = file.name.split(".");
+      extension = extension[extension.length - 1];
+      if (extension !== "txt") {
+        this.$message.error("请选择txt文件");
+        this.upload.loading = false;
+        return;
+      }
+      // 读取数据
+      let reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = (e) => {
+        let data = e.target.result;
+        this.upload.loading = false;
+        this.form.config["pay.alipay.private_key"] = data;
       };
     },
     getConfig() {
