@@ -2,15 +2,6 @@
   <div class="meedu-main-body">
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
-        <p-button
-          p="addons.MultiLevelShare.withdraw.handle"
-          text="批量操作"
-          type="primary"
-          @click="handleMulti()"
-        >
-        </p-button>
-      </div>
-      <div class="d-flex">
         <div>
           <el-input
             class="w-150px"
@@ -19,68 +10,64 @@
           ></el-input>
         </div>
         <div class="ml-10">
-          <el-select class="w-150px" placeholder="状态" v-model="filter.status">
-            <el-option
-              v-for="(item, index) in filterData.groups"
-              :key="index"
-              :label="item.name"
-              :value="item.key"
-            >
-            </el-option>
-          </el-select>
-        </div>
-        <div class="ml-10">
           <el-button @click="paginationReset()">清空</el-button>
           <el-button @click="firstPageLoad()" type="primary"> 筛选 </el-button>
           <el-button @click="importexcel" type="primary">导出表格</el-button>
         </div>
       </div>
     </div>
+
+    <div class="float-left">
+      <el-tabs v-model="filter.status">
+        <el-tab-pane
+          :label="item.name"
+          :name="item.key"
+          v-for="(item, index) in filterData.groups"
+          :key="index"
+        ></el-tab-pane>
+      </el-tabs>
+    </div>
+
     <div class="float-left" v-loading="loading">
       <div class="float-left">
         <el-table
           :header-cell-style="{ background: '#f1f2f9' }"
           :data="results"
-          @selection-change="handleSelectionChange"
           class="float-left"
         >
-          <el-table-column
-            type="selection"
-            :selectable="
-              (row) => {
-                return row.status === 0;
-              }
-            "
-            width="55"
-          ></el-table-column>
-          <el-table-column prop="id" label="ID" width="100"> </el-table-column>
           <el-table-column prop="user_id" label="学员ID" width="120">
           </el-table-column>
           <el-table-column label="学员" width="300">
             <template slot-scope="scope">
               <div v-if="scope.row.user" class="user-item d-flex">
-                <div class="avatar">
-                  <img :src="scope.row.user.avatar" width="40" height="40" />
-                </div>
-                <div class="ml-10">
-                  {{ scope.row.user.nick_name }}
-                </div>
+                {{ scope.row.user.nick_name }}
               </div>
-              <span v-else class="c-red">学员已删除</span>
+              <span v-else class="c-red">-</span>
             </template>
           </el-table-column>
-          <el-table-column label="金额">
+          <el-table-column label="金额" width="150">
             <template slot-scope="scope">
-              <span>{{ scope.row.amount }}元</span>
+              <span>￥{{ scope.row.amount }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="收款人" width="300">
+
+          <el-table-column label="打款渠道" width="100">
             <template slot-scope="scope">
-              <div>渠道：{{ scope.row.channel }}</div>
-              <div>姓名：{{ scope.row.channel_name }}</div>
-              <div>账号：{{ scope.row.channel_account }}</div>
+              <img
+                v-if="scope.row.channel === 'alipay'"
+                src="../../assets/img/ali-pay.png"
+                width="30"
+                height="30"
+              />
+              <img
+                v-else-if="scope.row.channel === 'wechat'"
+                src="../../assets/img/wepay.png"
+                width="30"
+                height="30"
+              />
             </template>
           </el-table-column>
+
           <el-table-column label="状态" width="150">
             <template slot-scope="scope">
               <span class="c-yellow" v-if="scope.row.status === 0"
@@ -94,12 +81,23 @@
               >
             </template>
           </el-table-column>
-          <el-table-column prop="remark" label="备注" width="300">
-          </el-table-column>
+          <el-table-column prop="remark" label="备注"> </el-table-column>
           <el-table-column label="申请时间" width="200">
             <template slot-scope="scope">{{
               scope.row.created_at | dateFormat
             }}</template>
+          </el-table-column>
+          <el-table-column label="操作" width="120">
+            <template slot-scope="scope">
+              <p-link
+                v-if="scope.row.status === 0"
+                p="addons.MultiLevelShare.withdraw.handle"
+                text="确认打款"
+                type="primary"
+                @click="handleMulti(scope.row.id)"
+              >
+              </p-link>
+            </template>
           </el-table-column>
         </el-table>
       </div>
@@ -175,26 +173,22 @@ export default {
       },
       filter: {
         user_id: null,
-        status: -1,
+        status: "0",
         keywords: "",
       },
       filterData: {
         groups: [
           {
-            name: "全部",
-            key: -1,
-          },
-          {
             name: "待处理",
-            key: 0,
+            key: "0",
           },
           {
             name: "已处理",
-            key: 5,
+            key: "5",
           },
           {
             name: "已驳回",
-            key: 3,
+            key: "3",
           },
         ],
       },
@@ -234,6 +228,11 @@ export default {
       },
     };
   },
+  watch: {
+    "filter.status"() {
+      this.paginationReset();
+    },
+  },
   activated() {
     this.getData();
     this.$utils.scrollTopSet(this.pageName);
@@ -250,7 +249,6 @@ export default {
     paginationReset() {
       this.pagination.page = 1;
       this.filter.user_id = "";
-      this.filter.status = -1;
       this.filter.keywords = "";
       this.getData();
     },
@@ -262,17 +260,6 @@ export default {
     paginationPageChange(page) {
       this.pagination.page = page;
       this.getData();
-    },
-    handleSelectionChange(val) {
-      if (val) {
-        var newbox = [];
-        for (var i = 0; i < val.length; i++) {
-          newbox.push(val[i].id);
-        }
-        this.spids.ids = newbox;
-      } else {
-        this.spids.ids = [];
-      }
     },
     getData() {
       if (this.loading) {
@@ -287,11 +274,11 @@ export default {
         this.total = res.data.total;
       });
     },
-    handleMulti() {
-      if (this.spids.ids.length === 0) {
-        this.$message.error("请选择需要操作的数据");
-        return;
-      }
+    handleMulti(id) {
+      this.form.status = null;
+      this.form.is_return = null;
+      this.form.remark = null;
+      this.spids.ids = [id];
       this.showHandleWin = true;
     },
     formValidate() {
@@ -303,7 +290,7 @@ export default {
     },
     submitHandle() {
       this.$api.Order.WithdrawOrders.Submit({
-        ids: this.spids.ids,
+        id: this.spids.ids[0],
         status: this.form.status,
         remark: this.form.remark,
         is_return: this.form.is_return,
@@ -365,7 +352,7 @@ export default {
           }
           data.push([
             item.user_id,
-            item.user.nick_name,
+            item.user ? item.user.nick_name : "",
             item.amount + "元",
             item.channel,
             item.channel_name,
