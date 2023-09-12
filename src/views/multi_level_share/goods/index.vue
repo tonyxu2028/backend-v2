@@ -53,11 +53,10 @@
               <span>{{ scope.row.goods_charge }}元</span>
             </template>
           </el-table-column>
-          <el-table-column label="奖励1/2/3" width="160">
+          <el-table-column label="奖励" width="160">
             <template slot-scope="scope">
               <div>一级：{{ scope.row.reward }}元</div>
               <div>二级：{{ scope.row.reward2 }}元</div>
-              <div>三级：{{ scope.row.reward3 }}元</div>
             </template>
           </el-table-column>
           <el-table-column label="时间" width="200">

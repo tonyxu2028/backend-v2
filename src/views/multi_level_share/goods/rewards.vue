@@ -24,10 +24,17 @@
           :data="list"
           class="float-left"
         >
-          <el-table-column prop="id" label="ID"> </el-table-column>
-          <el-table-column prop="order_id" label="订单ID" width="120">
+          <el-table-column prop="id" label="ID" width="150"> </el-table-column>
+          <el-table-column label="支付订单" width="200">
+            <template slot-scope="scope">
+              <span>{{ scope.row.order.order_id }}</span
+              ><br />
+              <span style="color: rgba(0, 0, 0, 0.2)">ID: {{
+                scope.row.order.id
+              }}</span>
+            </template>
           </el-table-column>
-          <el-table-column label="订单商品" width="300">
+          <el-table-column label="订单商品">
             <template slot-scope="scope">
               <div class="d-flex" v-if="scope.row.order.goods">
                 <div
@@ -41,37 +48,41 @@
               <span v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column label="订单用户" width="300">
+          <el-table-column label="支付学员" width="300">
             <template slot-scope="scope">
               <div class="user-item d-flex" v-if="scope.row.order_user">
-                <div>{{ scope.row.order_user.nick_name }}</div>
+                <div>
+                  {{ scope.row.order_user.nick_name }}<br />
+                  <span style="color: rgba(0, 0, 0, 0.2)"
+                    >ID: {{ scope.row.order_user.id }}</span
+                  >
+                </div>
               </div>
-              <span class="c-red" v-else>用户不存在</span>
+              <span class="c-red" v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column label="一级用户及奖励" width="260">
+          <el-table-column label="一级学员奖励" width="260">
             <template slot-scope="scope">
-              <div class="flex flex-column" v-if="scope.row.user1">
-                <div>用户：{{ scope.row.user1.nick_name }}</div>
-                <div>获得：{{ scope.row.reward1 }}元</div>
+              <div
+                style="color: rgba(255, 0, 0, 1)"
+                class="flex flex-column"
+                v-if="scope.row.user1"
+              >
+                <div>{{ scope.row.user1.nick_name }}</div>
+                <div>{{ scope.row.reward1 }}元</div>
               </div>
               <span v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column label="二级用户及奖励" width="260">
+          <el-table-column label="二级学员奖励" width="260">
             <template slot-scope="scope">
-              <div class="flex flex-column" v-if="scope.row.user2">
-                <div>用户：{{ scope.row.user2.nick_name }}</div>
-                <div>获得：{{ scope.row.reward2 }}元</div>
-              </div>
-              <span v-else>-</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="三级用户及奖励" width="260">
-            <template slot-scope="scope">
-              <div class="flex flex-column" v-if="scope.row.user3">
-                <div>用户：{{ scope.row.user3.nick_name }}</div>
-                <div>获得：{{ scope.row.reward3 }}元</div>
+              <div
+                style="color: rgba(255, 0, 0, 0.6)"
+                class="flex flex-column"
+                v-if="scope.row.user2"
+              >
+                <div>{{ scope.row.user2.nick_name }}</div>
+                <div>{{ scope.row.reward2 }}元</div>
               </div>
               <span v-else>-</span>
             </template>

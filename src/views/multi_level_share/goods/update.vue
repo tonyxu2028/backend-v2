@@ -59,21 +59,6 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item prop="reward3" label="三级奖励">
-          <div class="d-flex">
-            <div>
-              <el-input
-                type="number"
-                placeholder="三级分销奖励"
-                class="w-200px"
-                v-model="form.reward3"
-              ></el-input>
-            </div>
-            <div class="ml-10">
-              <helper-text text="最小单位：元。不支持小数。"></helper-text>
-            </div>
-          </div>
-        </el-form-item>
       </el-form>
 
       <div class="bottom-menus">

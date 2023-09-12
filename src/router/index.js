@@ -940,30 +940,6 @@ const routes = [
     },
   },
   {
-    path: "/multi_level_share/poster/index",
-    component: () => import("@/views/multi_level_share/poster/index"),
-    name: "MultiPoster",
-    meta: {
-      title: "title.multi_level_share.poster.index",
-    },
-  },
-  {
-    path: "/multi_level_share/poster/create",
-    component: () => import("@/views/multi_level_share/poster/create"),
-    name: "MultiPosterCreate",
-    meta: {
-      title: "title.multi_level_share.poster.create",
-    },
-  },
-  {
-    path: "/multi_level_share/poster/update",
-    component: () => import("@/views/multi_level_share/poster/update"),
-    name: "MultiPosterUpdate",
-    meta: {
-      title: "title.multi_level_share.poster.update",
-    },
-  },
-  {
     path: "/multi_level_share/goods/index",
     component: () => import("@/views/multi_level_share/goods/index"),
     name: "ShareGoods",
