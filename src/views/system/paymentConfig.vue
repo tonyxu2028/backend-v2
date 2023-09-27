@@ -40,7 +40,7 @@
             </div>
             <div class="ml-10">
               <el-button @click="uploadAliPublicClient" type="primary"
-                >选择TXT</el-button
+                >选择crt证书</el-button
               >
             </div>
           </div>
@@ -76,7 +76,7 @@
             </div>
             <div class="ml-10">
               <el-button @click="uploadAliRootCertClient" type="primary"
-                >选择证书</el-button
+                >选择crt证书</el-button
               >
             </div>
           </div>
@@ -94,7 +94,7 @@
             </div>
             <div class="ml-10">
               <el-button @click="uploadAliCertPublicClient" type="primary"
-                >选择证书</el-button
+                >选择crt证书</el-button
               >
             </div>
           </div>
@@ -389,8 +389,8 @@ export default {
       // 文件扩展名检测
       let extension = file.name.split(".");
       extension = extension[extension.length - 1];
-      if (extension !== "txt") {
-        this.$message.error("请选择txt文件");
+      if (extension !== "crt") {
+        this.$message.error("请选择crt文件");
         this.upload.loading = false;
         return;
       }
