@@ -55,10 +55,21 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column prop="video.title" label="课时"> </el-table-column>
+      <el-table-column prop="video.title" label="课时" width="300">
+      </el-table-column>
       <el-table-column label="内容">
         <template slot-scope="scope">
           <div v-html="scope.row.render_content"></div>
+        </template>
+      </el-table-column>
+      <el-table-column label="IP" width="150">
+        <template slot-scope="scope">
+          <span>{{ scope.row.ip || "-" }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="省份" width="150">
+        <template slot-scope="scope">
+          <span>{{ scope.row.ip_province || "-" }}</span>
         </template>
       </el-table-column>
       <el-table-column label="时间" width="200">
