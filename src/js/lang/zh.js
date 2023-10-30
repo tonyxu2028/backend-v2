@@ -11,6 +11,7 @@ const zh = {
     decoration_h5: "移动端",
     resource: "资源",
     resource_videos: "视频库",
+    resourceImages: "图片库",
     role: "VIP会员",
     order: "全部订单",
     "order-detail": "订单详情",

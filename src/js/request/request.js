@@ -53,6 +53,12 @@ const Api = {
     LocalVideosDestroyMulti(params) {
       return post(`/backend/addons/LocalUpload/video/delete`, params);
     },
+    ImagesList(params) {
+      return get(`/backend/api/v1/media/images`, params);
+    },
+    ImagesDestroyMulti(params) {
+      return post(`/backend/api/v1/media/image/delete/multi`, params);
+    },
   },
   Stat: {
     Statistic(params) {

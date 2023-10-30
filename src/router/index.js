@@ -59,6 +59,15 @@ const routes = [
     },
   },
   {
+    path: "/resource/images/index",
+    component: () => import("@/views/resource/images/index"),
+    name: "ResourceImages",
+    meta: {
+      title: "title.resourceImages",
+      keepAlive: true,
+    },
+  },
+  {
     path: "/order/index",
     component: () => import("@/views/order/index"),
     name: "Orderlist",

@@ -34,6 +34,11 @@ export default [
     icon: "icon-icon-file",
     children: [
       {
+        name: "title.resourceImages",
+        key: "ResourceImages",
+        permission: "dashboard",
+      },
+      {
         name: "title.resource_videos",
         key: "ResourceVideos",
         permission: "media.video.list",
