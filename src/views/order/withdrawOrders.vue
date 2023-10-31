@@ -35,23 +35,23 @@
           :data="results"
           class="float-left"
         >
-          <el-table-column prop="user_id" label="学员ID" width="120">
+          <el-table-column prop="id" label="记录ID" width="120">
           </el-table-column>
           <el-table-column label="学员" width="300">
             <template slot-scope="scope">
-              <div v-if="scope.row.user" class="user-item d-flex">
-                {{ scope.row.user.nick_name }}
+              <div
+                v-if="scope.row.user"
+                style="display: flex; flex-direction: column"
+              >
+                <div>{{ scope.row.user.nick_name }}</div>
+                <div style="font-size: 10px; color: rgba(0, 0, 0, 0.3)">
+                  ID#{{ scope.row.user_id }}
+                </div>
               </div>
               <span v-else class="c-red">-</span>
             </template>
           </el-table-column>
-          <el-table-column label="金额" width="150">
-            <template slot-scope="scope">
-              <span>￥{{ scope.row.amount }}</span>
-            </template>
-          </el-table-column>
-
-          <el-table-column label="打款渠道" width="100">
+          <el-table-column label="渠道" width="60">
             <template slot-scope="scope">
               <img
                 v-if="scope.row.channel === 'alipay'"
@@ -67,7 +67,16 @@
               />
             </template>
           </el-table-column>
-
+          <el-table-column label="金额" width="150">
+            <template slot-scope="scope">
+              <div style="display: flex; flex-direction: column">
+                <div>￥{{ scope.row.amount }}</div>
+                <div style="color: rgba(0, 0, 0, 0.3); font-size: 10px">
+                  提现前余额：￥{{ scope.row.before_balance }}
+                </div>
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column label="状态" width="150">
             <template slot-scope="scope">
               <span class="c-yellow" v-if="scope.row.status === 0"
@@ -92,7 +101,7 @@
               <p-link
                 v-if="scope.row.status === 0"
                 p="addons.MultiLevelShare.withdraw.handle"
-                text="确认打款"
+                text="处理"
                 type="primary"
                 @click="handleMulti(scope.row.id)"
               >
@@ -124,6 +133,12 @@
       :close-on-press-escape="false"
     >
       <el-form ref="form" :model="form" :rules="rules" label-width="200px">
+        <el-form-item label="打款方式" prop="action">
+          <el-select v-model="form.action" placeholder="请选择打款方式">
+            <el-option label="走提现渠道" value="follow"></el-option>
+            <el-option label="线下手动打款" value="hand"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select v-model="form.status" placeholder="请选择状态">
             <el-option label="成功" :value="5"></el-option>
@@ -199,11 +214,19 @@ export default {
       },
       results: [],
       form: {
+        action: null,
         status: null,
         remark: null,
         is_return: 1,
       },
       rules: {
+        action: [
+          {
+            required: true,
+            message: "请选择打款方式",
+            trigger: "blur",
+          },
+        ],
         status: [
           {
             required: true,
@@ -294,6 +317,7 @@ export default {
         status: this.form.status,
         remark: this.form.remark,
         is_return: this.form.is_return,
+        action: this.form.action,
       })
         .then(() => {
           this.$message.success(this.$t("common.success"));
