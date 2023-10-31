@@ -36,13 +36,13 @@
           @click="newPreviewImage(item.url)"
         >
           <i
-            @click="onChange(item.id)"
+            @click.stop="onChange(item.id)"
             v-if="selectKey.indexOf(item.id) !== -1"
             class="checked"
           >
             <img src="../../../assets/home/selected.png" />
           </i>
-          <i v-else @click="onChange(item.id)" class="checkbox"> </i>
+          <i v-else @click.stop="onChange(item.id)" class="checkbox"> </i>
         </div>
       </div>
       <div
