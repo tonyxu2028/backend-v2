@@ -14,25 +14,14 @@
         >
           <el-button type="primary" class="upbtn">上传图片</el-button>
         </el-upload>
-        <el-button
-          v-if="selectKey.length > 0"
-          class="ml-10"
-          @click="cancelAll()"
-          >取消操作</el-button
-        >
-        <el-button
-          v-if="selectKey.length === 0"
-          class="ml-10"
-          @click="selectAll()"
-          >批量操作</el-button
-        >
         <p-button
-          v-if="imageList.length !== 0"
           text="删除"
+          class="ml-10"
           p="media.image.delete.multi"
           @click="removeResource()"
           type="danger"
           :disabled="selectKey.length === 0"
+          :loading="delLoading"
         >
         </p-button>
       </div>
@@ -113,6 +102,7 @@ export default {
       loading: false,
       previewImage: false,
       thumb: null,
+      delLoading: false,
     };
   },
   computed: {
@@ -212,21 +202,21 @@ export default {
         type: "warning",
       })
         .then(() => {
-          if (this.loading) {
+          if (this.delLoading) {
             return;
           }
-          this.loading = true;
+          this.delLoading = true;
           this.$api.Resource.ImagesDestroyMulti({
             ids: this.selectKey,
           })
             .then(() => {
               this.$message.success(this.$t("common.success"));
-              this.loading = false;
+              this.delLoading = false;
               this.getData();
             })
             .catch((e) => {
               this.$message.error(e.message);
-              this.loading = false;
+              this.delLoading = false;
             });
         })
         .catch(() => {
