@@ -130,6 +130,7 @@ export default {
         fileId: null,
       },
       localUploadFiles: [],
+
       uploading: false,
       selectedVideo: null,
     };
@@ -273,31 +274,42 @@ export default {
         let pos = fileName.lastIndexOf(".");
         let lastName = fileName.substring(pos, fileName.length);
         if (lastName.toLowerCase() === ".mp4") {
-          if (this.isLocalService) {
-            this.upload.service = "local";
-            this.upload.up.addFile(file, file.name);
-          } else {
-            this.uploading++;
-            let fileId = Math.random() * 100 + file.name;
-            this.localUploadFiles.push({
-              id: fileId,
-              file: file,
-              size: file.size,
-              result: {
-                fileId: fileId,
-                up: null,
-              },
-              progress: 0,
-              status: 1,
-            });
-            if (this.isAliService) {
-              this.upload.service = "aliyun";
-              this.aliyunUploadHandle(fileId, file);
-            } else if (this.isTenService) {
-              this.upload.service = "tencent";
-              this.tencentUploadHandle(fileId, file);
+          var url = URL.createObjectURL(file);
+          var audioElement = new Audio(url);
+          var duration = 0;
+          audioElement.addEventListener("loadedmetadata", (_event) => {
+            duration = audioElement.duration;
+            if (duration > 0) {
+              if (this.isLocalService) {
+                this.upload.service = "local";
+                this.upload.up.addFile(file, file.name);
+              } else {
+                this.uploading++;
+                let fileId = Math.random() * 100 + file.name;
+                this.localUploadFiles.push({
+                  id: fileId,
+                  file: file,
+                  size: file.size,
+                  result: {
+                    fileId: fileId,
+                    up: null,
+                  },
+                  progress: 0,
+                  status: 1,
+                });
+                if (this.isAliService) {
+                  this.upload.service = "aliyun";
+                  this.aliyunUploadHandle(fileId, file);
+                } else if (this.isTenService) {
+                  this.upload.service = "tencent";
+                  this.tencentUploadHandle(fileId, file);
+                }
+              }
             }
-          }
+          });
+          audioElement.addEventListener("error", (_event) => {
+            this.$message.error("无法获取视频时长");
+          });
         } else {
           this.$message.error(
             lastName.toLowerCase().slice(1) + "格式不支持上传"
@@ -336,23 +348,35 @@ export default {
           PostInit: () => {},
           FilesAdded: (up, files) => {
             plupload.each(files, (file) => {
-              this.uploading++;
-              this.localUploadFiles.push({
-                id: file.id,
-                file: file,
-                size: file.size,
-                result: {
-                  fileId: file.id,
-                  up: up,
-                },
-                progress: 0,
-                status: 1,
+              var url = URL.createObjectURL(file.getNative());
+              var audioElement = new Audio(url);
+              var duration = 0;
+              audioElement.addEventListener("loadedmetadata", (_event) => {
+                duration = audioElement.duration;
+                if (duration > 0) {
+                  this.uploading++;
+                  this.localUploadFiles.push({
+                    id: file.id,
+                    file: file,
+                    size: file.size,
+                    result: {
+                      fileId: file.id,
+                      up: up,
+                    },
+                    progress: 0,
+                    status: 1,
+                  });
+                  this.setUploadParam(uploader, false);
+                }
+              });
+              audioElement.addEventListener("error", (_event) => {
+                var fileItem = up.getFile(file.id);
+                fileItem && up.removeFile(fileItem);
+                this.$message.error("无法获取视频时长");
               });
             });
-            this.setUploadParam(uploader, false);
           },
           BeforeUpload: (up, file) => {
-            // 解析视频时长
             var url = URL.createObjectURL(file.getNative());
             var audioElement = new Audio(url);
             var duration = 0;
@@ -368,9 +392,11 @@ export default {
           },
           UploadProgress: (up, file) => {
             let it = this.localUploadFiles.find((o) => o.id === file.id);
-            it.result.up = up;
-            it.status = 1;
-            it.progress = parseInt(file.percent);
+            if (it) {
+              it.result.up = up;
+              it.status = 1;
+              it.progress = parseInt(file.percent);
+            }
           },
           FileUploaded: (up, file, info) => {
             this.upload.loading = false;
@@ -385,7 +411,6 @@ export default {
               this.$message.error(data.message);
               it.status = 5;
               it.result = data.message;
-              console.log(data);
             }
           },
         },
@@ -459,7 +484,6 @@ export default {
           if (it) {
             it.status = 5;
             it.result = message;
-            console.log(message);
             this.uploadFailHandle(message);
           }
         },
@@ -506,28 +530,39 @@ export default {
       if (files.length === 0) {
         return;
       }
-
       this.upload.loading = true;
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
-        this.uploading++;
-        let fileId = Math.random() * 100 + file.name;
-        this.localUploadFiles.push({
-          id: fileId,
-          file: file,
-          size: file.size,
-          result: {
-            fileId: fileId,
-            up: null,
-          },
-          progress: 0,
-          status: 1,
+        var url = URL.createObjectURL(file);
+        var audioElement = new Audio(url);
+        var duration = 0;
+        audioElement.addEventListener("loadedmetadata", (_event) => {
+          duration = audioElement.duration;
+          if (duration > 0) {
+            this.uploading++;
+            let fileId = Math.random() * 100 + file.name;
+            this.localUploadFiles.push({
+              id: fileId,
+              file: file,
+              size: file.size,
+              result: {
+                fileId: fileId,
+                up: null,
+              },
+              progress: 0,
+              status: 1,
+            });
+            if (this.upload.service === "aliyun") {
+              this.aliyunUploadHandle(fileId, file);
+            } else if (this.upload.service === "tencent") {
+              this.tencentUploadHandle(fileId, file);
+            }
+          }
         });
-        if (this.upload.service === "aliyun") {
-          this.aliyunUploadHandle(fileId, file);
-        } else if (this.upload.service === "tencent") {
-          this.tencentUploadHandle(fileId, file);
-        }
+        audioElement.addEventListener("error", (_event) => {
+          this.upload.loading = false;
+          this.$message.error("无法获取" + file.name + "视频时长");
+        });
       }
     },
     aliyunUploadHandle(fileId, file) {
