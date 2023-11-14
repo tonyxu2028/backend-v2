@@ -10,13 +10,13 @@
             <el-button
               v-show="isAliService"
               class="sel-button"
-              @click="uploadAliyunVod"
+              @click="uploadByAliyunVod"
               >选择文件</el-button
             >
             <el-button
               v-show="isTenService"
               class="sel-button"
-              @click="uploadTencentVod"
+              @click="uploadByTencentVod"
               >选择文件</el-button
             >
             <el-button
@@ -300,10 +300,10 @@ export default {
                 });
                 if (this.isAliService) {
                   this.upload.service = "aliyun";
-                  this.aliyunUploadHandle(fileId, file);
+                  this.pushAliyunUploadQueue(fileId, file);
                 } else if (this.isTenService) {
                   this.upload.service = "tencent";
-                  this.tencentUploadHandle(fileId, file);
+                  this.pushTencentUploadQueue(fileId, file);
                 }
               }
             }
@@ -332,7 +332,7 @@ export default {
         runtimes: "html5",
         browse_button: "selectfiles",
         container: document.getElementById("container"),
-        chunk_size: "1MB",
+        chunk_size: "4MB",
         multi_selection: true,
         multipart: true,
         headers: {
@@ -428,44 +428,33 @@ export default {
       if (!this.isAliService) {
         return;
       }
-      // 阿里云初始化
       this.upload.aliyun = new window.AliyunUpload.Vod({
-        partSize: 1048576,
-        parallel: 5,
+        partSize: 1048576 * 2, //块大小2m
+        parallel: 5, //上传线程数
         retryCount: 3,
         retryDuration: 2,
-        onUploadstarted: (uploadInfo) => {
-          if (uploadInfo.videoId) {
-            this.$api.System.VideoUpload.AliyunTokenRefresh({
-              video_id: uploadInfo.videoId,
-            })
-              .then((res) => {
-                this.upload.aliyun.setUploadAuthAndAddress(
-                  uploadInfo,
-                  res.data.upload_auth,
-                  res.data.upload_address,
-                  res.data.video_id
-                );
-              })
-              .catch((e) => {
-                this.$message.error(e.message);
+        onUploadstarted: async (uploadInfo) => {
+          try {
+            let res = null;
+            if (uploadInfo.videoId) {
+              res = await this.$api.System.VideoUpload.AliyunTokenRefresh({
+                video_id: uploadInfo.videoId,
               });
-          } else {
-            this.$api.System.VideoUpload.AliyunTokenCreate({
-              title: uploadInfo.file.name,
-              filename: uploadInfo.file.name,
-            })
-              .then((res) => {
-                this.upload.aliyun.setUploadAuthAndAddress(
-                  uploadInfo,
-                  res.data.upload_auth,
-                  res.data.upload_address,
-                  res.data.video_id
-                );
-              })
-              .catch((e) => {
-                this.$message.error(e.message);
+            } else {
+              res = await this.$api.System.VideoUpload.AliyunTokenCreate({
+                title: uploadInfo.file.name,
+                filename: uploadInfo.file.name,
               });
+            }
+
+            this.upload.aliyun.setUploadAuthAndAddress(
+              uploadInfo,
+              res.data.upload_auth,
+              res.data.upload_address,
+              res.data.video_id
+            );
+          } catch (e) {
+            this.$message.error(e.message || JSON.stringify(e));
           }
         },
         onUploadSucceed: (uploadInfo) => {
@@ -475,7 +464,7 @@ export default {
           if (it) {
             it.status = 7;
             it.result = null;
-            this.uploadSuccess(uploadInfo.videoId, "", fileId);
+            this.uploadSuccessHandler(uploadInfo.videoId, "", fileId);
           }
         },
         onUploadFailed: (uploadInfo, code, message) => {
@@ -486,11 +475,8 @@ export default {
           if (it) {
             it.status = 5;
             it.result = message;
-            this.uploadFailHandle(message);
+            this.uploadFailHandler(message);
           }
-        },
-        onUploadCanceled: (uploadInfo, message) => {
-          console.log(message);
         },
         onUploadProgress: (uploadInfo, totalSize, loadedPercent) => {
           let fileId = uploadInfo.videoInfo.CateId;
@@ -500,27 +486,26 @@ export default {
             it.progress = parseInt(loadedPercent * 100);
           }
         },
-        onUploadTokenExpired: (uploadInfo) => {
-          this.$api.System.VideoUpload.AliyunTokenRefresh({
-            video_id: uploadInfo.videoId,
-          })
-            .then((res) => {
-              this.upload.aliyun.resumeUploadWithAuth(res.data.upload_auth);
-            })
-            .catch((e) => {
-              this.$message.error(e.message);
+        onUploadTokenExpired: async (uploadInfo) => {
+          try {
+            let res = await this.$api.System.VideoUpload.AliyunTokenRefresh({
+              video_id: uploadInfo.videoId,
             });
+            this.upload.aliyun.resumeUploadWithAuth(res.data.upload_auth);
+          } catch (e) {
+            this.$message.error(e.message || JSON.stringify(e));
+          }
         },
       });
     },
-    uploadAliyunVod() {
+    uploadByAliyunVod() {
       if (this.upload.loading) {
         return;
       }
       this.upload.service = "aliyun";
       this.$refs["video-file"].click();
     },
-    uploadTencentVod() {
+    uploadByTencentVod() {
       if (this.upload.loading) {
         return;
       }
@@ -556,9 +541,9 @@ export default {
               status: 1,
             });
             if (this.upload.service === "aliyun") {
-              this.aliyunUploadHandle(fileId, file);
+              this.pushAliyunUploadQueue(fileId, file);
             } else if (this.upload.service === "tencent") {
-              this.tencentUploadHandle(fileId, file);
+              this.pushTencentUploadQueue(fileId, file);
             }
           }
         });
@@ -568,7 +553,7 @@ export default {
         });
       }
     },
-    aliyunUploadHandle(fileId, file) {
+    pushAliyunUploadQueue(fileId, file) {
       this.upload.aliyun.addFile(
         file,
         null,
@@ -580,64 +565,52 @@ export default {
       );
       this.upload.aliyun.startUpload();
     },
-    tencentUploadHandle(fileId, file) {
+    pushTencentUploadQueue(fileId, file) {
       const tcVod = new TcVod({
-        getSignature: () => {
-          return this.$api.System.VideoUpload.TencentToken()
-            .then((res) => {
-              return res.data.signature;
-            })
-            .catch((e) => {
-              this.$message.error(e.message);
-            });
+        getSignature: async () => {
+          try {
+            let res = await this.$api.System.VideoUpload.TencentToken();
+            return res.data.signature;
+          } catch (e) {
+            this.$message.error(e.message || JSON.stringify(e));
+          }
         },
       });
-
       const uploader = tcVod.upload({
         mediaFile: file,
       });
-
       uploader.on("media_progress", (info) => {
         let it = this.localUploadFiles.find((o) => o.id === fileId);
-        it.result.up = uploader;
-        it.status = 1;
-        it.progress = parseInt(info.percent * 100);
+        if (it) {
+          it.result.up = uploader;
+          it.status = 1;
+          it.progress = parseInt(info.percent * 100);
+        }
       });
-
-      // 回调结果说明
-      // type doneResult = {
-      //   fileId: string,
-      //   video: {
-      //     url: string
-      //   },
-      //   cover: {
-      //     url: string
-      //   }
-      // }
       uploader
         .done()
         .then((doneResult) => {
           this.upload.fileId = doneResult.fileId;
-          this.uploadSuccess(doneResult.fileId, "", fileId);
+          this.uploadSuccessHandler(doneResult.fileId, "", fileId);
         })
         .catch((err) => {
           this.uploading--;
           let it = this.localUploadFiles.find((o) => o.id === fileId);
-          it.status = 5;
-          it.result = err.message;
-          console.log(err);
-          this.uploadFailHandle(err.message);
+          if (it) {
+            it.status = 5;
+            it.result = err.message;
+            this.uploadFailHandler(err.message);
+          }
         });
-      this.upload.ten = uploader;
     },
-    uploadFailHandle(msg) {
+    uploadFailHandler(msg, fileID) {
       this.upload.loading = false;
       this.upload.fileId = null;
       this.$refs["video-file"].value = null;
 
       this.$message.error(msg);
     },
-    uploadSuccess(fileId, thumb, id) {
+    uploadSuccessHandler(fileId, thumb, id) {
       this.uploading--;
       let it = this.localUploadFiles.find((o) => o.id === id);
       it.status = 7;
@@ -660,7 +633,6 @@ export default {
         });
     },
     destory(item) {
-      //点击确定按钮的操作
       if (this.loading) {
         return;
       }
@@ -681,7 +653,6 @@ export default {
         });
     },
     destoryLocal(item) {
-      //点击确定按钮的操作
       if (this.loading) {
         return;
       }
