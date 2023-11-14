@@ -294,6 +294,7 @@ export default {
                     fileId: fileId,
                     up: null,
                   },
+                  duration: duration,
                   progress: 0,
                   status: 1,
                 });
@@ -363,6 +364,7 @@ export default {
                       fileId: file.id,
                       up: up,
                     },
+                    duration: duration,
                     progress: 0,
                     status: 1,
                   });
@@ -549,6 +551,7 @@ export default {
                 fileId: fileId,
                 up: null,
               },
+              duration: duration,
               progress: 0,
               status: 1,
             });
@@ -640,28 +643,21 @@ export default {
       it.status = 7;
       it.result = null;
       this.upload.loading = false;
-      // 解析视频时长
-      var url = URL.createObjectURL(it.file);
-      var audioElement = new Audio(url);
-      var duration = 0;
-      audioElement.addEventListener("loadedmetadata", (_event) => {
-        duration = audioElement.duration;
-        this.$api.Media.Video.Store({
-          title: it.file.name,
-          duration: duration,
-          thumb: thumb,
-          size: it.size,
-          storage_driver: this.upload.service,
-          storage_file_id: fileId,
+      this.$api.Media.Video.Store({
+        title: it.file.name,
+        duration: it.duration,
+        thumb: thumb,
+        size: it.size,
+        storage_driver: this.upload.service,
+        storage_file_id: fileId,
+      })
+        .then((res) => {
+          this.selectedVideo = res.data;
+          this.$message.success("上传成功");
         })
-          .then((res) => {
-            this.selectedVideo = res.data;
-            this.$message.success("上传成功");
-          })
-          .catch((e) => {
-            this.$message.error(e.message);
-          });
-      });
+        .catch((e) => {
+          this.$message.error(e.message);
+        });
     },
     destory(item) {
       //点击确定按钮的操作
