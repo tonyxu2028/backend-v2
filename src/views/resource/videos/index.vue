@@ -305,9 +305,9 @@ export default {
             ids: this.selectedOtherKeys,
           });
         }
+        this.loading = false;
         this.$message.success(this.$t("common.success"));
         this.getData();
-        this.loading = false;
       } catch (e) {
         this.$message.error(e.message);
         this.loading = false;
