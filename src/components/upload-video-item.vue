@@ -262,44 +262,102 @@ export default {
       dropbox.addEventListener("dragenter", this.dragEnter, false);
       dropbox.addEventListener("dragover", this.dragOver, false);
     },
-    getDropVideoDuration(file) {
-      var url = URL.createObjectURL(file);
+    getVideoDuration(type, file, uploader, up) {
+      var url = "";
+      if (type === "local") {
+        url = URL.createObjectURL(file.getNative());
+      } else {
+        url = URL.createObjectURL(file);
+      }
       var audioElement = new Audio(url);
       var duration = 0;
       audioElement.addEventListener("loadedmetadata", (_event) => {
         duration = audioElement.duration;
-        if (duration > 0) {
-          if (this.isLocalService) {
-            this.upload.service = "local";
-            this.upload.up.addFile(file, file.name);
-          } else {
-            this.uploading++;
-            let fileId = Math.random() * 100 + file.name;
-            this.localUploadFiles.push({
-              id: fileId,
-              file: file,
-              size: file.size,
-              result: {
-                fileId: fileId,
-                up: null,
-              },
-              duration: duration,
-              progress: 0,
-              status: 1,
-            });
-            if (this.isAliService) {
-              this.upload.service = "aliyun";
-              this.pushAliyunUploadQueue(fileId, file);
-            } else if (this.isTenService) {
-              this.upload.service = "tencent";
-              this.pushTencentUploadQueue(fileId, file);
-            }
-          }
+        if (duration > 0 && type === "drop") {
+          this.dropResult(duration, file);
+        }
+        if (duration > 0 && type === "local") {
+          this.localResult(duration, file, uploader, up);
+        }
+        if (duration > 0 && type === "other") {
+          this.otherResult(duration, file);
         }
       });
       audioElement.addEventListener("error", (_event) => {
+        if (type === "local") {
+          var fileItem = up.getFile(file.id);
+          fileItem && up.removeFile(fileItem);
+        }
+        if (type === "other") {
+          this.upload.loading = false;
+        }
         this.$message.error("无法获取视频时长");
       });
+    },
+    dropResult(duration, file) {
+      if (this.isLocalService) {
+        this.upload.service = "local";
+        this.upload.up.addFile(file, file.name);
+      } else {
+        this.uploading++;
+        let fileId = Math.random() * 100 + file.name;
+        this.localUploadFiles.push({
+          id: fileId,
+          file: file,
+          size: file.size,
+          result: {
+            fileId: fileId,
+            up: null,
+          },
+          duration: duration,
+          progress: 0,
+          status: 1,
+        });
+        if (this.isAliService) {
+          this.upload.service = "aliyun";
+          this.pushAliyunUploadQueue(fileId, file);
+        } else if (this.isTenService) {
+          this.upload.service = "tencent";
+          this.pushTencentUploadQueue(fileId, file);
+        }
+      }
+    },
+    localResult(duration, file, uploader, up) {
+      this.uploading++;
+      this.localUploadFiles.push({
+        id: file.id,
+        file: file,
+        size: file.size,
+        result: {
+          fileId: file.id,
+          up: up,
+        },
+        duration: duration,
+        progress: 0,
+        status: 1,
+      });
+      this.setUploadParam(uploader, false);
+    },
+    otherResult(duration, file) {
+      this.uploading++;
+      let fileId = Math.random() * 100 + file.name;
+      this.localUploadFiles.push({
+        id: fileId,
+        file: file,
+        size: file.size,
+        result: {
+          fileId: fileId,
+          up: null,
+        },
+        duration: duration,
+        progress: 0,
+        status: 1,
+      });
+      if (this.upload.service === "aliyun") {
+        this.pushAliyunUploadQueue(fileId, file);
+      } else if (this.upload.service === "tencent") {
+        this.pushTencentUploadQueue(fileId, file);
+      }
     },
     eventDrop(e) {
       let dropbox = document.getElementById("container");
@@ -313,42 +371,13 @@ export default {
         let pos = fileName.lastIndexOf(".");
         let lastName = fileName.substring(pos, fileName.length);
         if (lastName.toLowerCase() === ".mp4") {
-          this.getDropVideoDuration(file);
+          this.getVideoDuration("drop", file);
         } else {
           this.$message.error(
             lastName.toLowerCase().slice(1) + "格式不支持上传"
           );
         }
       }
-    },
-    getLocalVideoDuration(uploader, up, file) {
-      var url = URL.createObjectURL(file.getNative());
-      var audioElement = new Audio(url);
-      var duration = 0;
-      audioElement.addEventListener("loadedmetadata", (_event) => {
-        duration = audioElement.duration;
-        if (duration > 0) {
-          this.uploading++;
-          this.localUploadFiles.push({
-            id: file.id,
-            file: file,
-            size: file.size,
-            result: {
-              fileId: file.id,
-              up: up,
-            },
-            duration: duration,
-            progress: 0,
-            status: 1,
-          });
-          this.setUploadParam(uploader, false);
-        }
-      });
-      audioElement.addEventListener("error", (_event) => {
-        var fileItem = up.getFile(file.id);
-        fileItem && up.removeFile(fileItem);
-        this.$message.error("无法获取视频时长");
-      });
     },
     pluploadInit() {
       if (!this.isLocalService) {
@@ -381,7 +410,7 @@ export default {
           PostInit: () => {},
           FilesAdded: (up, files) => {
             plupload.each(files, (file) => {
-              this.getLocalVideoDuration(uploader, up, file);
+              this.getVideoDuration("local", file, uploader, up);
             });
           },
           BeforeUpload: (up, file) => {
@@ -518,39 +547,6 @@ export default {
       this.upload.service = "tencent";
       this.$refs["video-file"].click();
     },
-    getOtherVideoDuration(file) {
-      var url = URL.createObjectURL(file);
-      var audioElement = new Audio(url);
-      var duration = 0;
-      audioElement.addEventListener("loadedmetadata", (_event) => {
-        duration = audioElement.duration;
-        if (duration > 0) {
-          this.uploading++;
-          let fileId = Math.random() * 100 + file.name;
-          this.localUploadFiles.push({
-            id: fileId,
-            file: file,
-            size: file.size,
-            result: {
-              fileId: fileId,
-              up: null,
-            },
-            duration: duration,
-            progress: 0,
-            status: 1,
-          });
-          if (this.upload.service === "aliyun") {
-            this.pushAliyunUploadQueue(fileId, file);
-          } else if (this.upload.service === "tencent") {
-            this.pushTencentUploadQueue(fileId, file);
-          }
-        }
-      });
-      audioElement.addEventListener("error", (_event) => {
-        this.upload.loading = false;
-        this.$message.error("无法获取" + file.name + "视频时长");
-      });
-    },
     fileChange(e) {
       let files = e.target.files;
       if (files.length === 0) {
@@ -559,7 +555,7 @@ export default {
       this.upload.loading = true;
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
-        this.getOtherVideoDuration(file);
+        this.getVideoDuration("other", file);
       }
     },
     pushAliyunUploadQueue(fileId, file) {
