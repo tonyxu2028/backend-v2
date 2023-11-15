@@ -360,23 +360,29 @@ export default {
       }
     },
     eventDrop(e) {
-      let dropbox = document.getElementById("container");
       e.stopPropagation();
       e.preventDefault();
-      let fileData = e.dataTransfer.files;
+      // 修改拖中区域的背景色
+      let dropbox = document.getElementById("container");
       dropbox.style.backgroundColor = "#fff";
+      // 解析拖拽的文件
+      let fileData = e.dataTransfer.files;
+      let err = [];
       for (let i = 0; i < fileData.length; i++) {
         var file = fileData[i];
         let fileName = file.name;
-        let pos = fileName.lastIndexOf(".");
-        let lastName = fileName.substring(pos, fileName.length);
-        if (lastName.toLowerCase() === ".mp4") {
+        let lastName = fileName
+          .substring(fileName.lastIndexOf("."))
+          .toLowerCase();
+        if (lastName === ".mp4") {
           this.getVideoDuration("drop", file);
         } else {
-          this.$message.error(
-            lastName.toLowerCase().slice(1) + "格式不支持上传"
-          );
+          err.push(`文件${fileName}不支持上传`);
         }
+      }
+
+      if (err.length > 0) {
+        this.$message.error(err.join("|"));
       }
     },
     pluploadInit() {
