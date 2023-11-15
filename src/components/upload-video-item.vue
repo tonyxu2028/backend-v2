@@ -374,11 +374,10 @@ export default {
         url: url + "/backend/addons/LocalUpload/upload",
         filters: {
           mime_types: "video/mp4",
-          max_file_size: "1024mb",
+          max_file_size: "2048mb",
           prevent_duplicates: false, //不允许选取重复文件
         },
         init: {
-          PostInit: () => {},
           FilesAdded: (up, files) => {
             plupload.each(files, (file) => {
               this.getLocalVideoDuration(uploader, up, file);
@@ -558,8 +557,7 @@ export default {
       }
       this.upload.loading = true;
       for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        this.getOtherVideoDuration(file);
+        this.getOtherVideoDuration(files[i]);
       }
     },
     pushAliyunUploadQueue(fileId, file) {
