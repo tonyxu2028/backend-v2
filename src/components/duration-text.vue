@@ -19,9 +19,10 @@ export default {
   },
   mounted() {
     if (this.duration) {
-      this.hour = parseInt(this.duration / 3600);
-      this.minute = parseInt((this.duration - this.hour * 3600) / 60);
-      this.second = this.duration - this.hour * 3600 - this.minute * 60;
+      let duration = parseInt(this.duration);
+      this.hour = parseInt(duration / 3600);
+      this.minute = parseInt((duration - this.hour * 3600) / 60);
+      this.second = duration - this.hour * 3600 - this.minute * 60;
     }
   },
 };

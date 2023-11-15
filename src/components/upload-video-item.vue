@@ -33,10 +33,13 @@
                 v-for="item in localUploadFiles"
                 :key="item.id"
               >
-                <p class="progress-name">{{ item.file.name }}</p>
-                <p class="progress-size">
+                <div class="progress-name">{{ item.file.name }}</div>
+                <div class="progress-duration">
+                  <duration-text :duration="item.duration"></duration-text>
+                </div>
+                <div class="progress-size">
                   {{ fileSizeConversion(item.size) }}M
-                </p>
+                </div>
                 <div class="progress-bar">
                   <span v-if="item.status === 5" class="error">{{
                     item.result
@@ -99,9 +102,12 @@ import { mapState } from "vuex";
 import TcVod from "vod-js-sdk-v6";
 import plupload from "plupload";
 import config from "@/js/config";
+import DurationText from "@/components/duration-text";
 
 export default {
-  components: {},
+  components: {
+    DurationText,
+  },
   props: ["show"],
   data() {
     return {
@@ -769,8 +775,9 @@ export default {
         flex-direction: row;
         align-items: center;
         margin-bottom: 30px;
+
         .progress-name {
-          width: 400px;
+          flex: 1;
           height: 14px;
           font-size: 14px;
           font-weight: 400;
@@ -780,9 +787,20 @@ export default {
           white-space: nowrap; //禁止换行
           text-overflow: ellipsis; //...
         }
+
+        .progress-duration {
+          width: 50px;
+          margin-left: 15px;
+          height: 14px;
+          font-size: 14px;
+          font-weight: 400;
+          color: #333333;
+          line-height: 14px;
+        }
+
         .progress-size {
-          flex: 1;
-          margin-left: 30px;
+          width: 60px;
+          margin-left: 15px;
           height: 14px;
           font-size: 14px;
           font-weight: 400;
@@ -792,7 +810,7 @@ export default {
         .progress-bar {
           width: 100px;
           margin-top: -4px;
-          margin-left: 30px;
+          margin-left: 15px;
           overflow: hidden; //溢出隐藏
           white-space: nowrap; //禁止换行
           text-overflow: ellipsis; //...
