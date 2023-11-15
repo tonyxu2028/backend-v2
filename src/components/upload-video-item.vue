@@ -593,6 +593,10 @@ export default {
       });
       const uploader = tcVod.upload({
         mediaFile: file,
+        chunkSize: 1024 * 1024 * 4, //分块大小4m
+        enableResume: true, //断点续传
+        chunkParallelLimit: 1, //分块并发数1
+        fileParallelLimit: 1, //文件并发数1
       });
       uploader.on("media_progress", (info) => {
         let it = this.localUploadFiles.find((o) => o.id === fileId);
