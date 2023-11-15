@@ -446,6 +446,14 @@ export default {
               it.progress = parseInt(file.percent);
             }
           },
+          Error: (up, err) => {
+            let file = err.file;
+            let it = this.localUploadFiles.find((o) => o.id === file.id);
+            if (it) {
+              it.status = 5;
+              it.result = "上传失败!错误信息:" + err.response;
+            }
+          },
           FileUploaded: (up, file, info) => {
             this.upload.loading = false;
             this.uploading--;
