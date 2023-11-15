@@ -405,7 +405,7 @@ export default {
         runtimes: "html5",
         browse_button: "selectfiles",
         container: document.getElementById("container"),
-        chunk_size: "4MB",
+        chunk_size: "2MB",
         multi_selection: true,
         multipart: true,
         headers: {
@@ -425,15 +425,12 @@ export default {
             });
           },
           BeforeUpload: (up, file) => {
-            var url = URL.createObjectURL(file.getNative());
-            var audioElement = new Audio(url);
-            var duration = 0;
-            audioElement.addEventListener("loadedmetadata", (_event) => {
-              duration = audioElement.duration;
+            let it = this.localUploadFiles.find((o) => o.id === file.id);
+            if (it) {
               up.setOption("multipart_params", {
-                duration: duration,
+                duration: it.duration,
               });
-            });
+            }
           },
           FilesRemoved: (up, files) => {
             this.upload.loading = false;
