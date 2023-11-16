@@ -622,8 +622,7 @@ export default {
       })
         .then(() => {
           this.$message.success(this.$t("common.success"));
-
-          this.getData();
+          this.getData(true);
         })
         .catch((e) => {
           this.$message.error(e.message);
