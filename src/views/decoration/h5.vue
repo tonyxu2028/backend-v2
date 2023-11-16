@@ -617,7 +617,7 @@ export default {
         platform: item.platform,
         page: item.page,
         sign: item.sign,
-        sort: item.sort,
+        sort: this.blocks[this.blocks.length - 1].sort + 1,
         config: item.config_render,
       })
         .then(() => {
