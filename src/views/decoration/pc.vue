@@ -719,13 +719,12 @@ export default {
         platform: item.platform,
         page: item.page,
         sign: item.sign,
-        sort: item.sort,
+        sort: this.blocks[this.blocks.length - 1].sort + 1,
         config: item.config_render,
       })
         .then(() => {
           this.$message.success(this.$t("common.success"));
-
-          this.getData();
+          this.getData(true);
         })
         .catch((e) => {
           this.$message.error(e.message);
