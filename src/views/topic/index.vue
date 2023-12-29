@@ -4,25 +4,21 @@
       <div class="d-flex">
         <p-button
           text="新建图文"
-          @click="$router.push({ name: 'TopicCreate' })"
+          @click="$router.push({ name: 'TopicCreate'  })"
           type="primary"
           p="addons.meedu_topics.topic.store"
         >
         </p-button>
         <p-button
           text="图文分类"
-          @click="
-            $router.push({
-              name: 'TopicCategory',
-            })
-          "
+          @click="$router.push({name: 'TopicCategory' })"
           type="primary"
           p="addons.meedu_topics.category.list"
         >
         </p-button>
         <p-button
           text="图文评论"
-          @click="$router.push({ name: 'TopicComment' })"
+          @click="$router.push({ name: 'TopicComment'  })"
           type="primary"
           p="addons.meedu_topics.comments"
         >
@@ -34,6 +30,7 @@
         >
         </option-bar>
       </div>
+
       <div class="d-flex">
         <div>
           <el-input
@@ -42,7 +39,6 @@
             placeholder="图文关键字"
           ></el-input>
         </div>
-
         <div class="ml-10">
           <el-select
             placeholder="分类"
@@ -64,6 +60,7 @@
         </div>
       </div>
     </div>
+
     <div class="float-left" v-loading="loading">
       <div class="float-left">
         <el-table
