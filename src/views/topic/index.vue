@@ -1,7 +1,7 @@
 <template>
+  <!-- 列表功能按钮 -->
   <div class="meedu-main-body">
     <div class="float-left j-b-flex mb-30">
-
       <div class="d-flex">
         <p-button
           text="新建图文"
@@ -60,11 +60,10 @@
           <el-button @click="firstPageLoad" type="primary">筛选</el-button>
         </div>
       </div>
-
     </div>
 
+    <!-- 列表数据 -->
     <div class="float-left" v-loading="loading">
-
       <div class="float-left">
         <el-table
           :header-cell-style="{ background: '#f1f2f9' }"
