@@ -31,7 +31,8 @@
           text="图文推荐"
           value="SystemTopicConfig"
           :query="{ referer: this.$route.path }"
-        ></option-bar>
+        >
+        </option-bar>
       </div>
       <div class="d-flex">
         <div>
