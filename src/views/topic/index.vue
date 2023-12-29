@@ -1,6 +1,7 @@
 <template>
   <div class="meedu-main-body">
     <div class="float-left j-b-flex mb-30">
+
       <div class="d-flex">
         <p-button
           text="新建图文"
@@ -59,9 +60,11 @@
           <el-button @click="firstPageLoad" type="primary">筛选</el-button>
         </div>
       </div>
+
     </div>
 
     <div class="float-left" v-loading="loading">
+
       <div class="float-left">
         <el-table
           :header-cell-style="{ background: '#f1f2f9' }"
@@ -70,8 +73,8 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
-          <el-table-column prop="id" sortable label="ID" min-width="6%">
-          </el-table-column>
+          <el-table-column prop="id" sortable label="ID" min-width="6%"></el-table-column>
+
           <el-table-column label="图文" min-width="20%">
             <template slot-scope="scope">
               <thumb-bar
@@ -82,8 +85,9 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column prop="category.name" label="分类" min-width="7%">
-          </el-table-column>
+
+          <el-table-column prop="category.name" label="分类" min-width="7%"></el-table-column>
+
           <el-table-column
             label="价格"
             sortable
@@ -95,6 +99,7 @@
               <span v-else>-</span>
             </template>
           </el-table-column>
+
           <el-table-column
             label="销量"
             sortable
@@ -105,6 +110,7 @@
               <span>{{ scope.row.user_count }}</span>
             </template>
           </el-table-column>
+
           <el-table-column
             label="阅读"
             sortable
@@ -115,6 +121,7 @@
               <span>{{ scope.row.view_times }}次</span>
             </template>
           </el-table-column>
+
           <el-table-column
             prop="vote_count"
             sortable
@@ -122,17 +129,20 @@
             min-width="8%"
           >
           </el-table-column>
+
           <el-table-column sortable label="上架时间" min-width="14%">
             <template slot-scope="scope">{{
               scope.row.sorted_at | dateFormat
             }}</template>
           </el-table-column>
+
           <el-table-column label="是否显示" min-width="8%">
             <template slot-scope="scope">
               <span class="c-green" v-if="scope.row.is_show === 1">· 显示</span>
               <span class="c-red" v-else>· 隐藏</span>
             </template>
           </el-table-column>
+
           <el-table-column
             fixed="right"
             label="操作"
@@ -181,6 +191,7 @@
           </el-table-column>
         </el-table>
       </div>
+
       <div class="float-left mt-30 text-center">
         <el-pagination
           @size-change="paginationSizeChange"
