@@ -1135,8 +1135,7 @@ const routes = [
       keepAlive: true,
     },
   },
-
-  // 图文模块-Topic
+  // 图文模块---topic
   {
     path: "/topic/index",
     component: () => import("@/views/topic/index"),
@@ -1180,9 +1179,53 @@ const routes = [
       keepAlive: true,
     },
   },
+  // 图文模块Demo---topicDemo
   {
-    path: "/topic/order",
-    component: () => import("@/views/topic/order"),
+    path: "/topicDemo/index",
+    component: () => import("@/views/topicDemo/index"),
+    name: "Topic",
+    meta: {
+      title: "title.topic.index",
+      keepAlive: true,
+    },
+  },
+  {
+    path: "/topicDemo/create",
+    component: () => import("@/views/topicDemo/create"),
+    name: "TopicCreate",
+    meta: {
+      title: "title.topic.create",
+    },
+  },
+  {
+    path: "/topicDemo/update",
+    component: () => import("@/views/topicDemo/update"),
+    name: "TopicUpdate",
+    meta: {
+      title: "title.topic.update",
+    },
+  },
+  {
+    path: "/topicDemo/category/index",
+    component: () => import("@/views/topicDemo/category/index"),
+    name: "TopicCategory",
+    meta: {
+      title: "title.topic.category.index",
+      keepAlive: true,
+    },
+  },
+  {
+    path: "/topicDemo/comment",
+    component: () => import("@/views/topicDemo/comment"),
+    name: "TopicComment",
+    meta: {
+      title: "title.topic.comment",
+      keepAlive: true,
+    },
+  },
+  {
+    path: "/topicDemo/order",
+    component: () => import("@/views/topicDemo/order"),
     name: "TopicOrder",
     meta: {
       title: "title.topic.order",
