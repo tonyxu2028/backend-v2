@@ -39,6 +39,7 @@
             </el-form>
           </div>
         </div>
+
         <div class="meedu-dialog-footer">
           <el-button @click="formValidate" :loading="loading" type="primary">
             保存
@@ -49,6 +50,7 @@
     </div>
   </transition>
 </template>
+
 <script>
 export default {
   props: ["id", "text", "categories"],

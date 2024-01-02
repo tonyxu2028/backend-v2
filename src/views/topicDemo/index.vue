@@ -1,5 +1,7 @@
 <template>
   <div class="meedu-main-body">
+    <back-bar class="mb-30" title="图文管理Demo"></back-bar>
+
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
@@ -34,6 +36,7 @@
         >
         </option-bar>
       </div>
+
       <div class="d-flex">
         <div>
           <el-input
@@ -42,7 +45,6 @@
             placeholder="图文关键字"
           ></el-input>
         </div>
-
         <div class="ml-10">
           <el-select
             placeholder="分类"
@@ -64,6 +66,7 @@
         </div>
       </div>
     </div>
+
     <div class="float-left" v-loading="loading">
       <div class="float-left">
         <el-table
@@ -73,8 +76,7 @@
           :default-sort="{ prop: 'id', order: 'descending' }"
           class="float-left"
         >
-          <el-table-column prop="id" sortable label="ID" min-width="6%">
-          </el-table-column>
+          <el-table-column prop="id" sortable label="ID" min-width="6%"></el-table-column>
           <el-table-column label="图文" min-width="20%">
             <template slot-scope="scope">
               <thumb-bar
@@ -85,8 +87,7 @@
               ></thumb-bar>
             </template>
           </el-table-column>
-          <el-table-column prop="category.name" label="分类" min-width="7%">
-          </el-table-column>
+          <el-table-column prop="category.name" label="分类" min-width="7%"></el-table-column>
           <el-table-column
             label="价格"
             sortable
@@ -184,6 +185,7 @@
           </el-table-column>
         </el-table>
       </div>
+
       <div class="float-left mt-30 text-center">
         <el-pagination
           @size-change="paginationSizeChange"

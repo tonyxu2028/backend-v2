@@ -1,6 +1,7 @@
 <template>
   <div class="meedu-main-body">
-    <back-bar class="mb-30" title="图文分类管理"></back-bar>
+    <back-bar class="mb-30" title="图文分类管理Demo"></back-bar>
+
     <div class="float-left mb-30">
       <p-button
         text="新建分类"
@@ -9,6 +10,7 @@
         p="addons.meedu_topics.category.store"
       ></p-button>
     </div>
+
     <div class="float-left" v-loading="loading">
       <div class="float-left">
         <el-table
@@ -16,8 +18,7 @@
           :data="categories"
           class="float-left"
         >
-          <el-table-column prop="sort" label="排序" width="150">
-          </el-table-column>
+          <el-table-column prop="sort" label="排序" width="150"></el-table-column>
           <el-table-column label="分类名"
             ><template slot-scope="scope">
               <span>{{ scope.row.name }} </span>
@@ -43,6 +44,7 @@
         </el-table>
       </div>
     </div>
+
     <categories-dialog
       :key="updateId"
       v-if="showAddWin"
@@ -54,6 +56,7 @@
     ></categories-dialog>
   </div>
 </template>
+
 <script>
 import CategoriesDialog from "./components/categories-dialog";
 export default {
