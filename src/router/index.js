@@ -1183,7 +1183,7 @@ const routes = [
   {
     path: "/topicDemo/index",
     component: () => import("@/views/topicDemo/index"),
-    name: "Topic",
+    name: "TopicDemo",
     meta: {
       title: "title.topic.index",
       keepAlive: true,
@@ -1192,7 +1192,7 @@ const routes = [
   {
     path: "/topicDemo/create",
     component: () => import("@/views/topicDemo/create"),
-    name: "TopicCreate",
+    name: "TopicDemoCreate",
     meta: {
       title: "title.topic.create",
     },
@@ -1200,7 +1200,7 @@ const routes = [
   {
     path: "/topicDemo/update",
     component: () => import("@/views/topicDemo/update"),
-    name: "TopicUpdate",
+    name: "TopicDemoUpdate",
     meta: {
       title: "title.topic.update",
     },
@@ -1208,7 +1208,7 @@ const routes = [
   {
     path: "/topicDemo/category/index",
     component: () => import("@/views/topicDemo/category/index"),
-    name: "TopicCategory",
+    name: "TopicDemoCategory",
     meta: {
       title: "title.topic.category.index",
       keepAlive: true,
@@ -1217,7 +1217,7 @@ const routes = [
   {
     path: "/topicDemo/comment",
     component: () => import("@/views/topicDemo/comment"),
-    name: "TopicComment",
+    name: "TopicDemoComment",
     meta: {
       title: "title.topic.comment",
       keepAlive: true,
@@ -1226,7 +1226,7 @@ const routes = [
   {
     path: "/topicDemo/order",
     component: () => import("@/views/topicDemo/order"),
-    name: "TopicOrder",
+    name: "TopicDemoOrder",
     meta: {
       title: "title.topic.order",
       keepAlive: true,
