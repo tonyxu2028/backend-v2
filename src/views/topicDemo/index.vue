@@ -5,14 +5,14 @@
     <div class="float-left j-b-flex mb-30">
       <div class="d-flex">
         <p-button
-          text="新建图文"
+          text="新建图文Demo"
           @click="$router.push({ name: 'TopicCreate' })"
           type="primary"
           p="addons.meedu_topics.topic.store"
         >
         </p-button>
         <p-button
-          text="图文分类"
+          text="图文分类Demo"
           @click="
             $router.push({
               name: 'TopicCategory',
@@ -23,14 +23,14 @@
         >
         </p-button>
         <p-button
-          text="图文评论"
+          text="图文评论Demo"
           @click="$router.push({ name: 'TopicComment' })"
           type="primary"
           p="addons.meedu_topics.comments"
         >
         </p-button>
         <option-bar
-          text="图文推荐"
+          text="图文推荐Demo"
           value="SystemTopicConfig"
           :query="{ referer: this.$route.path }"
         >
