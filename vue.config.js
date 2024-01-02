@@ -12,6 +12,11 @@ module.exports = {
         changeOrigin: true,
         ws: true,
       },
+      "/addons/TopicDemo": {
+        target: "http://192.168.3.8:8000",
+        changeOrigin: true,
+        ws: true,
+      },
     },
   },
   pluginOptions: {
