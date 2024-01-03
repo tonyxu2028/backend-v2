@@ -1179,59 +1179,6 @@ const routes = [
       keepAlive: true,
     },
   },
-  // 图文模块Demo---topicDemo
-  {
-    path: "/topicDemo/index",
-    component: () => import("@/views/topicDemo/index"),
-    name: "TopicDemo",
-    meta: {
-      title: "title.topic.index",
-      keepAlive: true,
-    },
-  },
-  {
-    path: "/topicDemo/create",
-    component: () => import("@/views/topicDemo/create"),
-    name: "TopicDemoCreate",
-    meta: {
-      title: "title.topic.create",
-    },
-  },
-  {
-    path: "/topicDemo/update",
-    component: () => import("@/views/topicDemo/update"),
-    name: "TopicDemoUpdate",
-    meta: {
-      title: "title.topic.update",
-    },
-  },
-  {
-    path: "/topicDemo/category/index",
-    component: () => import("@/views/topicDemo/category/index"),
-    name: "TopicDemoCategory",
-    meta: {
-      title: "title.topic.category.index",
-      keepAlive: true,
-    },
-  },
-  {
-    path: "/topicDemo/comment",
-    component: () => import("@/views/topicDemo/comment"),
-    name: "TopicDemoComment",
-    meta: {
-      title: "title.topic.comment",
-      keepAlive: true,
-    },
-  },
-  {
-    path: "/topicDemo/order",
-    component: () => import("@/views/topicDemo/order"),
-    name: "TopicDemoOrder",
-    meta: {
-      title: "title.topic.order",
-      keepAlive: true,
-    },
-  },
   {
     path: "/exam/paper/paperShow",
     component: () => import("@/views/exam/paper/paperShow"),
@@ -1693,6 +1640,14 @@ const routes = [
     meta: {
       title: "title.stats.course.index",
       keepAlive: true,
+    },
+  },
+  {
+    path: "/topicDemo/category/index",
+    component: ()=>import("@/views/topic-demo/category/index"),
+    name: "TopicDemoCategory",
+    meta: {
+      title: "title.topic-demo-category-title",
     },
   },
 ];
