@@ -75,6 +75,9 @@ export default {
       loading: false,
     };
   },
+  mounted() {
+    this.getCategories();
+  },
   methods: {
     addCategory() {
       this.tit = "新建分类";
@@ -99,7 +102,7 @@ export default {
       this.pagination.page = page;
       this.getCategories();
     },
-    getCategories() {                         // 列表的数据获取方法
+    getCategories() {// 列表的数据获取方法
       if (this.loading) {
         return;
       }

@@ -1877,49 +1877,49 @@ const Api = {
         return destroy(`/backend/addons/XiaoBanKe/teacher/${id}`, param);
       },
     },
-    TopicDemo:{
-      Category:{
-        List(param) {
-          return get(`/addons/TopicDemo/backend/api/v1/category/index`, param);
-        },
-        Create(param) {
-          return get(`/addons/TopicDemo/backend/api/v1/category/create`, param);
-        },
-        Store(param) {
-          return post(`/addons/TopicDemo/backend/api/v1/category/store`, param);
-        },
-        Edit(id) {
-          return get(`/addons/TopicDemo/backend/api/v1/category/${id}`);
-        },
-        Update(id, param) {
-          return put(`/addons/TopicDemo/backend/api/v1/category/${id}`, param);
-        },
-        Destroy(id) {
-          return destroy(`/addons/TopicDemo/backend/api/v1/category/${id}`);
-        },
-      },
-      Topic:{
-        List(param) {
-          return get(`/addons/TopicDemo/backend/api/v1/topic/index`, param);
-        },
-        Create(param) {
-          return get(`/addons/TopicDemo/backend/api/v1/topic/create`, param);
-        },
-        Store(param) {
-          return post(`/addons/TopicDemo/backend/api/v1/topic/store`, param);
-        },
-        Edit(id) {
-          return get(`/addons/TopicDemo/backend/api/v1/topic/${id}`);
-        },
-        Update(id, param) {
-          return put(`/addons/TopicDemo/backend/api/v1/topic/${id}`, param);
-        },
-        Destroy(id) {
-          return destroy(`/addons/TopicDemo/backend/api/v1/topic/${id}`);
-        },
-      },
-    }
   },
+  TopicDemo:{
+    Category:{
+      List(param) {
+        return get(`/addons/TopicDemo/backend/api/v1/category/index`, param);
+      },
+      Create(param) {
+        return get(`/addons/TopicDemo/backend/api/v1/category/create`, param);
+      },
+      Store(param) {
+        return post(`/addons/TopicDemo/backend/api/v1/category/store`, param);
+      },
+      Edit(id) {
+        return get(`/addons/TopicDemo/backend/api/v1/category/${id}`);
+      },
+      Update(id, param) {
+        return put(`/addons/TopicDemo/backend/api/v1/category/${id}`, param);
+      },
+      Destroy(id) {
+        return destroy(`/addons/TopicDemo/backend/api/v1/category/${id}`);
+      },
+    },
+    Topic:{
+      List(param) {
+        return get(`/addons/TopicDemo/backend/api/v1/topic/index`, param);
+      },
+      Create(param) {
+        return get(`/addons/TopicDemo/backend/api/v1/topic/create`, param);
+      },
+      Store(param) {
+        return post(`/addons/TopicDemo/backend/api/v1/topic/store`, param);
+      },
+      Edit(id) {
+        return get(`/addons/TopicDemo/backend/api/v1/topic/${id}`);
+      },
+      Update(id, param) {
+        return put(`/addons/TopicDemo/backend/api/v1/topic/${id}`, param);
+      },
+      Destroy(id) {
+        return destroy(`/addons/TopicDemo/backend/api/v1/topic/${id}`);
+      },
+    },
+  }
 };
 
 export default Api;
