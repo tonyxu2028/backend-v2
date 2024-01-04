@@ -18,7 +18,10 @@
             row-key="id"
             class="float-left"
         >
-          <el-table-column prop="sort" label="排序" width="150">
+          <el-table-column prop="id" label="序号" width="150">
+          </el-table-column>
+
+          <el-table-column prop="sort" label="升序" width="150">
           </el-table-column>
 
           <el-table-column label="分类名"
@@ -26,6 +29,7 @@
             <span>{{ scope.row.name }} </span>
           </template>
           </el-table-column>
+
           <el-table-column fixed="right" label="操作" width="100">
             <template slot-scope="scope">
               <p-link
@@ -59,11 +63,22 @@
         </el-pagination>
       </div>
     </div>
+    <form-comp
+        :title="formTitle"
+        :id="editId"
+        v-show="showForm"
+        @close="closeForm()"
+        @success="sucEvt()">
+    </form-comp>
   </div>
 </template>
 
 <script>
+import FormComp from "./components/form.vue";
 export default {
+  components: {
+    FormComp,
+  },
   data(){
     return {
       categories: [],
@@ -73,6 +88,9 @@ export default {
       },
       total: 0,
       loading: false,
+      showForm:false,
+      formTitle:"",
+      editId:null,
     };
   },
   mounted() {
@@ -80,14 +98,24 @@ export default {
   },
   methods: {
     addCategory() {
-      this.tit = "新建分类";
-      this.updateId = null;
-      this.showAddWin = true;
+      this.formTitle = "新建分类";
+      this.editId = null;
+      this.showForm = true;
     },
     updateCategory(id) {
-      this.tit = "编辑分类";
-      this.updateId = id;
-      this.showAddWin = true;
+      this.formTitle = "编辑分类";
+      this.editId = id;
+      this.showForm = true;
+    },
+    closeForm() {
+      this.formTitle = "";
+      this.editId = null;
+      this.showForm = false;
+      this.paginationReset();
+    },
+    sucEvt() {
+      this.closeForm();
+      this.getCategories();
     },
     paginationReset() {
       this.pagination.page = 1;
