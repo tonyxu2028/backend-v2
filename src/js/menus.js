@@ -80,6 +80,11 @@ export default [
         key: "LearningPath",
         permission: "addons.learnPaths.path.list",
       },
+      {
+        name: "title.topic-demo-category-title",
+        key: "TopicDemoCategory",
+        permission: "demo–topic.category.index",
+      },
     ],
   },
   {
