@@ -88,7 +88,7 @@ export default {
   methods: {
     getDetail() {
       this.$api.TopicDemo.Category.Edit(this.id).then((res) => {
-        var data = res.data;
+        let data = res.data;
         this.form.name = data.name;
         this.form.sort = data.sort;
       });

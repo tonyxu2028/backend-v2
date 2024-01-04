@@ -63,12 +63,7 @@
         </el-pagination>
       </div>
     </div>
-    <form-comp
-        :title="formTitle"
-        :id="editId"
-        v-show="showForm"
-        @close="closeForm()"
-        @success="sucEvt()">
+    <form-comp :title="formTitle" :id="editId" v-if="showForm" @close="closeForm()" @success="sucEvt()">
     </form-comp>
   </div>
 </template>
@@ -111,7 +106,6 @@ export default {
       this.formTitle = "";
       this.editId = null;
       this.showForm = false;
-      this.paginationReset();
     },
     sucEvt() {
       this.closeForm();
