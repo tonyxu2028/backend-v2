@@ -1650,6 +1650,14 @@ const routes = [
       title: "title.topic-demo-category-title",
     },
   },
+  {
+    path: "/topicDemo/topic/index",
+    component: ()=>import("@/views/topic-demo/topic/index"),
+    name: "TopicDemoTopic",
+    meta: {
+      title: "title.topic-demo-topic-title",
+    },
+  },
 ];
 
 const router = new VueRouter({

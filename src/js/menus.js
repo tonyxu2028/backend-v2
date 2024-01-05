@@ -85,6 +85,11 @@ export default [
         key: "TopicDemoCategory",
         permission: "demo–topic.category.index",
       },
+      {
+        name: "title.topic-demo-topic-title",
+        key: "TopicDemoTopic",
+        permission: "demo–topic.topic.index",
+      },
     ],
   },
   {

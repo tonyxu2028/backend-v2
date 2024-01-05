@@ -4,7 +4,7 @@
     <div class="float-left mb-30">
       <p-button
           text="新建分类"
-          p="courseCategory.store"
+          p="demo–topic.category.store"
           @click="addCategory"
           type="primary"
       >
@@ -34,13 +34,13 @@
             <template slot-scope="scope">
               <p-link
                   text="编辑"
-                  p="courseCategory.update"
+                  p="demo–topic.category.update"
                   type="primary"
                   @click="updateCategory(scope.row.id)"
               ></p-link>
               <p-link
                   text="删除"
-                  p="courseCategory.destroy"
+                  p="demo–topic.category.destroy"
                   class="ml-5"
                   type="danger"
                   @click="destroy(scope.row.id)"

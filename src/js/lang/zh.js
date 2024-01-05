@@ -3,6 +3,7 @@ import zhLocale from "element-ui/lib/locale/lang/zh-CN"; //引入element语言�
 const zh = {
   title: {
     "topic-demo-category-title": "DEMO-图文分类",
+    "topic-demo-topic-title": "DEMO-图文",
     "mp-wechat-menu": "公众号菜单",
     login: "登录",
     dashboardTitle: "MeEdu后台管理",
