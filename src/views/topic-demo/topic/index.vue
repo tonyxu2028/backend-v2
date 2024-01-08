@@ -5,7 +5,7 @@
       <p-button
           text="新建图文"
           p="demo–topic.topic.store"
-          @click="addTopic"
+          @click="$router.push({name: 'TopicDemoTopicCreate' })"
           type="primary"
       >
       </p-button>
@@ -21,16 +21,13 @@
           <el-table-column prop="id" label="序号" width="150">
           </el-table-column>
 
-          <el-table-column label="图文标题"
-          ><template slot-scope="scope">
-            <span>{{ scope.row.title }} </span>
-          </template>
+          <el-table-column prop="title" label="标题" width="500">
           </el-table-column>
 
           <el-table-column prop="context" label="图文内容" width="300">
           </el-table-column>
 
-          <el-table-column prop="published_at" label="创建时间" width="300">
+          <el-table-column prop="published_at" label="上架时间">
           </el-table-column>
 
           <el-table-column fixed="right" label="操作" width="100">
@@ -70,6 +67,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   data(){
     return {
@@ -80,13 +79,15 @@ export default {
       },
       total: 0,
       loading: false,
-      editId:null,
     };
   },
   mounted() {
     this.getTopics();
   },
   methods: {
+    router() {
+      return router
+    },
     addTopic() {
       this.formTitle = "新建图文";
       this.editId = null;
