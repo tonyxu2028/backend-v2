@@ -24,9 +24,6 @@
           <el-table-column prop="title" label="标题" width="500">
           </el-table-column>
 
-          <el-table-column prop="context" label="图文内容" width="300">
-          </el-table-column>
-
           <el-table-column prop="published_at" label="上架时间">
           </el-table-column>
 
@@ -88,21 +85,9 @@ export default {
     router() {
       return router
     },
-    addTopic() {
-      this.formTitle = "新建图文";
-      this.editId = null;
-    },
     updateTopic(id) {
-      this.formTitle = "编辑图文";
-      this.editId = id;
-    },
-    closeForm() {
-      this.formTitle = "";
-      this.editId = null;
-    },
-    sucEvt() {
-      this.closeForm();
-      this.getTopics();
+      this.$router.push({ name: "TopicDemoTopicEdit",
+        query : { id: id } });
     },
     paginationReset() {
       this.pagination.page = 1;

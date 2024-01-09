@@ -152,6 +152,7 @@ export default {
       this.$api.TopicDemo.Topic.Store(this.topic)
           .then(() => {
             this.loading = false;
+            this.$router.back();
           })
           .catch((e) => {
             this.loading = false;
